@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxPanel" name="panelLogMgrSettings">
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <object class="wxStaticText" name="lblLogMgrPropTitle">
+                    <label>Log Manager Properties</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine" name="ID_STATICLINELog1" />
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <size>0,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxNotebook" name="nbMain">
+                    <object class="notebookpage">
+                        <object class="wxPanel" name="pnlLogMgrGeneral">
+                            <object class="wxBoxSizer">
+                                <orient>wxVERTICAL</orient>
+                                <object class="sizeritem">
+                                    <object class="wxCheckBox" name="chkAutoHideLogs">
+                                        <label>Auto show/hide log manager</label>
+                                    </object>
+                                    <flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                    <border>8</border>
+                                </object>
+                                <object class="sizeritem">
+                                        <object class="wxBoxSizer">
+                                            <orient>wxVERTICAL</orient>
+                                            <object class="sizeritem">
+                                                <object class="wxCheckBox" name="chkAutoShowLogsOnWarning">
+                                                    <label>Open if hided on warning logs</label>
+                                                </object>
+                                                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                            </object>
+                                            <object class="sizeritem">
+                                                <object class="wxCheckBox" name="chkAutoShowLogsOnError">
+                                                    <label>Open if hided on error logs</label>
+                                                </object>
+                                                <flag>wxTOP|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                <border>4</border>
+                                            </object>
+                                            <object class="sizeritem">
+                                                <object class="wxCheckBox" name="chkAutoShowLogsOnInformation">
+                                                    <label>Open if hided on information logs</label>
+                                                </object>
+                                                <flag>wxTOP|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                <border>4</border>
+                                            </object>
+                                        </object>
+                                        <flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                                        <border>25</border>
+                                    </object>
+                            </object>
+                        </object>
+                        <label>General Settings</label>
+                    </object>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <option>1</option>
+            </object>
+       </object>
+    </object>
+</resource>
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxDialog" name="dlgProjectConfiguration">
+		<title>Project Configuration</title>
+		<style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+		<size>800,600</size>
+		<centered>1</centered>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxStaticText" name="lblBigTitle">
+					<label>Project Configuration</label>
+					<fg>#FFFFFF</fg>
+					<bg>#004080</bg>
+					<font>
+						<size>14</size>
+						<weight>bold</weight>
+						<family>swiss</family>
+					</font>
+					<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+				</object>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE1" />
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxListbook" name="nbMain">
+					<object class="listbookpage">
+						<object class="wxPanel" name="tabProjectInfo">
+							<object class="wxBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<object class="sizeritem">
+									<object class="wxStaticBoxSizer">
+										<orient>wxVERTICAL</orient>
+										<label>Project information</label>
+										<object class="sizeritem">
+											<object class="wxFlexGridSizer">
+                                                <cols>2</cols>
+                                                <vgap>8</vgap>
+                                                <hgap>8</hgap>
+                                                <growablecols>1</growablecols>
+                                                <object class="sizeritem">
+                                                    <object class="wxStaticText">
+                                                        <label>Project name : </label>
+                                                    </object>
+                                                </object>
+                                                <object class="sizeritem">
+                                                    <object class="wxTextCtrl" name="txtProjectName">
+                                                        <style>wxTE_RICH</style>
+                                                    </object>
+                                                    <option>1</option>
+                                                    <flag>wxALL|wxEXPAND</flag>
+                                                </object>
+                                                <object class="sizeritem">
+                                                    <object class="wxStaticText">
+                                                        <label>Project path : </label>
+                                                    </object>
+                                                </object>
+                                                <object class="sizeritem">
+                                                    <object class="wxBoxSizer">
+                                                        <orient>wxHORIZONTAL</orient>
+                                                        <object class="sizeritem">
+                                                            <object class="wxTextCtrl" name="txtProjectPath">
+                                                                <style>wxTE_RICH</style>
+                                                            </object>
+                                                            <option>1</option>
+                                                            <flag>wxALL|wxEXPAND</flag>
+                                                        </object>
+                                                        <object class="sizeritem">
+                                                            <object class="wxButton" name="btnProjectPath">
+                                                                <label>Browse</label>
+                                                            </object>
+                                                        </object>
+                                                    </object>
+                                                    <option>1</option>
+                                                    <flag>wxALL|wxEXPAND</flag>
+                                                </object>
+											</object>
+                                            <border>8</border>
+                                            <flag>wxALL|wxEXPAND</flag>
+										</object>
+									</object>
+									<border>8</border>
+									<flag>wxALL|wxEXPAND</flag>
+								</object>
+							</object>
+						</object>
+						<label>Project</label>
+					</object>
+				</object>
+				<flag>wxALL|wxEXPAND</flag>
+				<option>1</option>
+				<border>8</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE2" />
+				<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStdDialogButtonSizer">
+					<object class="button">
+						<object class="wxButton" name="wxID_OK">
+							<label></label>
+						</object>
+					</object>
+					<object class="button">
+						<object class="wxButton" name="wxID_CANCEL">
+							<label></label>
+						</object>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+				<border>8</border>
+			</object>
+		</object>
+	</object>
+</resource>
+

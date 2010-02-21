@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxToolBarAddOn" name="prj_toolbar">
+    <style>wxTB_HORIZONTAL</style>
+    <object class="tool" name="idFileNewProject">
+      <tooltip>New Project</tooltip>
+      <longhelp>Create a new project</longhelp>
+      <bitmap>project_new_24.png</bitmap>
+    </object>
+    <object class="tool" name="idFileOpenProject">
+      <tooltip>Open Project</tooltip>
+      <longhelp>Open an existing project</longhelp>
+      <bitmap>project_open_24.png</bitmap>
+    </object>
+    <object class="tool" name="idFileProjectSave">
+      <tooltip>Save Project</tooltip>
+      <longhelp>Save current project</longhelp>
+      <bitmap>project_save_24.png</bitmap>
+    </object>
+  </object>
+</resource>
+

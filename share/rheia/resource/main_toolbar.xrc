@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" ?>
+<resource>
+  <object class="wxToolBarAddOn" name="main_toolbar">
+    <style>wxTB_HORIZONTAL</style>
+    <object class="tool" name="idFileExit">
+      <tooltip>Exit</tooltip>
+      <longhelp>Quit Rheia</longhelp>
+      <bitmap>close_24.png</bitmap>
+    </object>
+    <object class="tool" name="idFileFrameKill">
+      <tooltip>Kill the current frame</tooltip>
+      <longhelp>Kill the current frame</longhelp>
+      <bitmap>close_24.png</bitmap>
+    </object>
+  </object>
+</resource>

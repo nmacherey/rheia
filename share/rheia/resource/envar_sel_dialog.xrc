@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxDialog" name="dlgEnvVarsSel">
+		<title>Add Variable</title>
+		<style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+		<centered>1</centered>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="spacer">
+                <size>16,16</size>
+			</object>
+			<object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                    <hgap>8</hgap>
+                    <vgap>8</vgap>
+                    <cols>2</cols>
+                    <growablecols>1</growablecols>
+                    <object class="sizeritem">
+                        <object class="wxStaticText">
+                            <label>KEY</label>
+                        </object>
+                        <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <border>8</border>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxTextCtrl" name="txtVarName">
+                        </object>
+                        <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <border>8</border>
+                        <option>1</option>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText">
+                            <label>VALUE</label>
+                        </object>
+                        <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <border>8</border>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                            <orient>wxHORIZONTAL</orient>
+                            <object class="sizeritem">
+                                <object class="wxTextCtrl" name="txtVarValue">
+                                </object>
+                                <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                <border>8</border>
+                                <option>1</option>
+                            </object>
+                            <object class="sizeritem">
+                                <object class="wxButton" name="btnVarSelectDir">
+                                    <label>Browse</label>
+                                </object>
+                                <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                <border>8</border>
+                            </object>
+                        </object>
+                        <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                </object>
+                <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE2" />
+				<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStdDialogButtonSizer">
+					<object class="button">
+						<object class="wxButton" name="wxID_OK">
+							<label></label>
+						</object>
+					</object>
+					<object class="button">
+						<object class="wxButton" name="wxID_CANCEL">
+							<label></label>
+						</object>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+				<border>8</border>
+			</object>
+		</object>
+	</object>
+</resource>
+

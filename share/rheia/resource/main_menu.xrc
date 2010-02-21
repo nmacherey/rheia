@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resource>
+  <object class="wxMenuBar" name="main_menu_bar">
+    <object class="wxMenu" name="file_menu">
+      <label>&amp;File</label>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="idFileClose">
+        <label>&amp;Kill the current frame</label>
+        <help>Kill the current frame</help>
+        <accel>Alt-F4</accel>
+		<bitmap>close_24.png</bitmap>
+      </object>
+      <object class="wxMenuItem" name="idFileExit">
+        <label>&amp;Quit Rheia</label>
+        <help>Get out of the application and close all existing workspaces/project and experiments</help>
+        <accel>Ctrl-Alt-F4</accel>
+		<bitmap>close_24.png</bitmap>
+      </object>
+    </object>
+    <object class="wxMenu" name="edit_menu">
+      <label>&amp;Edit</label>
+    </object>
+    <object class="wxMenu" name="view_menu">
+      <label>&amp;View</label>
+      <object class="wxMenu" name="idViewToolbars">
+        <label>&amp;Toolbars</label>
+        <object class="wxMenuItem" name="idViewToolMain">
+          <label>&amp;Main</label>
+          <help>Show/hide main toolbar</help>
+		  <accel>F3</accel>
+          <checkable>1</checkable>
+          <enabled>1</enabled>
+        </object>
+      </object>
+	  <object class="wxMenuItem" name="idViewStatusbar">
+        <label>&amp;Status bar</label>
+        <help>Show/hide status bar</help>
+		<accel>F4</accel>
+        <checkable>1</checkable>
+        <checked>1</checked>
+        <enabled>1</enabled>
+      </object>
+      <object class="wxMenuItem" name="idViewFullScreen">
+        <label>F&amp;ullScreen</label>
+        <help>Switch to FullScreen view</help>
+		<accel>Ctrl-Alt-Enter</accel>
+        <checkable>1</checkable>
+        <enabled>1</enabled>
+      </object>
+    </object>
+    <object class="wxMenu" name="settings_menu">
+      <label>&amp;Settings</label>
+    </object>
+    <object class="wxMenu" name="help_menu">
+      <label>&amp;Help</label>
+      <object class="wxMenuItem" name="wxID_ABOUT">
+        <label>&amp;About...</label>
+        <help>About the Rheia Framework</help>
+      </object>
+    </object>
+  </object>
+</resource>

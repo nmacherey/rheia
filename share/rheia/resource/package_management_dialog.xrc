@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxDialog" name="dlgPackageManagement">
+		<title>Installed softwares</title>
+		<centered>1</centered>
+		<size>603,706</size>
+		<style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxStaticText" name="lblBigTitle">
+					<label>Installed Softwares</label>
+					<fg>#004080</fg>
+					<bg>#FFFFFF</bg>
+					<font>
+						<size>12</size>
+						<weight>bold</weight>
+						<family>swiss</family>
+					</font>
+					<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+				</object>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine"/>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxNotebook" name="nbMain">
+                    <style>wxLB_TOP</style>
+                    <object class="notebookpage">
+                        <object class="wxPanel" name="pnlPackages">
+                            <object class="wxBoxSizer">
+                                <orient>wxHORIZONTAL</orient>
+                                <object class="sizeritem">
+                                    <object class="wxPanel" name="pnlPackagesList">
+                                        <object class="wxBoxSizer">
+                                            <orient>wxVERTICAL</orient>
+                                        </object>
+                                        <size>400,800</size>
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                                <object class="spacer">
+                                    <size>8,8</size>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxBoxSizer">
+                                        <orient>wxVERTICAL</orient>
+                                        <object class="sizeritem">
+                                            <object class="wxButton" name="bntInstallPackage">
+                                                <label>Install</label>
+                                            </object>
+                                            <flag>wxEXPAND|wxALL</flag>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <object class="wxButton" name="bntRemovePackage">
+                                                <label>Remove</label>
+                                            </object>
+                                            <flag>wxEXPAND|wxALL</flag>
+                                        </object>
+                                        <object class="spacer">
+                                            <size>16,16</size>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <object class="wxNotebook" name="nbPlugins">
+                                                <style>wxNB_TOP</style>
+                                                <object class="notebookpage">
+                                                    <object class="wxPanel">
+                                                        <object class="wxBoxSizer">
+                                                            <orient>wxVERTICAL</orient>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Package Information</label>
+                                                                    <fg>#004080</fg>
+                                                                    <bg>#FFFFFF</bg>
+                                                                    <font>
+                                                                        <size>10</size>
+                                                                        <weight>bold</weight>
+                                                                        <family>swiss</family>
+                                                                    </font>
+                                                                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticLine"/>
+                                                                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxFlexGridSizer">
+                                                                    <cols>2</cols>
+                                                                    <vgap>8</vgap>
+                                                                    <hgap>8</hgap>
+                                                                    <growablecols>1</growablecols>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText">
+                                                                            <label>Name :</label>
+                                                                        </object>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText" name="txtPackageName">
+                                                                        </object>
+                                                                        <flag>wxEXPAND|wxALL</flag>
+                                                                        <option>1</option>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText">
+                                                                            <label>Version :</label>
+                                                                        </object>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText" name="txtPackageVersion">
+                                                                        </object>
+                                                                        <flag>wxEXPAND|wxALL</flag>
+                                                                        <option>1</option>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText">
+                                                                            <label>Description :</label>
+                                                                        </object>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText" name="txtPackageDescriptionShort">
+                                                                        </object>
+                                                                        <flag>wxEXPAND|wxALL</flag>
+                                                                        <option>1</option>
+                                                                    </object>
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPackageDescription">
+                                                                    <size>200,200</size>
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                        </object>
+                                                    </object>
+                                                    <label>Informations</label>
+                                                </object>
+                                                <object class="notebookpage">
+                                                    <object class="wxPanel">
+                                                        <object class="wxBoxSizer">
+                                                            <orient>wxVERTICAL</orient>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Maintainer</label>
+                                                                    <fg>#004080</fg>
+                                                                    <bg>#FFFFFF</bg>
+                                                                    <font>
+                                                                        <size>10</size>
+                                                                        <weight>bold</weight>
+                                                                        <family>swiss</family>
+                                                                    </font>
+                                                                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticLine"/>
+                                                                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxFlexGridSizer">
+                                                                    <cols>2</cols>
+                                                                    <vgap>8</vgap>
+                                                                    <hgap>8</hgap>
+                                                                    <growablecols>1</growablecols>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText">
+                                                                            <label>Name :</label>
+                                                                        </object>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText" name="txtMaintainerName">
+                                                                        </object>
+                                                                        <flag>wxEXPAND|wxALL</flag>
+                                                                        <option>1</option>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText">
+                                                                            <label>Email :</label>
+                                                                        </object>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText" name="txtMaintainerEmail">
+                                                                        </object>
+                                                                        <flag>wxEXPAND|wxALL</flag>
+                                                                        <option>1</option>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText">
+                                                                            <label>Website :</label>
+                                                                        </object>
+                                                                    </object>
+                                                                    <object class="sizeritem">
+                                                                        <object class="wxStaticText" name="txtMaintainerWebsite">
+                                                                        </object>
+                                                                        <flag>wxEXPAND|wxALL</flag>
+                                                                        <option>1</option>
+                                                                    </object>
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                            </object>
+                                                        </object>
+                                                    </object>
+                                                    <label>Maintainer</label>
+                                                </object>
+                                            </object>
+                                            <flag>wxEXPAND|wxALL</flag>
+                                            <option>1</option>
+                                        </object>
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                </object>
+                            </object>
+                        </object>
+                        <label>Installed Softwares</label>
+                    </object>
+                    <object class="notebookpage">
+                        <object class="wxPanel">
+                            <object class="wxBoxSizer">
+                                <orient>wxHORIZONTAL</orient>
+                                <object class="sizeritem">
+                                    <object class="wxPanel" name="pnlPluginsList">
+                                        <object class="wxBoxSizer">
+                                            <orient>wxVERTICAL</orient>
+                                        </object>
+                                        <size>400,200</size>
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                                <object class="spacer">
+                                    <size>8,8</size>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxNotebook" name="nbPlugins">
+                                        <style>wxNB_TOP</style>
+                                        <object class="notebookpage">
+                                            <object class="wxPanel">
+                                                <object class="wxBoxSizer">
+                                                    <orient>wxVERTICAL</orient>
+                                                    <object class="sizeritem">
+                                                        <object class="wxStaticText">
+                                                            <label>Plugin Information</label>
+                                                            <fg>#004080</fg>
+                                                            <bg>#FFFFFF</bg>
+                                                            <font>
+                                                                <size>10</size>
+                                                                <weight>bold</weight>
+                                                                <family>swiss</family>
+                                                            </font>
+                                                            <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                                                        </object>
+                                                        <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxStaticLine"/>
+                                                        <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxFlexGridSizer">
+                                                            <cols>2</cols>
+                                                            <vgap>8</vgap>
+                                                            <hgap>8</hgap>
+                                                            <growablecols>1</growablecols>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Name :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginName">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Title :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginTitle">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Version :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginVersion">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Rheia SDK Version :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginSDKVersion">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Description :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginDescriptionShort">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                        </object>
+                                                        <flag>wxEXPAND|wxALL</flag>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxStaticText" name="txtPluginDescription">
+                                                            <size>200,200</size>
+                                                        </object>
+                                                        <flag>wxEXPAND|wxALL</flag>
+                                                    </object>
+                                                </object>
+                                            </object>
+                                            <label>Information</label>
+                                        </object>
+                                        <object class="notebookpage">
+                                            <object class="wxPanel">
+                                                <object class="wxBoxSizer">
+                                                    <orient>wxVERTICAL</orient>
+                                                    <object class="sizeritem">
+                                                        <object class="wxStaticText">
+                                                            <label>Plugin Author</label>
+                                                            <fg>#004080</fg>
+                                                            <bg>#FFFFFF</bg>
+                                                            <font>
+                                                                <size>10</size>
+                                                                <weight>bold</weight>
+                                                                <family>swiss</family>
+                                                            </font>
+                                                            <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                                                        </object>
+                                                        <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxStaticLine"/>
+                                                        <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxFlexGridSizer">
+                                                            <cols>2</cols>
+                                                            <vgap>8</vgap>
+                                                            <hgap>8</hgap>
+                                                            <growablecols>1</growablecols>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Name :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginAuthorName">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Email :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginAuthorEmail">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText">
+                                                                    <label>Website :</label>
+                                                                </object>
+                                                            </object>
+                                                            <object class="sizeritem">
+                                                                <object class="wxStaticText" name="txtPluginAuthorWebsite">
+                                                                </object>
+                                                                <flag>wxEXPAND|wxALL</flag>
+                                                                <option>1</option>
+                                                            </object>
+                                                        </object>
+                                                        <flag>wxEXPAND|wxALL</flag>
+                                                    </object>
+                                                </object>
+                                            </object>
+                                            <label>Author</label>
+                                        </object>
+                                        <object class="notebookpage">
+                                            <object class="wxTextCtrl" name="txtPluginThanksTo">
+                                                <style>wxTE_RICH|wxTE_MULTILINE</style>
+                                            </object>
+                                            <label>Thanks to...</label>
+                                        </object>
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                </object>
+                            </object>
+                        </object>
+                        <label>Plug-ins</label>
+                    </object>
+                    <object class="notebookpage">
+                        <object class="wxPanel">
+                            <object class="wxBoxSizer">
+                                <orient>wxHORIZONTAL</orient>
+                                <object class="sizeritem">
+                                    <object class="wxPanel" name="pnlLibsList">
+                                        <object class="wxBoxSizer">
+                                            <orient>wxVERTICAL</orient>
+                                        </object>
+                                        <size>400,200</size>
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                           </object>
+                        </object>
+                        <label>Libraries</label>
+                    </object>
+				</object>
+				<flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+				<option>1</option>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE2" />
+				<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStdDialogButtonSizer">
+					<object class="button">
+						<object class="wxButton" name="wxID_OK">
+							<label></label>
+						</object>
+					</object>
+					<object class="button">
+						<object class="wxButton" name="wxID_CANCEL">
+							<label></label>
+						</object>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+				<border>8</border>
+			</object>
+		</object>
+	</object>
+</resource>

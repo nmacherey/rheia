@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object class="wxPanel" name="panelBookSettings">
+		<style>wxTAB_TRAVERSAL</style>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<object class="wxStaticText" name="lblBookTitle">
+					<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+					<bg>#ffffff</bg>
+					<fg>#004080</fg>
+					<font>
+						<size>10</size>
+						<family>swiss</family>
+						<style>normal</style>
+						<weight>bold</weight>
+						<underlined>0</underlined>
+					</font>
+					<label>Notebook Appearance</label>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+				<object class="wxStaticLine" name="m_staticline1">
+					<style>wxLI_HORIZONTAL</style>
+				</object>
+			</object>
+			<object class="spacer">
+				<option>0</option>
+				<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<size>0,16</size>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<object class="wxFlexGridSizer">
+					<rows>2</rows>
+					<cols>2</cols>
+					<vgap>4</vgap>
+					<hgap>4</hgap>
+					<growablecols>1</growablecols>
+					<growablerows></growablerows>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+						<border>4</border>
+						<object class="wxStaticText" name="m_staticText2">
+							<label>Tabs Theme :</label>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+						<border>4</border>
+						<object class="wxComboBox" name="cmbBookEditorTabs">
+							<style>wxCB_READONLY</style>
+							<value></value>
+							<content>
+								<item>Default</item>
+								<item>Smart</item>
+							</content>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="spacer">
+				<option>0</option>
+				<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<size>0,16</size>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<object class="wxCheckBox" name="chkBookTabSplit">
+					<label>Allow Tabs to be splited in the window (both horizontally and vertically)</label>
+					<checked>0</checked>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<object class="wxCheckBox" name="chkBookTabMove">
+					<label>Allow Tabs to be moved horizontally by the mouse (manual reordering)</label>
+					<checked>0</checked>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<object class="wxCheckBox" name="chkBookTabExternalMove">
+					<label>Allow Tabs to be moved in an other book window by dragging</label>
+					<checked>0</checked>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<object class="wxCheckBox" name="chkBookBookScrollBtn">
+					<label>Display scroll buttons on the book caption for browsing tabs</label>
+					<checked>0</checked>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<object class="wxCheckBox" name="chkBookBookWindowListBtn">
+					<label>Display a Tabs list button on the book caption for browsing tabs </label>
+					<checked>0</checked>
+				</object>
+			</object>
+			<object class="spacer">
+				<option>0</option>
+				<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<size>0,16</size>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+				<object class="wxBoxSizer">
+					<orient></orient>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>0</border>
+						<object class="wxRadioBox" name="rbBookCloseButtons">
+							<style>wxRA_SPECIFY_ROWS</style>
+							<label>Close buttons placement</label>
+							<selection>0</selection>
+							<content>
+								<item>Place only on active tab</item>
+								<item>Place on all tabs</item>
+								<item>Place on tabs caption</item>
+								<item>Do not display any close buttons</item>
+							</content>
+							<dimension>4</dimension>
+						</object>
+					</object>
+					<object class="spacer">
+						<option>0</option>
+						<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+						<border>0</border>
+						<size>8,0</size>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALIGN_TOP|wxALL|wxEXPAND</flag>
+						<border>0</border>
+						<object class="wxRadioBox" name="rbBookTabsView">
+							<style>wxRA_SPECIFY_ROWS</style>
+							<label>Tabs and Book caption placement</label>
+							<selection>0</selection>
+							<content>
+								<item>Place tabs on top</item>
+								<item>Place tabs at bottom</item>
+							</content>
+							<dimension>2</dimension>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="spacer">
+				<option>0</option>
+				<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>0</border>
+				<size>0,16</size>
+			</object>
+		</object>
+	</object>
+</resource>

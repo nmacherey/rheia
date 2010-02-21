@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resource>
+  <object class="wxMenuBar" name="main_menu_bar_dev">
+    <object class="wxMenu" name="file_menu">
+      <label>&amp;File</label>
+        <object class="wxMenuItem" name="idFileWorkspaceNew">
+          <label>&amp;New Workspace</label>
+          <help>Creates a new worspace (wizard)</help>
+		  <bitmap>workspace_new_24.png</bitmap>
+		  <accel>Ctrl-N</accel>
+        </object>
+		<object class="wxMenuItem" name="idFileWorkspaceOpen">
+          <label>&amp;Open Workspace</label>
+          <help>Open a saved workspace file (*.gmb_workspace)</help>
+		  <bitmap>workspace_open_24.png</bitmap>
+        </object>
+        <object class="wxMenuItem" name="idFileWorkspaceSave">
+          <label>&amp;Save Workspace</label>
+          <help>Save the current workspace and all its contens</help>
+		  <bitmap>workspace_save_24.png</bitmap>
+        </object>
+		<object class="wxMenuItem" name="idFileWorkspaceSaveAs">
+          <label>Save Workspace &amp;As...</label>
+          <help>Save the current workspace and all its contens in a new file</help>
+        </object>
+        <object class="wxMenuItem" name="idFileWorkspaceClose">
+          <label>&amp;Close Workspace</label>
+          <help>Close the current workspace and all its contents</help>
+        </object>
+		<object class="separator"/>
+		<object class="wxMenu" name="idFileWorkspaceReOpen">
+          <label>&amp;Recent workspaces</label>
+          <help>Open a recent workspace file</help>
+        </object>
+	  <object class="separator"/>
+	  <object class="wxMenuItem" name="idFileNewProject">
+        <label>New P&amp;roject</label>
+        <help>Creates a new project in the current workspace (wizard)</help>
+        <accel>Ctrl-P</accel>
+        <bitmap>project_new_24.png</bitmap>
+      </object>
+      <object class="wxMenuItem" name="idFileOpenProject">
+        <label>O&amp;pen Project</label>
+        <help>Adds an existing project in the current workspace (wizard)</help>
+        <bitmap>project_open_24.png</bitmap>
+      </object>
+      <object class="wxMenuItem" name="idFileProjectSave">
+          <label>Sa&amp;ve Project</label>
+          <help>Save the current project and all its contens</help>
+		  <bitmap>project_save_24.png</bitmap>
+        </object>
+		<object class="wxMenuItem" name="idFileProjectSaveAs">
+          <label>Save Projec&amp;t As...</label>
+          <help>Save the current workspace and all its contens in a new file</help>
+        </object>
+        <object class="wxMenuItem" name="idFileProjectClose">
+          <label>C&amp;lose Project</label>
+          <help>Close the current from the current workspace</help>
+          <bitmap>project_close_24.png</bitmap>
+        </object>
+		<object class="separator"/>
+		<object class="wxMenu" name="idFileProjectReOpen">
+          <label>R&amp;ecent projects</label>
+          <help>Open a recent project file</help>
+        </object>
+		<object class="separator"/>
+	  <object class="wxMenuItem" name="idFileSaveAll">
+        <label>&amp;Save All</label>
+        <help>Save all opened workspaces, projects and files</help>
+		<bitmap>save_all_24.png</bitmap>
+		<accel>Ctrl-S</accel>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="idFileExit">
+        <label>&amp;Quit Rheia</label>
+        <help>Get out of the application and close all existing workspaces/project and experiments</help>
+        <accel>Alt-F4</accel>
+		<bitmap>close_24.png</bitmap>
+      </object>
+    </object>
+    <object class="wxMenu" name="edit_menu">
+      <label>&amp;Edit</label>
+    </object>
+    <object class="wxMenu" name="view_menu">
+      <label>&amp;View</label>
+      <object class="wxMenu" name="idViewToolbars">
+        <label>&amp;Toolbars</label>
+        <object class="wxMenuItem" name="idViewToolMain">
+          <label>&amp;Main</label>
+          <help>Show/hide main toolbar</help>
+		  <accel>F3</accel>
+          <checkable>1</checkable>
+          <enabled>1</enabled>
+        </object>
+      </object>
+      <object class="separator"/>
+	  <object class="wxMenuItem" name="idViewStatusbar">
+        <label>&amp;Status bar</label>
+        <help>Show/hide status bar</help>
+		<accel>F4</accel>
+        <checkable>1</checkable>
+        <enabled>1</enabled>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="idViewFullScreen">
+        <label>F&amp;ullScreen</label>
+        <help>Switch to FullScreen view</help>
+		<accel>Ctrl-Alt-Enter</accel>
+        <checkable>1</checkable>
+        <enabled>1</enabled>
+      </object>
+    </object>
+    <object class="wxMenu" name="settings_menu">
+      <label>&amp;Settings</label>
+      <object class="wxMenuItem" name="idSettingsManagePlugin">
+        <label>&amp;Manage Softwares</label>
+        <help>Open the plugin management wizard </help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="idSettingsEnvConfig">
+        <label>&amp;Configure Environement</label>
+        <help>Open the application's configuration dialog</help>
+      </object>
+      <object class="wxMenuItem" name="idSettingsEnvVarsnConfig">
+        <label>Environement &amp;Variables</label>
+        <help>Configure environement variables</help>
+      </object>
+      <object class="wxMenuItem" name="idSettingsConfigPaths">
+        <label>Configuration &amp;Paths</label>
+        <help>View configuration paths</help>
+      </object>
+    </object>
+    <object class="wxMenu" name="help_menu">
+      <label>&amp;Help</label>
+      <object class="wxMenuItem" name="wxID_ABOUT">
+        <label>&amp;About...</label>
+        <help>About the Rheia Framework</help>
+      </object>
+    </object>
+  </object>
+</resource>
+

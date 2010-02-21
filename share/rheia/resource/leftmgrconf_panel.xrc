@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxPanel" name="panelLeftMgrSettings">
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <object class="wxStaticText">
+                    <label>Management Window Properties</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine" name="ID_STATICLINELog1" />
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <size>0,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxPanel" name="pnlLeftMgrBook">
+                    <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                    </object>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+         </object>
+    </object>
+</resource>
+
+
+

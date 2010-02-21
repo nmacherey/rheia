@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxToolBarAddOn" name="wksp_toolbar">
+    <style>wxTB_HORIZONTAL</style>
+    <object class="tool" name="idFileWorkspaceNew">
+      <tooltip>New Workspace</tooltip>
+      <longhelp>Create a new worspace</longhelp>
+      <bitmap>workspace_new_24.png</bitmap>
+    </object>
+    <object class="tool" name="idFileWorkspaceOpen">
+      <tooltip>Open Workspace</tooltip>
+      <longhelp>Open an existing Workspace</longhelp>
+      <bitmap>workspace_open_24.png</bitmap>
+    </object>
+    <object class="tool" name="idFileWorkspaceSave">
+      <tooltip>Save Workspace</tooltip>
+      <longhelp>Save current Workspace</longhelp>
+      <bitmap>workspace_save_24.png</bitmap>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="idFileSaveAllWorkspaces">
+      <tooltip>Save all Workspaces</tooltip>
+      <longhelp>Save all modified Workspaces</longhelp>
+      <bitmap>save_all_24.png</bitmap>
+    </object>
+  </object>
+</resource>
+

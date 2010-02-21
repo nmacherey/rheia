@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxDialog" name="dlgAboutRheia">
+		<title>About...</title>
+		<centered>1</centered>
+		<size>603,706</size>
+		<style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxStaticText" name="lblBigTitle">
+					<label>About...</label>
+					<fg>#004080</fg>
+					<bg>#FFFFFF</bg>
+					<font>
+						<size>14</size>
+						<weight>bold</weight>
+						<family>swiss</family>
+					</font>
+					<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+				</object>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine"/>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticBitmap" name="bmpRheiaLogo">
+					<size>300,200</size>
+					<font>
+						<size>14</size>
+						<weight>bold</weight>
+						<family>swiss</family>
+						<style>normal</style>
+						<face>Arial</face>
+					</font>
+				</object>
+				<flag>wxEXPAND|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxNotebook" name="nbMain">
+                    <style>wxLB_TOP</style>
+                    <object class="notebookpage">
+                        <object class="wxStaticText" name="txtAboutDescription">
+                        </object>
+                        <label>Description</label>
+                    </object>
+                    <object class="notebookpage">
+                        <object class="wxPanel">
+                            <object class="wxFlexGridSizer">
+                                <cols>2</cols>
+                                <hgap>8</hgap>
+                                <vgap>8</vgap>
+                                <growablecols>1</growablecols>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                        <label>Name :</label>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText" name="txtAboutName">
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                        <label>Version :</label>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText" name="txtAboutVersion">
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                        <label>Author :</label>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText" name="txtAboutAuthor">
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                        <label>Email :</label>
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText" name="txtAboutEmail">
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                        <label>Website :</label>
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                                <object class="sizeritem">
+                                    <object class="wxStaticText" name="txtAboutWebsite">
+                                    </object>
+                                    <flag>wxEXPAND|wxALL</flag>
+                                    <option>1</option>
+                                </object>
+                            </object>
+                        </object>
+                        <label>Information</label>
+                    </object>
+                    <object class="notebookpage">
+                        <object class="wxStaticText" name="txtAboutThanksTo">
+                        </object>
+                        <label>Thanks to...</label>
+                    </object>
+                    <object class="notebookpage">
+                        <object class="wxStaticText" name="txtAboutLicense">
+                        </object>
+                        <label>License</label>
+                    </object>
+				</object>
+				<flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+				<option>1</option>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE2" />
+				<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStdDialogButtonSizer">
+					<object class="button">
+						<object class="wxButton" name="wxID_OK">
+							<label></label>
+						</object>
+					</object>
+					<object class="button">
+						<object class="wxButton" name="wxID_CANCEL">
+							<label></label>
+						</object>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+				<border>8</border>
+			</object>
+		</object>
+	</object>
+</resource>
+

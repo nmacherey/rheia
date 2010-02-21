@@ -1,0 +1,174 @@
+/**
+*   @file RheiaTextLoggerConfigurationPanel.h
+*
+*   @author Nicolas Macherey (nm@graymat.fr)
+*   @version 0.0.1
+*   @date 17-November-2009
+*/
+#ifndef RheiaTextLoggerConfigurationPanel_h_
+#define RheiaTextLoggerConfigurationPanel_h_
+
+#include <RheiaLoggersSettings.h>
+#include <RheiaGlobals.h>
+#include <RheiaConfigurationPanel.h>
+#include <RheiaLogger.h>
+#include <wx/panel.h>
+#include <wx/string.h>
+#include <wx/colour.h>
+#include <wx/font.h>
+#include <wx/ffile.h>
+#include <wx/richtext/richtextctrl.h>
+#include <wx/richtext/richtextbuffer.h>
+
+class wxRichTextCtrl;
+
+/**
+*   @class RheiaTextLoggerConfigurationPanel
+*
+*   @brief This is the base class for defining a configuration panel in Rheia
+*
+*   Configuration panel's can have many different usage in Rheia. Mainly they are
+*   used in Rheia's configuration dialog for managing special options in the main
+*   application such as Application Startup configuration or network configuration.
+*   However you have to derive your configuration panel from this class if you want
+*   it to be properly managed by the application.
+*
+*   @author Nicolas Macherey (nm@graymat.fr)
+*   @version 0.0.1
+*   @date 17-November-2009
+*/
+class LOGGERS_DLLEXPORT RheiaTextLoggerConfigurationPanel : public RheiaConfigurationPanel
+{
+public:
+    /*******************************************************************************
+    *   CONSTRUCTORS AND DESTRUCTORS
+    *******************************************************************************/
+    /**
+    *   Default constructor
+    *   This constructor has been kept without any parent Window and Id to allow
+    *   the creation of this panel using the wxWidget XML Resource system, if you
+    *   do not want to do so simply call wxPanel::Create.
+    */
+	RheiaTextLoggerConfigurationPanel( wxWindow* parent );
+
+    /*******************************************************************************
+    *   METHODS TO OVERLOAD
+    *******************************************************************************/
+	/**
+	*   This method is used to display the panel's title either in a dialog
+	*   if the application loads it in a configuration dialog or in a book page
+	*   title if it is loaded with other configuration tools.
+	*   You have to overload this method in order to provide the application with
+	*   the configuration tool title.
+	*
+	*   @return the panel's title.
+	*/
+	virtual wxString GetTitle() const {return wxT("Text Logger Configuration"); };
+
+	/**
+	*   This method is used to get the bitmap base name for the configuration tool.
+	*   Any configuration panel can be loaded in a book displaying bitmaps to help
+	*   application users to remember the configuration tool.
+	*
+	*   Rheia Configuration tools can have two different bitmap sizes : 48x48 and 80x80
+	*   Hence you must supply the application with 4 bitmaps which will be loaded by Rheia
+	*   accordingly to the following rule :
+	*   \<basename\>_\<size\>.png and \<basename\>_\<size\>-off.png...
+	*   The extension -off is used when the panel is not selected by the user in order to
+	*   display a proper information.
+	*
+	*   @note that bitmaps in rheia must be PNG bitmaps
+	*
+	*   For example il you bitmap is called "app_conf", you have to provide with the four
+	*   following bitmaps :
+	*       + app_conf_48.png
+	*       + app_conf_48-off.png
+	*       + app_conf_80.png
+	*       + app_conf_80-off.png
+	*
+	*   @return the panel's bitmap base name. You must supply two bitmaps:
+	*/
+	virtual wxString GetBitmapBaseName() const;
+
+
+	/**
+	*   As the application doesn't know what kind of configuration you've done,
+	*   this method will be called when the configuration task is validated by
+	*   the user. You can perform here any kind of validation and if something is
+	*   wrong simply display an error message and return false. The validation will
+	*   be cancelled.
+	*
+	*   @return If this method returns true the user's action will be validated.
+	*/
+	virtual bool OnApply();
+
+	/**
+	*   Any configuration panels are loaded in a parent control either a dialog or
+	*   a wizard. If the user cancels the action this method is called in order to
+	*   allow you to perform specfic management when such an action is made.
+	*   @return This method shall simply returns true, if the configuration tool can
+	*   be cancelled or false if it can't.
+	*/
+	virtual bool OnCancel();
+
+	/*******************************************************************************
+    *   METHODS
+    *******************************************************************************/
+
+    /** method used for initializing the environment */
+    void DoInitEnvironment();
+
+    /** update info for the given level */
+    void UpdateInfoFor( int selection );
+
+    /** update the sample config */
+    void UpdateSample();
+
+    /** void update font for the given level */
+    void UpdateFontFor( int selection , wxFont font );
+
+    /** update the background color for the given level */
+    void UpdateBackgroundColorFor( int selection , wxColour colour );
+
+    /** update the foreground color for the given level */
+    void UpdateForegroundColorFor( int selection , wxColour colour );
+
+    /** update the underlined flag for the given level */
+    void UpdateUnderlinedFor( int selection , bool underlined );
+
+    /** update the alignment flag for the given level */
+    void UpdateAlignmentFor( int selection , wxTextAttrAlignment align );
+
+protected :
+
+    /*******************************************************************************
+    *   EVENTS
+    *******************************************************************************/
+    /** Callback used when the user want to choose a Font */
+    void OnChooseFont( wxCommandEvent& event );
+
+    /** Callback used when the user want to choose a Font color */
+    void OnChooseForegroundColor( wxCommandEvent& event );
+
+    /** Callback used when the user want to choose a Font color */
+    void OnChooseBackgroundColor( wxCommandEvent& event );
+
+    /** Callback used when the user checks the underlined box */
+    void OnUnderlinedCheck( wxCommandEvent& event );
+
+    /** Callback used when the user selects the alignment */
+    void OnChangeAlignment( wxCommandEvent& event );
+
+    /** Callback used when the user slects an Item in the list */
+    void OnListSelection( wxListEvent& event );
+
+private :
+
+    wxTextAttrEx m_textattr[RheiaLogging::RheiaLogLevelNumber];
+    wxRichTextCtrl* m_loggerpage;
+
+    DECLARE_EVENT_TABLE()
+};
+
+#endif
+

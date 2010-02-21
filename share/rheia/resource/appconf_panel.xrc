@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxPanel" name="panelApplicationSettings">
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <object class="wxStaticText" name="lblGeneralStartUpTitle">
+                    <label>Start-up Management</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine" />
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <size>0,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxCheckBox" name="chkShowSplash">
+                    <label>Show welcome screen on start-up</label>
+                    <checked>1</checked>
+                </object>
+                <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="sizeritem">
+                <object class="wxCheckBox" name="chkShowStartPage">
+                    <label>Show &quot;Start here&quot; page (shown only when there are no open projects)</label>
+                    <checked>1</checked>
+                </object>
+                <flag>wxTOP|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="sizeritem">
+                <object class="wxCheckBox" name="chkSingleInstance">
+                    <label>Allow only one running instance (needs application restart to take effect)</label>
+                    <checked>1</checked>
+                </object>
+                <flag>wxTOP|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="sizeritem">
+                <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                        <object class="wxCheckBox" name="chkAssociations">
+                            <label>Check &amp;&amp; set file associations (Windows only)</label>
+                            <checked>1</checked>
+                        </object>
+                        <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="spacer">
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                        <border>5</border>
+                        <option>1</option>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnSetAssocs">
+                            <label>Set now</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                        <border>8</border>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnManageAssocs">
+                            <label>Manage...</label>
+                        </object>
+                        <flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                        <border>8</border>
+                    </object>
+                </object>
+                <flag>wxTOP|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <size>0,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                        <object class="wxRadioBox" name="rbAppStart">
+                            <label>On application start-up</label>
+                            <content>
+                                <item>Open last workspace</item>
+                                <item>Open blank workspace</item>
+                            </content>
+                            <style>wxRA_SPECIFY_COLS</style>
+                        </object>
+                        <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <option>1</option>
+                    </object>
+                    <object class="spacer">
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <size>8,0</size>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxRadioBox" name="rbProjectOpen">
+                            <label>On project load</label>
+                            <content>
+                                <item>Open Project in a new Workspace</item>
+                                <item>Open Project in the current Workspace</item>
+                            </content>
+                            <style>wxRA_SPECIFY_COLS</style>
+                        </object>
+                        <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <option>1</option>
+                    </object>
+                </object>
+                <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <size>0,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticText" name="lblGeneralOpSystTitle">
+                    <label>Operating System Tools</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine"/>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <size>0,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                    <cols>2</cols>
+                    <rows>2</rows>
+                    <vgap>8</vgap>
+                    <hgap>8</hgap>
+                    <growablecols>1</growablecols>
+                    <object class="sizeritem">
+                        <object class="wxStaticText">
+                            <label>Shell to run commands in:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxTextCtrl" name="txtConsoleShell" />
+                        <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <option>1</option>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText">
+                            <label>Terminal to launch console programs:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxTextCtrl" name="txtConsoleTerm"/>
+                        <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                        <option>1</option>
+                    </object>
+                </object>
+                <flag>wxTOP|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+        </object>
+	</object>
+</resource>

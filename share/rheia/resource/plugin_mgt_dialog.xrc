@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxDialog" name="dlgPluginsSettings">
+		<title>Rheia plugins management</title>
+		<style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+		<size>800,600</size>
+		<centered>1</centered>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxStaticText" name="lblBigTitle">
+					<label>General settings</label>
+					<fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+					<font>
+						<size>14</size>
+						<weight>bold</weight>
+						<family>swiss</family>
+					</font>
+					<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+				</object>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE1" />
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxListbook" name="nbMain">
+					<object class="listbookpage">
+						<object class="wxPanel" name="tabInfo">
+							<object class="wxBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<object class="sizeritem">
+									<object class="wxStaticText" name="lblInfoMgtInstallTitle">
+										<label>Installed Plugins</label>
+										<fg>#004080</fg>
+                                        <bg>#FFFFFF</bg>
+										<font>
+											<size>10</size>
+											<weight>bold</weight>
+											<family>swiss</family>
+										</font>
+										<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+									</object>
+									<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+								</object>
+								<object class="sizeritem">
+									<object class="wxStaticLine" name="ID_STATICLINE1" />
+									<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<border>8</border>
+								</object>
+								<object class="spacer">
+									<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<size>0,16</size>
+								</object>
+								<object class="sizeritem">
+									<object class="wxBoxSizer">
+										<orient>wxHORIZONTAL</orient>
+											<object class="sizeritem">
+												<object class="wxListCtrl" name="lstPluginsInstalledPlugin">
+													<style> wxNO_BORDER | wxLC_REPORT </style>
+													<size>500,100</size>
+												</object>
+												<flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+												<border>8</border>
+												<option>1</option>
+											</object>
+											<object class="spacer">
+												<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+												<size>16,0</size>
+											</object>
+											<object class="sizeritem">
+											<object class="wxBoxSizer">
+												<orient>wxVERTICAL</orient>
+												<object class="sizeritem">
+													<object class="wxButton" name="btnEnable">
+														<label>&amp;Enable</label>
+													</object>
+													<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<border>8</border>
+												</object>
+												<object class="spacer">
+													<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<size>0,8</size>
+												</object>
+												<object class="sizeritem">
+													<object class="wxButton" name="btnDisable">
+														<label>&amp;Disable</label>
+													</object>
+													<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<border>8</border>
+												</object>
+												<object class="spacer">
+													<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<size>0,8</size>
+												</object>
+												<object class="sizeritem">
+													<object class="wxButton" name="btnUninstall">
+														<label>&amp;Uninstall</label>
+													</object>
+													<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<border>8</border>
+												</object>
+												<object class="spacer">
+													<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<size>0,8</size>
+												</object>
+												<object class="sizeritem">
+													<object class="wxButton" name="btnInstall">
+														<label>&amp;Install</label>
+													</object>
+													<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<border>8</border>
+												</object>
+												<object class="spacer">
+													<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<size>0,8</size>
+												</object>
+												<object class="sizeritem">
+													<object class="wxButton" name="btnExport">
+														<label>E&amp;xport</label>
+													</object>
+													<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+													<border>8</border>
+												</object>
+											</object>
+											<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+										</object>
+									</object>
+									<flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<option>1</option>
+								</object>
+								<object class="spacer">
+									<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<size>0,16</size>
+								</object>
+								<object class="sizeritem">
+									<object class="wxStaticBoxSizer">
+										<orient>wxVERTICAL</orient>
+										<label>What to do on plugin installation ?</label>
+										<object class="sizeritem">
+											<border>5</border>
+											<flag>wxLEFT|wxRIGHT|wxTOP|wxALIGN_LEFT|wxALIGN_TOP|wxEXPAND</flag>
+											<object class="wxCheckBox" name="chkInstallGlobally">
+												<label>Install system-wide, for all users of this machine (requires administrative rights).</label>
+											</object>
+										</object>
+										<object class="sizeritem">
+											<border>5</border>
+											<flag>wxALL|wxALIGN_LEFT|wxALIGN_TOP|wxEXPAND</flag>
+											<object class="wxCheckBox" name="chkInstallConfirmation">
+												<label>Ask for confirmation if conflicts arise.</label>
+											</object>
+										</object>
+									</object>
+									<border>16</border>
+									<flag>wxTOP|wxALIGN_LEFT|wxALIGN_TOP|wxEXPAND</flag>
+								</object>
+								<object class="spacer">
+									<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<size>0,16</size>
+								</object>
+								<object class="sizeritem">
+									<object class="wxStaticText" name="lblInfoPluginTitle">
+										<label>Plugin Information</label>
+										<fg>#004080</fg>
+                                        <bg>#FFFFFF</bg>
+										<font>
+											<size>10</size>
+											<weight>bold</weight>
+											<family>swiss</family>
+										</font>
+										<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+									</object>
+									<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+								</object>
+								<object class="sizeritem">
+									<object class="wxStaticLine" name="ID_STATICLINE3" />
+									<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<border>8</border>
+								</object>
+								<object class="spacer">
+									<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<size>0,16</size>
+								</object>
+								<object class="sizeritem">
+									<object class="wxHtmlWindow" name="htmlPluginsInfoPlugin">
+										<style> wxNO_BORDER | wxLC_REPORT | wxLC_SINGLE_SEL | wxLC_SORT_ASCENDING | wxLC_HRULES | wxLC_VRULES </style>
+										<size>700,100</size>
+									</object>
+									<flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<border>8</border>
+									<option>1</option>
+								</object>
+							</object>
+						</object>
+						<label>Installed plugins management</label>
+					</object>
+				</object>
+				<flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE2" />
+				<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+				<border>8</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStdDialogButtonSizer">
+					<object class="button">
+						<object class="wxButton" name="wxID_OK">
+							<label></label>
+						</object>
+					</object>
+					<object class="button">
+						<object class="wxButton" name="wxID_CANCEL">
+							<label></label>
+						</object>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+				<border>8</border>
+			</object>
+		</object>
+	</object>
+</resource>

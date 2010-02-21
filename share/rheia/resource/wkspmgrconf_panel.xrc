@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxPanel" name="panelWkspMgrSettings">
+      <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <object class="wxStaticText" name="ID_STATICTEXT4">
+                    <label>Tree Control Appearance</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine" name="ID_STATICLINE3" />
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <size>0,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxCheckBox" name="chkWksMgrHasBtn">
+                    <label>Show + and - buttons at the begining of each line</label>
+                </object>
+                <flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxCheckBox" name="chkWksMgrHasLines">
+                    <label>Show vertical level connectors</label>
+                </object>
+                <flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxCheckBox" name="chkWksMgrHasLinesRoot">
+                    <label>Show lines between root nodes</label>
+                </object>
+                <flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxCheckBox" name="chkWksMgrRowLines">
+                    <label>Draw a contrasting border between displayed rows</label>
+                </object>
+                <flag>wxTOP|wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+        </object>
+    </object>
+</resource>
+
+

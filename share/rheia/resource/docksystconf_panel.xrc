@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxPanel" name="panelDockSystSettings">
+        <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+                <object class="wxStaticText" name="lblWksMgrBookTitle">
+                    <label>Controls size</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine" name="ID_STATICLINEWks1" />
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <size>16,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                    <cols>4</cols>
+                    <vgap>8</vgap>
+                    <hgap>8</hgap>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT5">
+                            <label>Pane border size:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxSpinCtrl" name="spnAuiBorder">
+                            <value>1</value>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT6">
+                            <label>Sash size:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxSpinCtrl" name="spnAuiSash">
+                            <value>4</value>
+                            <min>1</min>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT7">
+                            <label>Caption height:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxSpinCtrl" name="spnAuiCaption">
+                            <value>17</value>
+                            <min>4</min>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="spacer">
+                    </object>
+                    <object class="spacer">
+                    </object>
+                </object>
+                <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <size>16,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticText" name="lblWksMgrBookTitle">
+                    <label>Active caption colours</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine" name="ID_STATICLINEWks1" />
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <size>16,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                    <cols>4</cols>
+                    <vgap>8</vgap>
+                    <hgap>8</hgap>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT12">
+                            <label>Active caption colour:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnAuiActiveCaptionColour" />
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT13">
+                            <label>Active caption gradient colour:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnAuiActiveCaptionGradientColour" />
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT14">
+                            <label>Active caption text colour:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnAuiActiveCaptionTextColour" />
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                </object>
+                <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <size>16,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticText" name="lblWksMgrBookTitle">
+                    <label>Inactive caption colours</label>
+                    <fg>#004080</fg>
+                    <bg>#FFFFFF</bg>
+                    <font>
+                        <size>10</size>
+                        <weight>bold</weight>
+                        <family>swiss</family>
+                    </font>
+                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                </object>
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+            </object>
+            <object class="sizeritem">
+                <object class="wxStaticLine" name="ID_STATICLINEWks1" />
+                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+            <object class="spacer">
+                <size>16,16</size>
+            </object>
+            <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                    <cols>4</cols>
+                    <vgap>8</vgap>
+                    <hgap>8</hgap>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT15">
+                            <label>Inactive caption colour:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnAuiInactiveCaptionColour" />
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT16">
+                            <label>Inactive caption gradient colour:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnAuiInactiveCaptionGradientColour" />
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxStaticText" name="ID_STATICTEXT17">
+                            <label>Inactive caption text colour:</label>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxButton" name="btnAuiInactiveCaptionTextColour" />
+                        <flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+                    </object>
+                </object>
+                <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                <border>8</border>
+            </object>
+        </object>
+    </object>
+</resource>
+
+
+

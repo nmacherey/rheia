@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resource>
+    <object class="wxPanel" name="pnlProjects">
+      <object class="wxBoxSizer">
+        <orient>wxVERTICAL</orient>
+        <object class="sizeritem">
+          <object class="wxBoxSizer">
+            <orient>wxHORIZONTAL</orient>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <label>Category:</label>
+              </object>
+              <flag>wxTOP</flag>
+              <border>4</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="cmbProjectCategories">
+                    <content/>
+                  </object>
+                  <option>1</option>
+                  <flag>wxEXPAND</flag>
+                </object>
+              </object>
+              <option>1</option>
+              <flag>wxLEFT|wxEXPAND</flag>
+              <border>8</border>
+            </object>
+          </object>
+          <flag>wxGROW</flag>
+        </object>
+        <object class="sizeritem">
+          <object class="wxListCtrl" name="listProjects">
+            <style>wxLC_ICON|wxLC_AUTOARRANGE|wxLC_SINGLE_SEL</style>
+          </object>
+          <option>1</option>
+          <flag>wxTOP|wxEXPAND</flag>
+          <border>8</border>
+        </object>
+      </object>
+    </object>
+</resource>

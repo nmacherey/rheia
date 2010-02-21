@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<object class="wxPanel" name="pnlTextLoggerConfig">
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxStaticText">
+					<label>Text Logger Configuration</label>
+					<fg>#004080</fg>
+					<bg>#FFFFFF</bg>
+					<font>
+						<size>12</size>
+						<weight>bold</weight>
+						<family>swiss</family>
+					</font>
+					<style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+				</object>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine"/>
+				<flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                                <object class="wxListCtrl" name="lstTextLogLevels">
+                                    <style>wxLC_LIST|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING</style>
+                                </object>
+                                <flag>wxEXPAND|wxALL</flag>
+                                <option>1</option>
+                            </object>
+                        </object>
+                        <flag>wxALL|wxEXPAND</flag>
+                        <border>5</border>
+                        <option>1</option>
+                    </object>
+                    <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                                <object class="wxStaticBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <label>Font Selection</label>
+                                    <object class="sizeritem">
+                                        <object class="wxStaticText" name="txtTextLogFontPreview">
+                                        </object>
+                                        <flag>wxALIGN_LEFT|wxLEFT|wxRIGHT|wxTOP|wxADJUST_MINSIZE</flag>
+                                        <option>4</option>
+                                    </object>
+                                    <object class="spacer">
+                                        <size>16,16</size>
+                                    </object>
+                                    <object class="sizeritem">
+                                        <object class="wxButton" name="btnTextFontChoose">
+                                            <label>Choose</label>
+                                        </object>
+                                        <flag>wxALIGN_LEFT|wxALL</flag>
+                                        <option>0</option>
+                                    </object>
+                                </object>
+                                <flag>wxEXPAND|wxALL</flag>
+                                <option>0</option>
+                            </object>
+                            <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                        <object class="wxStaticBoxSizer">
+                                            <orient>wxHORIZONTAL</orient>
+                                            <label>Color Selection</label>
+                                            <object class="sizeritem">
+                                                <object class="wxFlexGridSizer">
+                                                    <cols>2</cols>
+                                                    <hgap>8</hgap>
+                                                    <vgap>8</vgap>
+                                                    <object class="sizeritem">
+                                                        <object class="wxStaticText">
+                                                            <label>Font Color : </label>
+                                                        </object>
+                                                        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxButton" name="btnTextColorChoose">
+                                                        </object>
+                                                        <flag>wxEXPAND|wxALL</flag>
+                                                        <option>0</option>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxStaticText">
+                                                            <label>Background Color : </label>
+                                                        </object>
+                                                        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                                                    </object>
+                                                    <object class="sizeritem">
+                                                        <object class="wxButton" name="btnTextBackColorChoose">
+                                                        </object>
+                                                        <flag>wxEXPAND|wxALL</flag>
+                                                        <option>0</option>
+                                                    </object>
+                                                </object>
+                                                <flag>wxEXPAND|wxALL</flag>
+                                                <option>1</option>
+                                            </object>
+                                        </object>
+                                        <flag>wxEXPAND|wxALL</flag>
+                                        <option>1</option>
+                                    </object>
+                                    <object class="sizeritem">
+                                        <object class="wxStaticBoxSizer">
+                                            <orient>wxVERTICAL</orient>
+                                            <label>Extra Styles Selection</label>
+                                            <object class="sizeritem">
+                                                <object class="wxCheckBox" name="chkTextLogUnderlined">
+                                                    <label>Underline text</label>
+                                                </object>
+                                                <flag>wxALL</flag>
+                                                <option>0</option>
+                                            </object>
+                                            <object class="spacer">
+                                                <size>8,8</size>
+                                            </object>
+                                            <object class="sizeritem">
+                                                <object class="wxChoice" name="cbTextAlignment">
+                                                </object>
+                                                <flag>wxALL</flag>
+                                                <option>0</option>
+                                            </object>
+                                        </object>
+                                        <flag>wxEXPAND|wxALL</flag>
+                                        <option>1</option>
+                                    </object>
+                                </object>
+                                <flag>wxEXPAND|wxALL</flag>
+                                <option>0</option>
+                            </object>
+                            <object class="sizeritem">
+                                <object class="wxStaticText">
+                                    <label>Sample Log</label>
+                                    <fg>#004080</fg>
+                                    <bg>#FFFFFF</bg>
+                                    <font>
+                                        <size>12</size>
+                                        <weight>bold</weight>
+                                        <family>swiss</family>
+                                    </font>
+                                    <style>wxST_NO_AUTORESIZE|wxALIGN_CENTRE</style>
+                                </object>
+                                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                            </object>
+                            <object class="sizeritem">
+                                <object class="wxStaticLine"/>
+                                <flag>wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                            </object>
+                            <object class="sizeritem">
+                                <object class="wxPanel" name="pnlTextSampleLog">
+                                    <object class="wxBoxSizer">
+                                        <orient>wxVERTICAL</orient>
+                                    </object>
+                                </object>
+                                <flag>wxEXPAND|wxALL</flag>
+                                <option>1</option>
+                            </object>
+                        </object>
+                        <flag>wxALL|wxEXPAND</flag>
+                        <border>5</border>
+                        <option>2</option>
+                    </object>
+				</object>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>8</border>
+				<option>1</option>
+			</object>
+		</object>
+	</object>
+</resource>
+
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource>
+	<object class="wxWizard" name="WorkspaceCreationWizard">
+		<style>
+			wxCAPTION | wxCLOSE_BOX |wxRESIZE_BORDER
+		</style>
+		<title>
+			Create a new workspace
+		</title>
+		<object class="wxWizardPageSimple" name="WorkspaceSelectionPage">
+			<style>wxTAB_TRAVERSAL</style>
+			<object class="wxBoxSizer" name="MainSizer">
+				<orient>wxVERTICAL</orient>
+				<object class="sizeritem">
+					<border>2</border>
+					<flag>wxALL|wxEXPAND</flag>
+					<option>1</option>
+					<object class="wxListCtrl" name="WorkspaceSelectionList">
+						<style>
+							wxLC_ICON|wxLC_SINGLE_SEL
+						</style>
+						<size>500,200</size>
+					</object>
+				</object>
+				<object class="sizeritem">
+					<border>2</border>
+					<flag>wxALL|wxEXPAND</flag>
+					<option>0</option>
+					<object class="wxBoxSizer" name="WorkspaceNameSizer">
+						<orient>wxHORIZONTAL</orient>
+						<object class="sizeritem">
+							<border>0</border>
+							<flag>wxALL|wxEXPAND</flag>
+							<option>1</option>
+							<object class="wxStaticText" name="WorkspaceNameLabel">
+								<label>Workspace Name :</label>
+							</object>
+						</object>
+						<object class="sizeritem">
+							<border>0</border>
+							<flag>wxALL|wxEXPAND</flag>
+							<option>5</option>
+							<object class="wxTextCtrl" name="WorkspaceNameText">
+								<style>
+									wxTE_RICH|wxTE_ALIGN_LEFT
+								</style>
+								<value>&lt;Enter Name&gt;</value>
+							</object>
+						</object>
+					</object>
+				</object>
+				<object class="sizeritem">
+					<border>2</border>
+					<flag>wxALL|wxEXPAND</flag>
+					<option>0</option>
+					<object class="wxBoxSizer" name="WorkspacePathSizer">
+						<orient>wxHORIZONTAL</orient>
+						<object class="sizeritem">
+							<border>0</border>
+							<flag>wxALL|wxEXPAND</flag>
+							<option>1</option>
+							<object class="wxStaticText" name="WorkspacePathLabel">
+								<label>Workspace File :</label>
+							</object>
+						</object>
+						<object class="sizeritem">
+							<border>0</border>
+							<flag>wxALL|wxEXPAND</flag>
+							<option>4</option>
+							<object class="wxTextCtrl" name="WorkspacePathText">
+								<style>
+									wxTE_RICH|wxTE_ALIGN_LEFT
+								</style>
+								<value>&lt;Enter Path&gt;</value>
+							</object>
+						</object>
+						<object class="sizeritem">
+							<border>0</border>
+							<flag>wxALL|wxEXPAND</flag>
+							<option>1</option>
+							<object class="wxButton" name="WorkspacePathBtn">
+								<label>Browse</label>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+	</object>
+</resource>
