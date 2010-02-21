@@ -23,10 +23,10 @@ else
 end
 
 -- Set the name of your package.
-package.name = "rheia"
+package.name = "pyedt"
 
 -- Set this if you want a different name for your target than the package's name.
-local targetName = "rheia"
+local targetName = "pyedt"
 local version = "1.1.1"
 local version_win = "1_1_1"
 
@@ -36,16 +36,16 @@ package.kind = "winexe"
 
 -- Set the files to include.
 if ( not windows ) then
-	package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" , "*.c" ), matchfiles( "../../include/rheia/*.h" ) }
+	package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" , "*.c" ), matchfiles( "../../include/tuto1/*.h" ) }
 else
-	package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" , "*.c" ) , matchfiles( "../../include/rheia/*.h" ) }
+	package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" , "*.c" ) , matchfiles( "../../include/tuto1/*.h" ) }
 end
 
 -- Set the include paths.
-package.includepaths = { "../../include/rheia/python" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python2.5" , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" }
+package.includepaths = { "../../include/rheia/python" , "../../include/tuto1" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python2.5" , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" , "wxwidgets" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" }
+package.depends = { "csirocsa", "qsastime" , "wxwidgets" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "rheia" }
 
 -- Set the defines.
 package.defines = { "HAVE_CONFIG_H" , "RHEIA_USE_IRRLICHT" }
@@ -172,9 +172,9 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	package.config["Debug"].links = { "gmirrlicht-dbg", "gmcsirocsa-dbg", "gmqsastime-dbg", "gmplplot-dbg", "gmwxplplot-dbg" , "rheiautils-dbg" , "rheiabase-dbg" , "rheialoggers-dbg" , "rheiapackagemgt-dbg" , "rheiaworkspacemgt-dbg" , "rheiapython-dbg" ,"python2.5" }
 	package.config["Release"].links = { "gmirrlicht", "gmcsirocsa", "gmqsastime", "gmplplot", "gmwxplplot" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "python2.5" }
 
-	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "mkdir -p ../../devel/Release/share/rheia/images" , "mkdir -p ../../devel/Release/share/rheia/plugins", "mkdir -p ../../devel/Release/share/rheia/packages" , "mkdir -p ../../devel/Release/share/rheia/cache" , "mkdir -p ../../devel/Release/share/rheia/scripts" , "cp -ru ../../include/rheia/* ../../devel/Release/include/rheia" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Release/share/rheia/images" , "cp -ru ../../share/rheia/plplot ../../devel/Release/share/rheia" , "zip -j9 -r ../../devel/Release/share/rheia/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Release/include" , "mkdir -p ../../../../devel/Release/share" , "cp -ru ../../devel/Release/include/rheia ../../../../devel/Release/include" , "cp -ru ../../devel/Release/share/rheia ../../../../devel/Release/share" , "cp -ru ../../devel/Release/bin ../../../../devel/Release" , "cp -ru ../../devel/Release/lib ../../../../devel/Release" }
+	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/pyedt" , "mkdir -p ../../devel/Release/lib" , "mkdir -p ../../devel/Release/share/pyedt/images", "cp -ru ../../include/tuto1/* ../../devel/Release/include/pyedt" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Release/share/pyedt/images" , "zip -j9 -r ../../devel/Release/share/pyedt/resource.zip ../../share/rheia/resource" }
 
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "mkdir -p ../../devel/Debug/share/rheia-dbg/images" , "mkdir -p ../../devel/Debug/share/rheia-dbg/plugins", "mkdir -p ../../devel/Debug/share/rheia-dbg/packages" , "mkdir -p ../../devel/Debug/share/rheia-dbg/cache" , "mkdir -p ../../devel/Debug/share/rheia-dbg/scripts" , "cp -ru ../../include/rheia/* ../../devel/Debug/include/rheia" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Debug/share/rheia-dbg/images" , "cp -ru ../../share/rheia/plplot ../../devel/Debug/share/rheia-dbg" , "zip -j9 -r ../../devel/Debug/share/rheia-dbg/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Debug/include" , "mkdir -p ../../../../devel/Debug/share" , "cp -ru ../../devel/Debug/include/rheia ../../../../devel/Debug/include" , "cp -ru ../../devel/Debug/share/rheia-dbg ../../../../devel/Debug/share" , "cp -ru ../../devel/Debug/bin ../../../../devel/Debug" , "cp -ru ../../devel/Debug/lib ../../../../devel/Debug" }
+	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/pyedt" , "mkdir -p ../../devel/Debug/lib" , "mkdir -p ../../devel/Debug/share/pyedt-dbg/images", "cp -ru ../../include/tuto1/* ../../devel/Debug/include/pyedt" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Release/share/pyedt-dbg/images" , "zip -j9 -r ../../devel/Release/share/pyedt-dbg/resource.zip ../../share/rheia/resource" }
 end
 
 table.insert( package.defines, "WXUSINGDLL" )

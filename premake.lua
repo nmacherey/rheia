@@ -22,6 +22,7 @@ dopackage( "src/rheia/packagemgt" )
 dopackage( "src/rheia/workspacemgt" )
 dopackage( "src/rheia/python" )
 dopackage( "src/rheia" )
+dopackage( "src/tuto1" )
 
 function CreateSymlink( pathToLink, symLink )
 	os.execute( "ln -s -f -n " .. pathToLink .. " " .. symLink  )
