@@ -10,6 +10,13 @@
 #include "RheiaManager.h"
 #include "RheiaXtraRes.h"
 #include "RheiaStandardPaths.h"
+#include "RheiaSplashScreen.h"
+#include "RheiaProfileManager.h"
+#include "RheiaException.h"
+#include "RheiaEnvironementManager.h"
+#include "RheiaConfigurationManager.h"
+#include "RheiaEventsManager.h"
+#include "RheiaEvents.h"
 
 #include <wx/xrc/xmlres.h>
 #include <wx/xrc/xh_wizrd.h>
@@ -51,10 +58,99 @@ bool RheiaAppBase::DoBasicInitializations()
     wxXmlResource::Get()->InitAllHandlers();
 	wxXmlResource::Get()->AddHandler( new wxToolBarAddOnXmlHandler );
 
+	m_appName = GetAppName();
+	
 	RheiaManager::Get();
-	RheiaStandardPaths::InitPaths();
+	RheiaStandardPaths::InitPaths(m_appName);
 
 	m_singleInstanceChecker = 0;
+	return true;
+}
 
-	m_appName = GetAppName();
+bool RheiaAppBase::CheckForSingleInstance()
+{
+	m_singleInstanceChecker = 0;
+
+    try
+    {
+        if(RheiaProfileManager::Get()->GetActiveProfileManager()->ReadBool(_T("/environment/single_instance"), true))
+        {
+            const wxString name = m_appName + wxT("-") + wxGetUserId();
+            m_singleInstanceChecker = new wxSingleInstanceChecker(name, RheiaStandardPaths::TempDirectory());
+			
+            if (m_singleInstanceChecker->IsAnotherRunning())
+            {
+                wxMessageBox(wxT("Another program instance is already running.\n"
+								 "Rheia is currently configured to only allow one running instance.\n\n"
+								 "You can access this Setting under the menu item 'Environment Settings'."),
+                            wxT("Rheia Framework"), wxOK | wxICON_ERROR);
+							
+                return false;
+            }
+        }
+    }catch(RheiaException& err)
+    {
+        err.ShowErrorMessage();
+    }
+	
+	return true;
+}
+
+void RheiaAppBase::ShowSplashScreen( const wxString& path )
+{
+	wxBitmap bmp = RheiaLoadBitmap ( path );
+	m_splash = new RheiaSplashScreen(bmp);
+}
+
+void RheiaAppBase::HideSplashScreen()
+{
+	if (m_splash)
+	{
+		m_splash->Destroy();
+		m_splash = NULL;
+	}
+}
+
+bool RheiaAppBase::InitXRCStuff()
+{
+	// Try to load all resources from RheiaManager and return
+	if (!RheiaManager::LoadResource(wxT("resource.zip")))
+    {
+        return false;
+    }
+    return true;
+}
+
+int RheiaAppBase::OnRun()
+{
+	try
+    {
+        int retval = wxApp::OnRun();
+        return retval;
+    }
+    catch (...)
+    {
+        wxSafeShowMessage(wxT("Exception"), wxT("Unknown exception was raised. The application will terminate immediately..."));
+    }
+    // if we reached here, return error
+    return -1;
+}
+
+/* Callback used for ending the application */
+int RheiaAppBase::OnExit()
+{
+	/* Flushing the clipboard */
+    wxTheClipboard->Flush();
+	OnPreManagerDestroy();
+	/* Freeing global manager instance at the totally end of the application */
+	RheiaManager::Get()->Close();
+    RheiaManager::Free();
+
+    return 0;
+}
+
+void RheiaAppBase::StartUpFinalStep()
+{
+	RheiaEvent event(RheiaEVT_APP_STARTUP_DONE);
+    RheiaEventsManager::Get()->ProcessEvent( event );
 }

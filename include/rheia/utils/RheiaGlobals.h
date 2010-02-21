@@ -1,3 +1,8 @@
+/*
+ * This file was originally taken from Code::Blocks IDE, some methods have been added,
+ * It is licensed under the GNU General Public License, version 3
+ * http://www.gnu.org/licenses/gpl-3.0.html
+ */
 #ifndef RheiaGlobals_h_
 #define RheiaGlobals_h_
 

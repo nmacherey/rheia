@@ -29,6 +29,7 @@
 #include <wx/statusbr.h>
 #include <wx/stdpaths.h>
 
+wxString RheiaStandardPaths::app_name;
 wxString RheiaStandardPaths::config_dir;
 wxString RheiaStandardPaths::home_dir;
 wxString RheiaStandardPaths::data_dir_user;
@@ -43,8 +44,9 @@ wxString RheiaStandardPaths::app_dir;
 wxString RheiaStandardPaths::temp_dir;
 
 
-void RheiaStandardPaths::InitPaths()
+void RheiaStandardPaths::InitPaths(const wxString& appname)
 {
+	app_name = appname;
     wxStandardPaths StdPaths;
 
 #if defined( _DEBUG ) || defined( RHEIA_DEBUG )
@@ -60,9 +62,9 @@ void RheiaStandardPaths::InitPaths()
     if (data_dir_global.IsEmpty())
     {
         if (platform::windows)
-            RheiaStandardPaths::data_dir_global = app_dir + _T("/share/rheia");
+            RheiaStandardPaths::data_dir_global = app_dir + _T("/share/") + app_name;
         else if (platform::macosx)
-            RheiaStandardPaths::data_dir_global = res_dir + _T("/share/rheia");
+            RheiaStandardPaths::data_dir_global = res_dir + _T("/share/") + app_name;
         else
             RheiaStandardPaths::data_dir_global = StdPaths.GetDataDir();
     }
@@ -121,7 +123,7 @@ void RheiaStandardPaths::InitPaths()
         RheiaStandardPaths::cache_dir_user = data_dir_user + wxT("/packages");
     }
 #else
-    RheiaStandardPaths::data_dir_user = RheiaStandardPaths::config_dir + wxT("/share/rheia");
+    RheiaStandardPaths::data_dir_user = RheiaStandardPaths::config_dir + wxT("/share/") + app_name;
 
     RheiaMakeDirRecursively(RheiaStandardPaths::config_dir);
     RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/plugins/"));

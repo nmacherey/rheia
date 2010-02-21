@@ -12,6 +12,7 @@ This is the Header File for Tuto1App
 #include <process.h>
 #endif
 
+#include <RheiaAppBase.h>
 #include <Tuto1MainFrame.h>
 #include <RheiaManager.h>
 #include <wx/app.h>
@@ -25,7 +26,7 @@ This is the Header File for Tuto1App
 *	@date			06-Nov-2008
 ****************************************************************************************************/
 
-class Tuto1App : public wxApp
+class Tuto1App : public RheiaAppBase
 {
 public:
 	/**********************************************************************************************
@@ -34,24 +35,8 @@ public:
 	/*! Callback OnInit() overloads for initializing the application */
 	bool OnInit();
 
-	/*! Callback OnExit() overloads for destrying the application and its content */
-	virtual int OnExit();
-
-	/*! Callback OnRun() to executes when the application starts its run */
-	virtual int OnRun();
-
 	/*! Membership function for initializing the main frame */
 	Tuto1MainFrame *InitMainFrame();
-
-private:
-
-	/*! Init the global application ressources */
-	bool InitXRCStuff();
-
-	/** Loads the global configuration */
-	bool LoadConfig();
-
-	int ParseCmdLine(Tuto1MainFrame* handlerFrame);
 
 private :
 	/**********************************************************************************************

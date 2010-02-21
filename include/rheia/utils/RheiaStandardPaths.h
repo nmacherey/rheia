@@ -104,7 +104,7 @@ public :
     *   it more lile a namespace in which you will find all dir relative
     *   to the application.
     */
-    static void InitPaths();
+    static void InitPaths(const wxString& appname);
 
     /*****************************************************************************************************
     *   ACCESSORS
@@ -178,6 +178,7 @@ private :
     /*****************************************************************************************************
     *   PRIVATE MEMEBERS
     *****************************************************************************************************/
+	static wxString app_name;
     static wxString config_dir;
     static wxString home_dir;
     static wxString data_dir_user;

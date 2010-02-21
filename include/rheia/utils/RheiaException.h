@@ -1,3 +1,9 @@
+/*
+ * This file was originally taken from Code::Blocks IDE, some methods have been added,
+ * It is licensed under the GNU General Public License, version 3
+ * http://www.gnu.org/licenses/gpl-3.0.html
+ */
+ 
 /**
 *   @file RheiaException.h
 *   @brief RheiaExecption is the basic class for Rheia's error handling unit.

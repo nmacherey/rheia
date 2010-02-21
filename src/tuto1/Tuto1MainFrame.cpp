@@ -88,7 +88,7 @@ Tuto1MainFrame::Tuto1MainFrame(wxWindow* parent,
     m_layout->AddPane( book , wxAuiPaneInfo().
                             Name(wxT("InfoPane")).Caption(_("Information")).
                             BestSize(600,300).MinSize(wxSize(400,300)).//PinButton(true).Floatable(false).
-                            Right().Layer(0));
+                            Left().Layer(0));
 
     PyConsoleManager* cmgr = PyConsoleManager::Get(this);
     RheiaInfoPaneManager::Get(this)->AddPage(wxT("Python console"), cmgr);

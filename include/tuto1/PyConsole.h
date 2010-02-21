@@ -12,21 +12,6 @@
 
 #include <wx/thread.h>
 
-class PyThreadRunnuer : public wxThread
-{
-public :
-    PyThreadRunnuer():wxThread()
-    {
-        Create();
-    }
-
-    virtual ExitCode Entry()
-    {
-        char *argv[] = { "python", (char *) 0 };
-        return (wxThread::ExitCode) Py_Main(1,argv);
-    }
-};
-
 class wxSStyledTextCtrl : public wxStyledTextCtrl, public std::streambuf
 {
 public :
@@ -205,7 +190,6 @@ protected :
     wxSStyledTextCtrl* m_control;
     wxSStreamToTextRedirector *m_stdoutred;
     wxSStreamToTextRedirector *m_stderrred;
-    PyThreadRunnuer m_thread;
     wxString m_commandBuffer;
     int m_nolines;
     int m_ID;

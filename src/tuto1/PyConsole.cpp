@@ -54,24 +54,15 @@ PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
     m_control->SetText(defText);
     int eof = m_control->GetLength();
     m_control->GotoPos(eof);
-    m_control->AddText(wxT(">>> "));
+    m_control->AddText(wxT(">>> ")); 
 
     Reload();
 
     Registerevents();
     RegisterSTCEvents();
 
-
     RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("pyconsole"));
     m_history = cfg->ReadArrayString(wxT("/history"));
-
-    //m_thread.Run();
-    //wxExecute(wxT("python"));
-
-//    m_control->CmdKeyClearAl(wxSTC_KEY_RETURN,wxSTC_SCMOD_NORM);
-//    m_control->CmdKeyClear(wxSTC_KEY_UP,wxSTC_SCMOD_NORM);
-//    m_control->CmdKeyClear(wxSTC_KEY_DOWN,wxSTC_SCMOD_NORM);
-    //m_control->PushEventHandler(this);
 
     sizer->Add( m_control, 1, wxEXPAND | wxALL, 5 );
     this->SetSizer( sizer );
@@ -318,13 +309,7 @@ void PyConsole::RegisterSTCEvents()
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
              &PyConsole::OnStcKey );
 
-    // Now bind all *other* scintilla events to a common function so that editor hooks
-    // can be informed for them too.
-    // If you implement one of these events using a different function, do the following:
-    //  * comment it out here,
-    //  * "connect" it in the above block
-    //  * and make sure you call OnScintillaEvent() from your new handler function
-    // This will make sure that all editor hooks will be called when needed.
+
     int scintilla_events[] =
     {
         wxEVT_STC_STYLENEEDED,
@@ -362,16 +347,6 @@ void PyConsole::OnCharAdded (wxStyledTextEvent &event)
     char chr = (char)event.GetKey();
     int currentLine = m_control->GetCurrentLine();
     int no_lines = m_control->GetNumberOfLines();
-
-//    if( currentLine != no_lines -1 )
-//    {
-//        int pos = m_control->GetCurrentPos();
-//        m_control->Remove(pos-1,pos);
-//        int eof = m_control->GetLength();
-//        m_control->GotoPos(eof);
-//
-//        return;
-//    }
 
     if (chr == '\n' || chr == '\r')
     {
@@ -440,22 +415,20 @@ void PyConsole::OnCharAdded (wxStyledTextEvent &event)
                     m_control->AddText(wxT("... "));
                 }
             }
-        }
+			else
+			{
+				int eof = m_control->GetLength();
+				m_control->GotoPos(eof);
+				m_control->AddText(wxT(">>> "));
+			}
+		}
     }
 }
 
 //! misc
 void PyConsole::OnMarginClick (wxStyledTextEvent &event)
 {
-//    if (event.GetMargin() == FOLD_MARGIN_ID)
-//    {
-//        int lineClick = m_control->LineFromPosition (event.GetPosition());
-//        int levelClick = m_control->GetFoldLevel (lineClick);
-//        if ((levelClick & wxSTC_FOLDLEVELHEADERFLAG) > 0)
-//        {
-//            m_control->ToggleFold (lineClick);
-//        }
-//    }
+
 }
 
 void PyConsole::OnUpdateUI(wxStyledTextEvent& event)
@@ -487,91 +460,6 @@ void PyConsole::OnZoom(wxStyledTextEvent& event)
 {
 
 }
-
-//void PyConsole::OnStcKey(wxStyledTextEvent& event)
-//{
-//    int key = event.GetKey();
-//    int eof = m_control->GetLength();
-//    int pos = m_control->GetCurrentPos();
-//
-//    int posAtLine;
-//    int line = m_control->GetCurrentLine();
-//    wxString lineContent = m_control->GetCurLine(&posAtLine);
-//    int no_lines = m_control->GetNumberOfLines()-1;
-//
-//    if( key == wxSTC_KEY_RETURN )
-//    {
-//        if( pos != eof )
-//            m_control->GotoPos(eof);
-//
-//        if( line != no_lines )
-//            return;
-//    }
-//    else if( key == wxSTC_KEY_UP )
-//    {
-//        /** shall add here stuff for history browsing */
-//        m_control->GotoPos(eof);
-//
-//        if(m_history.GetCount() == 0 || m_currentHistoryPos >= m_history.GetCount() )
-//            return;
-//
-//        if( posAtLine > 4 )
-//        {
-//            m_control->GotoLine(line);
-//            int pfl = m_control->GetCurrentPos();
-//            m_control->Remove(pfl+4,eof);
-//            eof = m_control->GetLength();
-//            m_control->GotoPos(eof);
-//        }
-//
-//
-//        m_control->AppendText( m_history[m_currentHistoryPos] );
-//        m_currentHistoryPos++;
-//        eof = m_control->GetLength();
-//        m_control->GotoPos(eof);
-//
-//        return;
-//    }
-//    else if( key == wxSTC_KEY_DOWN )
-//    {
-//        /** shall add here stuff for history browsing */
-//        m_control->GotoPos(eof);
-//
-//        if(m_history.GetCount() == 0 || m_currentHistoryPos <= 0 )
-//            return;
-//
-//        if( posAtLine > 4 )
-//        {
-//            m_control->GotoLine(line);
-//            int pfl = m_control->GetCurrentPos();
-//            m_control->Remove(pfl+4,eof);
-//            eof = m_control->GetLength();
-//            m_control->GotoPos(eof);
-//        }
-//
-//        m_currentHistoryPos--;
-//        m_control->AppendText( m_history[m_currentHistoryPos] );
-//        eof = m_control->GetLength();
-//        m_control->GotoPos(eof);
-//
-//        return;
-//    }
-//    else if( key == wxSTC_KEY_DELETE || key == wxSTC_KEY_BACK )
-//    {
-//
-//        if( line != no_lines )
-//        {
-//            m_control->GotoPos(eof);
-//            return;
-//        }
-//
-//        if( posAtLine <= 4 )
-//            return;
-//    }
-//
-//
-//    event.Skip();
-//}
 
 void PyConsole::OnStcKey(wxKeyEvent& event)
 {

@@ -1,3 +1,6 @@
+/*
+ * This file was originally taken from wxWidget Library
+ */
 #ifndef wxStreamedTextCtrl_h_
 #define wxStreamedTextCtrl_h_
 
