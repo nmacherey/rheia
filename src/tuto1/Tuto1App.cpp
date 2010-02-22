@@ -43,9 +43,6 @@ END_EVENT_TABLE()
 bool Tuto1App::OnInit(){
 	/** Call basic initializations */
 	DoBasicInitializations();
-
-	if( !CheckForSingleInstance() )
-		return false;
 	
 	RheiaConfigurationManager* cmgr = RheiaProfileManager::Get()->GetActiveProfileManager();
 	bool showSplash = cmgr->ReadBool( wxT("show_splash") , true );

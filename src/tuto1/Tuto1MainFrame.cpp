@@ -26,6 +26,7 @@
 #include <iostream>
 
 #include <RheiaManager.h>
+#include <RheiaDebug.h>
 #include <RheiaAppGlobals.h>
 #include <RheiaToolBarManager.h>
 #include <RheiaStatusBarManager.h>
@@ -72,8 +73,10 @@ Tuto1MainFrame::Tuto1MainFrame(wxWindow* parent,
        long style):
        RheiaManagedFrame(parent, id, title, pos, size, style)
 {
+	RheiaDebug::Log( wxT("Starting the frame...") );
     BuildMenu();
-
+	
+	RheiaDebug::Log( wxT("Building the Aui") );
     /* First build the aui components */
     BuildAui();
 
@@ -106,5 +109,5 @@ Tuto1MainFrame::Tuto1MainFrame(wxWindow* parent,
 
 Tuto1MainFrame::~Tuto1MainFrame()
 {
-
+	RheiaDebug::Free();
 }

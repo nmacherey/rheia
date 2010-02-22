@@ -38,8 +38,8 @@
 bool RheiaAppBase::DoBasicInitializations()
 {
     /* Enables wxLogging for the application */
-#ifndef RHEIA_ENABLE_WXLOGGING
-    wxLog::EnableLogging(false);
+#ifndef RHEIA_DEBUG
+    wxLog::EnableLogging(true);
 #endif
 
 #ifdef LINUX
@@ -153,4 +153,10 @@ void RheiaAppBase::StartUpFinalStep()
 {
 	RheiaEvent event(RheiaEVT_APP_STARTUP_DONE);
     RheiaEventsManager::Get()->ProcessEvent( event );
+}
+
+RheiaAppBase::~RheiaAppBase()
+{
+	if( m_singleInstanceChecker )
+		delete m_singleInstanceChecker;
 }

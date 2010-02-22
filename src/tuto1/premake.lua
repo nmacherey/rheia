@@ -174,7 +174,7 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 
 	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/pyedt" , "mkdir -p ../../devel/Release/lib" , "mkdir -p ../../devel/Release/share/pyedt/images", "cp -ru ../../include/tuto1/* ../../devel/Release/include/pyedt" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Release/share/pyedt/images" , "zip -j9 -r ../../devel/Release/share/pyedt/resource.zip ../../share/rheia/resource" }
 
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/pyedt" , "mkdir -p ../../devel/Debug/lib" , "mkdir -p ../../devel/Debug/share/pyedt-dbg/images", "cp -ru ../../include/tuto1/* ../../devel/Debug/include/pyedt" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Release/share/pyedt-dbg/images" , "zip -j9 -r ../../devel/Release/share/pyedt-dbg/resource.zip ../../share/rheia/resource" }
+	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/pyedt" , "mkdir -p ../../devel/Debug/lib" , "mkdir -p ../../devel/Debug/share/pyedt-dbg/images", "cp -ru ../../include/tuto1/* ../../devel/Debug/include/pyedt" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Debug/share/pyedt-dbg/images" , "zip -j9 -r ../../devel/Debug/share/pyedt-dbg/resource.zip ../../share/rheia/resource" }
 end
 
 table.insert( package.defines, "WXUSINGDLL" )
