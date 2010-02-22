@@ -3646,7 +3646,7 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
         // any char: go to the next matching string
         default:
             if (event.GetKeyCode() >= (int)' ') {
-                if (!m_findTimer->IsRunning()) m_findStr.Clear();
+                if (!m_findTimer->IsRunning()) m_findStr.Clear(); 
 if wxCHECK_VERSION(2,9,0)				
                 m_findStr.Append ((char*) event.GetKeyCode());
 #else
