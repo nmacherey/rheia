@@ -151,12 +151,6 @@ inline void RheiaXmlManager::Collapse(wxString& str) const
 	str.Truncate(len);
 };
 
-ISerializable::ISerializable()
-{}
-
-ISerializable::~ISerializable()
-{}
-
 /*
 *  Hack to enable Turkish language. wxString::Upper will convert lowercase 'i' to \u0130 instead of \u0069 in Turkish locale,
 *  which will break the config file when used in a tag
@@ -249,7 +243,7 @@ xmlNode* RheiaXmlManager::AssertPath( wxString& path,
 
 		/* locate subnode */
 		while ( subNode != NULL ) {
-			wxString nodeName = RheiaC2U( (const char*) subNode->path );
+			wxString nodeName = RheiaC2U( (const char*) subNode->name );
 			if ( nodeName.IsSameAs(sub) ) {
 				break;
 			}
@@ -311,7 +305,7 @@ xmlNode* RheiaXmlManager::GetUniqElement(xmlNode* p, const wxString& q)
 	xmlNode* r = p->children;
 
 	while ( r != NULL ) {
-		wxString nodeName = RheiaC2U( (const char*) r->path );
+		wxString nodeName = RheiaC2U( (const char*) r->name );
 		if ( nodeName.IsSameAs( q ) )
 			return r;
 
