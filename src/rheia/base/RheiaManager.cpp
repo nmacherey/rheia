@@ -52,7 +52,8 @@ void RheiaManager::Close()
     appShuttingDown = true;
 
     RheiaEventsManager::Get()->RemoveAllEventMethods();
-
+	
+	RheiaDebug::Log( wxT("Before deleting..." ) );
     /** Finally Free all Rheia Managers */
     RheiaCenterPaneManager::Free();
     RheiaMenuManager::Free();
@@ -64,6 +65,7 @@ void RheiaManager::Close()
     RheiaEnvironementManager::Free();
     RheiaConfigurationPattern::Free(); // only terminate config at the very last moment
     RheiaXmlManager::Free();
+	RheiaDebug::Log( wxT("Before deleting..." ) );
 	RheiaDebug::Free();
 }
 

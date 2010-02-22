@@ -182,8 +182,7 @@ void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
     RheiaFrameEvent evt2( RheiaEVT_FRAME_CLOSING , -1 , this );
 
     /*** the worst solution ever found */
-    for( unsigned int i =0; i < 1000; ++i )
-        GetEventHandler()->ProcessEvent( evt2 );
+    GetEventHandler()->ProcessEvent( evt2 );
 
     RheiaEventsManager::Get()->ProcessEvent( evt2 );
 

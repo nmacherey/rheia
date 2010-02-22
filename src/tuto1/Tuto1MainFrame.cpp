@@ -109,5 +109,4 @@ Tuto1MainFrame::Tuto1MainFrame(wxWindow* parent,
 
 Tuto1MainFrame::~Tuto1MainFrame()
 {
-	RheiaDebug::Free();
 }

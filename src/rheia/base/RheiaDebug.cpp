@@ -8,8 +8,10 @@
 
 #include "RheiaDebug.h"
 
+#include <wx/frame.h>
+
 #ifdef RHEIA_DEBUG
-wxLog* RheiaDebug::m_debugLogTarget = NULL;
+wxLogWindow* RheiaDebug::m_debugLogTarget = NULL;
 #endif
 
 void RheiaDebug::Log( const wxChar* format, ... )
@@ -39,6 +41,10 @@ void RheiaDebug::Free()
 {
 #ifdef RHEIA_DEBUG
 	if( m_debugLogTarget != NULL )
+	{
 		delete m_debugLogTarget;
+	}
+	
+	m_debugLogTarget = NULL;
 #endif
 }

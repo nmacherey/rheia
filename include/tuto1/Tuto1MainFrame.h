@@ -46,7 +46,7 @@ public :
             long style = wxDEFAULT_FRAME_STYLE | wxSUNKEN_BORDER);
 
 	/*! Destructor */
-	~Tuto1MainFrame();
+	virtual ~Tuto1MainFrame();
 
 };
 
