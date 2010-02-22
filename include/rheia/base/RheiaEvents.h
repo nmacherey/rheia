@@ -28,7 +28,7 @@
 *	@date	21-Nov-2008
 *	@version 0.0.1
 */
-class BASE_DLLEXPORT RheiaEvent : public wxNotifyEvent
+class BASE_DLLEXPORT RheiaEvent : public wxCommandEvent
 {
 public:
 	/*******************************************************************************************************
@@ -43,17 +43,17 @@ public:
 	*	@param workspace Pointer to RheiaWorkspace that own the event
 	*/
 	RheiaEvent(wxEventType commandType = wxEVT_NULL, int id = 0)
-		: wxNotifyEvent(commandType, id),
+		: wxCommandEvent(commandType, id),
 		X(0),
-		Y(0) { }
+		Y(0) { Skip(true); }
 
 	/** Copy Constructor
 	*	@param event RheiaEvent from which to copy
 	*/
 	RheiaEvent(const RheiaEvent& event)
-		: wxNotifyEvent(event),
+		: wxCommandEvent(event),
 		X(event.X),
-		Y(event.Y) {}
+		Y(event.Y) { Skip(true); }
 		
 	/** destrcutor */
 	virtual ~RheiaEvent() {};

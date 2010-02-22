@@ -39,16 +39,16 @@ RheiaBookManager::RheiaBookManager(RheiaManagedFrame* parent):
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) );
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) );
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) );
-	Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaBookManager::OnCloseParent) );
+	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaBookManager::OnCloseParent) , NULL , this );
 }
 
 RheiaBookManager::~RheiaBookManager()
 {
-//    if (m_parent)
-//    {
-//		// remove ourself from the application's event handling chain...
-//		m_parent->RemoveEventHandler(this);
-//    }
+    /*if (m_parent)
+    {
+		// remove ourself from the application's event handling chain...
+		m_parent->RemoveEventHandler(this);
+    }*/
 }
 
 wxAuiNotebook* RheiaBookManager::CreateWindow( wxWindow* parent )

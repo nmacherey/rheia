@@ -16,6 +16,7 @@
 #include <RheiaManager.h>
 #include <RheiaManagedFrame.h>
 #include <RheiaLogger.h>
+#include <RheiaEventFrame.h>
 #include <wx/event.h>
 
 class wxAuiNotebook;
@@ -183,6 +184,9 @@ public :
 
 	/** Callback used when the user want to manage environment variables */
 	void OnConfigure(wxCommandEvent& event);
+	
+	/** Callback used when the user want to manage environment variables */
+	void OnCloseFrame(RheiaFrameEvent& event);
 
     /******************************************************************************************
     *   ACTIVE LOGGER MANAGEMENT

@@ -168,7 +168,16 @@ void RheiaLoggerManager::InitializeEnvironment()
     }
 //#endif
     if( m_parent )
+	{
         m_parent->PushEventHandler( this );
+		m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaLoggerManager::OnCloseFrame) , NULL , this );
+	}
+}
+
+void RheiaLoggerManager::OnCloseFrame(RheiaFrameEvent& event)
+{
+	m_parent->RemoveEventHandler( this );
+	event.Skip();
 }
 
 void RheiaLoggerManager::RegisterEvents()

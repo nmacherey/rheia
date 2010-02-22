@@ -209,6 +209,7 @@ void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
 	
 	RheiaDebug::Log(wxT("Calling destroy") );
     Destroy();
+	RheiaDebug::Free();
 }
 
 void RheiaManagedFrame::OnAboutRheia( wxCommandEvent& event )

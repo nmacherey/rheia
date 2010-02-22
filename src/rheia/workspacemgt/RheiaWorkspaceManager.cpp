@@ -147,7 +147,7 @@ BEGIN_EVENT_TABLE(RheiaWorkspaceManager,wxEvtHandler)
 
     EVT_MENU( menuId, RheiaWorkspaceManager::OnConfigure )
 
-    EVT_FRAME_CLOSING( RheiaWorkspaceManager::OnCloseParent )
+    //EVT_FRAME_CLOSING( RheiaWorkspaceManager::OnCloseParent )
 END_EVENT_TABLE()
 
 /**********************************************************************************************************
@@ -159,6 +159,7 @@ RheiaWorkspaceManager::RheiaWorkspaceManager(RheiaManagedFrame* parent):
     m_parent(parent)
 {
     m_parent->PushEventHandler(this);
+	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaWorkspaceManager::OnCloseParent) , NULL , this );
     RegisterEvents();
 }
 

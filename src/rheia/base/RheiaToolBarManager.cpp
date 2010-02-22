@@ -21,7 +21,7 @@ namespace
 BEGIN_EVENT_TABLE( RheiaToolBarManager , wxEvtHandler )
     EVT_UPDATE_UI(idViewToolMain, RheiaToolBarManager::OnToolsUpdateUI)
     EVT_MENU(idViewToolMain, RheiaToolBarManager::OnSelectToolbarMenu)
-    EVT_FRAME_CLOSING(RheiaToolBarManager::OnCloseParent)
+    //EVT_FRAME_CLOSING(RheiaToolBarManager::OnCloseParent)
 END_EVENT_TABLE()
 
 /*! Global instance for the RheiaToolBarManager */
@@ -65,7 +65,8 @@ RheiaToolBarManager::RheiaToolBarManager(RheiaManagedFrame* parent):
 
     m_toolbars[wxT("main")] = m_toolbar;
     m_toolIds[m_toolbar] = idViewToolMain;
-
+	
+	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaToolBarManager::OnCloseParent) , NULL , this );
     m_index = 0;
 }
 

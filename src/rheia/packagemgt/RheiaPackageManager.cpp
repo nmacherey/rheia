@@ -58,7 +58,7 @@ template<> RheiaPackageManager* Mgr<RheiaPackageManager>::instance = 0;
 template<> bool Mgr<RheiaPackageManager>::isShutdown = false;
 
 BEGIN_EVENT_TABLE(RheiaPackageManager,wxEvtHandler)
-    EVT_FRAME_CLOSING( RheiaPackageManager::OnCloseFrame )
+    //EVT_FRAME_CLOSING( RheiaPackageManager::OnCloseFrame )
 END_EVENT_TABLE()
 
 RheiaPackageManager::RheiaPackageManager()
@@ -1319,6 +1319,7 @@ void RheiaPackageManager::BuildMenu( RheiaManagedFrame* parent, wxMenuBar* menuB
     {
         m_frameIds[parent] = wxNewId();
         parent->PushEventHandler(this);
+		parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaPackageManager::OnCloseFrame) , NULL , this );
     }
 
     wxMenu* mnSettings = menuBar->GetMenu( idx );
