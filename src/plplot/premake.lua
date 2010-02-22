@@ -45,7 +45,7 @@ end
 package.includepaths = { "../../include/plplot" , "../../include/wxwidgets" , "../../include/csirocsa" , "../../include/qsastime" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" }
+package.depends = { "csirocsa", "qsastime" , "wxwidgets" }
 
 -- Set the defines.
 package.defines = { "HAVE_CONFIG_H", "plplotd_EXPORTS" , "wxwidgets_EXPORTS" }

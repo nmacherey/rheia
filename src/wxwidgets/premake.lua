@@ -45,7 +45,7 @@ end
 package.includepaths = { "../../include/plplot" , "../../include/wxwidgets" , "../../include/csirocsa" , "../../include/qsastime" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" , "wxwidgets" }
+package.depends = { "csirocsa", "qsastime" }
 
 -- Set the libraries it links to.
 -- package.links = { "gmcirosca", "gmqsastime" }
