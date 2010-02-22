@@ -17,6 +17,7 @@
 #include "RheiaConfigurationManager.h"
 #include "RheiaEventsManager.h"
 #include "RheiaEvents.h"
+#include "RheiaDebug.h"
 
 #include <wx/xrc/xmlres.h>
 #include <wx/xrc/xh_wizrd.h>
@@ -141,11 +142,12 @@ int RheiaAppBase::OnExit()
 {
 	/* Flushing the clipboard */
     wxTheClipboard->Flush();
+	
 	OnPreManagerDestroy();
 	/* Freeing global manager instance at the totally end of the application */
+	RheiaDebug::Log(wxT("Freeing Rheia Manager") );
 	RheiaManager::Get()->Close();
     RheiaManager::Free();
-
     return 0;
 }
 

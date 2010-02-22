@@ -15,11 +15,13 @@
 #include <RheiaPageContainer.h>
 #include <RheiaException.h>
 #include <RheiaEvents.h>
+#include <RheiaEventFrame.h>
 #include <RheiaEventsManager.h>
+#include <RheiaDebug.h>
 #include <wx/aui/aui.h>
 
 BEGIN_EVENT_TABLE( RheiaBookManager , wxEvtHandler )
-    EVT_FRAME_CLOSING( RheiaBookManager::OnCloseParent )
+    //EVT_FRAME_CLOSING( RheiaBookManager::OnCloseParent )
 END_EVENT_TABLE()
 
 RheiaBookManager::RheiaBookManager(RheiaManagedFrame* parent):
@@ -37,6 +39,7 @@ RheiaBookManager::RheiaBookManager(RheiaManagedFrame* parent):
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) );
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) );
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) );
+	Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaBookManager::OnCloseParent) );
 }
 
 RheiaBookManager::~RheiaBookManager()
@@ -98,7 +101,8 @@ void RheiaBookManager::OnCloseParent( RheiaFrameEvent& event )
 {
     ///@todo here implement the check for closing all pages
     m_parent->RemoveEventHandler(this);
-
+	
+	RheiaDebug::Log( wxT("In Close Frame" ) );
     Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) );
     Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) );
     Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) );

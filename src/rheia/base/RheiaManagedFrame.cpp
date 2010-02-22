@@ -43,6 +43,7 @@
 #include <RheiaException.h>
 #include <RheiaEventsManager.h>
 #include <RheiaEventFrame.h>
+#include <RheiaDebug.h>
 
 /*! id comming from the main menu bar ressource for exiting the application*/
 int idFileExit = XRCID("idFileExit");
@@ -155,9 +156,11 @@ void RheiaManagedFrame::BuildAui(void)
 
 void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
 {
+	RheiaDebug::Log(wxT("request closing app, sending RheiaEVT_APP_START_SHUTDOWN") );
     RheiaEvent evt(RheiaEVT_APP_START_SHUTDOWN);
     RheiaEventsManager::Get()->ProcessEvent( evt );
-
+	
+	RheiaDebug::Log(wxT("Saving frame's configuration") );
     RheiaConfigurationManager* CfgMgr = RheiaProfileManager::Get()->GetActiveProfileManager();
 
     try
@@ -174,25 +177,37 @@ void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
 
     wxArrayString LayoutName;
     LayoutName.Add( wxT("default" ) );
-
+	
+	RheiaDebug::Log(wxT("Saving layout") );
     CfgMgr->WriteLayout( wxT("/MainFrame/LayoutManager") , m_layout,  LayoutName , LayoutVal );
 
     m_canClose = true;
-
+	
+	RheiaDebug::Log(wxT("Sending frame's RheiaEVT_FRAME_CLOSING") );
     RheiaFrameEvent evt2( RheiaEVT_FRAME_CLOSING , -1 , this );
-
+	
+	/*wxEvtHandler* hd = PopEventHandler();
+	while( hd && hd != GetEventHandler() )
+	{
+		RemoveEventHandler(hd);
+		hd = PopEventHandler();
+	}*/
+		
     /*** the worst solution ever found */
+	evt2.Skip(true);
     GetEventHandler()->ProcessEvent( evt2 );
-
+	RheiaDebug::Log(wxT("Sending frame's RheiaEVT_FRAME_CLOSING") );
     RheiaEventsManager::Get()->ProcessEvent( evt2 );
 
     if( !m_canClose )
     {
+		RheiaDebug::Log(wxT("Something wrong with the close") );
         m_closeOnly = true;
         event.Veto();
         return;
     }
-
+	
+	RheiaDebug::Log(wxT("Calling destroy") );
     Destroy();
 }
 
