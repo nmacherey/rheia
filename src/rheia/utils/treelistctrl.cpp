@@ -3636,7 +3636,7 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
 #if !wxCHECK_VERSION(2, 5, 0)
                 long cookie = 0;
 #else
-                wxTreeItemIdValue cookie = 0;
+                wxTreeItemIdValue cookie = 0; 
 #endif
 
                 newItem = GetFirstChild (newItem, cookie);
