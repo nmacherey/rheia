@@ -51,26 +51,26 @@ wxArrayString PyContext::GetKeywords()
 
 void PyContext::SetStyles( wxStyledTextCtrl* control )
 {
-    control->StyleSetSpec(wxSTC_STYLE_LINENUMBER, wxString("back:#E0E0E0,face:Monospace"));
-    control->StyleSetSpec(wxSTC_STYLE_CONTROLCHAR, wxString("face:Courier"));
-    control->StyleSetSpec(wxSTC_STYLE_BRACELIGHT, wxString("fore:#0000FF,back:#FFFF88"));
-    control->StyleSetSpec(wxSTC_STYLE_BRACEBAD, wxString("fore:#FF0000,back:#FFFF88"));
+    control->StyleSetSpec(wxSTC_STYLE_LINENUMBER, wxT("back:#E0E0E0,face:Monospace"));
+    control->StyleSetSpec(wxSTC_STYLE_CONTROLCHAR, wxT("face:Courier"));
+    control->StyleSetSpec(wxSTC_STYLE_BRACELIGHT, wxT("fore:#0000FF,back:#FFFF88"));
+    control->StyleSetSpec(wxSTC_STYLE_BRACEBAD, wxT("fore:#FF0000,back:#FFFF88"));
 
-    control->StyleSetSpec(wxSTC_P_DEFAULT, wxString("face:Monospace"));
-    control->StyleSetSpec(wxSTC_P_COMMENTLINE, wxString("fore:#007F00,face:Monospace"));
-    control->StyleSetSpec(wxSTC_P_NUMBER, wxString("fore:#0000C0,face:Monospace"));
-    control->StyleSetSpec(wxSTC_P_STRING, wxString("fore:#7F007F,face:Monospace"));
-    control->StyleSetSpec(wxSTC_P_CHARACTER, wxString("fore:#7F007F,face:Monospace"));
-    control->StyleSetSpec(wxSTC_P_WORD, wxString("fore:#00007F,bold"));
-    control->StyleSetSpec(wxSTC_P_WORD2, wxString("fore:#00007F,italic,bold"));
-    control->StyleSetSpec(wxSTC_P_TRIPLE, wxString("fore:#7F0000"));
-    control->StyleSetSpec(wxSTC_P_TRIPLEDOUBLE, wxString("fore:#000033,back:#FFFFE8"));
-    control->StyleSetSpec(wxSTC_P_DEFNAME, wxString("fore:#007F7F,bold"));
-    control->StyleSetSpec(wxSTC_P_CLASSNAME, wxString("fore:#C00000,italic,bold"));
-    control->StyleSetSpec(wxSTC_P_OPERATOR, wxString(""));
-    control->StyleSetSpec(wxSTC_P_IDENTIFIER, wxString(""));
-    control->StyleSetSpec(wxSTC_P_COMMENTBLOCK, wxString("fore:#7F7F7F"));
-    control->StyleSetSpec(wxSTC_P_STRINGEOL, wxString("fore:#000000,face:Monospace,back:#E0C0E0,eolfilled"));
+    control->StyleSetSpec(wxSTC_P_DEFAULT, wxT("face:Monospace"));
+    control->StyleSetSpec(wxSTC_P_COMMENTLINE, wxT("fore:#007F00,face:Monospace"));
+    control->StyleSetSpec(wxSTC_P_NUMBER, wxT("fore:#0000C0,face:Monospace"));
+    control->StyleSetSpec(wxSTC_P_STRING, wxT("fore:#7F007F,face:Monospace"));
+    control->StyleSetSpec(wxSTC_P_CHARACTER, wxT("fore:#7F007F,face:Monospace"));
+    control->StyleSetSpec(wxSTC_P_WORD, wxT("fore:#00007F,bold"));
+    control->StyleSetSpec(wxSTC_P_WORD2, wxT("fore:#00007F,italic,bold"));
+    control->StyleSetSpec(wxSTC_P_TRIPLE, wxT("fore:#7F0000"));
+    control->StyleSetSpec(wxSTC_P_TRIPLEDOUBLE, wxT("fore:#000033,back:#FFFFE8"));
+    control->StyleSetSpec(wxSTC_P_DEFNAME, wxT("fore:#007F7F,bold"));
+    control->StyleSetSpec(wxSTC_P_CLASSNAME, wxT("fore:#C00000,italic,bold"));
+    control->StyleSetSpec(wxSTC_P_OPERATOR, wxT(""));
+    control->StyleSetSpec(wxSTC_P_IDENTIFIER, wxT(""));
+    control->StyleSetSpec(wxSTC_P_COMMENTBLOCK, wxT("fore:#7F7F7F"));
+    control->StyleSetSpec(wxSTC_P_STRINGEOL, wxT("fore:#000000,face:Monospace,back:#E0C0E0,eolfilled"));
 
 //    control->StyleSetBold(wxSTC_P_WORD, true);
 //    control->StyleSetForeground(wxSTC_P_WORD, *wxBLUE);
