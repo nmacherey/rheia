@@ -192,6 +192,17 @@ bool RheiaWizardManager::RegisterProjectWizard( const wxString& name ,
     return true;
 }
 
+bool RheiaWizardManager::UnregisterProjectWizard( const wxString& name )
+{
+	RheiaProjectWizardRegistrationMap::iterator it = m_RegisteredWizards.find( name );
+
+    if ( it == m_RegisteredWizards.end() )
+        return false;
+		
+	m_RegisteredWizards.erase(it);
+	return true;
+}
+
 wxArrayString RheiaWizardManager::GetWizardList( )
 {
     wxArrayString ret;

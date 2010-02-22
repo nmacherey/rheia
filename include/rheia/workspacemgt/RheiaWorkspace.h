@@ -42,9 +42,6 @@ class RheiaManagedFrame;
 class RheiaProject;
 class RheiaWorkspaceManager;
 
-///*! associate a wxString to a RheiaProject object pointer */
-//typedef std::map< wxString , RheiaProject* > RheiaProjectTable;
-
 /**
 *	@class RheiaWorkspace
 *
@@ -111,39 +108,6 @@ public :
 	/*************************************************************************************************
 	*	METHODS
 	*************************************************************************************************/
-//	/** Create workspace items in the Configuration Tree.
-//	*	This method is called when attaching the workspace to the main frame. This method
-//	*	is virtual pure, you has to derive it for any type of workspace.
-//	*
-//	*	@param Tree The wxTreeCtrl in which we want to create the configuration Tree
-//	*	@param root	The node of the @c Tree treat as root node for creating tree items of
-//	*				the workspace
-//	*/
-//	virtual void CreateManagementTree( wxTreeCtrl *Tree , const wxTreeItemId& root );
-//
-//	/*! Create workspace items in the Configuration Tree.
-//	*	This method is called when attaching the workspace to the main frame. This method
-//	*	is virtual pure, you has to derive it for any type of workspace.
-//	*
-//	*	@param Tree The wxTreeCtrl in which we want to create the configuration Tree
-//	*	@param root	The node of the @c Tree treat as root node for creating tree items of
-//	*				the workspace
-//	*/
-//	virtual void UpdateManagementTree( wxTreeCtrl *Tree , const wxTreeItemId& root );
-
-
-//	/*! Specifies if the workspace has been modified in any way.
-//	*
-//	*	@return True if the workspace is modified in any way. */
-//	virtual bool HasBeenModified();
-//
-//	/*! Mark the workspace as modified or not.
-//	*	This function shall be derived by any workspace in order to manage specific info
-//	*	when marking the workspace has modified.
-//	*
-//	* @param modified If true, the workspace is marked as modified. If false, as not-modified.
-//	*/
-//	virtual void SetHasBeenModified(bool modified = true);
 
 	/*! Returns the workspace's name */
 	virtual wxString GetName( void ) const { return Name; };
@@ -189,48 +153,6 @@ public :
     /** this method is used whent the item is about to be dragged */
     virtual bool OnEndDrag() {return false;};
 
-//	/*! This is used to get the whole project table for the workspace */
-//	RheiaProjectTable &GetProjectTable(void){ return ProjectTable;};
-//
-//	/*! This function is used to add a project to the workspace's projects table
-//	*
-//	*	@param name name of the project to add
-//	*	@param project pointer to the RheiaProject to add in the workspace
-//	*/
-//	virtual bool AddProject( wxString name, RheiaProject* project );
-//
-//	/*! Finds a Specific project in the workspace map by its name
-//	*	@param name Name of the project to get
-//	*/
-//	RheiaProject *FindProjectByName( const wxString name );
-//
-//	/*! Removes a project in the workspace map by its name
-//	*	@param name Name of the project to remove
-//	*	@param confirm specifies if the workspace shall ask for a confirmation for the removal
-//	*/
-//	virtual bool RemoveProject( const wxString name , bool confirm = true );
-//
-//	/*! Removes a project in the workspace map by its RheiaProject Ptr
-//	*	@param project RheiaProject pointer of the project to remove
-//	*	@param confirm specifies if the workspace shall ask for a confirmation for the removal
-//	*/
-//	virtual bool RemoveProject( RheiaProject* project , bool confirm = true );
-//
-//	/*! This method returns the management tree root item */
-//	wxTreeItemId& GetManagementTreeRoot( void )	{return WorkspaceManagementRoot;};
-//
-//	/*! Specifies if a project exists in the project table or not */
-//	bool ProjectExists( wxString name );
-
-//	/*! Returns the array of project names */
-//	wxArrayString& GetProjectNames();
-
-//    /** Get the workspace currently selected project */
-//    wxString& GetCurrentProject() {return CurrentProject;};
-//
-//    /** Sets the workspace currently selected project */
-//    void SetCurrentProject( wxString name ) {CurrentProject = name;};
-
     /** Changes the workspace name */
     void SetName( const wxString& name ) {Name = name;};
 
@@ -244,9 +166,6 @@ protected :
 	wxString FileName;											/*!< File name of the workspace */
 	bool isLoaded;												/*!< Specifies if the workspace has been fully loaded or not */
 	wxString Name;												/*!< Name of the workspace in GRAYMAT BOX choosen by the user */
-	//RheiaProjectTable ProjectTable;								/*!< All projects available in the workspace */
-	//wxArrayString ProjectsNames;								/*!< Names of projects in the workspace */
-	//wxString CurrentProject;
 	RheiaManagedFrame* m_parent;
 	wxBitmap m_bmp;
 

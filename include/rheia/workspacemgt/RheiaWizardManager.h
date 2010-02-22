@@ -112,6 +112,8 @@ public :
                                 const wxString& bitmapBasename,
                                 WizardConstructor ctor,
                                 WizardDestructor dtor );
+								
+	static bool UnregisterProjectWizard( const wxString& name );
 
     /**
     *   Get the available project wizards. This function
@@ -230,12 +232,20 @@ public :
     */
     RheiaProjectWizardRegistrant( const wxString& name , const wxString& category, const wxString& bitmapBase )
     {
+		m_type = name;
+		
         RheiaWizardManager::RegisterProjectWizard( name ,
                                                     category,
                                                     bitmapBase,
                                                     &Create ,
                                                     &Free );
     }
+	
+	/** destructor */
+	virtual ~RheiaProjectWizardRegistrant() 
+	{
+		RheiaWizardManager::UnregisterProjectWizard( m_type );
+	}
 
     /**
     *   Create project function
@@ -259,6 +269,8 @@ public :
     {
         delete wizard;
     }
+private :
+	wxString m_type;
 };
 
 /** define the easy macro to register the project wizard in the factory */

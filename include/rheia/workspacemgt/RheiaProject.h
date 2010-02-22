@@ -109,38 +109,6 @@ public :
 	/*************************************************************************************************
 	*	METHODS
 	*************************************************************************************************/
-//	/**
-//	* Create project items basically from the workspace Tree.
-//	*
-//	*	@param Tree The wxTreeCtrl in which we want to create the configuration Tree
-//	*	@param root	The node of the @c Tree treat as root node for creating tree items of
-//	*				the project
-//	*/
-//	virtual void CreateManagementTree( wxTreeCtrl *Tree , const wxTreeItemId& root );
-//
-//	/**
-//	*   On create management tree method
-//	*   you need to overload this method in order to create specific information in the management
-//	*   tree when the project is added.
-//	*
-//	*	@param Tree The wxTreeCtrl in which we want to create the configuration Tree
-//	*	@param root	The node of the @c Tree treat as root node for creating tree items of
-//	*				the project
-//	*/
-//	virtual void OnCreateManagementTree(wxTreeCtrl *Tree , const wxTreeItemId& root){};
-
-//	/** Specifies if the project has been modified in any way.
-//	*
-//	*	@return True if the project is modified in any way. */
-//	virtual bool HasBeenModified();
-//
-//	/** Mark the project as modified or not.
-//	*	This function shall be derived by any project in order to manage specific info
-//	*	when marking the project has modified.
-//	*
-//	* @param modified If true, the project is marked as modified. If false, as not-modified.
-//	*/
-//	virtual void SetHasBeenModified(bool modified = true);
 
 	/** Returns the project's name */
 	wxString GetName( void ) const { return m_name; };

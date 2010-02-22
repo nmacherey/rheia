@@ -38,6 +38,9 @@ public :
     *   @param workspace the workspace to load or save
     */
     RheiaWorkspaceLoader( RheiaWorkspace *workspace );
+	
+	/** destructor */
+	virtual ~RheiaWorkspaceLoader() {};
 
     /**
     *   Load the content of the given file in the workspace and return

@@ -40,6 +40,9 @@ public:
     *   @param parent the parent window
     */
 	RheiaWkspMgrSettingsPanel( wxWindow* parent );
+	
+	/** destructor */
+	virtual ~RheiaWkspMgrSettingsPanel() {};
 
     /*******************************************************************************
     *   METHODS TO OVERLOAD

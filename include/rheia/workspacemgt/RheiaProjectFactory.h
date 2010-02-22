@@ -126,6 +126,9 @@ public :
                         const wxString& title,
                         const wxString& bitmapBaseName,
                         ProjectConstructor ctor, ProjectDestructor dtor );
+						
+	/** Unregister a project */
+	bool UnregisterProject( const wxString& name );
 
     /** Get registered projects map from the factory */
     RheiaProjectRegistrationMap& GetRegisteredProjects(){return m_RegisteredProjects;};
@@ -185,6 +188,8 @@ public :
     */
     RheiaProjectRegistrant( const wxString& name )
     {
+		m_projectType = name;
+		
         RheiaProjectFactory::Get()->RegisterProject( name ,
                                                     T::description ,
                                                     T::title ,
@@ -192,6 +197,11 @@ public :
                                                     &Create ,
                                                     &Free );
     }
+	
+	/** destructor */
+	virtual ~RheiaProjectRegistrant() {
+		RheiaProjectFactory::Get()->UnregisterProject( m_projectType );
+	}
 
     /**
     *   Create project function
@@ -217,6 +227,9 @@ public :
     {
         delete project;
     }
+	
+private :
+	wxString m_projectType;
 };
 
 /** define the easy macro to register the project in the factory */

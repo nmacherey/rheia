@@ -45,6 +45,9 @@ public :
     *   Default constructor with no project
     */
     RheiaProjectLoader( );
+	
+	/** destructor */
+	virtual ~RheiaProjectLoader() {};
 
     /**
     *   Load the content of the given file in the project and return
@@ -77,22 +80,6 @@ private :
     */
     bool DoLoadProjectOptions( xmlNode* parent );
 
-//    /**
-//    *   Load the project elements from the project node
-//    *
-//    *   @param parent the parent node from which to load the project elements
-//    *   @return true if the elements has been loaded properly
-//    */
-//    bool DoLoadProjectElements( xmlNode* parent );
-//
-//    /**
-//    *   Load an element from the given parent node
-//    *
-//    *   @param parent the parent node from which to load the project element
-//    *   @return true if the elements has been loaded properly
-//    */
-//    RheiaProjectElement *DoLoadElementFromNode( xmlNode* parent );
-
     /**
     *   Save the project options to the given node
     *
@@ -100,24 +87,6 @@ private :
     *   @return true if the options have been saved properly
     */
     bool DoSaveProjectOptions( xmlNode* parent );
-
-//    /**
-//    *   Save the project elements to the project node
-//    *
-//    *   @param parent the parent node in which to save the project elements
-//    *   @return true if the elements has been saved properly
-//    */
-//    bool DoSaveProjectElements( xmlNode* parent );
-//
-//    /**
-//    *   Save an element in the given parent node
-//    *
-//    *   @param element the element to save in the node
-//    *   @param parent the parent node in which to save the project element
-//    *
-//    *   @return true if the element has been saved properly
-//    */
-//    bool DoSaveElementToNode( RheiaProjectElement* element, xmlNode* parent );
 
 private :
 

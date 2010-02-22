@@ -50,6 +50,17 @@ bool RheiaProjectFactory::RegisterProject( const wxString& name ,
     return true;
 }
 
+bool RheiaProjectFactory::UnregisterProject( const wxString& name )
+{
+	RheiaProjectRegistrationMap::iterator it = m_RegisteredProjects.find( name );
+
+    if ( it == m_RegisteredProjects.end() )
+        return false;
+		
+	m_RegisteredProjects.erase(it);
+	return true;
+}
+
 RheiaProject* RheiaProjectFactory::CreateProject( const wxString& type,
     RheiaManagedFrame* parent,
     RheiaWorkspace* workspace,
