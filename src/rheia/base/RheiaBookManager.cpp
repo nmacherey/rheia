@@ -42,7 +42,7 @@ RheiaBookManager::RheiaBookManager(RheiaManagedFrame* parent):
 	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaBookManager::OnCloseParent) , NULL , this );
 }
 
-RheiaBookManager::~RheiaBookManager()
+RheiaBookManager::~RheiaBookManager() 
 {
     /*if (m_parent)
     {
