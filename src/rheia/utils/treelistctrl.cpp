@@ -3638,6 +3638,7 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
 #else
                 wxTreeItemIdValue cookie = 0;
 #endif
+
                 newItem = GetFirstChild (newItem, cookie);
             }
         }break;
@@ -3657,7 +3658,7 @@ if wxCHECK_VERSION(2,9,0)
                     newItem = FindItem (prev, m_findStr, wxTL_MODE_NAV_EXPANDED |
                                                          wxTL_MODE_FIND_PARTIAL |
                                                          wxTL_MODE_FIND_NOCASE);
-                    if (newItem || (m_findStr.Length() <= 1)) break;
+                    if (newItem || (m_findStr.Length() <= 1)) break; 
                     m_findStr.RemoveLast();
                 };
             }
