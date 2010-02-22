@@ -54,26 +54,26 @@ void CppContext::SetStyles( wxStyledTextCtrl* control )
 //    control->StyleSetForeground(wxSTC_C_COMMENTLINEDOC, wxColour(0, 128, 0));
 //    control->StyleSetForeground(wxSTC_C_NUMBER, *wxBLUE );
 
-    control->StyleSetSpec(wxSTC_STYLE_LINENUMBER, wxString("back:#E0E0E0,face:Monospace"));
-    control->StyleSetSpec(wxSTC_STYLE_CONTROLCHAR, wxString("face:Courier"));
-    control->StyleSetSpec(wxSTC_STYLE_BRACELIGHT, wxString("fore:#0000FF,back:#FFFF88"));
-    control->StyleSetSpec(wxSTC_STYLE_BRACEBAD, wxString("fore:#FF0000,back:#FFFF88"));
-    control->StyleSetSpec(wxSTC_C_PREPROCESSOR, wxString("fore:#7F007F,face:Monospace"));
-    control->StyleSetSpec(wxSTC_C_GLOBALCLASS, wxString("fore:#FF0000,bold,italic"));
+    control->StyleSetSpec(wxSTC_STYLE_LINENUMBER, wxT("back:#E0E0E0,face:Monospace"));
+    control->StyleSetSpec(wxSTC_STYLE_CONTROLCHAR, wxT("face:Courier"));
+    control->StyleSetSpec(wxSTC_STYLE_BRACELIGHT, wxT("fore:#0000FF,back:#FFFF88"));
+    control->StyleSetSpec(wxSTC_STYLE_BRACEBAD, wxT("fore:#FF0000,back:#FFFF88"));
+    control->StyleSetSpec(wxSTC_C_PREPROCESSOR, wxT("fore:#7F007F,face:Monospace"));
+    control->StyleSetSpec(wxSTC_C_GLOBALCLASS, wxT("fore:#FF0000,bold,italic"));
 
-    control->StyleSetSpec(wxSTC_C_DEFAULT, wxString("face:Monospace"));
-    control->StyleSetSpec(wxSTC_C_COMMENTLINE, wxString("fore:#007F00,face:Monospace"));
-    control->StyleSetSpec(wxSTC_C_NUMBER, wxString("fore:#0000C0,face:Monospace"));
-    control->StyleSetSpec(wxSTC_C_STRING, wxString("fore:#7F007F,face:Monospace,italic"));
-    control->StyleSetSpec(wxSTC_C_STRINGEOL, wxString("fore:#7F007F,face:Monospace"));
-    control->StyleSetSpec(wxSTC_C_CHARACTER, wxString("fore:#7F007F,face:Monospace"));
-    control->StyleSetSpec(wxSTC_C_WORD, wxString("fore:#00007F,bold"));
-    control->StyleSetSpec(wxSTC_C_WORD2, wxString("fore:#00007F,italic,bold"));
-    //control->StyleSetSpec(wxSTC_C_CLASSNAME, wxString("fore:#C00000,italic,bold"));
-    control->StyleSetSpec(wxSTC_C_OPERATOR, wxString(""));
-    control->StyleSetSpec(wxSTC_C_IDENTIFIER, wxString(""));
-    control->StyleSetSpec(wxSTC_C_COMMENTDOC, wxString("fore:#OO7F7F"));
-    control->StyleSetSpec(wxSTC_C_COMMENTDOCKEYWORD, wxString("fore:#OO7F7F"));
-    control->StyleSetSpec(wxSTC_C_COMMENTLINEDOC, wxString("fore:#OO7F7F"));
-    control->StyleSetSpec(wxSTC_C_STRINGEOL, wxString("fore:#000000,face:Monospace,back:#E0C0E0,eolfilled"));
+    control->StyleSetSpec(wxSTC_C_DEFAULT, wxT("face:Monospace"));
+    control->StyleSetSpec(wxSTC_C_COMMENTLINE, wxT("fore:#007F00,face:Monospace"));
+    control->StyleSetSpec(wxSTC_C_NUMBER, wxT("fore:#0000C0,face:Monospace"));
+    control->StyleSetSpec(wxSTC_C_STRING, wxT("fore:#7F007F,face:Monospace,italic"));
+    control->StyleSetSpec(wxSTC_C_STRINGEOL, wxT("fore:#7F007F,face:Monospace"));
+    control->StyleSetSpec(wxSTC_C_CHARACTER, wxT("fore:#7F007F,face:Monospace"));
+    control->StyleSetSpec(wxSTC_C_WORD, wxT("fore:#00007F,bold"));
+    control->StyleSetSpec(wxSTC_C_WORD2, wxT("fore:#00007F,italic,bold"));
+    //control->StyleSetSpec(wxSTC_C_CLASSNAME, wxT("fore:#C00000,italic,bold"));
+    control->StyleSetSpec(wxSTC_C_OPERATOR, wxT(""));
+    control->StyleSetSpec(wxSTC_C_IDENTIFIER, wxT(""));
+    control->StyleSetSpec(wxSTC_C_COMMENTDOC, wxT("fore:#OO7F7F"));
+    control->StyleSetSpec(wxSTC_C_COMMENTDOCKEYWORD, wxT("fore:#OO7F7F"));
+    control->StyleSetSpec(wxSTC_C_COMMENTLINEDOC, wxT("fore:#OO7F7F"));
+    control->StyleSetSpec(wxSTC_C_STRINGEOL, wxT("fore:#000000,face:Monospace,back:#E0C0E0,eolfilled"));
 }
