@@ -3646,7 +3646,11 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
         default:
             if (event.GetKeyCode() >= (int)' ') {
                 if (!m_findTimer->IsRunning()) m_findStr.Clear();
+if wxCHECK_VERSION(2,9,0)				
                 m_findStr.Append ((char*) event.GetKeyCode());
+#else
+				m_findStr.Append ((int) event.GetKeyCode());
+#end
                 m_findTimer->Start (FIND_TIMER_TICKS, wxTIMER_ONE_SHOT);
                 wxTreeItemId prev = m_curItem? (wxTreeItemId*)m_curItem: (wxTreeItemId*)NULL;
                 while (true) {

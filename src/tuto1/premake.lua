@@ -14,13 +14,6 @@
 --******* Initial Setup ************
 --*	Most of the setting are set here.
 --**********************************
--- wxWidgets version
-local wx_ver = ""
-if( windows ) then
-	wx_ver = "29"
-else
-	wx_ver = "2.9"
-end
 
 -- Set the name of your package.
 package.name = "pyedt"
@@ -58,8 +51,26 @@ package.defines = { "HAVE_CONFIG_H" , "RHEIA_USE_IRRLICHT" }
 --*********************************
 -- Package options
 addoption( "unicode", "Use the Unicode character set" )
+addoption( "with-wx-28", "Use the Unicode character set" )
+
 if ( not windows ) then
 	addoption( "disable-wx-debug", "Compile against a wxWidgets library without debugging" )
+end
+
+-- wxWidgets version
+local wx_ver = ""
+if( options["with-wx-28"] ) then
+	if( windows ) then
+		wx_ver = "28"
+	else
+		wx_ver = "2.8"
+	end
+else
+	if( windows ) then
+		wx_ver = "29"
+	else
+		wx_ver = "2.9"
+	end
 end
 
 -- Common setup
@@ -254,11 +265,20 @@ else
 	table.insert( package.config["Release"].buildoptions, "`wx-config --cflags`" )
 	table.insert( package.config["Release"].buildoptions, "`xml2-config --cflags`" )
 
-	-- Set the wxWidgets link options.
-	table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --static=no --libs all`" )
-	table.insert( package.config["Debug"].linkoptions, "`xml2-config --libs`" )
+	if( wx_ver == "2.9" ) then
+		-- Set the wxWidgets link options.
+		table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --static=no --libs all`" )
+		table.insert( package.config["Debug"].linkoptions, "`xml2-config --libs`" )
 
-	table.insert( package.config["Release"].linkoptions, "`wx-config --debug=no --static=no --libs all`" )
-	table.insert( package.config["Release"].linkoptions, "`xml2-config --libs`" )
+		table.insert( package.config["Release"].linkoptions, "`wx-config --debug=no --static=no --libs all`" )
+		table.insert( package.config["Release"].linkoptions, "`xml2-config --libs`" )
+	else
+		-- Set the wxWidgets link options.
+		table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --libs`" )
+		table.insert( package.config["Debug"].linkoptions, "`xml2-config --libs`" )
+
+		table.insert( package.config["Release"].linkoptions, "`wx-config --debug=no --libs`" )
+		table.insert( package.config["Release"].linkoptions, "`xml2-config --libs`" )
+	end
 end
 
