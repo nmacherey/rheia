@@ -3634,7 +3634,7 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
             newItem = GetRootItem();
             if (HasFlag(wxTR_HIDE_ROOT)) {
 #if !wxCHECK_VERSION(2, 5, 0)
-                long cookie = 0;
+                long cookie = 0; 
 #else
                 wxTreeItemIdValue cookie = 0;
 #endif
