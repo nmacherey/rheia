@@ -94,14 +94,8 @@ public :
 	/*! This function is for loading resource to make them available */
 	static bool LoadResource( const wxString& file );
 
-//	/*! Returns the workspace manager */
-//	RheiaWorkspaceManager *GetWorkspaceManager(RheiaManagedFrame* parent);
-
 	/*! Returns the center pane manager */
 	RheiaCenterPaneManager *GetCenterPaneManager(RheiaManagedFrame* parent);
-
-//	/*! Returns the bottom pane manager */
-//	RheiaLoggerManager *GetLoggerManager(RheiaManagedFrame* parent);
 
 	/*! Returns the menu manager */
 	RheiaMenuManager *GetMenuManager(RheiaManagedFrame* parent);
@@ -111,9 +105,6 @@ public :
 
 	/*! Returns the statusbar manager */
 	RheiaStatusBarManager *GetStatusBarManager(RheiaManagedFrame* parent);
-
-//	/*! Returns the PluginManager */
-//	RheiaPluginManager * GetPluginManager(void);
 
 	/*! Returns the ProfileManager */
 	RheiaProfileManager * GetProfileManager(void);

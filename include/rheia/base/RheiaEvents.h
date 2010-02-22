@@ -47,13 +47,16 @@ public:
 		X(0),
 		Y(0) { }
 
-	/*! Copy Constructor
+	/** Copy Constructor
 	*	@param event RheiaEvent from which to copy
 	*/
 	RheiaEvent(const RheiaEvent& event)
 		: wxNotifyEvent(event),
 		X(event.X),
 		Y(event.Y) {}
+		
+	/** destrcutor */
+	virtual ~RheiaEvent() {};
 
 	/*******************************************************************************************************
 	*	METHODS

@@ -50,6 +50,18 @@ struct RheiaConfigurationPageInfo
         idxOff(rhs.idxOff),
         title(rhs.title)
         {};
+		
+	/** destructor */
+	~RheiaConfigurationPageInfo(){page=NULL;}
+	
+	/** operator = overload */
+	RheiaConfigurationPageInfo& operator= (const RheiaConfigurationPageInfo& rhs )
+	{
+		page = rhs.page;
+		idxOn = rhs.idxOn;
+		idxOff = rhs.idxOff;
+		title = rhs.title;
+	}
 
     RheiaConfigurationPanel* page;
     int idxOn;

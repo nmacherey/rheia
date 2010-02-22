@@ -11,6 +11,7 @@
 #include <wx/aui/aui.h>
 
 #include <RheiaEvents.h>
+#include <RheiaDebug.h>
 #include <RheiaCenterPaneManager.h>
 #include <RheiaMenuManager.h>
 #include <RheiaToolBarManager.h>
@@ -63,6 +64,7 @@ void RheiaManager::Close()
     RheiaEnvironementManager::Free();
     RheiaConfigurationPattern::Free(); // only terminate config at the very last moment
     RheiaXmlManager::Free();
+	RheiaDebug::Free();
 }
 
 /***********************************************************************************************
@@ -117,29 +119,11 @@ bool RheiaManager::LoadResource(const wxString& file)
     }
 }
 
-///* Returns the Left pane manager */
-//RheiaWorkspaceManager* RheiaManager::GetWorkspaceManager(RheiaManagedFrame* parent)
-//{
-//    return RheiaWorkspaceManager::Get(parent);
-//}
-
 /* Returns the center pane manager */
 RheiaCenterPaneManager* RheiaManager::GetCenterPaneManager(RheiaManagedFrame* parent)
 {
     return RheiaCenterPaneManager::Get(parent);
 }
-
-///* Returns the bottom pane manager */
-//RheiaLoggerManager* RheiaManager::GetLoggerManager(RheiaManagedFrame* parent)
-//{
-//    return RheiaLoggerManager::Get(parent);
-//}
-
-///* Returns the bottom pane manager */
-//RheiaPluginManager* RheiaManager::GetPluginManager(void)
-//{
-//    return RheiaPluginManager::Get();
-//}
 
 /* Returns the profile manager */
 RheiaProfileManager* RheiaManager::GetProfileManager(void)

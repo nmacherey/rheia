@@ -48,6 +48,9 @@ public:
     *   @param parent the parent window
     */
 	RheiaApplicationGeneralPanel( wxWindow* parent );
+	
+	/** default destrcutor */
+	virtual ~RheiaApplicationGeneralPanel() {};
 
     /*******************************************************************************
     *   METHODS TO OVERLOAD

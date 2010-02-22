@@ -41,6 +41,9 @@ public:
     *   @param parent the parent window
     */
 	RheiaDockSystSettingsPanel( wxWindow* parent );
+	
+	/** Default destructor */
+	virtual ~RheiaDockSystSettingsPanel() {};
 
     /*******************************************************************************
     *   METHODS TO OVERLOAD

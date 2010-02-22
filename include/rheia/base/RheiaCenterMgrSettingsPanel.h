@@ -45,6 +45,9 @@ public:
     *   @param parent the parent window
     */
 	RheiaCenterMgrSettingsPanel( wxWindow* parent );
+	
+	/** default destrcutor */
+	virtual ~RheiaCenterMgrSettingsPanel() {};
 
     /*******************************************************************************
     *   METHODS TO OVERLOAD

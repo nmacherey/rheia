@@ -39,6 +39,9 @@ public:
     ******************************************************************************************************/
     /** default constructor taking the parent in input */
     RheiaEnvVarsSelectionDialog(wxWindow* parent);
+	
+	/** destructor */
+	virtual ~RheiaEnvVarsSelectionDialog() {};
 
     /******************************************************************************************************
     *   METHODS

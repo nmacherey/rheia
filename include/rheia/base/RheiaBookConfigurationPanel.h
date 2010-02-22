@@ -44,6 +44,9 @@ public:
     *   do not want to do so simply call wxPanel::Create.
     */
 	RheiaBookConfigurationPanel(wxWindow *parent,RheiaConfigurationManager* cfg);
+	
+	/** default destructor */
+	virtual ~RheiaBookConfigurationPanel() {};
 
     /*******************************************************************************
     *   METHODS TO OVERLOAD

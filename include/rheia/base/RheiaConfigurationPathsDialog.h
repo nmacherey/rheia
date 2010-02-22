@@ -51,6 +51,9 @@ public:
     *   @param parent parent window in which the dialog shall be created
     */
     RheiaConfigurationPathsDialog(wxWindow* parent);
+	
+	/** default destructor */
+	virtual ~RheiaConfigurationPathsDialog() {};
 
     /******************************************************************************************************
     *   METHODS

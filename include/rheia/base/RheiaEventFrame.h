@@ -54,7 +54,7 @@ public:
         m_name( name )
 		{}
 
-	/*! Copy Constructor
+	/** Copy Constructor
 	*	@param event RheiaEvent from which to copy
 	*/
 	RheiaFrameEvent(const RheiaFrameEvent& event)
@@ -62,6 +62,8 @@ public:
 		m_frame( event.m_frame ),
 		m_name(event.m_name)
 		{}
+		
+	virtual ~RheiaFrameEvent() {m_frame = 0L;};
 
 	/*******************************************************************************************************
 	*	METHODS

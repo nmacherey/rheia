@@ -60,6 +60,9 @@ public:
     *   @param parent parent window in which the dialog shall be created
     */
     RheiaEnvVarsConfigurationDialog(wxWindow* parent);
+	
+	/** destructor */
+	virtual ~RheiaEnvVarsConfigurationDialog() {};
 
     /******************************************************************************************************
     *   METHODS

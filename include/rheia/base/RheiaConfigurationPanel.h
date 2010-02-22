@@ -40,6 +40,9 @@ public:
     *   do not want to do so simply call wxPanel::Create.
     */
 	RheiaConfigurationPanel(){};
+	
+	/** Default destructor */
+	virtual ~RheiaConfigurationPanel(){};
 
     /*******************************************************************************
     *   METHODS TO OVERLOAD

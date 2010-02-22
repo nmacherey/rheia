@@ -19,16 +19,16 @@
 
 /*** Rheia imports */
 class RheiaEvent;
-//class RheiaProjectEvent;
-//class RheiaPluginEvent;
-//class RheiaWorkspaceEvent;
-class RheiaFrameEvent;
 
 /**
 *   @class RheiaEventsManager
 *
 *   @brief This is the main class for generating events in Rheia, you can register and/or generate any
 *   events with this class.
+* 	
+* 	This class can handle any event derived from a wxEvent... To do this you have to register the event 
+* 	method using the RegisterEventMethod and the RheiaEventFunctor template. The method in your template 
+* 	shall be registered properly using a RheiaFooEventHandler ok wxCommandEventHandler macro
 *
 *	@author Nicolas Macherey (nm@graymat.fr)
 *	@date	04-January-2010
@@ -51,38 +51,8 @@ public :
     /** Process to the given event */
 	bool ProcessEvent(wxEvent& event);
 
-//	/** Process to the given event */
-//	bool ProcessEvent(wxCommandEvent& event);
-
-//	/** Process to the given event */
-//	bool ProcessEvent(RheiaProjectEvent& event);
-//
-//	/** Process to the given event */
-//	bool ProcessEvent(RheiaPluginEvent& event);
-//
-//	/** Process to the given event */
-//	bool ProcessEvent(RheiaWorkspaceEvent& event);
-
-//	/** Process to the given event */
-//	bool ProcessEvent(RheiaFrameEvent& event);
-
 	/** Register Event sink for a RheiaEvent */
 	void RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase* functor);
-
-//	/** Register Event sink for a RheiaEvent */
-//	void RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase<wxCommandEvent>* functor);
-
-//	/** Register Event sink for a RheiaProjectEvent */
-//	void RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase<RheiaProjectEvent>* functor);
-//
-//	/** Register Event sink for a RheiaPluginEvent */
-//	void RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase<RheiaPluginEvent>* functor);
-//
-//	/** Register Event sink for a RheiaWorkspaceEvent */
-//	void RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase<RheiaWorkspaceEvent>* functor);
-
-//	/** Register Event sink for a RheiaWorkspaceEvent */
-//	void RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase<RheiaFrameEvent>* functor);
 
 	/** Removes all the processed event sinks for a specified owner */
 	void RemoveAllEventMethodsFor(void* owner);
@@ -119,27 +89,7 @@ protected :
 	typedef std::vector< RheiaEventFunctorBase* > EventMethodsArray;
 	typedef std::map< wxEventType, EventMethodsArray > EventMethodsMap;
 
-//	typedef std::vector< RheiaEventFunctorBase<RheiaProjectEvent>* > ProjectEventMethodsArray;
-//	typedef std::map< wxEventType, ProjectEventMethodsArray > ProjectEventMethodsMap;
-
-//	typedef std::vector< RheiaEventFunctorBase<wxCommandEvent>* > CommandEventMethodsArray;
-//	typedef std::map< wxEventType, CommandEventMethodsArray > CommandEventMethodsMap;
-
-//	typedef std::vector< RheiaEventFunctorBase<RheiaPluginEvent>* > PluginEventMethodsArray;
-//	typedef std::map< wxEventType, PluginEventMethodsArray > PluginEventMethodsMap;
-//
-//	typedef std::vector< RheiaEventFunctorBase<RheiaWorkspaceEvent>* > WorkspaceEventMethodsArray;
-//	typedef std::map< wxEventType, WorkspaceEventMethodsArray > WorkspaceEventMethodsMap;
-
-//	typedef std::vector< RheiaEventFunctorBase<RheiaFrameEvent>* > FrameEventMethodsArray;
-//	typedef std::map< wxEventType, FrameEventMethodsArray > FrameEventMethodsMap;
-
 	EventMethodsMap EventMethods;
-//    ProjectEventMethodsMap ProjectEventMethods;
-//    CommandEventMethodsMap CommandEventMethods;
-//    PluginEventMethodsMap PluginEventMethods;
-//    WorkspaceEventMethodsMap WorkspaceEventMethods;
-//    FrameEventMethodsMap FrameEventMethods;
 };
 
 #endif

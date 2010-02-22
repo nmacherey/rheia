@@ -15,6 +15,14 @@
 /**
 *   @class RheiaDebug
 *	@breif basic debugging window which do nothing if RHEIA_DEBUG is not defined
+* 	
+* 	This class allow you to have a Debug window indepent of the application displayed 
+* 	which will show you the wxWidgets logs in. 
+* 	This class is static and is more like a global namespace, use RheiaDebug::Log( ) to log in the window
+* 	
+* 	You should don't care about removing calls to this class in Release mode because in this mode it is really doing
+* 	nothing...
+* 
 *   @author Nicolas Macherey (nm@graymat.fr)
 *   @version 0.0.1
 *   @date 21-February-2009
@@ -22,10 +30,20 @@
 class BASE_DLLEXPORT RheiaDebug
 {
 public :
+	/** The log method is working as the wxString::Format method which is like the
+	 * printf one but with wxStrings,
+	 * this will create and redirect the wxLog to the independent Log window 
+	 */
 	static void Log( const wxChar* format, ... );
+	
+	/** You shal don't care about this method it is called in the RheiaManager::Close method
+	 * at the very end of the application shut down => so you shall be able to use this class
+	 * at anytime Rheia gives you the hand on the application
+	 */
 	static void Free();
 	
 private :
+
 #ifdef RHEIA_DEBUG
 	static wxLog* m_debugLogTarget;
 #endif
