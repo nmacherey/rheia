@@ -12,7 +12,7 @@ devel
 *.obj*
 icons
 *~
-*.tags*
+*tags*
 *.mk*
 *.workspace*
 projects
