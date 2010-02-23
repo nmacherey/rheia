@@ -1,4 +1,4 @@
-defText	/home/nicolas/Desktop/RheiaTemp/rheia/unstable/src/tuto1/PyConsole.cpp	/^    const wxString& defText = wxT("Rheia Python Console version 0.1.1 \\n"$/;"	member	line:17	namespace:__anon1
+defText	/home/nicolas/Desktop/RheiaTemp/rheia/unstable/src/tuto1/PyConsole.cpp	/^    const wxString& defText = wxT("Rheia Python Console version 0.1.1 \\n"$/;"	member	line:17	namespace:__anon2
 PyConsole	/home/nicolas/Desktop/RheiaTemp/rheia/unstable/src/tuto1/PyConsole.cpp	/^PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):$/;"	function	line:27	class:PyConsole	signature:( RheiaManagedFrame* toplevel , wxWindowGTK* parent )	returns:PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
 ~PyConsole	/home/nicolas/Desktop/RheiaTemp/rheia/unstable/src/tuto1/PyConsole.cpp	/^PyConsole::~PyConsole()$/;"	function	line:72	class:PyConsole	signature:()	returns:PyConsole::
 Reload	/home/nicolas/Desktop/RheiaTemp/rheia/unstable/src/tuto1/PyConsole.cpp	/^void PyConsole::Reload()$/;"	function	line:78	class:PyConsole	signature:()	returns:void PyConsole::

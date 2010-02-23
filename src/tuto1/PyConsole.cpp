@@ -346,7 +346,7 @@ void PyConsole::OnCharAdded (wxStyledTextEvent &event)
 {
     char chr = (char)event.GetKey();
     int currentLine = m_control->GetCurrentLine();
-#if wxCheckVersion(2,9,0)
+#if wxCHECK_VERSION(2,9,0)
     int no_lines = m_control->GetNumberOfLines();
 #else
 	int no_lines = m_control->GetLineCount();
@@ -475,7 +475,7 @@ void PyConsole::OnStcKey(wxKeyEvent& event)
     int posAtLine;
     int line = m_control->GetCurrentLine();
     wxString lineContent = m_control->GetCurLine(&posAtLine);
-#if wxCheckVersion(2,9,0)
+#if wxCHECK_VERSION(2,9,0)
     int no_lines = m_control->GetNumberOfLines()-1;
 #else
 	int no_lines = m_control->GetLineCount()-1;
