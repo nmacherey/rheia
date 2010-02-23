@@ -275,10 +275,12 @@ else
 	else
 		-- Set the wxWidgets link options.
 		table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --libs`" )
+		table.insert( package.config["Debug"].links, "wx_gtk2u_stc-2.8" )
 		table.insert( package.config["Debug"].linkoptions, "`xml2-config --libs`" )
 
 		table.insert( package.config["Release"].linkoptions, "`wx-config --debug=no --libs`" )
 		table.insert( package.config["Release"].linkoptions, "`xml2-config --libs`" )
+		table.insert( package.config["Release"].links, "wx_gtk2u_stc-2.8" )
 	end
 end
 
