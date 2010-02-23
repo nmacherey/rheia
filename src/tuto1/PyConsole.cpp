@@ -501,7 +501,12 @@ void PyConsole::OnStcKey(wxKeyEvent& event)
         {
             m_control->GotoLine(line);
             int pfl = m_control->GetCurrentPos();
+#if wxCHECK_VERSION(2,9,0)
             m_control->Remove(pfl+4,eof);
+#else
+			m_control->SetSelection(pfl+4,eof);
+			m_control->ReplaceSelection(wxT(""));
+#endif
             eof = m_control->GetLength();
             m_control->GotoPos(eof);
         }
@@ -526,7 +531,12 @@ void PyConsole::OnStcKey(wxKeyEvent& event)
         {
             m_control->GotoLine(line);
             int pfl = m_control->GetCurrentPos();
+#if wxCHECK_VERSION(2,9,0)
             m_control->Remove(pfl+4,eof);
+#else
+			m_control->SetSelection(pfl+4,eof);
+			m_control->ReplaceSelection(wxT(""));
+#endif
             eof = m_control->GetLength();
             m_control->GotoPos(eof);
         }
