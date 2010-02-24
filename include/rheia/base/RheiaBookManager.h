@@ -411,6 +411,12 @@ protected :
     *   the current page.
     */
     void OnPageChanged( wxAuiNotebookEvent& event );
+	
+	/**
+	 * Callback used when the user right clicks on a book tab
+	 * this method will call the OnTabRightClick method of the RheiaBookPage
+	 */
+	void OnTabRightClicked( wxAuiNotebookEvent& event );
 
     /** Send an event */
     void SendEvent( const wxEventType& type );

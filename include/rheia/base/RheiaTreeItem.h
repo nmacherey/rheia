@@ -98,6 +98,9 @@ public :
 
     /** this method is called when the user double cliks on the item tree */
     virtual void OnItemActivated() {};
+	
+	/** this method is called when the user double cliks on the item tree */
+    virtual void OnItemRightClick() {};
 
     /** this method is used to build specific menu information about the item when the user
     *   request it

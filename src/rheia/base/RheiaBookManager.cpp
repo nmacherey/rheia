@@ -39,6 +39,7 @@ RheiaBookManager::RheiaBookManager(RheiaManagedFrame* parent):
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) );
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) );
     Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) );
+	Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_TAB_RIGHT_UP , wxAuiNotebookEventHandler(RheiaBookManager::OnTabRightClicked) );
 	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaBookManager::OnCloseParent) , NULL , this );
 }
 
@@ -436,3 +437,14 @@ void RheiaBookManager::SendEvent( const wxEventType& type )
     m_parent->GetEventHandler()->ProcessEvent( event );
 }
 
+void RheiaBookManager::OnTabRightClicked( wxAuiNotebookEvent& event )
+{
+	int index = event.GetSelection();
+    RheiaBookPage* page = (RheiaBookPage*) m_book->GetPage( index );
+
+    if( page != NULL )
+    {
+        page->OnTabRightClicked();
+        return;
+    }
+}

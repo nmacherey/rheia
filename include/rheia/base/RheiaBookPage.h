@@ -66,6 +66,12 @@ public :
     *   of the page when the user is closing it.
     */
     virtual void OnPageClosed() = 0;
+	
+	/**
+	 * this method is called when the user right clicks on the book tab
+	 * the book tab is where the page's title is displayed
+	 */
+	virtual void OnTabRightClicked() {};
 
     /**
     *   Callback used when the information has benn modified outside
