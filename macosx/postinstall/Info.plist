@@ -5,11 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>rheia_exe</string>
+	<string>rheia</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>rheia_exe</string>
+	<string>rheia</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>CFBundlePackageType</key>
@@ -25,12 +25,13 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>fbp</string>
+				<string>rprj</string>
+				<string>rwksp</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>docicon.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>wxFormBuilder project</string>
+			<string>rheia project</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSIsAppleDefaultForType</key>

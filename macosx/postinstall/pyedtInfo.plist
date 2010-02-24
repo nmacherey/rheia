@@ -5,11 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>pyedt_exe</string>
+	<string>pyedt</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>pyedt_exe</string>
+	<string>pyedt</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>CFBundlePackageType</key>
@@ -30,7 +30,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>docicon.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>wxFormBuilder project</string>
+			<string>Rheia Python IDE project</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSIsAppleDefaultForType</key>
