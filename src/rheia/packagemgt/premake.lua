@@ -34,6 +34,16 @@ local version_win = "1_1_1"
 --		Options: exe | winexe | lib | dll
 package.kind = "dll"
 
+local CP = ""
+
+if( macosx ) then
+    CP="cp -r "
+    package.config["Debug"].links = { "rheiautils-dbg" , "rheiabase-dbg" , "rheialoggers-dbg" }
+	package.config["Release"].links = { "rheiautils" , "rheiabase" , "rheialoggers" }
+else
+    CP="cp -ru "
+end
+
 -- Set the files to include.
 if ( not windows ) then
 	package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" , "*.c" ), matchfiles( "../../../include/rheia/packagemgt/*.h" ) }
@@ -45,7 +55,7 @@ end
 package.includepaths = { "../../../include/rheia/packagemgt" , "../../../include/rheia/loggers" , "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" , "wxwidgets" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" }
+package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" }
 
 -- Set the defines.
 package.defines = { "HAVE_CONFIG_H", "RHEIA_PMGT_MAKINGDLL" , "RHEIA_USE_IRRLICHT" }
@@ -104,16 +114,20 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	table.insert( package.config["Debug"].buildoptions, "-g" )
 	table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Debug"].buildoptions, "-W" )
-	table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Debug"].buildoptions, "-Uunix" )
 	table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
 	table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
 	table.insert( package.config["Debug"].buildoptions, "-fPIC" )
-	
+
 	table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Release"].buildoptions, "-W" )
-	table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Release"].buildoptions, "-Uunix" )
 	table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
@@ -130,7 +144,7 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	package.config["Release"].libdir = "../../../devel/Release/lib"
 	package.config["Release"].bindir = "../../../devel/Release/lib"
 	package.config["Release"].libpaths = { "../../../devel/Release/lib" }
-	
+
 	package.config["Debug"].target = targetName .. "-dbg"
 	package.config["Debug"].targetprefix = "lib"
 	package.config["Debug"].targetextension = "so." .. version
@@ -138,9 +152,9 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	package.config["Debug"].bindir = "../../../devel/Debug/lib"
 	package.config["Debug"].libpaths = { "../../../devel/Debug/lib" }
 
-	package.config["Release"].postbuildcommands = { "mkdir -p ../../../devel/Release/include/rheia" , "cp -ru ../../../include/rheia/packagemgt ../../../devel/Release/include/rheia" , "(cd ../../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
+	package.config["Release"].postbuildcommands = { "mkdir -p ../../../devel/Release/include/rheia" , CP .. "../../../include/rheia/packagemgt ../../../devel/Release/include/rheia" , "(cd ../../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
 
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../../devel/Debug/include/rheia" , "cp -ru ../../../include/rheia/packagemgt ../../../devel/Debug/include/rheia" , "(cd ../../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
+	package.config["Debug"].postbuildcommands = { "mkdir -p ../../../devel/Debug/include/rheia" , CP .. "../../../include/rheia/packagemgt ../../../devel/Debug/include/rheia" , "(cd ../../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
 end
 
 table.insert( package.defines, "WXUSINGDLL" )
@@ -211,7 +225,11 @@ else
 --*********************************
 	-- Ignore resource files in Linux.
 	table.insert( package.excludes, matchrecursive( "*.rc" ) )
-	table.insert( package.defines, { "LINUX" , "unix" } )
+	if( not macosx ) then
+        table.insert( package.defines, { "LINUX" , "unix" } )
+    else
+        table.insert( package.defines, { "MACOSX" , "unix" } )
+    end
 
 	-- Set wxWidgets build options.
 	table.insert( package.config["Debug"].buildoptions, "`wx-config "..debug_option.." --cflags`" )
@@ -220,11 +238,22 @@ else
 	table.insert( package.config["Release"].buildoptions, "`wx-config --debug=no --cflags`" )
 	table.insert( package.config["Release"].buildoptions, "`xml2-config --cflags`" )
 
-	-- Set the wxWidgets link options.
-	table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --libs`" )
-	table.insert( package.config["Debug"].linkoptions, "`xml2-config --libs`" )
+	if( wx_ver == "2.9" ) then
+		-- Set the wxWidgets link options.
+		table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --static=no --libs all`" )
+		table.insert( package.config["Debug"].linkoptions, "`xml2-config --libs`" )
 
-	table.insert( package.config["Release"].linkoptions, "`wx-config --libs`" )
-	table.insert( package.config["Release"].linkoptions, "`xml2-config --libs`" )
+		table.insert( package.config["Release"].linkoptions, "`wx-config --debug=no --static=no --libs all`" )
+		table.insert( package.config["Release"].linkoptions, "`xml2-config --libs`" )
+	else
+		-- Set the wxWidgets link options.
+		table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --libs`" )
+		table.insert( package.config["Debug"].links, "wx_gtk2u_stc-2.8" )
+		table.insert( package.config["Debug"].linkoptions, "`xml2-config --libs`" )
+
+		table.insert( package.config["Release"].linkoptions, "`wx-config --debug=no --libs`" )
+		table.insert( package.config["Release"].linkoptions, "`xml2-config --libs`" )
+		table.insert( package.config["Release"].links, "wx_gtk2u_stc-2.8" )
+	end
 end
 

@@ -22,8 +22,16 @@ else
 	wx_ver = "2.9"
 end
 
+local CP = ""
+
+if( macosx ) then
+    CP="cp -r "
+else
+    CP="cp -ru "
+end
+
 -- Set the name of your package.
-package.name = "wxwidgets"
+package.name = "plwx"
 
 -- Set this if you want a different name for your target than the package's name.
 local targetName = "gmwxwidgets"
@@ -107,16 +115,20 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	table.insert( package.config["Debug"].buildoptions, "-g" )
 	table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Debug"].buildoptions, "-W" )
-	table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Debug"].buildoptions, "-Uunix" )
 	table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
 	table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
 	table.insert( package.config["Debug"].buildoptions, "-fPIC" )
-	
+
 	table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Release"].buildoptions, "-W" )
-	table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Release"].buildoptions, "-Uunix" )
 	table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
@@ -132,16 +144,16 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	package.config["Release"].targetextension = "a"
 	package.config["Release"].libdir = "../../devel/Release/lib"
 	package.config["Release"].bindir = "../../devel/Release/lib"
-	
+
 	package.config["Debug"].target = targetName .. "-dbg"
 	package.config["Debug"].targetprefix = "lib"
 	package.config["Debug"].targetextension = "a"
 	package.config["Debug"].libdir = "../../devel/Debug/lib"
 	package.config["Debug"].bindir = "../../devel/Debug/lib"
 
-	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "cp -ru ../../include/wxwidgets ../../devel/Release/include/rheia" }
+	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , CP .. "../../include/wxwidgets ../../devel/Release/include/rheia" }
 
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "cp -ru ../../include/wxwidgets ../../devel/Debug/include/rheia" }
+	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , CP .. "../../include/wxwidgets ../../devel/Debug/include/rheia" }
 end
 
 table.insert( package.defines, "WXUSINGDLL" )
@@ -212,14 +224,23 @@ else
 --*********************************
 	-- Ignore resource files in Linux.
 	table.insert( package.excludes, matchrecursive( "*.rc" ) )
-	table.insert( package.defines, { "LINUX" , "unix" } )
+	if( not macosx ) then
+        table.insert( package.defines, { "LINUX" , "unix" } )
+    else
+        table.insert( package.defines, { "MACOSX" , "unix" } )
+    end
 
 	-- Set wxWidgets build options.
 	table.insert( package.config["Debug"].buildoptions, "`wx-config "..debug_option.." --cflags`" )
 	table.insert( package.config["Release"].buildoptions, "`wx-config --debug=no --cflags`" )
 
+	if( wx_ver == "2.9" ) then
 	-- Set the wxWidgets link options.
-	table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --libs`" )
-	table.insert( package.config["Release"].linkoptions, "`wx-config --libs`" )
+        table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --libs all`" )
+        table.insert( package.config["Release"].linkoptions, "`wx-config --libs all`" )
+    else
+        table.insert( package.config["Debug"].linkoptions, "`wx-config "..debug_option.." --libs`" )
+        table.insert( package.config["Release"].linkoptions, "`wx-config --libs`" )
+    end
 end
 

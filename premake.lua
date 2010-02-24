@@ -12,7 +12,7 @@ end
 dopackage( "src/irrlicht" )
 dopackage( "src/csirocsa" )
 dopackage( "src/qsastime" )
-dopackage( "src/wxwidgets" )
+--dopackage( "src/wxwidgets" )
 dopackage( "src/plplot" )
 dopackage( "src/wxplplot" )
 dopackage( "src/rheia/utils" )

@@ -3,7 +3,7 @@
 #include <wx/xrc/xh_wizrd.h>
 #include <wx/fs_zip.h>
 #include <wx/menu.h>
-#include <wx/app.h>
+#include <wx/app.h> 
 #include <wx/toolbar.h>
 #include <wx/fs_mem.h>
 #include <wx/file.h>
@@ -12,7 +12,7 @@
 #include <wx/log.h>
 #include <wx/msgdlg.h>
 #include <wx/cmdline.h>
-#include <wx/utils.h>
+#include <wx/utils.h> 
 #include <wx/snglinst.h>
 
 #include <RheiaXtraRes.h>

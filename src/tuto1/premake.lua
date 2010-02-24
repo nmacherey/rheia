@@ -23,6 +23,22 @@ local targetName = "pyedt"
 local version = "1.1.1"
 local version_win = "1_1_1"
 
+local CP = ""
+
+if( macosx ) then
+    CP="cp -r "
+else
+    CP="cp -ru "
+end
+
+local python_ver
+
+if( macosx ) then
+    python_ver="2.6"
+else
+    python_ver="2.5"
+end
+
 -- Set the kind of package you want to create.
 --		Options: exe | winexe | lib | dll
 package.kind = "winexe"
@@ -35,10 +51,10 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../include/rheia/python" , "../../include/tuto1" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python2.5" , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" }
+package.includepaths = { "../../include/rheia/python" , "../../include/tuto1" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" , "wxwidgets" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "rheia" }
+package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "rheia" }
 
 -- Set the defines.
 package.defines = { "HAVE_CONFIG_H" , "RHEIA_USE_IRRLICHT" }
@@ -115,16 +131,20 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	table.insert( package.config["Debug"].buildoptions, "-g" )
 	table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Debug"].buildoptions, "-W" )
-	table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Debug"].buildoptions, "-Uunix" )
 	table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
 	table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
 	table.insert( package.config["Debug"].buildoptions, "-fPIC" )
-	
+
 	table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Release"].buildoptions, "-W" )
-	table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Release"].buildoptions, "-Uunix" )
 	table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
@@ -139,14 +159,14 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	package.config["Release"].libdir = "../../devel/Release/lib"
 	package.config["Release"].bindir = "../../devel/Release/bin"
 	package.config["Release"].libpaths = { "../../devel/Release/lib" }
-	
+
 	package.config["Debug"].target = targetName .. "-dbg"
 	package.config["Debug"].libdir = "../../devel/Debug/lib"
 	package.config["Debug"].bindir = "../../devel/Debug/bin"
 	package.config["Debug"].libpaths = { "../../devel/Debug/lib" }
 
 	if ( macosx ) then
-		table.insert( package.config["Debug"].linkoptions, "-Wl,-L../../devel/Debug/lib" )
+		table.insert( package.config["Debug"].linkoptions, "-Wl,-L../lib" )
 	elseif ( not windows ) then
 		addoption("rpath", "Specify the rpath for the compiled binary")
 		if ( options["rpath"] ) then
@@ -163,7 +183,7 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	end
 
 	if ( macosx ) then
-		table.insert( package.config["Release"].linkoptions, "-Wl,-L../../devel/Release/lib" )
+		table.insert( package.config["Release"].linkoptions, "-Wl,-L../lib" )
 	elseif ( not windows ) then
 		addoption("rpath", "Specify the rpath for the compiled binary")
 		if ( options["rpath"] ) then
@@ -177,15 +197,20 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 				table.insert( package.config["Release"].linkoptions, "-Wl,-rpath,$$``ORIGIN/../lib" )
 			end
 		end
-	end	
+	end
 
 	-- Set the libraries it links to.
-	package.config["Debug"].links = { "gmirrlicht-dbg", "gmcsirocsa-dbg", "gmqsastime-dbg", "gmplplot-dbg", "gmwxplplot-dbg" , "rheiautils-dbg" , "rheiabase-dbg" , "rheialoggers-dbg" , "rheiapackagemgt-dbg" , "rheiaworkspacemgt-dbg" , "rheiapython-dbg" ,"python2.5" }
-	package.config["Release"].links = { "gmirrlicht", "gmcsirocsa", "gmqsastime", "gmplplot", "gmwxplplot" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "python2.5" }
+	package.config["Debug"].links = { "gmirrlicht-dbg", "gmcsirocsa-dbg", "gmqsastime-dbg", "gmplplot-dbg", "gmwxplplot-dbg" , "rheiautils-dbg" , "rheiabase-dbg" , "rheialoggers-dbg" , "rheiapackagemgt-dbg" , "rheiaworkspacemgt-dbg" , "rheiapython-dbg" ,"python" .. python_ver }
+	package.config["Release"].links = { "gmirrlicht", "gmcsirocsa", "gmqsastime", "gmplplot", "gmwxplplot" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "python" .. python_ver }
 
-	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/pyedt" , "mkdir -p ../../devel/Release/lib" , "mkdir -p ../../devel/Release/share/pyedt/images", "cp -ru ../../include/tuto1/* ../../devel/Release/include/pyedt" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Release/share/pyedt/images" , "zip -j9 -r ../../devel/Release/share/pyedt/resource.zip ../../share/rheia/resource" }
+    if( not macosx ) then
+        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/pyedt" , "mkdir -p ../../devel/Release/lib" , "mkdir -p ../../devel/Release/share/pyedt/images", CP .. "../../include/tuto1/* ../../devel/Release/include/pyedt" , CP .. "../../share/rheia/resource/images/settings ../../devel/Release/share/pyedt/images" , "zip -j9 -r ../../devel/Release/share/pyedt/resource.zip ../../share/rheia/resource" }
+        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/pyedt" , "mkdir -p ../../devel/Debug/lib" , "mkdir -p ../../devel/Debug/share/pyedt-dbg/images", CP .. "../../include/tuto1/* ../../devel/Debug/include/pyedt" , CP .. "../../share/rheia/resource/images/settings ../../devel/Debug/share/pyedt-dbg/images" , "zip -j9 -r ../../devel/Debug/share/pyedt-dbg/resource.zip ../../share/rheia/resource" }
+    else
+        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/pyedt" , "mkdir -p ../../devel/Release/lib" , "mkdir -p ../../devel/Release/share/pyedt/images", CP .. "../../include/tuto1/* ../../devel/Release/include/pyedt" , CP .. "../../share/rheia/resource/images/settings ../../devel/Release/share/pyedt/images" , "zip -j9 -r ../../devel/Release/share/pyedt/resource.zip ../../share/rheia/resource" , "(cd ../../macosx/postinstall &amp;&amp; sh pyedt_postbuild.sh)"}
+        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/pyedt" , "mkdir -p ../../devel/Debug/lib" , "mkdir -p ../../devel/Debug/share/pyedt-dbg/images", CP .. "../../include/tuto1/* ../../devel/Debug/include/pyedt" , CP .. "../../share/rheia/resource/images/settings ../../devel/Debug/share/pyedt-dbg/images" , "zip -j9 -r ../../devel/Debug/share/pyedt-dbg/resource.zip ../../share/rheia/resource","(cd ../../macosx/postinstall &amp;&amp; sh pyedt_postbuildd.sh)" }
+    end
 
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/pyedt" , "mkdir -p ../../devel/Debug/lib" , "mkdir -p ../../devel/Debug/share/pyedt-dbg/images", "cp -ru ../../include/tuto1/* ../../devel/Debug/include/pyedt" , "cp -ru ../../share/rheia/resource/images/settings ../../devel/Debug/share/pyedt-dbg/images" , "zip -j9 -r ../../devel/Debug/share/pyedt-dbg/resource.zip ../../share/rheia/resource" }
 end
 
 table.insert( package.defines, "WXUSINGDLL" )
@@ -256,7 +281,11 @@ else
 --*********************************
 	-- Ignore resource files in Linux.
 	table.insert( package.excludes, matchrecursive( "*.rc" ) )
-	table.insert( package.defines, { "LINUX" , "unix" } )
+	if( not macosx ) then
+        table.insert( package.defines, { "LINUX" , "unix" } )
+    else
+        table.insert( package.defines, { "MACOSX" , "unix" } )
+    end
 
 	-- Set wxWidgets build options.
 	table.insert( package.config["Debug"].buildoptions, "`wx-config "..debug_option.." --cflags`" )

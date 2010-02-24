@@ -23,6 +23,14 @@ local targetName = "gmqsastime"
 local version = "1.1.1"
 local version_win = "1_1_1"
 
+local CP = ""
+
+if( macosx ) then
+    CP="cp -r "
+else
+    CP="cp -ru "
+end
+
 -- Set the kind of package you want to create.
 --		Options: exe | winexe | lib | dll
 package.kind = "dll"
@@ -80,16 +88,20 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	table.insert( package.config["Debug"].buildoptions, "-g" )
 	table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Debug"].buildoptions, "-W" )
-	table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Debug"].buildoptions, "-Uunix" )
 	table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
 	table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
 	table.insert( package.config["Debug"].buildoptions, "-fPIC" )
-	
+
 	table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Release"].buildoptions, "-W" )
-	table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Release"].buildoptions, "-Uunix" )
 	table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
@@ -105,16 +117,16 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	package.config["Release"].targetextension = "so." .. version
 	package.config["Release"].libdir = "../../devel/Release/lib"
 	package.config["Release"].bindir = "../../devel/Release/lib"
-	
+
 	package.config["Debug"].target = targetName .. "-dbg"
 	package.config["Debug"].targetprefix = "lib"
 	package.config["Debug"].targetextension = "so." .. version
 	package.config["Debug"].libdir = "../../devel/Debug/lib"
 	package.config["Debug"].bindir = "../../devel/Debug/lib"
 
-	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "cp -ru ../../include/qsastime ../../devel/Release/include/rheia" , "(cd ../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
+	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , CP .. "../../include/qsastime ../../devel/Release/include/rheia" , "(cd ../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
 
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "cp -ru ../../include/qsastime ../../devel/Debug/include/rheia" , "(cd ../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
+	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , CP .. "../../include/qsastime ../../devel/Debug/include/rheia" , "(cd ../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
 end
 
 table.insert( package.config["Debug"].defines, debug_macro )

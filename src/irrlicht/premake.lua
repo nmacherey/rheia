@@ -28,22 +28,33 @@ local version_win = "1_6_1"
 package.kind = "dll"
 
 -- Set the files to include.
-if ( not windows ) then
-	package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" ), matchfiles( "../../include/irrlicht/*.cpp", "../../include/irrlicht/*.hpp", "../../include/irrlicht/*.cxx", "../../include/irrlicht/*.h", "../../include/irrlicht/*.cc", "../../include/irrlicht/*.hh" ) }
+if ( windows ) then
+	package.files = { matchrecursive( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" ), matchrecursive( "../../include/irrlicht/*.cpp", "../../include/irrlicht/*.hpp", "../../include/irrlicht/*.cxx", "../../include/irrlicht/*.h", "../../include/irrlicht/*.cc", "../../include/irrlicht/*.hh" ) }
+elseif ( macosx ) then
+	package.files = { matchrecursive( "*.cpp", "*.c", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" ), matchfiles( "MacOSX/*.cpp", "MacOSX/*.hpp", "MacOSX/*.cxx", "MacOSX/*.h", "MacOSX/*.cc", "MacOSX/*.hh" , "MacOSX/*.mm" )  , matchrecursive( "../../include/irrlicht/*.cpp", "../../include/irrlicht/*.hpp", "../../include/irrlicht/*.cxx", "../../include/irrlicht/*.h", "../../include/irrlicht/*.cc", "../../include/irrlicht/*.hh" ) }
 else
-	package.files = { matchrecursive( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" ) , matchrecursive( "../../include/irrlicht/*.cpp", "../../include/irrlicht/*.hpp", "../../include/irrlicht/*.cxx", "../../include/irrlicht/*.h", "../../include/irrlicht/*.cc", "../../include/irrlicht/*.hh" ) }
+	package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" ), matchfiles( "../../include/irrlicht/*.cpp", "../../include/irrlicht/*.hpp", "../../include/irrlicht/*.cxx", "../../include/irrlicht/*.h", "../../include/irrlicht/*.cc", "../../include/irrlicht/*.hh" ) }
 end
 
 -- Set the include paths.
-package.includepaths = { "../../include/irrlicht" }
+package.excludes = {"jpeglib/ansi2knr.c", "jpeglib/cdjpeg.c" , "jpeglib/cjpeg.c" , "jpeglib/ckconfig.c" , "jpeglib/djpeg.c" , "jpeglib/example.c" , "jpeglib/jmemansi.c" , "jpeglib/jmemdos.c" , "jpeglib/jmemmac.c" , "jpeglib/jmemname.c" , "jpeglib/jpegtran.c" , "jpeglib/Tcdjpecg.c" , "jpeglib/wrjpgcom.c" , "jpeglib/rdjpgcom.c" }
 
-
--- Set the libraries it links to.
-package.links = { "GL", "GLU", "glut", "Xxf86vm", "jpeg" , "z" , "png" }
 
 if ( windows ) then
 	package.defines = { "" }
+elseif ( macosx ) then
+    package.includepaths = { "../../include/irrlicht" , "jpeglib" , "libpng" , "zlib" , "MacOSX" }
+    table.insert( package.linkoptions, "-framework OpenGL" )
+    table.insert( package.linkoptions, "-framework CoreFoundation" )
+    table.insert( package.linkoptions, "-framework Carbon" )
+    table.insert( package.linkoptions, "-framework Cocoa" )
+    table.insert( package.linkoptions, "-framework IOKit" )
+    table.insert( package.linkoptions, "-framework Carbon" )
+    package.defines = { "MACOSX" }
 else
+    package.includepaths = { "../../include/irrlicht" }
+    -- Set the libraries it links to.
+    package.links = { "GL", "GLU", "glut", "Xxf86vm", "jpeg" , "z" , "png" }
 	package.defines = { "LINUX" }
 end
 
@@ -80,16 +91,20 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	table.insert( package.config["Debug"].buildoptions, "-g" )
 	table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Debug"].buildoptions, "-W" )
-	table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Debug"].buildoptions, "-Uunix" )
 	table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
 	table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
 	table.insert( package.config["Debug"].buildoptions, "-fPIC" )
-	
+
 	table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
 	table.insert( package.config["Release"].buildoptions, "-W" )
-	table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+	if( not macosx ) then
+        table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+    end
 	table.insert( package.config["Release"].buildoptions, "-Uunix" )
 	table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
 	table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
@@ -105,16 +120,20 @@ if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
 	package.config["Release"].targetextension = "so." .. version
 	package.config["Release"].libdir = "../../devel/Release/lib"
 	package.config["Release"].bindir = "../../devel/Release/lib"
-	
+
 	package.config["Debug"].target = targetName .. "-dbg"
 	package.config["Debug"].targetprefix = "lib"
 	package.config["Debug"].targetextension = "so." .. version
 	package.config["Debug"].libdir = "../../devel/Debug/lib"
 	package.config["Debug"].bindir = "../../devel/Debug/lib"
 
-	package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "cp -ru ../../include/irrlicht ../../devel/Release/include/rheia" , "(cd ../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
-
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "cp -ru ../../include/irrlicht ../../devel/Debug/include/rheia" , "(cd ../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
+    if( not macosx ) then
+        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "cp -ru ../../include/irrlicht ../../devel/Release/include/rheia" , "(cd ../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
+        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "cp -ru ../../include/irrlicht ../../devel/Debug/include/rheia" , "(cd ../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
+    else
+        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "cp -r ../../include/irrlicht ../../devel/Release/include/rheia" , "(cd ../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
+        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "cp -r ../../include/irrlicht ../../devel/Debug/include/rheia" , "(cd ../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
+    end
 end
 
 table.insert( package.config["Debug"].defines, debug_macro )
