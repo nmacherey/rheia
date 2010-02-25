@@ -309,7 +309,12 @@ void wxIrrlicht::OnSize(wxSizeEvent& event) {
     XMoveResizeWindow( display , win , 0, 0 , GetClientSize().GetWidth() , GetClientSize().GetHeight()  );
 #endif
 
-    m_pDriver->OnResize(siz);
+	m_pDriver->OnResize(siz);
+	
+#ifdef MACOSX
+	m_pDriver->setViewPort( rect<s32>(0,0,GetClientSize().GetWidth(), GetClientSize().GetHeight()) );
+    m_pDevice->setResizeAble(true);  //HACK..have to call to resize opengl context 
+#endif
 
     if (m_pCameraNode) {
         m_pCameraNode->setAspectRatio((float)w / (float)h);

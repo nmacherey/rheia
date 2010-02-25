@@ -225,9 +225,9 @@ else
 	-- Ignore resource files in Linux.
 	table.insert( package.excludes, matchrecursive( "*.rc" ) )
 	if( not macosx ) then
-        table.insert( package.defines, { "LINUX" , "unix" } )
+	table.insert( package.defines, { "LINUX" , "unix" } )
     else
-        table.insert( package.defines, { "MACOSX" , "unix" } )
+	table.insert( package.defines, { "MACOSX" , "unix" } )
     end
 
 	-- Set wxWidgets build options.
@@ -236,6 +236,11 @@ else
 
 	table.insert( package.config["Release"].buildoptions, "`wx-config --debug=no --cflags`" )
 	table.insert( package.config["Release"].buildoptions, "`xml2-config --cflags`" )
+
+	if( not macosx ) then
+		table.insert( package.config["Debug"].buildoptions, "`pkg-config --cflags gtk+-2.0`" )
+		table.insert( package.config["Release"].buildoptions, "`pkg-config --cflags gtk+-2.0`" )
+	end
 
 	if( wx_ver == "2.9" ) then
 		-- Set the wxWidgets link options.
