@@ -61,6 +61,8 @@ struct RheiaConfigurationPageInfo
 		idxOn = rhs.idxOn;
 		idxOff = rhs.idxOff;
 		title = rhs.title;
+
+        return *this;
 	}
 
     RheiaConfigurationPanel* page;

@@ -10,7 +10,7 @@
 
 #ifdef WIN32
 #ifndef BASE_DLLEXPORT
-#ifdef REHIA_BASE_MAKINGDLL
+#ifdef RHEIA_BASE_MAKINGDLL
 #define BASE_DLLEXPORT __declspec( dllexport )
 #else
 #define BASE_DLLEXPORT __declspec( dllimport )

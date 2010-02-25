@@ -10,7 +10,7 @@
 
 #ifdef WIN32
 #ifndef PMGT_DLLEXPORT
-#ifdef REHIA_PMGT_MAKINGDLL
+#ifdef RHEIA_PMGT_MAKINGDLL
 #define PMGT_DLLEXPORT __declspec( dllexport )
 #else
 #define PMGT_DLLEXPORT __declspec( dllimport )

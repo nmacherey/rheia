@@ -21,3 +21,6 @@ makefiles
 Makefile
 *.cbp*
 *.project*
+*.vcproj*
+*.ncb*
+*.pdb*

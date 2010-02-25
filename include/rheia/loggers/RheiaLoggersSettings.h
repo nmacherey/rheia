@@ -10,7 +10,7 @@
 
 #ifdef WIN32
 #ifndef LOGGERS_DLLEXPORT
-#ifdef REHIA_LOGGERS_MAKINGDLL
+#ifdef RHEIA_LOGGERS_MAKINGDLL
 #define LOGGERS_DLLEXPORT __declspec( dllexport )
 #else
 #define LOGGERS_DLLEXPORT __declspec( dllimport )

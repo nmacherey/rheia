@@ -10,7 +10,7 @@
 
 #ifdef WIN32
 #ifndef PYTHON_DLLEXPORT
-#ifdef REHIA_PYTHON_MAKINGDLL
+#ifdef RHEIA_PYTHON_MAKINGDLL
 #define PYTHON_DLLEXPORT __declspec( dllexport )
 #else
 #define PYTHON_DLLEXPORT __declspec( dllimport )

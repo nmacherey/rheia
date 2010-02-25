@@ -29,7 +29,7 @@
 *	@date	29-January-2010
 *	@version 0.0.2
 */
-class RheiaManagedFrame : public wxFrame
+class BASE_DLLEXPORT RheiaManagedFrame : public wxFrame
 {
 public :
 

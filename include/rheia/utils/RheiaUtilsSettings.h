@@ -10,7 +10,7 @@
 
 #ifdef WIN32
 #ifndef UTILS_DLLEXPORT
-#ifdef REHIA_UTILS_MAKINGDLL
+#ifdef RHEIA_UTILS_MAKINGDLL
 #define UTILS_DLLEXPORT __declspec( dllexport )
 #else
 #define UTILS_DLLEXPORT __declspec( dllimport )

@@ -6,7 +6,7 @@ project.configs = { "Release", "Debug" }
 
 -- Add packages here.
 if ( windows ) then
-	dopackage( "src/rheia/libxml2" )
+	dopackage( "src/libxml2" )
 end
 
 dopackage( "src/irrlicht" )

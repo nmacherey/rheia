@@ -14,12 +14,21 @@
 --******* Initial Setup ************
 --*	Most of the setting are set here.
 --**********************************
+addoption( "with-wx-28", "Use the Unicode character set" )
 -- wxWidgets version
 local wx_ver = ""
-if( windows ) then
-	wx_ver = "29"
+if( options["with-wx-28"] ) then
+	if( windows ) then
+		wx_ver = "28"
+	else
+		wx_ver = "2.8"
+	end
 else
-	wx_ver = "2.9"
+	if( windows ) then
+		wx_ver = "29"
+	else
+		wx_ver = "2.9"
+	end
 end
 
 -- Set the name of your package.
@@ -101,62 +110,6 @@ end
 package.config["Release"].target = targetName
 package.config["Debug"].target = targetName.."-dbg"
 
--- Set the build options.
-package.buildflags = { "extra-warnings" }
-package.config["Release"].buildflags = { "optimize-speed" }
-
-if ( options["unicode"] ) then
-	table.insert( package.buildflags, "unicode" )
-end
-
-if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
-	table.insert( package.config["Debug"].buildoptions, "-O0" )
-	table.insert( package.config["Debug"].buildoptions, "-g" )
-	table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
-	table.insert( package.config["Debug"].buildoptions, "-W" )
-	if( not macosx ) then
-        table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
-    end
-	table.insert( package.config["Debug"].buildoptions, "-Uunix" )
-	table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
-	table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
-	table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
-	table.insert( package.config["Debug"].buildoptions, "-fPIC" )
-
-	table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
-	table.insert( package.config["Release"].buildoptions, "-W" )
-	if( not macosx ) then
-        table.insert( package.config["Release"].buildoptions, "-Ulinux" )
-    end
-	table.insert( package.config["Release"].buildoptions, "-Uunix" )
-	table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
-	table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
-	table.insert( package.config["Release"].buildoptions, "-fexceptions" )
-	table.insert( package.config["Release"].buildoptions, "-fPIC" )
-	table.insert( package.config["Release"].buildoptions, "-O1" )
-	table.insert( package.config["Release"].buildoptions, "-O2" )
-	table.insert( package.config["Release"].buildoptions, "-O3" )
-	table.insert( package.config["Release"].buildoptions, "-fexpensive-optimizations" )
-
-	package.config["Release"].target = targetName
-	package.config["Release"].targetprefix = "lib"
-	package.config["Release"].targetextension = "so." .. version
-	package.config["Release"].libdir = "../../../devel/Release/lib"
-	package.config["Release"].bindir = "../../../devel/Release/lib"
-	package.config["Release"].libpaths = { "../../../devel/Release/lib" }
-
-	package.config["Debug"].target = targetName .. "-dbg"
-	package.config["Debug"].targetprefix = "lib"
-	package.config["Debug"].targetextension = "so." .. version
-	package.config["Debug"].libdir = "../../../devel/Debug/lib"
-	package.config["Debug"].bindir = "../../../devel/Debug/lib"
-	package.config["Debug"].libpaths = { "../../../devel/Debug/lib" }
-
-	package.config["Release"].postbuildcommands = { "mkdir -p ../../../devel/Release/include/rheia" , CP .. "../../../include/rheia/workspacemgt ../../../devel/Release/include/rheia" , "(cd ../../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
-
-	package.config["Debug"].postbuildcommands = { "mkdir -p ../../../devel/Debug/include/rheia" , CP .. "../../../include/rheia/workspacemgt ../../../devel/Debug/include/rheia" , "(cd ../../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
-end
-
 table.insert( package.defines, "WXUSINGDLL" )
 if ( options["unicode"] ) then
 	table.insert( package.defines, { "UNICODE", "_UNICODE" } )
@@ -169,6 +122,96 @@ if ( OS == "windows" ) then
 --******* WINDOWS SETUP ***********
 --*	Settings that are Windows specific.
 --*********************************
+	table.insert( package.includepaths , "../../../include" )
+	
+	if ( (not options["cb-msvc8"]) and (string.find( target or "", ".*-gcc" ) or target == "gnu") ) then
+		-- Set the build options.
+		package.buildflags = { "extra-warnings" }
+		package.config["Release"].buildflags = { "optimize-speed" }
+	
+		table.insert( package.config["Debug"].buildoptions, "-O0" )
+		table.insert( package.config["Debug"].buildoptions, "-g" )
+		table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
+		table.insert( package.config["Debug"].buildoptions, "-W" )
+		table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
+		table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
+		table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
+		table.insert( package.config["Debug"].buildoptions, "-fPIC" )
+
+		table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
+		table.insert( package.config["Release"].buildoptions, "-W" )
+		table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
+		table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
+		table.insert( package.config["Release"].buildoptions, "-fexceptions" )
+		table.insert( package.config["Release"].buildoptions, "-fPIC" )
+		table.insert( package.config["Release"].buildoptions, "-O1" )
+		table.insert( package.config["Release"].buildoptions, "-O2" )
+		table.insert( package.config["Release"].buildoptions, "-O3" )
+		table.insert( package.config["Release"].buildoptions, "-fexpensive-optimizations" )
+		
+		table.insert( package.config["Debug"].defines, debug_macro )
+		table.insert( package.config["Release"].defines, "NDEBUG" )
+		
+		table.insert( package.defines, { "_USRDLL" , "WIN32", "_WINDOWS" , "__WIN32__" , "HAVE_WIN32_THREADS" , "HAVE_COMPILER_TLS" , "_MBCS" , "__WXMSW__" , "_CRT_SECURE_DEPRECATE" , "_CRT_SECURE_NO_WARNINGS" , "_CRT_NONSTDC_NO_DEPRECATE" } )
+		
+		package.config["Release"].postbuildcommands = { "gmkdir -p ../../../devel/Release/include/rheia" , "cp -ru .../../../include/rheia/workspacemgt ../../../devel/Release/include/rheia" }
+		package.config["Debug"].postbuildcommands = { "gmkdir -p ../../../devel/Debug/include/rheia" , "cp -ru ../../../include/rheia/workspacemgt ../../../devel/Debug/include/rheia" }
+	else
+		table.insert( package.config["Release"].buildoptions, "/Zi" )
+		table.insert( package.config["Release"].buildoptions, "/Zc:wchar_t" )
+		table.insert( package.config["Release"].buildoptions, "/W3" )
+		table.insert( package.config["Release"].buildoptions, "/Ox" )
+		table.insert( package.config["Release"].buildoptions, "/GF" )
+		table.insert( package.config["Release"].buildoptions, "/EHs" )
+		--table.insert( package.config["Release"].buildoptions, "/TP" )
+		table.insert( package.config["Release"].buildoptions, "/MD" )
+		table.insert( package.config["Release"].buildoptions, "/DNDEBUG" )
+		
+		table.insert( package.config["Debug"].buildoptions, "/Zi" )
+		table.insert( package.config["Debug"].buildoptions, "/Zc:wchar_t" )
+		table.insert( package.config["Debug"].buildoptions, "/W3" )
+		table.insert( package.config["Debug"].buildoptions, "/GF" )
+		table.insert( package.config["Debug"].buildoptions, "/EHs" )
+		--table.insert( package.config["Debug"].buildoptions, "/TP" )
+		table.insert( package.config["Debug"].buildoptions, "/MDd" )
+		table.insert( package.config["Debug"].buildoptions, "/DDEBUG" )
+		table.insert( package.config["Debug"].buildoptions, "/D_DEBUG" )
+		
+		table.insert( package.buildoptions, "/DRHEIA_WMGT_MAKINGDLL" )
+		table.insert( package.buildoptions, "/D_USRDLL" )
+		table.insert( package.buildoptions, "/DUSINGDLL" )
+		table.insert( package.buildoptions, "/DHAVE_CONFIG_H" )
+		table.insert( package.buildoptions, "/DWIN32" )
+		table.insert( package.buildoptions, "/D_WINDOWS")
+		table.insert( package.buildoptions, "/D__WIN32__")
+		table.insert( package.buildoptions, "/DHAVE_WIN32_THREADS")
+		table.insert( package.buildoptions, "/DHAVE_COMPILER_TLS")
+		table.insert( package.buildoptions, "/D_MBCS")
+		table.insert( package.buildoptions, "/D__WXMSW__")
+		table.insert( package.buildoptions, "/D_CRT_SECURE_DEPRECATE")
+		table.insert( package.buildoptions, "/D_CRT_SECURE_NO_WARNINGS")
+		table.insert( package.buildoptions, "/D_CRT_NONSTDC_NO_DEPRECATE")
+		
+		package.config["Release"].postbuildcommands = { "gmkdir -p ../../../devel/Release/include/rheia" , "cp -ru ../../../include/rheia/workspacemgt ../../../devel/Release/include/rheia" }
+		package.config["Debug"].postbuildcommands = { "gmkdir -p ../../../devel/Debug/include/rheia" , "cp -ru ../../../include/rheia/workspacemgt ../../../devel/Debug/include/rheia" }
+		
+		package.links = { "user32" , "gdi32" , "winspool" , "kernel32" , "comdlg32" , "advapi32" , "shell32" , "ole32" , "oleaut32" , "uuid" , "opengl32" , "winmm" }
+	end
+	
+	package.config["Release"].target = targetName
+	package.config["Release"].targetprefix = "lib"
+	package.config["Release"].targetextension = "dll"
+	package.config["Release"].libdir = "../../../devel/Release/lib"
+	package.config["Release"].bindir = "../../../devel/Release/bin"
+	package.config["Release"].libpaths = { "../../../devel/Release/lib" }
+
+	package.config["Debug"].target = targetName .. "-dbg"
+	package.config["Debug"].targetprefix = "lib"
+	package.config["Debug"].targetextension = "dll"
+	package.config["Debug"].libdir = "../../../devel/Debug/lib"
+	package.config["Debug"].bindir = "../../../devel/Debug/bin"
+	package.config["Debug"].libpaths = { "../../../devel/Release/lib" }
+	
 	-- Set wxWidgets include paths
 	if ( target == "cb-gcc" ) then
 		table.insert( package.includepaths, "$(#WX.include)" )
@@ -208,13 +251,83 @@ if ( OS == "windows" ) then
 		table.insert( package.libpaths, "$(WXWIN)/lib/vc_dll" )
 	end
 
+	-- Set the libraries it links to.
+	package.config["Debug"].links = { "libxml2-dbg" , "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" , "librheiautils-dbg" , "librheiabase-dbg" , "librheialoggers-dbg" , "librheiapackagemgt-dbg" }
+	package.config["Release"].links = { "libxml2" , "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" , "librheiautils" , "librheiabase" , "librheialoggers" , "librheiapackagemgt" }
+
 	-- Set wxWidgets libraries to link.
 	if ( options["unicode"] ) then
-		table.insert( package.config["Release"].links, "wxmsw"..wx_ver.."u" )
-		table.insert( package.config["Debug"].links, "wxmsw"..wx_ver.."ud" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_richtext" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_xrc" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_aui" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_media" )
+		table.insert( package.config["Release"].links, "wxbase".. wx_ver .. "u_net" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_qa" )
+		table.insert( package.config["Release"].links, "wxbase".. wx_ver .. "u_xml" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_adv" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_html" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "u_core" )
+		table.insert( package.config["Release"].links, "wxbase".. wx_ver .. "u" )
+		table.insert( package.config["Release"].links, "wxpngu" )
+		table.insert( package.config["Release"].links, "wxjpegu" )
+		table.insert( package.config["Release"].links, "wxtiffu" )
+		table.insert( package.config["Release"].links, "wxregexu" )
+		table.insert( package.config["Release"].links, "wxzlibu" )
+		table.insert( package.config["Release"].links, "wxexpatu" )
+		
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_richtext" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_xrc" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_aui" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_media" )
+		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "ud_net" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_qa" )
+		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "ud_xml" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_adv" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_html" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_core" )
+		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "ud" )
+		table.insert( package.config["Debug"].links, "wxpngud" )
+		table.insert( package.config["Debug"].links, "wxjpegud" )
+		table.insert( package.config["Debug"].links, "wxtiffud" )
+		table.insert( package.config["Debug"].links, "wxregexud" )
+		table.insert( package.config["Debug"].links, "wxzlibud" )
+		table.insert( package.config["Debug"].links, "wxexpatud" )
 	else
-		table.insert( package.config["Release"].links, "wxmsw"..wx_ver )
-		table.insert( package.config["Debug"].links, "wxmsw"..wx_ver.."d" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_richtext" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_xrc" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_aui" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_media" )
+		table.insert( package.config["Release"].links, "wxbase".. wx_ver .. "_net" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_qa" )
+		table.insert( package.config["Release"].links, "wxbase".. wx_ver .. "_xml" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_adv" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_html" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "_core" )
+		table.insert( package.config["Release"].links, "wxbase".. wx_ver )
+		table.insert( package.config["Release"].links, "wxpng" )
+		table.insert( package.config["Release"].links, "wxjpeg" )
+		table.insert( package.config["Release"].links, "wxtiff" )
+		table.insert( package.config["Release"].links, "wxregex" )
+		table.insert( package.config["Release"].links, "wxzlib" )
+		table.insert( package.config["Release"].links, "wxexpat" )
+		
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_richtext" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_xrc" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_aui" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_media" )
+		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "d_net" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_qa" )
+		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "d_xml" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_adv" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_html" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_core" )
+		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "d" )
+		table.insert( package.config["Debug"].links, "wxpngd" )
+		table.insert( package.config["Debug"].links, "wxjpegd" )
+		table.insert( package.config["Debug"].links, "wxtiffd" )
+		table.insert( package.config["Debug"].links, "wxregexd" )
+		table.insert( package.config["Debug"].links, "wxzlibd" )
+		table.insert( package.config["Debug"].links, "wxexpatd" )
 	end
 
 	-- Set the Windows defines.
@@ -223,6 +336,62 @@ else
 --******* LINUX SETUP *************
 --*	Settings that are Linux specific.
 --*********************************
+		-- Set the build options.
+	package.buildflags = { "extra-warnings" }
+	package.config["Release"].buildflags = { "optimize-speed" }
+
+	if ( options["unicode"] ) then
+		table.insert( package.buildflags, "unicode" )
+	end
+
+	if ( string.find( target or "", ".*-gcc" ) or target == "gnu" ) then
+		table.insert( package.config["Debug"].buildoptions, "-O0" )
+		table.insert( package.config["Debug"].buildoptions, "-g" )
+		table.insert( package.config["Debug"].buildoptions, "-fno-strict-aliasing" )
+		table.insert( package.config["Debug"].buildoptions, "-W" )
+		if( not macosx ) then
+	        table.insert( package.config["Debug"].buildoptions, "-Ulinux" )
+	    end
+		table.insert( package.config["Debug"].buildoptions, "-Uunix" )
+		table.insert( package.config["Debug"].buildoptions, "-fmessage-length=0" )
+		table.insert( package.config["Debug"].buildoptions, "-Winvalid-pch" )
+		table.insert( package.config["Debug"].buildoptions, "-fexceptions" )
+		table.insert( package.config["Debug"].buildoptions, "-fPIC" )
+
+		table.insert( package.config["Release"].buildoptions, "-fno-strict-aliasing" )
+		table.insert( package.config["Release"].buildoptions, "-W" )
+		if( not macosx ) then
+	        table.insert( package.config["Release"].buildoptions, "-Ulinux" )
+	    end
+		table.insert( package.config["Release"].buildoptions, "-Uunix" )
+		table.insert( package.config["Release"].buildoptions, "-fmessage-length=0" )
+		table.insert( package.config["Release"].buildoptions, "-Winvalid-pch" )
+		table.insert( package.config["Release"].buildoptions, "-fexceptions" )
+		table.insert( package.config["Release"].buildoptions, "-fPIC" )
+		table.insert( package.config["Release"].buildoptions, "-O1" )
+		table.insert( package.config["Release"].buildoptions, "-O2" )
+		table.insert( package.config["Release"].buildoptions, "-O3" )
+		table.insert( package.config["Release"].buildoptions, "-fexpensive-optimizations" )
+
+		package.config["Release"].target = targetName
+		package.config["Release"].targetprefix = "lib"
+		package.config["Release"].targetextension = "so." .. version
+		package.config["Release"].libdir = "../../../devel/Release/lib"
+		package.config["Release"].bindir = "../../../devel/Release/lib"
+		package.config["Release"].libpaths = { "../../../devel/Release/lib" }
+
+		package.config["Debug"].target = targetName .. "-dbg"
+		package.config["Debug"].targetprefix = "lib"
+		package.config["Debug"].targetextension = "so." .. version
+		package.config["Debug"].libdir = "../../../devel/Debug/lib"
+		package.config["Debug"].bindir = "../../../devel/Debug/lib"
+		package.config["Debug"].libpaths = { "../../../devel/Debug/lib" }
+
+		package.config["Release"].postbuildcommands = { "mkdir -p ../../../devel/Release/include/rheia" , CP .. "../../../include/rheia/workspacemgt ../../../devel/Release/include/rheia" , "(cd ../../../devel/Release/lib &amp;&amp; rm -rf " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" , "(cd ../../../devel/Release/lib &amp;&amp; ln -s " .. package.config["Release"].targetprefix .. package.config["Release"].target .. "." .. package.config["Release"].targetextension .. " " .. package.config["Release"].targetprefix .. package.config["Release"].target .. ".so)" }
+
+		package.config["Debug"].postbuildcommands = { "mkdir -p ../../../devel/Debug/include/rheia" , CP .. "../../../include/rheia/workspacemgt ../../../devel/Debug/include/rheia" , "(cd ../../../devel/Debug/lib &amp;&amp; rm -rf " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" , "(cd ../../../devel/Debug/lib &amp;&amp; ln -s " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. "." .. package.config["Debug"].targetextension .. " " .. package.config["Debug"].targetprefix .. package.config["Debug"].target .. ".so)" }
+	end
+
 	-- Ignore resource files in Linux.
 	table.insert( package.excludes, matchrecursive( "*.rc" ) )
 	if( not macosx ) then

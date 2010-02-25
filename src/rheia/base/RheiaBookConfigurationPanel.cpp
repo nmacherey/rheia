@@ -60,9 +60,11 @@ bool RheiaBookConfigurationPanel::OnApply()
 
     m_cfg->Write(_T("/notebook/tabs_on_top"),             ((bool) XRCCTRL(*this, "rbBookTabsView", wxRadioBox)->GetSelection()) ? true : false);
     m_cfg->Write(_T("/notebook/close_buttons"),             XRCCTRL(*this, "rbBookCloseButtons", wxRadioBox)->GetStringSelection() );
+
+    return true;
 }
 
 bool RheiaBookConfigurationPanel::OnCancel()
 {
-
+    return true;
 }

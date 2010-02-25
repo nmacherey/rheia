@@ -61,6 +61,8 @@ bool RheiaTreeItem::Add( const wxString& name , RheiaTreeItem* item )
         return false;
 
     m_items[name] = item;
+
+    return true;
 }
 
 bool RheiaTreeItem::Remove( const wxString& name )
@@ -74,6 +76,8 @@ bool RheiaTreeItem::Remove( const wxString& name )
         delete it->second;
 
     m_items.erase(it);
+
+    return true;
 }
 
 bool RheiaTreeItem::Remove( RheiaTreeItem* item )
@@ -176,6 +180,8 @@ bool RheiaTreeItem::CopyTo( wxTreeCtrl* tree , wxTreeItemId root , int bmpSize ,
 
     if( moveTo )
         m_root = root;
+
+    return true;
 }
 
 void RheiaTreeItem::CreateTree( wxTreeCtrl* tree , wxTreeItemId root , int bmpSize )

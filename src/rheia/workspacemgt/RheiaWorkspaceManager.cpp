@@ -253,7 +253,6 @@ RheiaWorkspaceManager::~RheiaWorkspaceManager()
 **********************************************************************************************************/
 void RheiaWorkspaceManager::OnManagementTreeSelection(wxTreeEvent& event)
 {
-    RheiaWorkspace *ItemWksp;
     wxTreeItemId SelectedItem = event.GetItem();
 
     if (!SelectedItem.IsOk())
@@ -314,7 +313,6 @@ void RheiaWorkspaceManager::OnManagementTreeSelection(wxTreeEvent& event)
 
 void RheiaWorkspaceManager::OnManagementTreeDClick(wxTreeEvent& event)
 {
-    RheiaWorkspace *ItemWksp;
     wxTreeItemId SelectedItem = event.GetItem();
 
     if (!SelectedItem.IsOk())

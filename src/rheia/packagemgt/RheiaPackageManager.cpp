@@ -92,6 +92,8 @@ bool RheiaPackageManager::AddPackageToList( const wxString& filename )
     info.name = basename;
     RheiaLoggerManager::sdLog( wxT("RheiaPackageManager::AddPackageToList::Storing file : ") + basename + wxT(" in the pending package list ...") , RheiaLogging::info );
     m_packages[info.name] = info;
+
+    return true;
 }
 
 int RheiaPackageManager::ScanForPackages( const wxString& path )
