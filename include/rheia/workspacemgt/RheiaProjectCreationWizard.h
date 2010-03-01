@@ -49,7 +49,7 @@ public :
     /**
     *   Basic constructor for the wizard pages
     */
-    RheiaProjectCreationWizard( wxWizard* wizard,RheiaManagedFrame* parent, RheiaWorkspace *workspace );
+    RheiaProjectCreationWizard( wxWizard* wizard, RheiaManagedFrame* parent, RheiaWorkspace *workspace );
 
     /**
     *   Basic destructor

@@ -233,9 +233,9 @@ private :
 };
 
 /** define the easy macro to register the project in the factory */
-#define REGISTER_PROJECT( object ) \
+#define REGISTER_PROJECT( object , title ) \
     namespace ns##object { \
-        RheiaProjectRegistrant< object > object##registrant( #object ); \
+        RheiaProjectRegistrant< object > object##registrant( title ); \
     }
 
 #endif

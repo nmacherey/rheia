@@ -65,7 +65,7 @@ public :
     *   You must overload this method in order to save information/content
     *   of the page when the user is closing it.
     */
-    virtual void OnPageClosed() = 0;
+    virtual void OnPageClosed() {};
 	
 	/**
 	 * this method is called when the user right clicks on the book tab

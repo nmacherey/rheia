@@ -3,6 +3,7 @@
 
 #include <RheiaGlobals.h>
 #include <RheiaWMgtSettings.h>
+#include <RheiaTreeItem.h>
 
 #include <wx/event.h>
 #include <wx/string.h>
@@ -70,18 +71,6 @@ public :
     /**********************************************************************************
     *   METODS
     **********************************************************************************/
-	/** Specifies if the element has been modified in any way.
-	*	@return True if the element is modified in any way. */
-	virtual bool HasBeenModified() {return m_modified;};
-
-	/** Mark the element as modified or not.
-	*	This function shall be derived by any project in order to manage specific info
-	*	when marking the item has modified.
-	*
-	*   @param modified If true, the element is marked as modified. If false, as not-modified.
-	*/
-	virtual void SetHasBeenModified(bool modified = true) {m_modified = modified;};
-
 	/** This function is used when the main frame ask the project to build its context menu
 	*	@param menu menu in which we want to create the context menu for the project
 	*/

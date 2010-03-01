@@ -11,6 +11,7 @@
 #include "RheiaWizardManager.h"
 #include "RheiaProject.h"
 #include "RheiaProjectCreationWizard.h"
+#include "RheiaCenterPaneManager.h"
 #include "RheiaWorkspace.h"
 #include "RheiaWizardPageBase.h"
 #include "RheiaProjectCreationDlg.h"
@@ -101,7 +102,8 @@ bool RheiaWizardManager::DoCreateNewProject( RheiaWorkspace* workspace )
         wxTreeCtrl* m_tree = RheiaWorkspaceManager::Get(m_parent)->GetManagementTree();
         wxTreeItemId m_root = RheiaWorkspaceManager::Get(m_parent)->GetManagementTreeRoot();
 
-        workspace->UpdateTree( m_tree , m_root );
+        workspace->UpdateTree( m_tree , 16 );
+        RheiaCenterPaneManager::Get(m_parent)->AddPage( m_project->GetName() , m_project );
 
         RheiaProject* project = m_projectWizard->GetProject();
         RheiaProjectEvent event(RheiaEVT_PROJECT_CREATED,
@@ -170,6 +172,7 @@ void RheiaWizardManager::OnWizardFinish( wxWizardEvent& event )
 
 bool RheiaWizardManager::RegisterProjectWizard( const wxString& name ,
         const wxString& category,
+        const wxString& resName,
         const wxString& bitmapBasename,
         WizardConstructor ctor,
         WizardDestructor dtor )
@@ -183,6 +186,7 @@ bool RheiaWizardManager::RegisterProjectWizard( const wxString& name ,
 
     registration.name = name;
     registration.category = category;
+    registration.resName = resName;
     registration.bitmapBasename = bitmapBasename;
     registration.ctor = ctor;
     registration.dtor = dtor;

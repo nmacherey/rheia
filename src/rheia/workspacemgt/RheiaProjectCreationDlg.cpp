@@ -58,10 +58,10 @@ RheiaProjectCreationDlg::RheiaProjectCreationDlg(wxWindow* parent)
     myres->LoadDialog(this, parent, _T("dlgProjectCreation"));
 
     m_lstImages = new wxImageList( 48 , 48 );
-    XRCCTRL( *this , "lstWizards" , wxListCtrl )->AssignImageList( m_lstImages , wxIMAGE_LIST_NORMAL );
+    wxListCtrl* lst = XRCCTRL( *this , "lstWizards" , wxListCtrl );
+    lst->AssignImageList( m_lstImages , wxIMAGE_LIST_NORMAL );
 
     BuildList();
-
     XRCCTRL(*this, "rbListView", wxRadioBox)->SetSelection(RheiaManager::Get()->GetConfigurationManager(_T("new_project"))->ReadInt(_T("/view"), 0));
     ChangeView();
 
@@ -108,8 +108,11 @@ void RheiaProjectCreationDlg::BuildListFor( const wxString& category )
     for( unsigned int i = 0; i < wizards.GetCount() ; ++i )
     {
         RheiaProjectWizardRegistration reg = RheiaWizardManager::FindProjectWizardByName(wizards[i]);
-        wxString bmpbase = reg.bitmapBasename + wxT("_48.png");
+        wxString path = RheiaFileFinder::FindFile( reg.resName );
+        wxString bmpbase = path + wxT("#zip:") + reg.bitmapBasename + wxT("_48.png");
+        
         wxBitmap bmp = RheiaLoadBitmap( bmpbase );
+
         int lidx = m_lstImages->Add( bmp );
         long item = lst->InsertItem(i,reg.name,lidx);
 

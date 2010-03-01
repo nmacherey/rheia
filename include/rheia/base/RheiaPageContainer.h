@@ -33,7 +33,7 @@ public :
     *   You must overload this method in order to save information/content
     *   of the page when the user is closing it.
     */
-    virtual bool OnPageClosed() = 0;
+    virtual bool OnPageClosed() {return true;};
 };
 
 #endif

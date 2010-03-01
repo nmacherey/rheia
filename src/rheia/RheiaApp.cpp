@@ -47,8 +47,8 @@ bool RheiaApp::OnInit(){
 	/** Call basic initializations */
 	DoBasicInitializations();
 
-	if( !CheckForSingleInstance() )
-		return false;
+	/*if( !CheckForSingleInstance() )
+		return false;*/
 	
 	RheiaConfigurationManager* cmgr = RheiaProfileManager::Get()->GetActiveProfileManager();
 	bool showSplash = cmgr->ReadBool( wxT("show_splash") , true ) && (!m_noSplash);

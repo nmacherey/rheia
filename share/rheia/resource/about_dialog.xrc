@@ -40,7 +40,7 @@
 			</object>
 			<object class="sizeritem">
 				<object class="wxNotebook" name="nbMain">
-                    <style>wxLB_TOP</style>
+                    <style>wxNB_TOP</style>
                     <object class="notebookpage">
                         <object class="wxStaticText" name="txtAboutDescription">
                         </object>

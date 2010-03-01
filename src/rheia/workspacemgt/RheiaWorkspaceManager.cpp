@@ -174,7 +174,7 @@ RheiaBookPage* RheiaWorkspaceManager::BuildMainWindow( wxWindow* parent )
     page->SetSizer(page->m_sizer);
 
     m_treeRoot = m_tree->AddRoot( wxT("Home") );
-    m_treeImages = new wxImageList( 16 , 16 , true );
+    m_treeImages = new wxImageList( 16 , 16 );
     m_tree->SetImageList( m_treeImages );
 
     ReloadConfig();

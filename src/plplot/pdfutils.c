@@ -107,6 +107,7 @@ pdf_fopen(const char *filename, const char *mode)
 	if (pdfs->file == NULL) {
 	    pdf_close(pdfs);
 	    pdfs = NULL;
+        //plexit(filename);
 	}
 #endif
     }

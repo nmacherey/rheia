@@ -84,8 +84,9 @@ RheiaPackageManagementDialog::RheiaPackageManagementDialog( wxWindow* parent )
     DoBuilLibsPage();
 
     RegiserEvents();
-
-    GetSizer()->SetSizeHints(this);
+    
+    SetSize(800,600);
+    //GetSizer()->SetSizeHints(this);
     CentreOnParent();
 }
 
@@ -146,14 +147,17 @@ void RheiaPackageManagementDialog::DoBuildPackagesPage()
                 wxString name = file->GetName();
                 RheiaPluginRegistration* reg = RheiaPluginManager::Get()->FindElement(name);
 
-                RheiaPackageTreeItemData* datab = new RheiaPackageTreeItemData( info );
-                wxTreeItemId item = m_treelist->AppendItem (plugins, name,-1,-1,datab);
+                if( reg != NULL )
+                {
+                    RheiaPackageTreeItemData* datab = new RheiaPackageTreeItemData( info );
+                    wxTreeItemId item = m_treelist->AppendItem (plugins, name,-1,-1,datab);
 
-                m_treelist->SetItemText(item,1,wxString::Format(wxT("%d.%d.%d"),reg->info->GetVersion()->GetMajor(),
+                    m_treelist->SetItemText(item,1,wxString::Format(wxT("%d.%d.%d"),reg->info->GetVersion()->GetMajor(),
                                                         reg->info->GetVersion()->GetMinor() ,
                                                         reg->info->GetVersion()->GetBuild()));
 
-                m_treelist->SetItemText(item,2,reg->info->GetTitle());
+                    m_treelist->SetItemText(item,2,reg->info->GetTitle());
+                }
             }
             else if( file->GetType().IsSameAs(wxT("lib")) )
             {

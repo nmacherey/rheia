@@ -49,12 +49,14 @@ struct RheiaProjectWizardRegistration
     RheiaProjectWizardRegistration(const RheiaProjectWizardRegistration& rhs):
         name(rhs.name),
         category(rhs.category),
+        resName(rhs.resName),
         bitmapBasename(rhs.bitmapBasename),
         ctor(rhs.ctor),
         dtor(rhs.dtor){};
 
     wxString name;
     wxString category;
+    wxString resName;
     wxString bitmapBasename;
     WizardConstructor ctor;
     WizardDestructor dtor;
@@ -109,6 +111,7 @@ public :
     */
     static bool RegisterProjectWizard( const wxString& name ,
                                 const wxString& category,
+                                const wxString& resName,
                                 const wxString& bitmapBasename,
                                 WizardConstructor ctor,
                                 WizardDestructor dtor );
@@ -230,12 +233,13 @@ public :
     *   @param name title/name of the project wizard for registering in the factory
     *   @param category wizard project's name for the factory's organization
     */
-    RheiaProjectWizardRegistrant( const wxString& name , const wxString& category, const wxString& bitmapBase )
+    RheiaProjectWizardRegistrant( const wxString& name , const wxString& category , const wxString resName, const wxString& bitmapBase )
     {
 		m_type = name;
 		
         RheiaWizardManager::RegisterProjectWizard( name ,
                                                     category,
+                                                    resName,
                                                     bitmapBase,
                                                     &Create ,
                                                     &Free );
@@ -274,9 +278,9 @@ private :
 };
 
 /** define the easy macro to register the project wizard in the factory */
-#define REGISTER_PROJECT_WIZARD( object , name , category , bitmapbase ) \
+#define REGISTER_PROJECT_WIZARD( object , name , category , resName , bitmapbase ) \
     namespace { \
-        RheiaProjectWizardRegistrant< object > registrant( name , category , bitmapbase ); \
+        RheiaProjectWizardRegistrant< object > registrant( name , category , resName , bitmapbase ); \
     }
 
 #endif

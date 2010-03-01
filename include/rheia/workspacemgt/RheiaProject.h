@@ -104,7 +104,7 @@ public :
 	* order to allow the application management to make a copy of your project
 	* starting from this base class.
 	*/
-	virtual RheiaProject* Clone() = 0;
+	virtual RheiaTreeItem* Clone() = 0;
 
 	/*************************************************************************************************
 	*	METHODS
