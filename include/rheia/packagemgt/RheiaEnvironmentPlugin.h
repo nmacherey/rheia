@@ -98,7 +98,7 @@ public :
     /**
     *   Default constructor
     *   As RheiaEnvironmentPlugin object is a model for developers
-    *   who want to intŽgrate a full environment in Rheia, there is
+    *   who want to intÂŽgrate a full environment in Rheia, there is
     *   really nothing to do here.s
     */
     RheiaEnvironmentPlugin();
@@ -115,7 +115,7 @@ public :
     */
     virtual int GetConfigurationGroup() const
     {
-        return RhEnvironment;
+        return RhCore;
     }
 
     /**

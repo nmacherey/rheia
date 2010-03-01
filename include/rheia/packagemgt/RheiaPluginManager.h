@@ -137,11 +137,6 @@ public :
 	/*! This will unload a specific plugin acordingly to its name */
 	void UnloadPlugin(RheiaPluginRegistration* plugin);
 
-	/*! This will launch the configration panel of the plugin
-	*	@param pluginName The plugin's name to configure
-	*/
-	int ConfigurePlugin(const wxString& pluginName);
-
 	/*! Attach the given plugin to the plugin manager
 	*	@param plugin the plugin to attach
 	*/

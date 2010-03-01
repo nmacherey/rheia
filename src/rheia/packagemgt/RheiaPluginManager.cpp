@@ -100,13 +100,13 @@ bool RheiaPluginManager::AttachPlugin(RheiaPlugin* plugin)
         return false;
     }
 
-    if (plugin->IsAttached())
+    if (plugin->IsPlugged())
     {
         RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Your plugin has already been attached...") , RheiaLogging::info );
         return true;
     }
 
-    plugin->Attach();
+    plugin->Plug();
     RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Your plugin has been attached sucessfully...") , RheiaLogging::success );
 
     return true;
@@ -121,7 +121,7 @@ bool RheiaPluginManager::DetachPlugin(RheiaPlugin* plugin)
         RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Plugin refered to NULL...") , RheiaLogging::warning );
         return false;
     }
-    if (!plugin->IsAttached())
+    if (!plugin->IsPlugged())
     {
         RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Your plugin is not attached...") , RheiaLogging::info );
         return true;
@@ -129,21 +129,16 @@ bool RheiaPluginManager::DetachPlugin(RheiaPlugin* plugin)
 
     if( !RheiaManager::IsAppShuttingDown() )
     {
-        /*** if the plugin is an environement plugin we have to remove
-            * all projects attached to this environement */
-        if( plugin->GetType() == RhEnvironment )
-        {
-            RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Removing related projects for plugin ...") , RheiaLogging::info );
-            RheiaPluginEvent event( RheiaEVT_ENVPLUGIN_REQUEST_DETACH , 0 , plugin );
-            RheiaEventsManager::Get()->ProcessEvent(event);
-        }
+		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Removing related projects for plugin ...") , RheiaLogging::info );
+		RheiaPluginEvent event( RheiaEVT_ENVPLUGIN_REQUEST_DETACH , 0 , plugin );
+		RheiaEventsManager::Get()->ProcessEvent(event);
 
         RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Removing event functions for plugin ...") , RheiaLogging::info );
         RheiaEventsManager::Get()->RemoveAllEventMethodsFor(plugin);
     }
 
     RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Releasing our plugin ...") , RheiaLogging::info );
-    plugin->Release(RheiaManager::IsAppShuttingDown());
+    plugin->Unplug(RheiaManager::IsAppShuttingDown());
 
     return true;
 }
@@ -451,7 +446,7 @@ void RheiaPluginManager::LoadAllPlugins()
             RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Receiving plugin information for : ") + filename + wxT(" ...") , RheiaLogging::info );
             RheiaPluginRegistration* registrant = FindElement( filename );
 
-            if( registrant != NULL && registrant->plugin != NULL && registrant->plugin->IsAttached() )
+            if( registrant != NULL && registrant->plugin != NULL && registrant->plugin->IsPlugged() )
             {
                 RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Plugin already attached : ") + filename + wxT(" , continuing happily...") , RheiaLogging::warning );
                 continue;
@@ -503,8 +498,8 @@ void RheiaPluginManager::LoadAllPlugins()
                     continue;
                 }
 
-                if( !registrant->plugin->IsAttached() )
-                    registrant->plugin->Attach();
+                if( !registrant->plugin->IsPlugged() )
+                    registrant->plugin->Plug();
             }
         }
     }
@@ -616,16 +611,6 @@ RheiaPlugin* RheiaPluginManager::FindPlugin(const wxString& pluginName)
     return 0;
 }
 
-int RheiaPluginManager::ConfigurePlugin(const wxString& pluginName)
-{
-    RheiaPlugin* plug = FindPlugin(pluginName);
-    if (plug)
-    {
-        return plug->Configure();
-    }
-    return 0;
-}
-
 void RheiaPluginManager::NotifyPlugins(RheiaEvent& event)
 {
     RheiaEventsManager::Get()->ProcessEvent(event);
@@ -639,7 +624,7 @@ RheiaPluginsArray RheiaPluginManager::GetOffersFor( RheiaPluginType type )
     for( ; it != RegisteredPlugins.end() ; ++it )
     {
         RheiaPlugin* plugin = (*it).plugin;
-        if (plugin && plugin->IsAttached() && plugin->GetType() == type)
+        if (plugin && plugin->IsPlugged() && plugin->GetType() == type)
             ret.Add( plugin );
     }
 

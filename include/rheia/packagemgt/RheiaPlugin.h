@@ -18,19 +18,13 @@
 #include <RheiaConfigurationManager.h>
 #include <RheiaPMgtSettings.h>
 
-/* Define basic groups for plugins' configuration. */
-static const int RhCore									= 0x01; /*!< Core plugins ( inside the box ) ! */
-static const int RhEnvironment					        = 0x02; /*!< Workspace plugins */
-static const int RhEnvironmentCore		                = 0x03; /*!< Workspace attachable plugins */
-static const int RhContrib							    = 0x04; /*!< Contrib Plugins */
-static const int RhUnknown						        = 0x05; /*!< Unknown */
+/* Define basic groups for plugins' identification. */
+static const int RhCore									= 0x0001; /*!< Core plugins ( inside the box ) ! */
+static const int RhContrib							    = 0x0002; /*!< Contrib Plugins */
+static const int RhUnknown						        = 0x0004; /*!< Unknown */
 
+/* imports */
 class RheiaConfigurationPanel;
-class RheiaPluginAddOn;
-
-class RheiaPluginAddOn{
-
-};
 
 /**
 *	@class RheiaPlugin
@@ -40,7 +34,7 @@ class RheiaPluginAddOn{
 *	method to enable its management in Rheia.
 *
 *	Any plugin is first built as object instance but this will not necessarily give access to it.
-*	A plugin must be attached. When a plugin is attached the Attach() method calls the OnAttach()
+*	A plugin must be attached. When a plugin is attached the Plug() method calls the OnPlug()
 *	one that you can derive if you want to do specific initialisations in your plugin.
 *
 *	A plugin can add menu, frames, tool bars and log windows in Rheia. The set of functions enables
@@ -68,85 +62,66 @@ public:
 	/*! Returns the plugin's type  */
 	virtual RheiaPluginType GetType() const { return Type; };
 
-	/*! If a plugin provides some sort of configuration dialog,
-	*	this is the place to invoke it.
+	/** Return the configuration group for this plugin. Default is RhUnknown.
+	* If you want to use Rheia plugin management system in your applications
+	* and you need to develop new plugins, you can add your specific group identifier
+	* to obtain more flexibility if you want to manage special options for
+	* your plugins.
 	*/
-	virtual int Configure(){ return 0; };
-
-	/*! Return the configuration group for this plugin. Default is RheiaUnknown.
-	* Notice that you can logically AND more than one configuration groups,
-	* so you could set it, for example, as "RheiaWorkspace | RheiaContrib".
-	*/
-	virtual int GetConfigurationGroup() const { return RhUnknown; }
+	virtual int GetGroupIdentifier() const { return RhUnknown; }
 
 	/**
-	*		Return the namesapce in which the plugin is active
-	*		Overload this methods to change this.
-	*/
-	virtual const wxString GetNamespaceView() const { return wxT("default") ;};
-
-	/*! Return plugin's configuration panel.
+	* 	Return plugin's configuration panel.
 	*	@param parent The parent window.
 	*	@return A pointer to the plugin's RheiaConfigurationPanel. It is deleted by the caller.
 	*/
 	virtual RheiaConfigurationPanel* GetConfigurationPanel(wxWindow* parent){ return 0; }
 
-	/*! See whether this plugin is attached or not. A plugin should not perform
-	* any of its tasks, if not attached...
+	/** 
+	* See whether this plugin is plugged or not. You might never perform plugin task 
+	* in the constructor of the plugin.
 	* @note This function is *not* virtual.
 	* @return Returns true if it attached, false if not.
 	*/
-	bool IsAttached() const { return isAttached; }
+	bool IsPlugged() const { return m_plugged; }
 
-	/*! See whether this plugin can be detached (unloaded) or not.
-	* This function is called usually when the user requests to
-	* uninstall or disable a plugin. Before disabling/uninstalling it, Code::Blocks
-	* asks the plugin if it can be detached or not. In other words, it checks
-	* to see if it can be disabled/uninstalled safely...
-	* @par
-	* A plugin should return true if it can be detached at this moment, false if not.
-	* @return The default implementation returns true.
+	/**
+	* See whether this plugin can be unplugged or not.
+	* For example if your plugin handles information not usaually managed 
+	* by the application you might want to disable the user to unplug the
+	* plugin.
+	* This method is only called when the user wants to disable the plugin 
+	* from the Installed Softwares Dialog.
 	*/
-	virtual bool CanDetach() const { return true; }
+	virtual bool CanUnplug() const { return true; }
 
-	/*! This method is called by Rehia and is used by the plugin
-	* to add any toolbar items it needs on Rehia toolbar.\n
-	* It is a pure virtual method that needs to be implemented by all
-	* plugins. If the plugin does not need to add items on the toolbar,
-	* just do nothing ;)
-	* @param toolBar the wxToolBar to create items on
-	* @return The plugin should return true if it needed the toolbar, false if not
+	/** 
+	* This method is called by Rheia in order to build the plugin's toolbar 
+	* in the application.
+	* @param parent the parent in which the toolbar shall be created
+	* @return the toolbar if the plugin is creating a toolbar else
+	* return nothing.
 	*/
-	virtual bool BuildToolBar(wxToolBar* toolBar) = 0;
+	virtual wxToolBar* BuildToolBar(wxWindow* parent) {return 0L;};
 
-	/*! This method is called by Rheia and is used by the plugin
-	* to add any menu items it needs on Rheia's menu bar.\n
-	* It is a pure virtual method that needs to be implemented by all
-	* plugins. If the plugin does not need to add items on the menu,
-	* just do nothing ;)
-	*
+	/** 
+	* Create the plugin menu in the menubar... This shall be called by your
+	* mainframe when you receive the EVT_PLUGIN_ATTACHED. 
 	* @note This function may be called more than one time. This can happen,
-	* for example, when a plugin is installed or uninstalled.
-	*
+	* for example, when the menu is recreated from the wxMenuManager
 	* @param menuBar the wxMenuBar to create items in
 	*/
-	virtual void BuildMenu(wxMenuBar* menuBar) = 0;
-
-    /** get the corresponding addon for the plugin */
-    virtual RheiaPluginAddOn* GetPluginAddOn() {return 0L;};
+	virtual void BuildMenu(wxMenuBar* menuBar){};
 
 protected:
-	/*! Any descendent plugin should override this virtual method and
-	* perform any necessary initialization. This method is called by
-	* Rheia (RheiaPluginManager actually) when the plugin has been
-	* loaded and should attach in Rheia. When Rheia
-	* starts up, it finds and <em>loads</em> all plugins but <em>does
-	* not</em> activate (attaches) them. It then activates all plugins
-	* that the user has selected to be activated on start-up.\n
-	* This means that a plugin might be loaded but <b>not</b> activated...\n
-	* Think of this method as the actual constructor...
+	/**
+	* If you want to write a plugin all your building and construction tasks shall be done
+	* in this method. It is called by the RheiaPlugin::Plug() method in RheiaPluginManager
+	* and allow you to perform you initalization tasks. Then the plugin shall be usable and
+	* all it's informations too. In the application.
+	* Here do what you need simply overload the method... 
 	*/
-	virtual void OnAttach(){};
+	virtual void OnPlug(){};
 
 	/*! Any descendent plugin should override this virtual method and
 	* perform any necessary de-initialization. This method is called by
@@ -157,31 +132,30 @@ protected:
 	*         case *don't* use RheiaManager::Get()->Get...() functions or the
 	*         behaviour is undefined...
 	*/
-	virtual void OnRelease(bool appShutDown){}
+	virtual void OnUnplug(bool appShutDown){}
 
 	/*! Holds the plugin's type. Set in the default constructor. */
 	RheiaPluginType Type;
 
 	/** Holds the "attached" state. */
-	bool isAttached;
+	bool m_plugged;
 
 private:
 	friend class RheiaPluginManager; // only the plugin manager has access here
 
-	/*! Attach is <b>not</b> a virtual function, so you can't override it.
+	/** 
+	* You might never have to deal with this function unless you are a Rheia core 
+	* developper. What you have to know is that you shall never execute plugin
+	* task in your application untill this method and as weel the OnPlug one 
+	* have been called.
 	*/
-	void Attach();
+	void Plug();
 
-	/** Release is <b>not</b> a virtual function, so you can't override it.
-	* The default implementation un-hooks the plugin from GraymatBox's
-	* event handling system. Use OnRelease() for any clean-up specific
-	* tasks.
-	* @param appShutDown If true, the application is shutting down. In this
-	*         case *don't* use RheiaManager::Get()->Get...() functions or the
-	*         behaviour is undefined...
-	* @see OnRelease()
+	/** 
+	* Unplug the plugin from the application nothing provided by the plugin
+	* shall be somwhere in the application after a call to this methos.
 	*/
-	void Release(bool appShutDown);
+	void Unplug(bool appShutDown);
 };
 
 #endif

@@ -7,7 +7,7 @@
 
 RheiaPlugin::RheiaPlugin()
     : Type(ptNone),
-    isAttached(false)
+    m_plugged(false)
 {
 	SetEvtHandlerEnabled(false);
 }
@@ -16,10 +16,10 @@ RheiaPlugin::~RheiaPlugin()
 {
 }
 
-void RheiaPlugin::Attach()
+void RheiaPlugin::Plug()
 {
-    isAttached = true;
-	OnAttach();
+    m_plugged = true;
+	OnPlug();
 	SetEvtHandlerEnabled(true);
 
 	RheiaPluginEvent event(RheiaEVT_PLUGIN_ATTACHED);
@@ -28,21 +28,16 @@ void RheiaPlugin::Attach()
 	RheiaEventsManager::Get()->ProcessEvent(event);
 }
 
-void RheiaPlugin::Release(bool appShutDown)
+void RheiaPlugin::Unplug(bool appShutDown)
 {
-	if (!isAttached)
+	if (!m_plugged)
 		return;
-	isAttached = false;
+		
+	m_plugged = false;
 	SetEvtHandlerEnabled(false);
-	OnRelease(appShutDown);
+	OnUnplug(appShutDown);
 	RheiaPluginEvent event(RheiaEVT_PLUGIN_RELEASED);
 	event.SetPlugin(this);
-	// ask the host to process this event immediately
-	// it must be done this way, because if the host references
-	// us (through event.GetEventObject()), we might not be valid at that time
-	// (while, now, we are...)
-	RheiaEventsManager::Get()->ProcessEvent(event);
 
-//	if (appShutDown)
-//        return; // nothing more to do, if the app is shutting down
+	RheiaEventsManager::Get()->ProcessEvent(event);
 }

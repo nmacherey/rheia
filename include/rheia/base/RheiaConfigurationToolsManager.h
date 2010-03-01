@@ -270,7 +270,7 @@ private :
 *   Use this class to register your configuration tool with RheiaConfigurationToolsManager
 *   All you have to do is instantiate a RheiaConfigurationToolRegistrant object.
 *   If you are coding a RheiaConfigurationToolPlugin for the application you have to create
-*   this design tempalte in the RheiaPlugin::OnAttach() method and to free it in the
+*   this design tempalte in the RheiaPlugin::OnPlug() method and to free it in the
 *   RheiaPlugin::OnDettach() method.
 *   If the configuration tool is directly build in the Rheia SDK, simply declare a global
 *   object in a namesapce to enable the tool in Rheia.
