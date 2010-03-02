@@ -1,0 +1,3 @@
+[submodule "webconnect"]
+	path = webconnect
+	url = ssh://anonymous@forge.rheia-framework.com/gitroot/webconnect
