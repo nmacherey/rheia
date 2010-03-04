@@ -58,6 +58,7 @@
 #include <RheiaPackageManager.h>
 #include <RheiaEventsManager.h>
 #include <RheiaPackageManagementDialog.h>
+#include <RheiaStartPageContainer.h>
 
 RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
        wxWindowID id,
@@ -142,7 +143,8 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
     log->Log( wxT("RheiaMainFrame::Loading installed plugins..."), RheiaLogging::info);
     RheiaPluginManager::Get()->LoadAllPlugins();
 
-
+	RheiaStartPageContainer* m_startpage = new RheiaStartPageContainer( this, wxT("nm_test_page.html") );
+	RheiaCenterPaneManager::Get(this)->AddPage( wxT("Start here") , m_startpage );
 }
 
 RheiaMainFrame::~RheiaMainFrame()

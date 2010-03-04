@@ -54,10 +54,10 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../include/rheia/python" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" }
+package.includepaths = { "../../include/rheia/python" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" , "../../webconnect/include" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" }
+package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "webconnect" }
 
 -- Set the defines.
 package.defines = { "HAVE_CONFIG_H" , "RHEIA_USE_IRRLICHT" }
@@ -259,8 +259,8 @@ if ( OS == "windows" ) then
 	table.insert( package.includepaths, "$(PYTHON)/include" )
 	
 	-- Set the libraries it links to.
-	package.config["Debug"].links = { "libxml2-dbg" , "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" , "librheiautils-dbg" , "librheiabase-dbg" , "librheialoggers-dbg" , "python" .. python_ver , "librheiapython-dbg" , "librheiapackagemgt-dbg" , "librheiaworkspacemgt-dbg" }
-	package.config["Release"].links = { "libxml2" , "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" , "librheiautils" , "librheiabase" , "librheialoggers", "python" .. python_ver , "librheiapython" , "librheiapackagemgt" , "librheiaworkspacemgt"}
+	package.config["Debug"].links = { "libxml2-dbg" , "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" , "librheiautils-dbg" , "librheiabase-dbg" , "librheialoggers-dbg" , "python" .. python_ver , "librheiapython-dbg" , "librheiapackagemgt-dbg" , "librheiaworkspacemgt-dbg" , "webconnect-dbg"}
+	package.config["Release"].links = { "libxml2" , "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" , "librheiautils" , "librheiabase" , "librheialoggers", "python" .. python_ver , "librheiapython" , "librheiapackagemgt" , "librheiaworkspacemgt" , "webconnect"}
 
 	-- Set wxWidgets libraries to link.
 	if ( options["unicode"] ) then
@@ -424,8 +424,8 @@ else
 		end
 
 		-- Set the libraries it links to.
-		package.config["Debug"].links = { "gmirrlicht-dbg", "gmcsirocsa-dbg", "gmqsastime-dbg", "gmplplot-dbg", "gmwxplplot-dbg" , "rheiautils-dbg" , "rheiabase-dbg" , "rheialoggers-dbg" , "rheiapackagemgt-dbg" , "rheiaworkspacemgt-dbg" , "rheiapython-dbg" ,"python" .. python_ver }
-		package.config["Release"].links = { "gmirrlicht", "gmcsirocsa", "gmqsastime", "gmplplot", "gmwxplplot" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "python" .. python_ver }
+		package.config["Debug"].links = { "gmirrlicht-dbg", "gmcsirocsa-dbg", "gmqsastime-dbg", "gmplplot-dbg", "gmwxplplot-dbg" , "rheiautils-dbg" , "rheiabase-dbg" , "rheialoggers-dbg" , "rheiapackagemgt-dbg" , "rheiaworkspacemgt-dbg" , "rheiapython-dbg" ,"python" .. python_ver , "webconnect-dbg" }
+		package.config["Release"].links = { "gmirrlicht", "gmcsirocsa", "gmqsastime", "gmplplot", "gmwxplplot" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "python" .. python_ver , "webconnect" }
 
 	    if( not macosx ) then
 	        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "mkdir -p ../../devel/Release/share/rheia/images" , "mkdir -p ../../devel/Release/share/rheia/plugins", "mkdir -p ../../devel/Release/share/rheia/packages" , "mkdir -p ../../devel/Release/share/rheia/cache" , "mkdir -p ../../devel/Release/share/rheia/scripts" , CP .. "../../include/rheia/* ../../devel/Release/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Release/share/rheia/images" , CP .. "../../share/rheia/plplot ../../devel/Release/share/rheia" , "zip -j9 -r ../../devel/Release/share/rheia/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Release/include" , "mkdir -p ../../../../devel/Release/share" , CP .. "../../devel/Release/include/rheia ../../../../devel/Release/include" , CP .. "../../devel/Release/share/rheia ../../../../devel/Release/share" , CP .. "../../devel/Release/bin ../../../../devel/Release" , CP .. "../../devel/Release/lib ../../../../devel/Release" }

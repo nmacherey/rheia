@@ -64,10 +64,10 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
+package.includepaths = { "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" , "../../../webconnect/include" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" }
+package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "webconnect" }
 
 -- Set the defines.
 package.defines = { "HAVE_CONFIG_H", "RHEIA_BASE_MAKINGDLL" , "RHEIA_USE_IRRLICHT" }
@@ -257,8 +257,8 @@ if ( OS == "windows" ) then
 	table.insert( package.defines, { "__WXMSW__" , "WIN32", "_WINDOWS" } )
 	
 	-- Set the libraries it links to.
-	package.config["Debug"].links = { "libxml2-dbg" , "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" , "librheiautils-dbg" }
-	package.config["Release"].links = { "libxml2" , "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" , "librheiautils" }
+	package.config["Debug"].links = { "libxml2-dbg" , "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" , "librheiautils-dbg" , "webconnect-dbg" }
+	package.config["Release"].links = { "libxml2" , "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" , "librheiautils" , "webconnect" }
 
 	-- Set wxWidgets libraries to link.
 	if ( options["unicode"] ) then

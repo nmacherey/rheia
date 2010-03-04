@@ -26,6 +26,7 @@
 #include <RheiaEventsManager.h>
 #include <RheiaEvents.h>
 #include <RheiaEventFrame.h>
+#include <RheiaXulManager.h>
 
 wxCmdLineParser parser;
 
@@ -46,6 +47,42 @@ bool RheiaApp::OnInit(){
 	
 	/** Call basic initializations */
 	DoBasicInitializations();
+	
+	wxString xulrunner_path;
+	
+#if defined (_WIN32)
+        // the following call will look for a directory named "xr"
+        xulrunner_path = FindXulRunner(wxT("xr"));
+        if (xulrunner_path.IsEmpty())
+        {
+            wxMessageBox(wxT("Could not find xulrunner directory"));
+            return false;
+        }
+#elif defined (__linux__)
+        xulrunner_path = wxT("/usr/lib/xulrunner-1.9.2");
+#else
+# error "TBD find xulrunner dir for this platform"
+#endif
+    
+        // Locate some common paths and initialize the control with
+        // the plugin paths; add these common plugin directories to 
+        // MOZ_PLUGIN_PATH
+#if defined (_WIN32)
+        wxString program_files_dir;
+        ::wxGetEnv(wxT("ProgramFiles"), &program_files_dir);
+        if (program_files_dir.Length() == 0 || program_files_dir.Last() != '\\')
+            program_files_dir += wxT("\\");
+
+        wxString dir = program_files_dir;
+        dir += wxT("Mozilla Firefox\\plugins");
+        RheiaXulManager::Get()->AddPluginPath(dir);
+#elif defined (__linux__)
+        RheiaXulManager::Get()->AddPluginPath(wxT("/usr/lib/firefox-addons/plugins"));
+#else
+# error "TBD add plugin dirs for this platform"
+#endif
+	
+	RheiaXulManager::Get()->Init(xulrunner_path);
 
 	/*if( !CheckForSingleInstance() )
 		return false;*/

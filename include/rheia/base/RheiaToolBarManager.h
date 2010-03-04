@@ -13,7 +13,7 @@ class wxToolBar;
 typedef std::map<wxString,wxToolBar*> wxToolBarArray;
 typedef std::map<wxToolBar*,int> RheiaToolMenuIdMap;
 
-/***********************************************************************************************//**
+/**
 *	@class RheiaToolBarManager
 *	@brief RheiaToolBarManager is the manager class available for managing the content of the toolbar
 *
@@ -25,7 +25,7 @@ typedef std::map<wxToolBar*,int> RheiaToolMenuIdMap;
 *	@author Nicolas Macherey (nm@graymat.fr)
 *	@date 21-Nov-2008
 *	@version 0.0.1
-***************************************************************************************************/
+*/
 class BASE_DLLEXPORT RheiaToolBarManager : public wxEvtHandler, public RheiaMgr<RheiaManagedFrame,RheiaToolBarManager>
 {
 	friend class RheiaMgr<RheiaManagedFrame,RheiaToolBarManager>;				/*!< Give our private member access to Mgr */
