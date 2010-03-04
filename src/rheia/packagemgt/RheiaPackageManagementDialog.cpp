@@ -85,7 +85,7 @@ RheiaPackageManagementDialog::RheiaPackageManagementDialog( wxWindow* parent )
 
     RegiserEvents();
     
-    SetSize(800,600);
+    //SetSize(800,600);
     //GetSizer()->SetSizeHints(this);
     CentreOnParent();
 }
@@ -99,7 +99,6 @@ RheiaPackageManagementDialog::~RheiaPackageManagementDialog()
 void RheiaPackageManagementDialog::DoBuildPackagesPage()
 {
     wxPanel* pnl = XRCCTRL(*this,"pnlPackagesList",wxPanel);
-    pnl->SetMinSize( wxSize(700,400) );
     wxSizer* sizer = pnl->GetSizer();
 
     m_treelist = new wxTreeListCtrl(pnl,lstPackages,wxDefaultPosition,wxSize(400,400),wxTR_HAS_BUTTONS|wxTR_SINGLE|wxTR_HIDE_ROOT|wxTR_NO_LINES|wxBORDER_THEME);

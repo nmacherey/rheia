@@ -392,8 +392,7 @@ void RheiaPluginManager::LoadAllPlugins()
             msg += failedPlugins[i] + wxT("\n");
         }
 
-        msg += wxT("failed to load last time Rheia was executed.\n"
-                    "Do you want to disable this plugin from loading?");
+        msg += wxT("failed to load last time Rheia was executed.\nDo you want to disable this plugin from loading?");
 
         int retCode = wxMessageBox( msg , wxT("Warning") , wxYES_NO );
 

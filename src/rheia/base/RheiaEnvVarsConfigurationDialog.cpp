@@ -36,7 +36,7 @@
 
 namespace{
 
-    int wxCALLBACK sortByTitle(long item1, long item2, long sortData)
+    int wxCALLBACK sortByTitle(long item1, long item2, wxIntPtr sortData)
     {
         const wxString *elem1 = (const wxString*)item1;
         const wxString *elem2 = (const wxString*)item2;
@@ -99,7 +99,6 @@ void RheiaEnvVarsConfigurationDialog::DoUpdateList()
 
     list->SetColumnWidth(0, wxLIST_AUTOSIZE);
     list->SetColumnWidth(1, wxLIST_AUTOSIZE );
-
     list->SortItems(sortByTitle, 0);
 }
 

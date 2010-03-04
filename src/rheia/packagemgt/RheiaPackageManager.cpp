@@ -609,14 +609,11 @@ bool RheiaPackageManager::InstallPackage( const wxString& name ,
 
                 if (CompareVersions(version->GetMajor() , version->GetMinor() , i_version->GetMajor() , i_version->GetMinor()) < 0)
                 {
-                    msg = wxT("The package you are trying to install, is older "
-                              "than the one currently installed.");
+                    msg = wxT("The package you are trying to install, is older  than the one currently installed.");
                 }
 
                 if (wxMessageBox(msg + wxT('\n') +
-                                 wxT("If you want to proceed, the installed package will be "
-                                     "uninstalled first.\n"
-                                     "Do you want to proceed?"),
+                                 wxT("If you want to proceed, the installed package will be  uninstalled first.\n Do you want to proceed?"),
                                  wxT("Confirmation"), wxICON_QUESTION | wxYES_NO) == wxNO)
                 {
                     if ( pd != NULL )
@@ -778,9 +775,7 @@ bool RheiaPackageManager::PurgePackage( const wxString& name ,
         if( confirm )
         {
             if (wxMessageBox(msg + wxT('\n') +
-                             wxT("If you want to proceed, the installed package and all its dependencies "
-                                 "will be uninstalled from the application.\n"
-                                 "Do you want to proceed?"),
+                             wxT("If you want to proceed, the installed package and all its dependencies will be uninstalled from the application.\n Do you want to proceed?"),
                              wxT("Confirmation"), wxICON_QUESTION | wxYES_NO) == wxID_NO)
             {
                 if ( pd != NULL )
@@ -826,8 +821,7 @@ bool RheiaPackageManager::PurgePackage( const wxString& name ,
                            "Ask your administrator to uninstall this package for you..."),
                          _("Warning"), wxICON_WARNING);
 
-            RheiaLoggerManager::sdLog( wxT("You don't have the needed privileges to uninstall this package.\n"
-                          "Ask your administrator to uninstall this package for you..."), RheiaLogging::error );
+            RheiaLoggerManager::sdLog( wxT("You don't have the needed privileges to uninstall this package.\nAsk your administrator to uninstall this package for you..."), RheiaLogging::error );
 
             if ( pd != NULL )
                 pd->Destroy();
@@ -1119,8 +1113,7 @@ wxArrayString RheiaPackageManager::OrderScanByDependencies( )
     if ( !error.IsEmpty() )
     {
         InfoWindow::Display( wxT("WARNING") ,
-                             wxT("One or more packages found in the installation pending directory have not"
-                                 "been installed, the following errors append : \n\n" ) +
+                             wxT("One or more packages found in the installation pending directory have not been installed, the following errors append : \n\n" ) +
                              error );
     }
 

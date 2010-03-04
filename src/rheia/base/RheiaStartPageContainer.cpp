@@ -63,7 +63,10 @@ RheiaStartPage::RheiaStartPage( wxWindow* parent , const wxString& file ):
     webprefs.SetIntPref(wxT("privacy.popups.policy"), 2 /* reject popups */);    
 	
 	wxString path = RheiaFileFinder::FindFile(file);
+    if( path.IsEmpty() )
+        path = RheiaStandardPaths::DataDirectoryGlobal() + wxT("/") + file;
 	// open the home location
+    m_file = path;
 	wxString m_uri_home = wxT("file://") + path;
 	DoBuildStartPage();
 	
@@ -118,10 +121,7 @@ void RheiaStartPage::DoBuildStartPage()
 	
 	/** add this at the end or it wiil be in the footer */
 	m_composer->AddClearer(fdiv);
-	
-	
-	wxString path = RheiaFileFinder::FindFile(m_file);
-	m_composer->SaveFile(path);
+	m_composer->SaveFile(m_file);
 }
 
 void RheiaStartPage::OnOpenURI( wxWebEvent& event )

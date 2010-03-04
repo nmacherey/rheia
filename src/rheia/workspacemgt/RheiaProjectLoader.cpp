@@ -190,7 +190,7 @@ bool RheiaProjectLoader::Save( const wxString& file )
 
 #ifndef __GNUC__
 
-    info.Printf(_T( " project info:\n"
+    info.Printf(_( " project info:\n"
                     "\t application build_date:\t%s, %s \n"
                     "\t workspace saving date : \t%s" ), wxT(__DATE__), wxT(__TIME__), sDate);
 #else

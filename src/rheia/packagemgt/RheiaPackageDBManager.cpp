@@ -784,9 +784,7 @@ bool RheiaPackageDBManager::Save()
 
 #ifndef __GNUC__
 
-    info.Printf(_T( "Rheia packages data base info:\n"
-                    "\t application build_date:\t%s, %s \n"
-                    "\t data base saving date : \t%s" ), wxT(__DATE__), wxT(__TIME__), sDate);
+    info.Printf(_T( "Rheia packages data base info:\n\t application build_date:\t%s, %s \n\t data base saving date : \t%s" ), wxT(__DATE__), wxT(__TIME__), sDate);
 #else
     info.Printf(_T( "Rheia packages data base info:\n"
                     "\t application build_date:\t%s, %s\n"

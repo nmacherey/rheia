@@ -109,7 +109,7 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
 
     m_layout->Update();
 //
-    RegisterEvents();
+    RegisterEvents();  
 
 //    wxBitmap bmp = RheiaLoadBitmap(RheiaStandardPaths::DataDirectoryGlobal() + (_T("/share/rheia/images/rheia_24.jpg")) , wxBITMAP_TYPE_JPEG );
 //    wxIcon icon;

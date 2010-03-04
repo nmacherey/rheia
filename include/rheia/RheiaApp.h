@@ -53,6 +53,9 @@ public:
 
 	/*! Membership function for initializing the main frame */
 	RheiaMainFrame *InitMainFrame();
+    
+    /** find the xulrunner path */
+    wxString FindXulRunner(const wxString& xulrunner_dirname);
 
 private:
 	/**********************************************************************************************

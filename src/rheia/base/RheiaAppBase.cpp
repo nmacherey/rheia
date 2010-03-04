@@ -81,9 +81,7 @@ bool RheiaAppBase::CheckForSingleInstance()
 			
             if (m_singleInstanceChecker->IsAnotherRunning())
             {
-                wxMessageBox(wxT("Another program instance is already running.\n"
-								 "Rheia is currently configured to only allow one running instance.\n\n"
-								 "You can access this Setting under the menu item 'Environment Settings'."),
+                wxMessageBox(wxT("Another program instance is already running.\nRheia is currently configured to only allow one running instance.\n\nYou can access this Setting under the menu item 'Environment Settings'."),
                             wxT("Rheia Framework"), wxOK | wxICON_ERROR);
 							
                 return false;

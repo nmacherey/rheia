@@ -52,18 +52,18 @@ RheiaAboutDialog::RheiaAboutDialog( wxWindow* parent )
     ***************************************************************/
     const wxString version = wxString::Format( wxT("%6.2f") , AutoVersion::UBUNTU_VERSION_STYLE );
     const wxString description = wxT("Welcome to Rheia Framework version :") + version +
-        wxT("\n\nRheia is an Application Design Pattern built with the aim\n"
-            "to make the development of Commercial Graphical User interfaces\n"
-            "faster. \n\n"
-            "By developping with Rheia you will be able to develop your application\n"
-            "faster in a proper and ergonomic environment.\n\n"
-            "Its plugable architecture allows you, to integrate, maintain and evolve\n"
-            "easily your application in total transparency for your End-Users.\n"
-            "By this way you can add in Rheia any kind of functionality you need\n"
-            "and its Standard Development Kit allows you to access to any part of the\n"
-            "application you manage to change.\n\n"
-            "RHEIA is a registered trademark.\n"
-            "Copyrigth to GRAYMAT Research and Management 2009." );
+        wxT("\n\nRheia is an Application Design Pattern built with the aim\n") +
+        wxT("to make the development of Commercial Graphical User interfaces\n") +
+        wxT("faster. \n\n")+
+        wxT("By developping with Rheia you will be able to develop your application\n")+
+        wxT("faster in a proper and ergonomic environment.\n\n")+
+        wxT("Its plugable architecture allows you, to integrate, maintain and evolve\n")+
+        wxT("easily your application in total transparency for your End-Users.\n")+
+        wxT("By this way you can add in Rheia any kind of functionality you need\n")+
+        wxT("and its Standard Development Kit allows you to access to any part of the\n")+
+        wxT("application you manage to change.\n\n")+
+        wxT("RHEIA is a registered trademark.\n")+
+        wxT("Copyrigth to GRAYMAT Research and Management 2009.");
 
     wxStaticText* txtDescription = XRCCTRL(*this,"txtAboutDescription",wxStaticText);
     txtDescription->SetLabel( description );
@@ -87,22 +87,23 @@ RheiaAboutDialog::RheiaAboutDialog( wxWindow* parent )
     *   THANKS TO
     ***************************************************************/
     wxStaticText* txtThanks = XRCCTRL(*this,"txtAboutThanksTo",wxStaticText);
-    const wxString thanks = wxT("Developpers :\n\n"
-                                "Nicolas Macherey : Developer-Project Leader, GRAYMAT CEO\n"
-                                "Gael Plantier : Developer, GRAYMAT Associate\n"
-                                "Geoffroy Charollais : GIT subversion systems and forge, GRAYMAT Associate\n"
-                                "\n"
-                                "Contributors :\n\n"
-                                "Cedric Roman : Project orientations and tests (NUMENGO)\n"
-                                "Gilles Macherey : Project orientations and tests (CONCEPT TRADING)\n"
-                                "\n"
-                                "The wxWidgets project (http://www/wxwidgets.org)\n"
-                                "wxScintilla (http://sourceforge.net/projects/wxscintilla)\n"
-                                "The plplot project (http://plplot.sourceforge.net)\n"
-                                "The irrlicht project (http://irrlicht.sourceforge.net)\n"
-                                "The Code::Blocks project (http://www.codeblocks.org)\n"
-                                "The GNU Software Fundation (http://www.gnu.org)\n"
-                                "Last but not least, the open-source community.");
+    wxString devs = wxT("Developpers :\n\n" );
+    const wxString thanks = devs +
+                            wxT("Nicolas Macherey : Developer-Project Leader, GRAYMAT CEO\n" ) +
+                            wxT("Gael Plantier : Developer, GRAYMAT Associate\n" ) +
+                            wxT("Geoffroy Charollais : GIT subversion systems and forge, GRAYMAT Associate\n" ) +
+                            wxT("\n" ) +
+                            wxT("Contributors :\n\n" ) +
+                            wxT("Cedric Roman : Project orientations and tests (NUMENGO)\n" ) +
+                            wxT("Gilles Macherey : Project orientations and tests (CONCEPT TRADING)\n" ) +
+                            wxT("\n" ) +
+                            wxT("The wxWidgets project (http://www/wxwidgets.org)\n" ) +
+                            wxT("wxScintilla (http://sourceforge.net/projects/wxscintilla)\n" ) +
+                            wxT("The plplot project (http://plplot.sourceforge.net)\n" ) +
+                            wxT("The irrlicht project (http://irrlicht.sourceforge.net)\n" ) +
+                            wxT("The Code::Blocks project (http://www.codeblocks.org)\n" ) +
+                            wxT("The GNU Software Fundation (http://www.gnu.org)\n" ) +
+                            wxT("Last but not least, the open-source community.");
 
     txtThanks->SetLabel( thanks );
 
@@ -110,14 +111,15 @@ RheiaAboutDialog::RheiaAboutDialog( wxWindow* parent )
     *   LICENSE
     ***************************************************************/
     wxStaticText* txtLicense = XRCCTRL(*this,"txtAboutLicense",wxStaticText);
-    const wxString license = wxT( "This software is licensed under the GRAYMAT own terms\n"
-                                "You cannot copy distribute or modify this sofware except\n"
-                                "under the terms described in the LICENSE.TXT file subject\n"
-                                "to what kind of user you are.\n\n"
-                                "GRAYMAT offers 3 type of licenses :\n\n"
-                                "\t + Power User  : for single users (Free)\n"
-                                "\t + Integrator  : for companies\n"
-                                "\t + Contributor : for companies and users who whant to contribute\n" );
+    wxString first = wxT( "This software is licensed under the GRAYMAT own terms\n" );
+    const wxString license = first +
+                             wxT("You cannot copy distribute or modify this sofware except\n" ) +
+                             wxT("under the terms described in the LICENSE.TXT file subject\n" ) +
+                             wxT("to what kind of user you are.\n\n" ) +
+                             wxT("GRAYMAT offers 3 type of licenses :\n\n" ) +
+                             wxT("\t + Power User  : for single users (Free)\n" ) +
+                             wxT("\t + Integrator  : for companies\n" ) +
+                             wxT("\t + Contributor : for companies and users who whant to contribute\n" );
 
     txtLicense->SetLabel( license );
 

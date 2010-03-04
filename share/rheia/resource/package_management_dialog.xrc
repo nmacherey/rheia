@@ -37,7 +37,6 @@
                                         <object class="wxBoxSizer">
                                             <orient>wxVERTICAL</orient>
                                         </object>
-                                        <size>400,800</size>
                                     </object>
                                     <flag>wxEXPAND|wxALL</flag>
                                     <option>1</option>

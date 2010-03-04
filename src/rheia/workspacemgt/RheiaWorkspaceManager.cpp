@@ -457,7 +457,7 @@ bool RheiaWorkspaceManager::SaveWorkspace( RheiaWorkspace *workspace )
 
         if ( dialog.ShowModal() != wxID_OK )
         {
-            InfoWindow::Display( wxT("WARNING"), wxT("You have canceled the save of your workspace\n"
+            InfoWindow::Display( wxT("WARNING"), _("You have canceled the save of your workspace\n"
                                  "If the application is closing all information will be destroy !") );
             return false;
         }

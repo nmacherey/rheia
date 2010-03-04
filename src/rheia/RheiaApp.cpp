@@ -14,6 +14,8 @@
 #include <wx/cmdline.h>
 #include <wx/utils.h> 
 #include <wx/snglinst.h>
+#include <wx/stdpaths.h>  
+#include <wx/dir.h>
 
 #include <RheiaXtraRes.h>
 #include <RheiaException.h>
@@ -52,7 +54,7 @@ bool RheiaApp::OnInit(){
 	
 #if defined (_WIN32)
         // the following call will look for a directory named "xr"
-        xulrunner_path = FindXulRunner(wxT("xr"));
+        xulrunner_path = FindXulRunner(wxT("xulrunner"));
         if (xulrunner_path.IsEmpty())
         {
             wxMessageBox(wxT("Could not find xulrunner directory"));
@@ -114,7 +116,7 @@ bool RheiaApp::OnInit(){
     {
         cmgr->ReadFrameInfo( wxT("/MainFrame") , MainFrame );
     }
-    catch(RheiaException& err)
+    catch(...)
     {
 
     }
@@ -122,6 +124,34 @@ bool RheiaApp::OnInit(){
 	
     StartUpFinalStep();
     return true;
+}
+
+wxString RheiaApp::FindXulRunner(const wxString& xulrunner_dirname)
+{
+    // get the location of this executable
+    wxString exe_path = wxStandardPaths::Get().GetExecutablePath();
+    wxString path_separator = wxFileName::GetPathSeparator();
+    exe_path = exe_path.BeforeLast(path_separator[0]);
+    exe_path += path_separator;
+
+    wxString path;
+
+    // first, check <exe_path>/<xulrunner_path>
+    path = exe_path + xulrunner_dirname;
+    if (wxDir::Exists(path))
+        return path;
+
+    // next, check <exe_path>/../<xulrunner_path>
+    path = exe_path + wxT("..") + path_separator + xulrunner_dirname;
+    if (wxDir::Exists(path))
+        return path;
+
+    // finally, check <exe_path>/../../<xulrunner_path>
+    path = exe_path + wxT("..") + path_separator + wxT("..") + path_separator + xulrunner_dirname;
+    if (wxDir::Exists(path))
+        return path;
+
+    return wxEmptyString;
 }
 
 /* Membership function for initializing the main frame */

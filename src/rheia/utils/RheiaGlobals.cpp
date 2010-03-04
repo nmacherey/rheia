@@ -4,6 +4,9 @@
 #include <wx/filename.h>
 #include <wx/listctrl.h>
 
+#ifdef WIN32
+#include <windows.h>
+#endif
 
 #if defined(__APPLE__) && defined(__MACH__)
 #include <sys/param.h>

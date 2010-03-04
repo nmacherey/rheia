@@ -1,6 +1,6 @@
 @echo off
 
-premake\bin\win\premake.exe --target vs2008 --with-wx-28
+premake\bin\win\premake.exe --target vs2008 --unicode
 
 echo done...
 echo.

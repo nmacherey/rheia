@@ -42,7 +42,7 @@ template<> bool  Mgr<RheiaPythonUtils>::isShutdown = false;
 
 namespace
 {
-    const wxString keywords0 = wxT("class def elif else for from if import help print "
+    const wxString keywords0 = _("class def elif else for from if import help print "
                 "while __import__ __dict__ __class__ __bases__ __name__ =");
 }
 
@@ -137,7 +137,7 @@ void RheiaPythonUtils::PythonInit()
 //    }
 //
     PythonExecuteCommand(
-        wxT("def rheia_exception_msg(type, value, tb, msg):\n"
+        _("def rheia_exception_msg(type, value, tb, msg):\n"
             "  lst = traceback.format_exception(type, value, tb)\n"
             "  if msg == None: msg = 'An error has occured while executing Python code'\n"
             "  txt = ''\n"
@@ -148,7 +148,7 @@ void RheiaPythonUtils::PythonInit()
             "  \n"
             "  wx.MessageBox( txt , 'ERROR' )" ) );
     PythonExecuteCommand(
-        wxT("def rheia_exception(type, value, tb):\n"
+        _("def rheia_exception(type, value, tb):\n"
             "  rheia_exception_msg(type, value, tb, None)\n" ) );
 
     // hook for python console so all output will be redirected

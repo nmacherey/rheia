@@ -94,10 +94,7 @@ void RheiaConfigurationPattern::ChangeConfigurationTo(const wxString& file)
 
 #ifndef __GNUC__
 
-    info.Printf(_T( " application info:\n"
-                    "\t version :\t%s\n"
-                    "\t build date :\t%s, %s \n"
-                    "\t saving date : \t%s" ), revision, wxT(__DATE__), wxT(__TIME__), sDate);
+    info.Printf(_T( " application info:\n\t version :\t%s\n\t build date :\t%s, %s \n\t saving date : \t%s" ), revision, wxT(__DATE__), wxT(__TIME__), sDate);
 #else
     info.Printf(_T( " application info:\n"
                     "\t version :\t%s\n"
