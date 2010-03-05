@@ -14,7 +14,6 @@
 --******* Initial Setup ************
 --*	Most of the setting are set here.
 --**********************************
-addoption( "with-wx-28", "Use the Unicode character set" )
 -- wxWidgets version
 local wx_ver = ""
 if( options["with-wx-28"] ) then
@@ -46,8 +45,6 @@ local CP = ""
 
 if( macosx ) then
     CP="cp -r "
-    package.config["Debug"].links = { "gmirrlicht-dbg" }
-	package.config["Release"].links = { "gmirrlicht" }
 else
     CP="cp -ru "
 end
@@ -66,7 +63,7 @@ package.includepaths = { "../../../include/rheia/utils" , "../../../include/irrl
 package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" }
 
 -- Set the defines.
-package.defines = { "HAVE_CONFIG_H", "RHEIA_UTILS_MAKINGDLL" , "RHEIA_USE_IRRLICHT" }
+package.defines = { "HAVE_CONFIG_H", "RHEIA_UTILS_MAKINGDLL" }
 
 --------------------------- DO NOT EDIT BELOW ----------------------------------
 
@@ -74,11 +71,6 @@ package.defines = { "HAVE_CONFIG_H", "RHEIA_UTILS_MAKINGDLL" , "RHEIA_USE_IRRLIC
 --*	Settings that are not dependant
 --*	on the operating system.
 --*********************************
--- Package options
-addoption( "unicode", "Use the Unicode character set" )
-if ( not windows ) then
-	addoption( "disable-wx-debug", "Compile against a wxWidgets library without debugging" )
-end
 
 -- Common setup
 package.language = "c++"
@@ -116,6 +108,27 @@ end
 table.insert( package.defines, "__WX__" )
 table.insert( package.config["Debug"].defines, debug_macro )
 table.insert( package.config["Release"].defines, "NDEBUG" )
+
+if( OS == "windows" ) then
+	table.insert( package.config["Debug"].links , "libxml2-dbg" )
+	table.insert( package.config["Release"].links , "libxml2" )
+end
+
+table.insert( package.config["Debug"].links , "libgmcsirocsa-dbg" )
+table.insert( package.config["Debug"].links , "libgmqsastime-dbg" )
+table.insert( package.config["Debug"].links , "libgmplplot-dbg" )	
+table.insert( package.config["Debug"].links , "libgmwxplplot-dbg" )
+
+table.insert( package.config["Release"].links , "libgmcsirocsa" )
+table.insert( package.config["Release"].links , "libgmqsastime" )
+table.insert( package.config["Release"].links , "libgmplplot" )	
+table.insert( package.config["Release"].links , "libgmwxplplot" )
+
+if( not options["no-irrlicht"] ) then
+	table.insert( package.defines, "RHEIA_USE_IRRLICHT" )
+	table.insert( package.config["Debug"].links , "libgmirrlicht-dbg" )
+	table.insert( package.config["Release"].links , "libgmirrlicht" )
+end
 
 if ( OS == "windows" ) then
 --******* WINDOWS SETUP ***********
@@ -249,10 +262,6 @@ if ( OS == "windows" ) then
 	else
 		table.insert( package.libpaths, "$(WXWIN)/lib/vc_dll" )
 	end
-
-	-- Set the libraries it links to.
-	package.config["Debug"].links = { "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" }
-	package.config["Release"].links = { "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" }
 
 	-- Set wxWidgets libraries to link.
 	if ( options["unicode"] ) then

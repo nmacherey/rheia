@@ -4,12 +4,26 @@ project.name = "rheia"
 -- it defaults to a Release build.
 project.configs = { "Release", "Debug" }
 
+-- Package options
+addoption( "unicode", "Use the Unicode character set" )
+addoption( "with-wx-28", "Use wxWidgets 2.8 version" )
+
+if ( not windows ) then
+	addoption( "disable-wx-debug", "Compile against a wxWidgets library without debugging" )
+	addoption("rpath", "Specify the rpath for the compiled binary")
+end
+
+addoption( "no-irrlicht", "Don't use irrlicht" )
+
 -- Add packages here.
 if ( windows ) then
 	dopackage( "src/libxml2" )
 end
 
-dopackage( "src/irrlicht" )
+if( not options["no-irrlicht"] ) then
+	dopackage( "src/irrlicht" )
+end
+
 dopackage( "src/csirocsa" )
 dopackage( "src/qsastime" )
 --dopackage( "src/wxwidgets" )

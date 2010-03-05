@@ -75,7 +75,7 @@ void RheiaTextLogger::UpdateSettings()
         bold_font.SetWeight(wxFONTWEIGHT_BOLD);
 
         wxFont bigger_font(bold_font);
-        bigger_font.SetPointSize(size + 2);
+        bigger_font.SetPointSize(size + 1);
 
         wxFont small_font(default_font);
         small_font.SetPointSize(size - 4);
@@ -155,12 +155,28 @@ void RheiaTextLogger::Log( const wxString& msg, RheiaLogging::RheiaLogLevel leve
         return;
 
     wxRichTextCtrl* control = m_window->GetTextCtrl();
-
+	wxFont default_font(10, wxFONTFAMILY_SWISS , wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
     control->BeginStyle(m_textattr[level]);
+	
+	/*control->SetFont( m_textattr[level].GetFont() );
+	
+	control->BeginSuppressUndo();
+	control->BeginFontSize(m_textattr[level].GetFont().GetPointSize());
+	control->BeginParagraphSpacing(0,20);
+	control->BeginAlignment( m_textattr[level].GetAlignment() );
+	control->BeginTextColour( m_textattr[level].GetTextColour() );*/
 
-    control->AppendText(msg);
-    control->AppendText(wxT("\n"));
-
+    control->WriteText(msg);
+    control->Newline();
+	
+	/*control->EndTextColour();
+	control->EndAlignment();
+	control->EndParagraphSpacing();
+	control->EndFontSize();
+	control->EndSuppressUndo();*/
+	
+	//control->SetFont(default_font);
+	control->EndStyle();
     control->EndAllStyles();
 }
 

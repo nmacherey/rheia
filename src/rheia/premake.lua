@@ -60,7 +60,7 @@ package.includepaths = { "../../include/rheia/python" , "../../include/rheia" , 
 package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "webconnect" }
 
 -- Set the defines.
-package.defines = { "HAVE_CONFIG_H" , "RHEIA_USE_IRRLICHT" }
+package.defines = { "HAVE_CONFIG_H" }
 
 --------------------------- DO NOT EDIT BELOW ----------------------------------
 
@@ -68,13 +68,6 @@ package.defines = { "HAVE_CONFIG_H" , "RHEIA_USE_IRRLICHT" }
 --*	Settings that are not dependant
 --*	on the operating system.
 --*********************************
--- Package options
-addoption( "unicode", "Use the Unicode character set" )
-addoption( "with-wx-28", "Use the Unicode character set" )
-
-if ( not windows ) then
-	addoption( "disable-wx-debug", "Compile against a wxWidgets library without debugging" )
-end
 
 -- wxWidgets version
 local wx_ver = ""
@@ -128,6 +121,43 @@ end
 table.insert( package.defines, "__WX__" )
 table.insert( package.config["Debug"].defines, debug_macro )
 table.insert( package.config["Release"].defines, "NDEBUG" )
+
+if( OS == "windows" ) then
+	table.insert( package.config["Debug"].links , "libxml2-dbg" )
+	table.insert( package.config["Release"].links , "libxml2" )
+end
+
+table.insert( package.config["Debug"].links , "libgmcsirocsa-dbg" )
+table.insert( package.config["Debug"].links , "libgmqsastime-dbg" )
+table.insert( package.config["Debug"].links , "libgmplplot-dbg" )	
+table.insert( package.config["Debug"].links , "libgmwxplplot-dbg" )
+table.insert( package.config["Debug"].links , "librheiautils-dbg" )
+table.insert( package.config["Debug"].links , "librheiabase-dbg" )
+table.insert( package.config["Debug"].links , "librheialoggers-dbg" )
+table.insert( package.config["Debug"].links , "python" .. python_ver )
+table.insert( package.config["Debug"].links , "librheiapython-dbg" )
+table.insert( package.config["Debug"].links , "librheiapackagemgt-dbg" )
+table.insert( package.config["Debug"].links , "librheiaworkspacemgt-dbg" )
+table.insert( package.config["Debug"].links , "libwebconnect-dbg" )
+
+table.insert( package.config["Release"].links , "libgmcsirocsa" )
+table.insert( package.config["Release"].links , "libgmqsastime" )
+table.insert( package.config["Release"].links , "libgmplplot" )	
+table.insert( package.config["Release"].links , "libgmwxplplot" )
+table.insert( package.config["Release"].links , "librheiautils" )
+table.insert( package.config["Release"].links , "librheiabase" )
+table.insert( package.config["Release"].links , "librheialoggers" )
+table.insert( package.config["Release"].links , "python" .. python_ver )
+table.insert( package.config["Release"].links , "librheiapython" )
+table.insert( package.config["Release"].links , "librheiapackagemgt" )
+table.insert( package.config["Release"].links , "librheiaworkspacemgt" )
+table.insert( package.config["Release"].links , "libwebconnect" )
+
+if( not options["no-irrlicht"] ) then
+	table.insert( package.defines, "RHEIA_USE_IRRLICHT" )
+	table.insert( package.config["Debug"].links , "libgmirrlicht-dbg" )
+	table.insert( package.config["Release"].links , "libgmirrlicht" )
+end
 
 if ( OS == "windows" ) then
 --******* WINDOWS SETUP ***********
@@ -257,10 +287,6 @@ if ( OS == "windows" ) then
 	
 	table.insert( package.libpaths, "$(PYTHON)/libs" )
 	table.insert( package.includepaths, "$(PYTHON)/include" )
-	
-	-- Set the libraries it links to.
-	package.config["Debug"].links = { "libxml2-dbg" , "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" , "librheiautils-dbg" , "librheiabase-dbg" , "librheialoggers-dbg" , "python" .. python_ver , "librheiapython-dbg" , "librheiapackagemgt-dbg" , "librheiaworkspacemgt-dbg" , "libwebconnect-dbg"}
-	package.config["Release"].links = { "libxml2" , "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" , "librheiautils" , "librheiabase" , "librheialoggers", "python" .. python_ver , "librheiapython" , "librheiapackagemgt" , "librheiaworkspacemgt" , "libwebconnect"}
 
 	-- Set wxWidgets libraries to link.
 	if ( options["unicode"] ) then
@@ -388,7 +414,6 @@ else
 		if ( macosx ) then
 			table.insert( package.config["Debug"].linkoptions, "-Wl,-L../lib" )
 		elseif ( not windows ) then
-			addoption("rpath", "Specify the rpath for the compiled binary")
 			if ( options["rpath"] ) then
 				-- need to upgrade premake before this works
 				-- table.insert( package.linkoptions, "-Wl,-rpath," .. options[rpath] )
@@ -405,7 +430,6 @@ else
 		if ( macosx ) then
 			table.insert( package.config["Release"].linkoptions, "-Wl,-L../lib" )
 		elseif ( not windows ) then
-			addoption("rpath", "Specify the rpath for the compiled binary")
 			if ( options["rpath"] ) then
 				-- need to upgrade premake before this works
 				-- table.insert( package.linkoptions, "-Wl,-rpath," .. options[rpath] )
@@ -419,16 +443,12 @@ else
 			end
 		end
 
-		-- Set the libraries it links to.
-		package.config["Debug"].links = { "gmirrlicht-dbg", "gmcsirocsa-dbg", "gmqsastime-dbg", "gmplplot-dbg", "gmwxplplot-dbg" , "rheiautils-dbg" , "rheiabase-dbg" , "rheialoggers-dbg" , "rheiapackagemgt-dbg" , "rheiaworkspacemgt-dbg" , "rheiapython-dbg" ,"python" .. python_ver , "libwebconnect-dbg" }
-		package.config["Release"].links = { "gmirrlicht", "gmcsirocsa", "gmqsastime", "gmplplot", "gmwxplplot" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "python" .. python_ver , "libwebconnect" }
-
 	    if( not macosx ) then
-	        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "mkdir -p ../../devel/Release/share/rheia/images" , "mkdir -p ../../devel/Release/share/rheia/plugins", "mkdir -p ../../devel/Release/share/rheia/packages" , "mkdir -p ../../devel/Release/share/rheia/cache" , "mkdir -p ../../devel/Release/share/rheia/scripts" , CP .. "../../include/rheia/* ../../devel/Release/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Release/share/rheia/images" , CP .. "../../share/rheia/webresource/* ../../devel/Release/bin/share/rheia/" , CP .. "../../share/rheia/plplot ../../devel/Release/share/rheia" , "zip -j9 -r ../../devel/Release/share/rheia/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Release/include" , "mkdir -p ../../../../devel/Release/share" , CP .. "../../devel/Release/include/rheia ../../../../devel/Release/include" , CP .. "../../devel/Release/share/rheia ../../../../devel/Release/share" , CP .. "../../devel/Release/bin ../../../../devel/Release" , CP .. "../../devel/Release/lib ../../../../devel/Release" }
-	        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "mkdir -p ../../devel/Debug/share/rheia-dbg/images" , "mkdir -p ../../devel/Debug/share/rheia-dbg/plugins", "mkdir -p ../../devel/Debug/share/rheia-dbg/packages" , "mkdir -p ../../devel/Debug/share/rheia-dbg/cache" , "mkdir -p ../../devel/Debug/share/rheia-dbg/scripts" , CP .. "../../include/rheia/* ../../devel/Debug/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Debug/share/rheia-dbg/images" , CP .. "../../share/rheia/webresource/* ../../devel/Debug/bin/share/rheia-dbg/" , CP .. "../../share/rheia/plplot ../../devel/Debug/share/rheia-dbg" , "zip -j9 -r ../../devel/Debug/share/rheia-dbg/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Debug/include" , "mkdir -p ../../../../devel/Debug/share" , CP .. "../../devel/Debug/include/rheia ../../../../devel/Debug/include" , CP .. "../../devel/Debug/share/rheia-dbg ../../../../devel/Debug/share" , CP .. "../../devel/Debug/bin ../../../../devel/Debug" , CP .. "../../devel/Debug/lib ../../../../devel/Debug" }
+	        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "mkdir -p ../../devel/Release/share/rheia/images" , "mkdir -p ../../devel/Release/share/rheia/plugins", "mkdir -p ../../devel/Release/share/rheia/packages" , "mkdir -p ../../devel/Release/share/rheia/cache" , "mkdir -p ../../devel/Release/share/rheia/scripts" , CP .. "../../include/rheia/* ../../devel/Release/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Release/share/rheia/images" , CP .. "../../share/rheia/webresource/* ../../devel/Release/share/rheia/" , CP .. "../../share/rheia/plplot ../../devel/Release/share/rheia" , "zip -j9 -r ../../devel/Release/share/rheia/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Release/include" , "mkdir -p ../../../../devel/Release/share" , CP .. "../../devel/Release/include/rheia ../../../../devel/Release/include" , CP .. "../../devel/Release/share/rheia ../../../../devel/Release/share" , CP .. "../../devel/Release/bin ../../../../devel/Release" , CP .. "../../devel/Release/lib ../../../../devel/Release" }
+	        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "mkdir -p ../../devel/Debug/share/rheia-dbg/images" , "mkdir -p ../../devel/Debug/share/rheia-dbg/plugins", "mkdir -p ../../devel/Debug/share/rheia-dbg/packages" , "mkdir -p ../../devel/Debug/share/rheia-dbg/cache" , "mkdir -p ../../devel/Debug/share/rheia-dbg/scripts" , CP .. "../../include/rheia/* ../../devel/Debug/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Debug/share/rheia-dbg/images" , CP .. "../../share/rheia/webresource/* ../../devel/Debug/share/rheia-dbg/" , CP .. "../../share/rheia/plplot ../../devel/Debug/share/rheia-dbg" , "zip -j9 -r ../../devel/Debug/share/rheia-dbg/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Debug/include" , "mkdir -p ../../../../devel/Debug/share" , CP .. "../../devel/Debug/include/rheia ../../../../devel/Debug/include" , CP .. "../../devel/Debug/share/rheia-dbg ../../../../devel/Debug/share" , CP .. "../../devel/Debug/bin ../../../../devel/Debug" , CP .. "../../devel/Debug/lib ../../../../devel/Debug" }
 	    else
-	        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "mkdir -p ../../devel/Release/share/rheia/images" , "mkdir -p ../../devel/Release/share/rheia/plugins", "mkdir -p ../../devel/Release/share/rheia/packages" , "mkdir -p ../../devel/Release/share/rheia/cache" , "mkdir -p ../../devel/Release/share/rheia/scripts" , CP .. "../../include/rheia/* ../../devel/Release/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Release/share/rheia/images" , CP .. "../../share/rheia/webresource/* ../../devel/Release/bin/share/rheia/" , CP .. "../../share/rheia/plplot ../../devel/Release/share/rheia" , "zip -j9 -r ../../devel/Release/share/rheia/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Release/include" , "mkdir -p ../../../../devel/Release/share" , CP .. "../../devel/Release/include/rheia ../../../../devel/Release/include" , CP .. "../../devel/Release/share/rheia ../../../../devel/Release/share" , CP .. "../../devel/Release/bin ../../../../devel/Release" , CP .. "../../devel/Release/lib ../../../../devel/Release" , "(cd ../../macosx/postinstall &amp;&amp; sh postbuild.sh)"}
-	        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "mkdir -p ../../devel/Debug/share/rheia-dbg/images" , "mkdir -p ../../devel/Debug/share/rheia-dbg/plugins", "mkdir -p ../../devel/Debug/share/rheia-dbg/packages" , "mkdir -p ../../devel/Debug/share/rheia-dbg/cache" , "mkdir -p ../../devel/Debug/share/rheia-dbg/scripts" , CP .. "../../include/rheia/* ../../devel/Debug/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Debug/share/rheia-dbg/images" , CP .. "../../share/rheia/webresource/* ../../devel/Debug/bin/share/rheia-dbg/" , CP .. "../../share/rheia/plplot ../../devel/Debug/share/rheia-dbg" , "zip -j9 -r ../../devel/Debug/share/rheia-dbg/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Debug/include" , "mkdir -p ../../../../devel/Debug/share" , CP .. "../../devel/Debug/include/rheia ../../../../devel/Debug/include" , CP .. "../../devel/Debug/share/rheia-dbg ../../../../devel/Debug/share" , CP .. "../../devel/Debug/bin ../../../../devel/Debug" , CP .. "../../devel/Debug/lib ../../../../devel/Debug" ,"(cd ../../macosx/postinstall &amp;&amp; sh postbuildd.sh)" }
+	        package.config["Release"].postbuildcommands = { "mkdir -p ../../devel/Release/include/rheia" , "mkdir -p ../../devel/Release/share/rheia/images" , "mkdir -p ../../devel/Release/share/rheia/plugins", "mkdir -p ../../devel/Release/share/rheia/packages" , "mkdir -p ../../devel/Release/share/rheia/cache" , "mkdir -p ../../devel/Release/share/rheia/scripts" , CP .. "../../include/rheia/* ../../devel/Release/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Release/share/rheia/images" , CP .. "../../share/rheia/webresource/* ../../devel/Release/share/rheia/" , CP .. "../../share/rheia/plplot ../../devel/Release/share/rheia" , "zip -j9 -r ../../devel/Release/share/rheia/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Release/include" , "mkdir -p ../../../../devel/Release/share" , CP .. "../../devel/Release/include/rheia ../../../../devel/Release/include" , CP .. "../../devel/Release/share/rheia ../../../../devel/Release/share" , CP .. "../../devel/Release/bin ../../../../devel/Release" , CP .. "../../devel/Release/lib ../../../../devel/Release" , "(cd ../../macosx/postinstall &amp;&amp; sh postbuild.sh)"}
+	        package.config["Debug"].postbuildcommands = { "mkdir -p ../../devel/Debug/include/rheia" , "mkdir -p ../../devel/Debug/share/rheia-dbg/images" , "mkdir -p ../../devel/Debug/share/rheia-dbg/plugins", "mkdir -p ../../devel/Debug/share/rheia-dbg/packages" , "mkdir -p ../../devel/Debug/share/rheia-dbg/cache" , "mkdir -p ../../devel/Debug/share/rheia-dbg/scripts" , CP .. "../../include/rheia/* ../../devel/Debug/include/rheia" , CP .. "../../share/rheia/resource/images/settings ../../devel/Debug/share/rheia-dbg/images" , CP .. "../../share/rheia/webresource/* ../../devel/Debug/share/rheia-dbg/" , CP .. "../../share/rheia/plplot ../../devel/Debug/share/rheia-dbg" , "zip -j9 -r ../../devel/Debug/share/rheia-dbg/resource.zip ../../share/rheia/resource" , "mkdir -p ../../../../devel/Debug/include" , "mkdir -p ../../../../devel/Debug/share" , CP .. "../../devel/Debug/include/rheia ../../../../devel/Debug/include" , CP .. "../../devel/Debug/share/rheia-dbg ../../../../devel/Debug/share" , CP .. "../../devel/Debug/bin ../../../../devel/Debug" , CP .. "../../devel/Debug/lib ../../../../devel/Debug" ,"(cd ../../macosx/postinstall &amp;&amp; sh postbuildd.sh)" }
 	    end
 	end
 

@@ -279,8 +279,8 @@ void RheiaTextLoggerConfigurationPanel::UpdateSample()
     {
         wxString msg = wxT("This is the sample text for the level : ") + RheiaLogLevels[i];
         m_loggerpage->BeginStyle(m_textattr[i]);
-        m_loggerpage->AppendText(msg);
-        m_loggerpage->AppendText(wxT("\n"));
+        m_loggerpage->WriteText(msg);
+        m_loggerpage->Newline();
         m_loggerpage->EndStyle();
     }
 }
