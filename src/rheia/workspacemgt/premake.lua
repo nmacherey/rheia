@@ -216,7 +216,7 @@ if ( OS == "windows" ) then
 		table.insert( package.buildoptions, "/D_CRT_SECURE_NO_WARNINGS")
 		table.insert( package.buildoptions, "/D_CRT_NONSTDC_NO_DEPRECATE")
 		
-		package.config["Release"].postbuildcommands = { "gmkdir -p ../../../devel/Release/include/rheia" , "cp -ru ../../../include/rheia/workspacemgt ../../../devel/Release/include/rheia" }
+		package.config["Release"].postbuildcommands = { "gmkdir -p ..../../devel/Release/include/rheia" , "cp -ru ../../../include/rheia/workspacemgt ../../../devel/Release/include/rheia" }
 		package.config["Debug"].postbuildcommands = { "gmkdir -p ../../../devel/Debug/include/rheia" , "cp -ru ../../../include/rheia/workspacemgt ../../../devel/Debug/include/rheia" }
 		
 		package.links = { "user32" , "gdi32" , "winspool" , "kernel32" , "comdlg32" , "advapi32" , "shell32" , "ole32" , "oleaut32" , "uuid" , "opengl32" , "winmm" }

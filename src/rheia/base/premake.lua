@@ -271,10 +271,6 @@ if ( OS == "windows" ) then
 
 	-- Set the Windows defines.
 	table.insert( package.defines, { "__WXMSW__" , "WIN32", "_WINDOWS" } )
-	
-	-- Set the libraries it links to.
-	package.config["Debug"].links = { "libxml2-dbg" , "libgmirrlicht-dbg", "libgmcsirocsa-dbg", "libgmqsastime-dbg" , "libgmplplot-dbg" , "librheiautils-dbg" , "libwebconnect-dbg" }
-	package.config["Release"].links = { "libxml2" , "libgmirrlicht" , "libgmcsirocsa", "libgmqsastime" , "libgmplplot" , "librheiautils" , "libwebconnect" }
 
 	-- Set wxWidgets libraries to link.
 	if ( options["unicode"] ) then

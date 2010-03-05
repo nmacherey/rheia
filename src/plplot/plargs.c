@@ -7,7 +7,7 @@
     Copyright (C) 2004  Maurice LeBrun
     Copyright (C) 2004  Andrew Ross
 
-    This file is part of PLplot.
+    This file is part of PLplot. 
 
     PLplot is free software; you can redistribute it and/or modify
     it under the terms of the GNU Library General Public License as published
