@@ -1605,6 +1605,15 @@ void RheiaWorkspaceManager::OnCloseParent( RheiaFrameEvent& event )
 {
     if( !SaveAll() )
         m_parent->SetCanClose();
+		
+	RheiaConfigurationManager *wcfg = RheiaManager::Get()->GetConfigurationManager(_T("workspace_manager"));
+	
+	/* */
+    wcfg->Write( wxT("/recent_workspaces" ) , m_LastFiles );
+    wcfg->Write( wxT("/last_workspace") , m_Last );
+	
+	wcfg->Write( wxT("/recent_projects" ) , m_LastProjectFiles );
+    wcfg->Read( wxT("/last_project") , m_LastProject );
 
     event.Skip();
 }
