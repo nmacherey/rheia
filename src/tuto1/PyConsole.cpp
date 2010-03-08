@@ -68,13 +68,15 @@ PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
     m_history = cfg->ReadArrayString(wxT("/history"));
 	wxString res;
 
-	if( !RheiaPythonCoreAPI_IMPORT() )
-		wxMessageBox( wxT("Error Rheia API") );
+	RheiaPythonCoreAPI_IMPORT();
 	
-	PyObject* arg = rheiaPythonBaseConstructObject((void*)m_parent, wxT("RheiaManagedFrame"), true);
-	wxASSERT(arg != NULL);
-	
-	PyModule_AddObject(RheiaPythonUtils::Get()->GetMainModule(), "rhFrame", arg);
+    if( RheiaPythonGetBaseAPIPtr() !=NULL )
+    {
+	    PyObject* arg = rheiaPythonBaseConstructObject((void*)m_parent, wxT("RheiaManagedFrame"), true);
+	    wxASSERT(arg != NULL);
+    	
+	    PyModule_AddObject(RheiaPythonUtils::Get()->GetMainModule(), "rhFrame", arg);
+    }
 
     sizer->Add( m_control, 1, wxEXPAND | wxALL, 5 );
     this->SetSizer( sizer );
