@@ -384,7 +384,7 @@ void RheiaPackageManagementDialog::OnRemovePackage( wxCommandEvent& event )
 
 void RheiaPackageManagementDialog::OnPackageInstalled( RheiaEvent& event )
 {
-    DoUpdatePackageTree();
+    //DoUpdatePackageTree();
 }
 
 void RheiaPackageManagementDialog::OnPackageRemoved( RheiaEvent& event )

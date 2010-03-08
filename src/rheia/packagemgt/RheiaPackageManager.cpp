@@ -930,7 +930,10 @@ bool RheiaPackageManager::ExtractFiles( const wxString& package,
                 fname = fname.Remove(0,FileExt::DYNAMIC_LIBRARY_PREFIX.Length());
 
             file->SetName( fname );
-            file->SetPath( dest );
+			wxFileName rdest(dest);
+			rdest.MakeRelativeTo();
+            file->SetPath( rdest.GetFullPath() );
+			RheiaLoggerManager::sdLog( wxT("RheiaPackageManager::ExtractFiles::Added file with dest : ") + rdest.GetFullPath() + wxT(" ..."), RheiaLogging::info );
             file->SetType( type );
             file->SetRemove( true );
 

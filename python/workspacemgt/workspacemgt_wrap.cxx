@@ -9580,6 +9580,47 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_OnMenuRecreated(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  RheiaEvent *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "event", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaWorkspaceManager_OnMenuRecreated",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_OnMenuRecreated" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_RheiaEvent,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RheiaWorkspaceManager_OnMenuRecreated" "', expected argument " "2"" of type '" "RheiaEvent &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RheiaWorkspaceManager_OnMenuRecreated" "', expected argument " "2"" of type '" "RheiaEvent &""'"); 
+  }
+  arg2 = reinterpret_cast< RheiaEvent * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->OnMenuRecreated(*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_AddLast(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
@@ -9624,47 +9665,6 @@ fail:
     if (temp2)
     delete arg2;
   }
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_SetHistoryLenght(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
-  size_t arg2 ;
-  bool result;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  char *  kwnames[] = {
-    (char *) "self",(char *) "length", NULL 
-  };
-  
-  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaWorkspaceManager_SetHistoryLenght",kwnames,&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_SetHistoryLenght" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
-  }
-  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RheiaWorkspaceManager_SetHistoryLenght" "', expected argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  {
-    PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (bool)(arg1)->SetHistoryLenght(arg2);
-    wxPyEndAllowThreads(__tstate);
-    if (PyErr_Occurred()) SWIG_fail;
-  }
-  {
-    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
-  }
-  return resultobj;
-fail:
   return NULL;
 }
 
@@ -9717,6 +9717,210 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_AddLastProject(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  wxString *arg2 = 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool temp2 = false ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "path", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaWorkspaceManager_AddLastProject",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_AddLastProject" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  {
+    arg2 = wxString_in_helper(obj1);
+    if (arg2 == NULL) SWIG_fail;
+    temp2 = true;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->AddLastProject((wxString const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_SetLastProject(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  wxString *arg2 = 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool temp2 = false ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "path", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaWorkspaceManager_SetLastProject",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_SetLastProject" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  {
+    arg2 = wxString_in_helper(obj1);
+    if (arg2 == NULL) SWIG_fail;
+    temp2 = true;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->SetLastProject((wxString const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_LoadLast(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_LoadLast" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->LoadLast();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_LoadLastProject(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_LoadLastProject" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->LoadLastProject();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_LoadProject(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  wxString *arg2 = 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool temp2 = false ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "path", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaWorkspaceManager_LoadProject",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_LoadProject" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  {
+    arg2 = wxString_in_helper(obj1);
+    if (arg2 == NULL) SWIG_fail;
+    temp2 = true;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->LoadProject((wxString const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_RecreateLastMenu(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
@@ -9734,6 +9938,33 @@ SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_RecreateLastMenu(PyObject *SWIG
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     (arg1)->RecreateLastMenu();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_RecreateLastProjectsMenu(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_RecreateLastProjectsMenu" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->RecreateLastProjectsMenu();
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -9775,6 +10006,47 @@ SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_OnRecentOpen(PyObject *SWIGUNUS
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     (arg1)->OnRecentOpen(*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_OnRecentProjectOpen(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
+  wxCommandEvent *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "event", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaWorkspaceManager_OnRecentProjectOpen",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaWorkspaceManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaWorkspaceManager_OnRecentProjectOpen" "', expected argument " "1"" of type '" "RheiaWorkspaceManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaWorkspaceManager * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxCommandEvent,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RheiaWorkspaceManager_OnRecentProjectOpen" "', expected argument " "2"" of type '" "wxCommandEvent &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RheiaWorkspaceManager_OnRecentProjectOpen" "', expected argument " "2"" of type '" "wxCommandEvent &""'"); 
+  }
+  arg2 = reinterpret_cast< wxCommandEvent * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->OnRecentProjectOpen(*arg2);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -10050,11 +10322,18 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"RheiaWorkspaceManager_BuildProjectsToolBar", (PyCFunction) _wrap_RheiaWorkspaceManager_BuildProjectsToolBar, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaWorkspaceManager_SaveAll", (PyCFunction)_wrap_RheiaWorkspaceManager_SaveAll, METH_O, NULL},
 	 { (char *)"RheiaWorkspaceManager_OnCloseParent", (PyCFunction) _wrap_RheiaWorkspaceManager_OnCloseParent, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaWorkspaceManager_OnMenuRecreated", (PyCFunction) _wrap_RheiaWorkspaceManager_OnMenuRecreated, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaWorkspaceManager_AddLast", (PyCFunction) _wrap_RheiaWorkspaceManager_AddLast, METH_VARARGS | METH_KEYWORDS, NULL},
-	 { (char *)"RheiaWorkspaceManager_SetHistoryLenght", (PyCFunction) _wrap_RheiaWorkspaceManager_SetHistoryLenght, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaWorkspaceManager_SetLast", (PyCFunction) _wrap_RheiaWorkspaceManager_SetLast, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaWorkspaceManager_AddLastProject", (PyCFunction) _wrap_RheiaWorkspaceManager_AddLastProject, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaWorkspaceManager_SetLastProject", (PyCFunction) _wrap_RheiaWorkspaceManager_SetLastProject, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaWorkspaceManager_LoadLast", (PyCFunction)_wrap_RheiaWorkspaceManager_LoadLast, METH_O, NULL},
+	 { (char *)"RheiaWorkspaceManager_LoadLastProject", (PyCFunction)_wrap_RheiaWorkspaceManager_LoadLastProject, METH_O, NULL},
+	 { (char *)"RheiaWorkspaceManager_LoadProject", (PyCFunction) _wrap_RheiaWorkspaceManager_LoadProject, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaWorkspaceManager_RecreateLastMenu", (PyCFunction)_wrap_RheiaWorkspaceManager_RecreateLastMenu, METH_O, NULL},
+	 { (char *)"RheiaWorkspaceManager_RecreateLastProjectsMenu", (PyCFunction)_wrap_RheiaWorkspaceManager_RecreateLastProjectsMenu, METH_O, NULL},
 	 { (char *)"RheiaWorkspaceManager_OnRecentOpen", (PyCFunction) _wrap_RheiaWorkspaceManager_OnRecentOpen, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaWorkspaceManager_OnRecentProjectOpen", (PyCFunction) _wrap_RheiaWorkspaceManager_OnRecentProjectOpen, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaWorkspaceManager_swigregister", RheiaWorkspaceManager_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_RheiaWorkspaceBookPage", (PyCFunction) _wrap_new_RheiaWorkspaceBookPage, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"delete_RheiaWorkspaceBookPage", (PyCFunction)_wrap_delete_RheiaWorkspaceBookPage, METH_O, NULL},

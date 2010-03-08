@@ -865,25 +865,53 @@ class RheiaWorkspaceManager(wx._core.EvtHandler,base.RheiaPageContainer,RheiaMgr
         """OnCloseParent(self, RheiaFrameEvent event)"""
         return _workspacemgt.RheiaWorkspaceManager_OnCloseParent(*args, **kwargs)
 
+    def OnMenuRecreated(*args, **kwargs):
+        """OnMenuRecreated(self, RheiaEvent event)"""
+        return _workspacemgt.RheiaWorkspaceManager_OnMenuRecreated(*args, **kwargs)
+
     def AddLast(*args, **kwargs):
         """AddLast(self, String path) -> bool"""
         return _workspacemgt.RheiaWorkspaceManager_AddLast(*args, **kwargs)
-
-    def SetHistoryLenght(*args, **kwargs):
-        """SetHistoryLenght(self, size_t length) -> bool"""
-        return _workspacemgt.RheiaWorkspaceManager_SetHistoryLenght(*args, **kwargs)
 
     def SetLast(*args, **kwargs):
         """SetLast(self, String path) -> bool"""
         return _workspacemgt.RheiaWorkspaceManager_SetLast(*args, **kwargs)
 
+    def AddLastProject(*args, **kwargs):
+        """AddLastProject(self, String path) -> bool"""
+        return _workspacemgt.RheiaWorkspaceManager_AddLastProject(*args, **kwargs)
+
+    def SetLastProject(*args, **kwargs):
+        """SetLastProject(self, String path) -> bool"""
+        return _workspacemgt.RheiaWorkspaceManager_SetLastProject(*args, **kwargs)
+
+    def LoadLast(*args, **kwargs):
+        """LoadLast(self) -> bool"""
+        return _workspacemgt.RheiaWorkspaceManager_LoadLast(*args, **kwargs)
+
+    def LoadLastProject(*args, **kwargs):
+        """LoadLastProject(self) -> bool"""
+        return _workspacemgt.RheiaWorkspaceManager_LoadLastProject(*args, **kwargs)
+
+    def LoadProject(*args, **kwargs):
+        """LoadProject(self, String path) -> bool"""
+        return _workspacemgt.RheiaWorkspaceManager_LoadProject(*args, **kwargs)
+
     def RecreateLastMenu(*args, **kwargs):
         """RecreateLastMenu(self)"""
         return _workspacemgt.RheiaWorkspaceManager_RecreateLastMenu(*args, **kwargs)
 
+    def RecreateLastProjectsMenu(*args, **kwargs):
+        """RecreateLastProjectsMenu(self)"""
+        return _workspacemgt.RheiaWorkspaceManager_RecreateLastProjectsMenu(*args, **kwargs)
+
     def OnRecentOpen(*args, **kwargs):
         """OnRecentOpen(self, CommandEvent event)"""
         return _workspacemgt.RheiaWorkspaceManager_OnRecentOpen(*args, **kwargs)
+
+    def OnRecentProjectOpen(*args, **kwargs):
+        """OnRecentProjectOpen(self, CommandEvent event)"""
+        return _workspacemgt.RheiaWorkspaceManager_OnRecentProjectOpen(*args, **kwargs)
 
 _workspacemgt.RheiaWorkspaceManager_swigregister(RheiaWorkspaceManager)
 
