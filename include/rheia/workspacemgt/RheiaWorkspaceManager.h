@@ -8,6 +8,7 @@
 #include <RheiaEventFrame.h>
 #include <RheiaBookPage.h>
 #include <RheiaPageContainer.h>
+#include <RheiaMenuManager.h>
 
 #include <wx/event.h>
 #include <wx/treectrl.h>
@@ -249,8 +250,9 @@ private :
 	/** These methods are for managing last workspaces files */
 	wxArrayString m_LastFiles;
 	wxString m_Last;
-
-	size_t m_HistoryLength;
+	
+	wxArrayString m_LastProjectFiles;
+	wxString m_LastProject;
 
 	RheiaManagedFrame* m_parent;
 	wxBitmap m_bmp;
@@ -259,25 +261,32 @@ public :
 	/** Add a workspace to the last workspace list */
 	bool AddLast( const wxString& path );
 
-	/** History lenght set function */
-	bool SetHistoryLenght( size_t length );
-
 	/** Sets the last workspace and write it in the configuration file */
 	bool SetLast( const wxString& path );
-#ifndef SWIG
+	
+	/** Add a workspace to the last workspace list */
+	bool AddLastProject( const wxString& path );
+
+	/** Sets the last workspace and write it in the configuration file */
+	bool SetLastProject( const wxString& path );
+	
 	/** Loads the last workspace */
 	bool LoadLast();
+	
+	/** Loads the last workspace */
+	bool LoadLastProject();
+	
+	/** Loads the last workspace */
+	bool LoadProject(const wxString& path);
 
-#ifdef SWIG
-	%rename(LoadLastByPath) LoadLast( const wxString& path );
-#endif
-	/** Loads one of the last workspace in the list */
-	bool LoadLast( const wxString& path );
-#endif
 	/** Recreates the last files menus in the menubar */
 	void RecreateLastMenu();
+	
+	/** Recreates the last files menus in the menubar */
+	void RecreateLastProjectsMenu();
 
 	void OnRecentOpen( wxCommandEvent& event );
+	void OnRecentProjectOpen( wxCommandEvent& event );
 
 private :
 #ifndef SWIG

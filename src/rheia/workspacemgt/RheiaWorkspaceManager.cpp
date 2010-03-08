@@ -131,6 +131,17 @@ BEGIN_EVENT_TABLE(RheiaWorkspaceManager,wxEvtHandler)
     EVT_MENU( idLastWksp[7] , RheiaWorkspaceManager::OnRecentOpen )
     EVT_MENU( idLastWksp[8] , RheiaWorkspaceManager::OnRecentOpen )
     EVT_MENU( idLastWksp[9] , RheiaWorkspaceManager::OnRecentOpen )
+	
+	EVT_MENU( idLastPrj[0] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[1] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[2] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[3] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[4] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[5] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[6] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[7] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[8] , RheiaWorkspaceManager::OnRecentProjectOpen )
+    EVT_MENU( idLastPrj[9] , RheiaWorkspaceManager::OnRecentProjectOpen )
 
     /* MAIN MENU RELATED EVENTS */
     EVT_MENU( idFileWorkspaceNew, RheiaWorkspaceManager::OnFileWorkspaceNew )
@@ -204,6 +215,10 @@ void RheiaWorkspaceManager::ReloadConfig()
     /* */
     m_LastFiles = wcfg->ReadArrayString( wxT("/recent_workspaces" ) );
     m_Last = wcfg->Read( wxT("/last_workspace") );
+	
+	m_LastProjectFiles = wcfg->ReadArrayString( wxT("/recent_projects" ) );
+    m_LastProject = wcfg->Read( wxT("/last_project") );
+	
     m_HistoryLength = DefaultHistoryLength;
 }
 
@@ -545,6 +560,32 @@ bool RheiaWorkspaceManager::AddLast( const wxString& path )
     return true;
 }
 
+/* Add a workspace to the last workspace list */
+bool RheiaWorkspaceManager::AddLastProject( const wxString& path )
+{
+    RheiaConfigurationManager* wcfg = RheiaManager::Get()->GetConfigurationManager( wxT("workspace_manager") );
+    size_t len = m_LastProjectFiles.size();
+
+    int index = m_LastProjectFiles.Index( path );
+
+    if( index != wxNOT_FOUND )
+    {
+            m_LastProjectFiles.RemoveAt( index );
+            m_LastProjectFiles.Insert( path , 0 );
+    }else{
+            if( len > m_HistoryLength )
+                    m_LastProjectFiles.Remove( m_LastProjectFiles.Last() );
+            m_LastProjectFiles.Insert( path , 0 );
+    }
+
+    RecreateLastProjectsMenu();
+
+    /* Now save the list in the configuration manager */
+    wcfg->Write( wxT("/recent_projects") , m_LastProjectFiles );
+
+    return true;
+}
+
 void RheiaWorkspaceManager::RecreateLastMenu()
 {
     wxMenuBar* mainMenuBar = RheiaMenuManager::Get(m_parent)->GetMainMenuBar();
@@ -566,21 +607,25 @@ void RheiaWorkspaceManager::RecreateLastMenu()
     }
 }
 
-/* History lenght set function */
-bool RheiaWorkspaceManager::SetHistoryLenght( size_t length )
+void RheiaWorkspaceManager::RecreateLastProjectsMenu()
 {
-    RheiaConfigurationManager* wcfg = RheiaManager::Get()->GetConfigurationManager( wxT("workspace_manager") );
-    m_HistoryLength = DefaultHistoryLength;
-    wcfg->Write( wxT("/history_length") , (int) m_HistoryLength );
+    wxMenuBar* mainMenuBar = RheiaMenuManager::Get(m_parent)->GetMainMenuBar();
+    int index = mainMenuBar->FindMenuItem( wxT("File"), wxT("Recent projects") );
 
-    if( m_LastFiles.size() > length )
+    wxMenuItem* item = mainMenuBar->FindItem( index );
+    wxMenu* m_menu = item->GetSubMenu();
+
+    wxMenuItemList items = m_menu->GetMenuItems();
+    for( size_t i = 0; i < items.size(); i++ )
     {
-            m_LastFiles.RemoveAt( m_HistoryLength , m_LastFiles.GetCount() - m_HistoryLength );
-            wcfg->Write( wxT("/recent_workspaces") , m_LastFiles );
-            RecreateLastMenu();
+            m_menu->Delete( items[i] );
     }
 
-    return true;
+    for( size_t i = 0; i < m_LastFiles.size(); i++ )
+    {
+            wxString itemPath = m_LastFiles[i];
+            wxMenuItem *item = m_menu->Append( idLastWksp[i] , itemPath );
+    }
 }
 
 /* Sets the last workspace and write it in the configuration file */
@@ -589,6 +634,16 @@ bool RheiaWorkspaceManager::SetLast( const wxString& path )
     RheiaConfigurationManager* wcfg = RheiaManager::Get()->GetConfigurationManager( wxT("workspace_manager") );
     m_Last = path;
     wcfg->Write( wxT("/last_workspace") , m_Last );
+
+    return true;
+}
+
+/* Sets the last workspace and write it in the configuration file */
+bool RheiaWorkspaceManager::SetLastProject( const wxString& path )
+{
+    RheiaConfigurationManager* wcfg = RheiaManager::Get()->GetConfigurationManager( wxT("workspace_manager") );
+    m_LastProject = path;
+    wcfg->Write( wxT("/last_project") , m_LastProject );
 
     return true;
 }
@@ -604,6 +659,50 @@ bool RheiaWorkspaceManager::LoadLast()
     return true;
 }
 
+bool RheiaWorkspaceManager::LoadProject(const wxString& path)
+{
+	RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
+
+    if ( !workspace )
+    {
+        wxMessageBox( wxT("Please Create a workspace first") , wxT("Rheia : Alert") );
+        return false;
+    }
+
+	RheiaProject* loadedProject = NULL;
+	RheiaProjectLoader loader;
+
+	if ( !loader.Open( path , m_parent, workspace ) )
+	{
+		InfoWindow::Display( wxT("WARNING") , wxT("Cannot load the document : ") + filepaths[i] );
+		return false;
+	}
+	else
+	{
+		loadedProject = loader.GetProject();
+		workspace->Add( loadedProject->GetName() , loadedProject );
+
+		RheiaProjectEvent evt(RheiaEVT_PROJECT_OPENED,
+				0,
+				loadedProject,
+				loadedProject->GetName()
+				);
+
+		m_parent->GetEventHandler()->ProcessEvent(evt);
+	}
+
+    if( m_tree )
+        workspace->UpdateTree( GetManagementTree() ,
+                               workspace->GetRoot() );
+							   
+	return true;
+}
+
+bool RheiaWorkspaceManager::LoadLastProject()
+{
+    return LoadProject(m_LastProject);
+}
+
 void RheiaWorkspaceManager::OnRecentOpen( wxCommandEvent& event )
 {
     wxString path;
@@ -615,6 +714,19 @@ void RheiaWorkspaceManager::OnRecentOpen( wxCommandEvent& event )
         return;
 
     RheiaWorkspace* workspace = LoadWorkspace( path );
+}
+
+void RheiaWorkspaceManager::OnRecentProjectOpen( wxCommandEvent& event )
+{
+    wxString path;
+    int Id = event.GetId();
+
+    path = m_LastProjectFiles[ Id - idLastWksp[0] ];
+
+    if( path.IsEmpty() )
+        return;
+
+   LoadProject( path );
 }
 
 bool RheiaWorkspaceManager::RemoveWorkspace( const wxString& name )
@@ -1300,7 +1412,7 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
     }
 
     wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") , rspfDataGlobal | rspfDataUser );
-
+	int i = 0;
     idx = menuBar->FindMenu(wxT("File"));
     if( idx != wxNOT_FOUND )
     {
@@ -1309,60 +1421,70 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
         wxMenuItem* m_item = new wxMenuItem( mnFile , idFileWorkspaceNew , wxT("&New Workspace\tCTRL-N") , wxT("Creates a new worspace") );
         wxBitmap bmp = RheiaLoadBitmap( path+wxT("#zip:workspace_new_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 0 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileWorkspaceOpen , wxT("&Open Workspace\tCTRL-O") , wxT("Open a worspace") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:workspace_open_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 1 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileWorkspaceSave , wxT("&Save Workspace\tCTRL-S") , wxT("Save the current workspace and all its contents") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:workspace_save_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 2 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileWorkspaceSaveAs , wxT("Save Workspace &As...") , wxT("Save the current workspace and all its contens in a new file") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:workspace_save_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 3 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileWorkspaceClose , wxT("&Close Workspace...") , wxT("Close the current workspace and all its contents") );
-        mnFile->Insert( 4 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
-        mnFile->Insert( 5 , m_item );
+        mnFile->Insert( i++ , m_item );
+		
+		wxMenu* m_lw = new wxMenu();
+		m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
+        mnFile->Insert( i++ , m_item );
+		
+		m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("New P&roject\tCTRL-ALT-N") , wxT("Creates a new project in the current workspace (wizard)") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:project_new_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 6 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("O&pen Project\tCTRL-ALT-O") , wxT("Adds an existing project in the current workspace") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:project_open_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 7 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("Sa&ve Project\tCTRL-ALT-S") , wxT("Save the current project and all its contents") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:project_save_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 8 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("Save Projec&t As...\tCTRL-ALT-S") , wxT("Save the current workspace and all its contents in a new file") );
-        mnFile->Insert( 9 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("C&lose Project\tCTRL-ALT-K") , wxT("Close the current from the current workspace") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:project_close_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 10 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
-        mnFile->Insert( 11 , m_item );
+        mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileSaveAll , wxT("&Save All\tCTRL-ALT-A") , wxT("Save all opened workspaces, projects and files") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:save_all_24.png") );
         m_item->SetBitmap(bmp);
-        mnFile->Insert( 12 , m_item );
+        mnFile->Insert( i++ , m_item );
     }
+	
+	RecreateLastMenu();
+	RecreateLastProjectsMenu();
 }
 
 void RheiaWorkspaceManager::ReleaseMenu( wxMenuBar* menuBar )
