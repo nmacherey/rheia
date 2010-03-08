@@ -10,7 +10,7 @@ IMPLEMENT_DYNAMIC_CLASS(CppContext,PyEditorContext)
 
 namespace LexCpp 
 {
-    const wxString keywords0 = wxT("asm auto bool break case catch char class const const_cast continue default delete do double dynamic_cast else enum explicit export extern "
+    const wxString keywords0 = _("asm auto bool break case catch char class const const_cast continue default delete do double dynamic_cast else enum explicit export extern "
                                    "false float for friend goto if inline int long mutable namespace new operator private protected public register reinterpret_cast restrict return short signed "
                                    "sizeof static static_cast struct switch template this throw true try typedef typeid typename union unsigned using virtual void volatile while "
                                    "int8_t uint8_t int16_t uint16_t int32_t uint32_t int64_t uint64_t int_least8_t uint_least8_t int_least16_t uint_least16_t int_least32_t uint_least32_t "
@@ -20,7 +20,7 @@ namespace LexCpp
 
     const wxString keywords1 = wxT("");
 
-    const wxString keywords2 = wxT("a addindex addtogroup anchor arg attention author b brief bug c class code date def defgroup deprecated "
+    const wxString keywords2 = _("a addindex addtogroup anchor arg attention author b brief bug c class code date def defgroup deprecated "
                                    "dontinclude e em endcode endhtmlonly endif endlatexonly endlink endverbatim enum example exception f$ f[ f] file fn "
                                    "hideinitializer htmlinclude htmlonly if image include ingroup internal invariant interface latexonly li line link mainpage name "
                                    "namespace nosubgrouping note overload p page par param post pre ref relates remarks return retval sa section see showinitializer "

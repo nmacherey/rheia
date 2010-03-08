@@ -267,7 +267,10 @@ if ( OS == "windows" ) then
 			table.insert( package.config["Release"].includepaths, "$(WXWIN)/lib/vc_dll/mswh" )
 		end
 	end
-
+	
+	table.insert( package.libpaths, "$(PYTHON)/libs" )
+	table.insert( package.includepaths, "$(PYTHON)/include" )
+	
 	if ( target == "cb-gcc" ) then
 		table.insert( package.libpaths, "$(#WX.lib)/gcc_dll" )
 	elseif ( target == "gnu" or target == "cl-gcc" ) then

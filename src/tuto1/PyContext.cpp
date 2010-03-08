@@ -9,7 +9,7 @@ IMPLEMENT_DYNAMIC_CLASS(PyContext,PyEditorContext)
 
 namespace LexPython
 {
-    const wxString keywords0 = wxT("and assert break class continue def del elif else except exec finally for from global if import "
+    const wxString keywords0 = _("and assert break class continue def del elif else except exec finally for from global if import "
                 "in is lambda None  not or pass print raise return try while yield __import__ abs basestring bool "
                 "callable chr classmethod cmp compile complex delattr dict dir divmod enumerate "
                 "eval execfile file filter float frozenset getattr globals "
@@ -26,7 +26,7 @@ namespace LexPython
                 "TypeError UnboundLocalError UnicodeError UnicodeEncodeError UnicodeDecodeError UnicodeTranslateError ValueError WindowsError "
                 "ZeroDivisionError Warning UserWarning DeprecationWarning PendingDeprecationWarning SyntaxWarning RuntimeWarning FutureWarning");
 
-    const wxString keywords1 = wxT("self sys gc weakref fpectl atexit types UserDict UserList UserString  operator inspect traceback linecache pickle cPickle copy_reg shelve copy marshal warnings imp zipimport pkgutil "
+    const wxString keywords1 = _("self sys gc weakref fpectl atexit types UserDict UserList UserString  operator inspect traceback linecache pickle cPickle copy_reg shelve copy marshal warnings imp zipimport pkgutil "
                  "modulefinder code codeop pprint repr new site user __builtin__ __main__ __future__ string re struct difflib fpformat StringIO cStringIO textwrap codecs encodings.idna unicodedata "
                  "stringprep pydoc doctest unittest test test.test_support decimal math cmath random whrandom bisect collections heapq array sets itertools ConfigParser fileinput calendar cmd "
                  "shlexos os.path dircache stat statcache statvfs filecmp subprocess popen2 datetime time sched mutex getpass curses curses.textpad curses.wrapper curses.ascii curses.panel getopt "

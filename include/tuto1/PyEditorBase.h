@@ -245,10 +245,10 @@ public :
     /** Find all occurences of the given expression
     *   @return the number of matches for the given expression
     */
-    virtual int Find( const wxString& expr , int flag = matchAll ){};
+    virtual int Find( const wxString& expr , int flag = matchAll ){return 0;};
 
     /** Find next occurence of the given expression */
-    virtual int FindNext( const wxString& expr , int flag = matchAll ){};
+    virtual int FindNext( const wxString& expr , int flag = matchAll ){return 0;};
 
     /** Find all occurences of the given expression */
     virtual void Replace( const wxString& expr , int flag = matchAll ){};

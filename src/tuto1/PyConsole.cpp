@@ -17,7 +17,7 @@
 
 namespace
 {
-    const wxString& defText = wxT("Rheia Python Console version 0.1.1 \n"
+    const wxString& defText = _("Rheia Python Console version 0.1.1 \n"
                                   "This program is free software under LGPL... Have Fun !\n");
 }
 

@@ -25,6 +25,7 @@
 #include <RheiaEventProject.h>
 #include <RheiaEventsManager.h>
 #include <RheiaEnvironmentPlugin.h>
+#include <RheiaCenterPaneManager.h>
 
 #include <libxml/xmlreader.h>
 #include <libxml/xpath.h>
@@ -54,7 +55,8 @@ RheiaProject::RheiaProject(
 
 /* Destructor */
 RheiaProject::~RheiaProject(){
-
+    RheiaCenterPaneManager *cpm = RheiaCenterPaneManager::Get(m_parent);
+    cpm->DeletePage(m_name);
     if(m_parent)
         m_parent->RemoveEventHandler(this);
 }

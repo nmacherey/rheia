@@ -667,7 +667,7 @@ bool RheiaWorkspaceManager::LoadLast()
     if( workspace == NULL )
             return false;
 
-    workspace->UpdateTree( m_tree , workspace->GetRoot() );
+    workspace->CreateTree( m_tree , workspace->GetRoot() , 16 );
 
     return true;
 }
@@ -706,7 +706,7 @@ bool RheiaWorkspaceManager::LoadProject(const wxString& path)
 
     if( m_tree )
         workspace->UpdateTree( GetManagementTree() ,
-                               workspace->GetRoot() );
+                               16 );
 							   
 	return true;
 }
@@ -922,7 +922,7 @@ bool RheiaWorkspaceManager::RemoveProjectsFor( RheiaEnvironmentPlugin* plugin , 
 
                 if( m_tree )
                     it->second->UpdateTree( GetManagementTree() ,
-                                     it->second->GetRoot() );
+                                     16 );
 
                 it->second->SetModified( true );
             }
@@ -1185,7 +1185,7 @@ void RheiaWorkspaceManager::OnFileProjectOpen( wxCommandEvent &event )
 
     if( m_tree )
         workspace->UpdateTree( GetManagementTree() ,
-                               workspace->GetRoot() );
+                               16 );
 }
 
 void RheiaWorkspaceManager::OnFileProjectSave( wxCommandEvent &event )
@@ -1407,7 +1407,7 @@ void RheiaWorkspaceManager::OnFileProjectClose( wxCommandEvent &event )
 
     if( m_tree )
         workspace->UpdateTree( GetManagementTree() ,
-                                workspace->GetRoot() );
+                                16 );
 
     workspace->SetModified( true );
 
@@ -1479,20 +1479,20 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
         m_item->SetBitmap(bmp);
         mnFile->Insert( i++ , m_item );
 
-        m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("O&pen Project\tCTRL-ALT-O") , wxT("Adds an existing project in the current workspace") );
+        m_item = new wxMenuItem( mnFile , idFileOpenProject , wxT("O&pen Project\tCTRL-ALT-O") , wxT("Adds an existing project in the current workspace") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:project_open_24.png") );
         m_item->SetBitmap(bmp);
         mnFile->Insert( i++ , m_item );
 
-        m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("Sa&ve Project\tCTRL-ALT-S") , wxT("Save the current project and all its contents") );
+        m_item = new wxMenuItem( mnFile , idFileProjectSave , wxT("Sa&ve Project\tCTRL-ALT-S") , wxT("Save the current project and all its contents") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:project_save_24.png") );
         m_item->SetBitmap(bmp);
         mnFile->Insert( i++ , m_item );
 
-        m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("Save Projec&t As...\tCTRL-ALT-S") , wxT("Save the current workspace and all its contents in a new file") );
+        m_item = new wxMenuItem( mnFile , idFileProjectSaveAs , wxT("Save Projec&t As...\tCTRL-ALT-S") , wxT("Save the current workspace and all its contents in a new file") );
         mnFile->Insert( i++ , m_item );
 
-        m_item = new wxMenuItem( mnFile , idFileNewProject , wxT("C&lose Project\tCTRL-ALT-K") , wxT("Close the current from the current workspace") );
+        m_item = new wxMenuItem( mnFile , idFileProjectClose , wxT("C&lose Project\tCTRL-ALT-K") , wxT("Close the current from the current workspace") );
         bmp = RheiaLoadBitmap( path+wxT("#zip:project_close_24.png") );
         m_item->SetBitmap(bmp);
         mnFile->Insert( i++ , m_item );

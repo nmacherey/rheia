@@ -25,7 +25,7 @@ typedef std::map< wxString , RheiaTreeItem* > RheiaTreeItemMap;
 /** define flags for RheiaTreeItemManager */
 const int rhTREE_DELETE_ON_DESTROY = 0x0001;
 const int rhTREE_CLEAR_ON_DESTROY = 0x0002;
-const int rhTREE_DEFAULT = rhTREE_CLEAR_ON_DESTROY;
+const int rhTREE_DEFAULT = rhTREE_DELETE_ON_DESTROY;
 
 /**
 *   @class RheiaTreeItemManager
