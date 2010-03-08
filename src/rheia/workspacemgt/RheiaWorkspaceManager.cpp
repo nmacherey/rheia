@@ -596,8 +596,11 @@ void RheiaWorkspaceManager::RecreateLastMenu()
 {
     wxMenuBar* mainMenuBar = RheiaMenuManager::Get(m_parent)->GetMainMenuBar();
     int index = mainMenuBar->FindMenuItem( wxT("File"), wxT("Recent workspaces") );
+	
 	if( index == wxNOT_FOUND )
+	{
 		return;
+	}
 		
     wxMenuItem* item = mainMenuBar->FindItem( index );
     wxMenu* m_menu = item->GetSubMenu();
@@ -608,7 +611,7 @@ void RheiaWorkspaceManager::RecreateLastMenu()
             m_menu->Delete( items[i] );
     }
 
-    for( size_t i = 0; i < m_LastFiles.size(); i++ )
+    for( size_t i = 0; i < m_LastFiles.GetCount(); i++ )
     {
             wxString itemPath = m_LastFiles[i];
             wxMenuItem *item = m_menu->Append( idLastWksp[i] , itemPath );
@@ -1460,9 +1463,9 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
         mnFile->Insert( i++ , m_item );
 		
 		wxMenu* m_lw = new wxMenu();
-		for( unsigned int i = 0; i < m_LastFiles.GetCount() ; ++i )
+		for( unsigned int j = 0; j < m_LastFiles.GetCount() ; ++j )
 		{
-			m_item = new wxMenuItem( m_lw , idLastWksp[i] , m_LastFiles[i] , m_LastFiles[i] );
+			m_item = new wxMenuItem( m_lw , idLastWksp[j] , m_LastFiles[j] , m_LastFiles[j] );
 			m_lw->Append( m_item );
 		}
 		m_item = new wxMenuItem( mnFile , wxITEM_NORMAL , wxT("&Recent workspaces") , wxEmptyString , wxITEM_NORMAL , m_lw );
@@ -1498,9 +1501,9 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
         mnFile->Insert( i++ , m_item );
 		
 		wxMenu* m_lp = new wxMenu();
-		for( unsigned int i = 0; i < m_LastProjectFiles.GetCount() ; ++i )
+		for( unsigned int j = 0; j < m_LastProjectFiles.GetCount() ; ++j )
 		{
-			m_item = new wxMenuItem( m_lp , idLastPrj[i] , m_LastProjectFiles[i] , m_LastProjectFiles[i] );
+			m_item = new wxMenuItem( m_lp , idLastPrj[j] , m_LastProjectFiles[j] , m_LastProjectFiles[j] );
 			m_lp->Append( m_item );
 		}
 		m_item = new wxMenuItem( mnFile , wxITEM_NORMAL , wxT("&Recent projects") , wxEmptyString , wxITEM_NORMAL , m_lp );
@@ -1514,9 +1517,6 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
         m_item->SetBitmap(bmp);
         mnFile->Insert( i++ , m_item );
     }
-	
-	RecreateLastMenu();
-	RecreateLastProjectsMenu();
 }
 
 void RheiaWorkspaceManager::ReleaseMenu( wxMenuBar* menuBar )
