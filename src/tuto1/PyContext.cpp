@@ -71,12 +71,4 @@ void PyContext::SetStyles( wxStyledTextCtrl* control )
     control->StyleSetSpec(wxSTC_P_IDENTIFIER, wxT(""));
     control->StyleSetSpec(wxSTC_P_COMMENTBLOCK, wxT("fore:#7F7F7F"));
     control->StyleSetSpec(wxSTC_P_STRINGEOL, wxT("fore:#000000,face:Monospace,back:#E0C0E0,eolfilled"));
-
-//    control->StyleSetBold(wxSTC_P_WORD, true);
-//    control->StyleSetForeground(wxSTC_P_WORD, *wxBLUE);
-//    control->StyleSetForeground(wxSTC_P_STRING, *wxRED);
-//    control->StyleSetForeground(wxSTC_P_STRINGEOL, *wxRED);
-//    control->StyleSetForeground(wxSTC_P_COMMENTBLOCK, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_P_COMMENTLINE, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_P_NUMBER, *wxBLUE );
 }

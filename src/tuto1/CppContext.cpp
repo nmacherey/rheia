@@ -8,7 +8,7 @@
 
 IMPLEMENT_DYNAMIC_CLASS(CppContext,PyEditorContext)
 
-namespace LexCpp
+namespace LexCpp 
 {
     const wxString keywords0 = wxT("asm auto bool break case catch char class const const_cast continue default delete do double dynamic_cast else enum explicit export extern "
                                    "false float for friend goto if inline int long mutable namespace new operator private protected public register reinterpret_cast restrict return short signed "
@@ -40,20 +40,6 @@ wxArrayString CppContext::GetKeywords()
 
 void CppContext::SetStyles( wxStyledTextCtrl* control )
 {
-//    control->StyleSetBold(wxSTC_C_WORD, true);
-//    control->StyleSetForeground(wxSTC_C_WORD, *wxBLUE);
-//    control->StyleSetForeground(wxSTC_C_PREPROCESSOR, wxColour(128, 128, 0));
-//    control->StyleSetForeground(wxSTC_C_STRING, *wxRED);
-//    control->StyleSetForeground(wxSTC_C_STRINGEOL, *wxRED);
-//    control->StyleSetForeground(wxSTC_C_COMMENT, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_C_COMMENTDOCKEYWORDERROR, wxColour(128, 0, 0));
-//    control->StyleSetForeground(wxSTC_C_COMMENTLINE, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_C_COMMENTDOC, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_C_COMMENTDOCKEYWORD, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_C_COMMENTLINE, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_C_COMMENTLINEDOC, wxColour(0, 128, 0));
-//    control->StyleSetForeground(wxSTC_C_NUMBER, *wxBLUE );
-
     control->StyleSetSpec(wxSTC_STYLE_LINENUMBER, wxT("back:#E0E0E0,face:Monospace"));
     control->StyleSetSpec(wxSTC_STYLE_CONTROLCHAR, wxT("face:Courier"));
     control->StyleSetSpec(wxSTC_STYLE_BRACELIGHT, wxT("fore:#0000FF,back:#FFFF88"));
@@ -69,7 +55,6 @@ void CppContext::SetStyles( wxStyledTextCtrl* control )
     control->StyleSetSpec(wxSTC_C_CHARACTER, wxT("fore:#7F007F,face:Monospace"));
     control->StyleSetSpec(wxSTC_C_WORD, wxT("fore:#00007F,bold"));
     control->StyleSetSpec(wxSTC_C_WORD2, wxT("fore:#00007F,italic,bold"));
-    //control->StyleSetSpec(wxSTC_C_CLASSNAME, wxT("fore:#C00000,italic,bold"));
     control->StyleSetSpec(wxSTC_C_OPERATOR, wxT(""));
     control->StyleSetSpec(wxSTC_C_IDENTIFIER, wxT(""));
     control->StyleSetSpec(wxSTC_C_COMMENTDOC, wxT("fore:#OO7F7F"));
