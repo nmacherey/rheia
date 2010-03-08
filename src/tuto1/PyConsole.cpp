@@ -8,7 +8,6 @@
 #include "PyConsole.h"
 #include "PyContext.h"
 #include "PyConsoleManager.h"
-#include "PyUtils.h"
 
 #include <RheiaPythonUtils.h>
 #include <RheiaPython.h>
