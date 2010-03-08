@@ -7,6 +7,156 @@
 #include <Python.h>
 #include <wx/wx.h>
 
+#include <wx/busyinfo.h>
+#include <wx/caret.h>
+#include <wx/choicebk.h>
+#include <wx/clipbrd.h>
+#include <wx/colordlg.h>
+#include <wx/config.h>
+#include <wx/cshelp.h>
+#include <wx/dcmirror.h>
+#include <wx/dcps.h>
+#include <wx/dirctrl.h>
+#include <wx/dirdlg.h>
+#include <wx/numdlg.h>
+#include <wx/dnd.h>
+#include <wx/docview.h>
+#include <wx/encconv.h>
+#include <wx/fdrepdlg.h>
+#include <wx/fileconf.h>
+#include <wx/filesys.h>
+#include <wx/fontdlg.h>
+#include <wx/fs_inet.h>
+#include <wx/fs_mem.h>
+#include <wx/fs_zip.h>
+#include <wx/gbsizer.h>
+#include <wx/wrapsizer.h>
+#include <wx/geometry.h>
+#include <wx/htmllbox.h>
+#include <wx/image.h>
+#include <wx/imaglist.h>
+#include <wx/intl.h>
+#include <wx/laywin.h>
+#include <wx/listbase.h>
+#include <wx/listbook.h>
+#include <wx/minifram.h>
+#include <wx/notebook.h>
+#include <wx/print.h>
+#include <wx/printdlg.h>
+#include <wx/process.h>
+#include <wx/progdlg.h>
+#include <wx/sashwin.h>
+#include <wx/spinbutt.h>
+#include <wx/spinctrl.h>
+#include <wx/splash.h>
+#include <wx/splitter.h>
+#include <wx/statline.h>
+#include <wx/stream.h>
+#include <wx/sysopt.h>
+#include <wx/taskbar.h>
+#include <wx/tglbtn.h>
+#include <wx/tipwin.h>
+#include <wx/toolbook.h>
+#include <wx/tooltip.h>
+#include <wx/treebook.h>
+#include <wx/vlbox.h>
+#include <wx/vscroll.h>
+#include <wx/dateevt.h>
+#include <wx/datectrl.h>
+#include <wx/power.h>
+#include <wx/hyperlink.h>
+#include <wx/pickerbase.h>
+#include <wx/clrpicker.h>
+#include <wx/filepicker.h>
+#include <wx/fontpicker.h>    
+#include <wx/collpane.h>
+#include <wx/srchctrl.h>
+#include <wx/generic/datectrl.h>
+#include <wx/filectrl.h>
+#include <wx/notifmsg.h>
+
+// C++ version of Python aware wxTreeCtrl
+class wxPyTreeCtrl : public wxTreeCtrl {
+    DECLARE_ABSTRACT_CLASS(wxPyTreeCtrl)
+public:
+    wxPyTreeCtrl() : wxTreeCtrl() {}
+    wxPyTreeCtrl(wxWindow *parent, wxWindowID id,
+                 const wxPoint& pos,
+                 const wxSize& size,
+                 long style,
+                 const wxValidator& validator,
+                 const wxString& name) :
+        wxTreeCtrl(parent, id, pos, size, style, validator, name) {}
+
+    bool Create(wxWindow *parent, wxWindowID id,
+                const wxPoint& pos,
+                const wxSize& size,
+                long style,
+                const wxValidator& validator,
+                const wxString& name) {
+        return wxTreeCtrl::Create(parent, id, pos, size, style, validator, name);
+    }
+
+
+    int OnCompareItems(const wxTreeItemId& item1,
+                       const wxTreeItemId& item2) {
+        int rval = 0;
+        bool found;
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();
+        if ((found = wxPyCBH_findCallback(m_myInst, "OnCompareItems"))) {
+            PyObject *o1 = wxPyConstructObject((void*)&item1, wxT("wxTreeItemId"), false);
+            PyObject *o2 = wxPyConstructObject((void*)&item2, wxT("wxTreeItemId"), false);
+            rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(OO)",o1,o2));
+            Py_DECREF(o1);
+            Py_DECREF(o2);
+        }
+        wxPyEndBlockThreads(blocked);
+        if (! found)
+            rval = wxTreeCtrl::OnCompareItems(item1, item2);
+        return rval;
+    }
+    PYPRIVATE;
+};
+
+class wxPyWizardPage : public wxWizardPage {
+    DECLARE_ABSTRACT_CLASS(wxPyWizardPage)
+public:
+    wxPyWizardPage() : wxWizardPage() {}
+    wxPyWizardPage(wxWizard *parent,
+                   const wxBitmap& bitmap = wxNullBitmap)
+        : wxWizardPage(parent, bitmap) {}
+
+    DEC_PYCALLBACK_WIZPG__pure(GetPrev);
+    DEC_PYCALLBACK_WIZPG__pure(GetNext);
+    DEC_PYCALLBACK_BITMAP__pure(GetBitmap);
+
+    DEC_PYCALLBACK_VOID_INT4(DoMoveWindow);
+    DEC_PYCALLBACK_VOID_INT5(DoSetSize);
+    DEC_PYCALLBACK_VOID_INTINT(DoSetClientSize);
+    DEC_PYCALLBACK_VOID_INTINT(DoSetVirtualSize);
+
+    DEC_PYCALLBACK_VOID_INTPINTP_const(DoGetSize);
+    DEC_PYCALLBACK_VOID_INTPINTP_const(DoGetClientSize);
+    DEC_PYCALLBACK_VOID_INTPINTP_const(DoGetPosition);
+
+    DEC_PYCALLBACK_SIZE_const(DoGetVirtualSize);
+    DEC_PYCALLBACK_SIZE_const(DoGetBestSize);
+
+    DEC_PYCALLBACK__(InitDialog);
+    DEC_PYCALLBACK_BOOL_(TransferDataFromWindow);
+    DEC_PYCALLBACK_BOOL_(TransferDataToWindow);
+    DEC_PYCALLBACK_BOOL_(Validate);
+
+    DEC_PYCALLBACK_BOOL_const(AcceptsFocus);
+    DEC_PYCALLBACK_BOOL_const(AcceptsFocusFromKeyboard);
+    DEC_PYCALLBACK_SIZE_const(GetMaxSize);
+
+    DEC_PYCALLBACK_VOID_WXWINBASE(AddChild);
+    DEC_PYCALLBACK_VOID_WXWINBASE(RemoveChild);
+
+    PYPRIVATE;
+};
+
 
 bool RheiaPythonCheckSwigType(const wxString& className);
 PyObject* RheiaPythonConstructObject(void* ptr, const wxString& className,  int setThisOwn=0);

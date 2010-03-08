@@ -8,7 +8,7 @@
 
 IMPLEMENT_DYNAMIC_CLASS(CppContext,PyEditorContext)
 
-namespace LexCpp 
+namespace LexCpp
 {
     const wxString keywords0 = _("asm auto bool break case catch char class const const_cast continue default delete do double dynamic_cast else enum explicit export extern "
                                    "false float for friend goto if inline int long mutable namespace new operator private protected public register reinterpret_cast restrict return short signed "
