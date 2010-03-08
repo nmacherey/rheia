@@ -171,7 +171,23 @@ RheiaWorkspaceManager::RheiaWorkspaceManager(RheiaManagedFrame* parent):
 {
     m_parent->PushEventHandler(this);
 	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaWorkspaceManager::OnCloseParent) , NULL , this );
+	m_parent->Connect( RheiaEVT_MENU_REBUILT , RheiaEventHandler(RheiaWorkspaceManager::OnMenuRecreated) , NULL , this );
     RegisterEvents();
+	
+	RheiaConfigurationManager *wcfg = RheiaManager::Get()->GetConfigurationManager(_T("workspace_manager"));
+	
+	/* */
+    m_LastFiles = wcfg->ReadArrayString( wxT("/recent_workspaces" ) );
+    m_Last = wcfg->Read( wxT("/last_workspace") );
+	
+	m_LastProjectFiles = wcfg->ReadArrayString( wxT("/recent_projects" ) );
+    m_LastProject = wcfg->Read( wxT("/last_project") );
+}
+
+void RheiaWorkspaceManager::OnMenuRecreated( RheiaEvent& event )
+{
+	BuildMenu(m_parent->GetMenuBar());
+	event.Skip();
 }
 
 RheiaBookPage* RheiaWorkspaceManager::BuildMainWindow( wxWindow* parent )
@@ -211,15 +227,6 @@ void RheiaWorkspaceManager::ReloadConfig()
     treeStyle = treeStyle |  ( (wcfg->ReadBool(_T("/tree_ctrl/has_row_lines"), false) ) ? wxTR_ROW_LINES : 0 ) ;
 
     m_tree->SetWindowStyle( treeStyle );
-
-    /* */
-    m_LastFiles = wcfg->ReadArrayString( wxT("/recent_workspaces" ) );
-    m_Last = wcfg->Read( wxT("/last_workspace") );
-	
-	m_LastProjectFiles = wcfg->ReadArrayString( wxT("/recent_projects" ) );
-    m_LastProject = wcfg->Read( wxT("/last_project") );
-	
-    m_HistoryLength = DefaultHistoryLength;
 }
 
 void RheiaWorkspaceManager::ReloadWorkspaceTree()
@@ -393,8 +400,7 @@ bool RheiaWorkspaceManager::AddWorkspace( RheiaWorkspace *workspace, wxString na
     }
 
     /* Inserting the new workspace in the table */
-    std::pair< wxString , RheiaWorkspace* > TempPair( name , workspace );
-    m_workspaces.insert( TempPair );
+    m_workspaces[name] = workspace;
 
     if( m_tree )
     {
@@ -547,7 +553,7 @@ bool RheiaWorkspaceManager::AddLast( const wxString& path )
             m_LastFiles.RemoveAt( index );
             m_LastFiles.Insert( path , 0 );
     }else{
-            if( len > m_HistoryLength )
+            if( len > DefaultHistoryLength )
                     m_LastFiles.Remove( m_LastFiles.Last() );
             m_LastFiles.Insert( path , 0 );
     }
@@ -573,7 +579,7 @@ bool RheiaWorkspaceManager::AddLastProject( const wxString& path )
             m_LastProjectFiles.RemoveAt( index );
             m_LastProjectFiles.Insert( path , 0 );
     }else{
-            if( len > m_HistoryLength )
+            if( len > DefaultHistoryLength )
                     m_LastProjectFiles.Remove( m_LastProjectFiles.Last() );
             m_LastProjectFiles.Insert( path , 0 );
     }
@@ -590,7 +596,9 @@ void RheiaWorkspaceManager::RecreateLastMenu()
 {
     wxMenuBar* mainMenuBar = RheiaMenuManager::Get(m_parent)->GetMainMenuBar();
     int index = mainMenuBar->FindMenuItem( wxT("File"), wxT("Recent workspaces") );
-
+	if( index == wxNOT_FOUND )
+		return;
+		
     wxMenuItem* item = mainMenuBar->FindItem( index );
     wxMenu* m_menu = item->GetSubMenu();
 
@@ -611,7 +619,9 @@ void RheiaWorkspaceManager::RecreateLastProjectsMenu()
 {
     wxMenuBar* mainMenuBar = RheiaMenuManager::Get(m_parent)->GetMainMenuBar();
     int index = mainMenuBar->FindMenuItem( wxT("File"), wxT("Recent projects") );
-
+	if( index == wxNOT_FOUND )
+		return;
+		
     wxMenuItem* item = mainMenuBar->FindItem( index );
     wxMenu* m_menu = item->GetSubMenu();
 
@@ -621,10 +631,10 @@ void RheiaWorkspaceManager::RecreateLastProjectsMenu()
             m_menu->Delete( items[i] );
     }
 
-    for( size_t i = 0; i < m_LastFiles.size(); i++ )
+    for( size_t i = 0; i < m_LastProjectFiles.size(); i++ )
     {
-            wxString itemPath = m_LastFiles[i];
-            wxMenuItem *item = m_menu->Append( idLastWksp[i] , itemPath );
+            wxString itemPath = m_LastProjectFiles[i];
+            wxMenuItem *item = m_menu->Append( idLastPrj[i] , itemPath );
     }
 }
 
@@ -674,7 +684,7 @@ bool RheiaWorkspaceManager::LoadProject(const wxString& path)
 
 	if ( !loader.Open( path , m_parent, workspace ) )
 	{
-		InfoWindow::Display( wxT("WARNING") , wxT("Cannot load the document : ") + filepaths[i] );
+		InfoWindow::Display( wxT("WARNING") , wxT("Cannot load the document : ") + path );
 		return false;
 	}
 	else
@@ -744,7 +754,14 @@ bool RheiaWorkspaceManager::RemoveWorkspace( const wxString& name )
         wxTreeItemId workspaceRoot = it->second->GetRoot();
         m_tree->Delete( workspaceRoot );
     }
-
+	
+	wxString path = it->second->GetFileName();
+	if( !path.IsEmpty() )
+	{
+		AddLast(path);
+		SetLast(path);
+	}
+	
     delete it->second;
     m_workspaces.erase( it );
 
@@ -960,8 +977,6 @@ void RheiaWorkspaceManager::OnFileWorkspaceNew( wxCommandEvent &event )
     if ( !path.IsEmpty() )
     {
         SaveWorkspace( newWksp );
-        SetLast( path );
-        AddLast( path );
     }
 
     RheiaStatusBarManager::Get(m_parent)->SetWorkspace( name );
@@ -1445,7 +1460,12 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
         mnFile->Insert( i++ , m_item );
 		
 		wxMenu* m_lw = new wxMenu();
-		m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
+		for( unsigned int i = 0; i < m_LastFiles.GetCount() ; ++i )
+		{
+			m_item = new wxMenuItem( m_lw , idLastWksp[i] , m_LastFiles[i] , m_LastFiles[i] );
+			m_lw->Append( m_item );
+		}
+		m_item = new wxMenuItem( mnFile , wxITEM_NORMAL , wxT("&Recent workspaces") , wxEmptyString , wxITEM_NORMAL , m_lw );
         mnFile->Insert( i++ , m_item );
 		
 		m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
@@ -1475,6 +1495,18 @@ void RheiaWorkspaceManager::BuildMenu( wxMenuBar* menuBar )
         mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
+        mnFile->Insert( i++ , m_item );
+		
+		wxMenu* m_lp = new wxMenu();
+		for( unsigned int i = 0; i < m_LastProjectFiles.GetCount() ; ++i )
+		{
+			m_item = new wxMenuItem( m_lp , idLastPrj[i] , m_LastProjectFiles[i] , m_LastProjectFiles[i] );
+			m_lp->Append( m_item );
+		}
+		m_item = new wxMenuItem( mnFile , wxITEM_NORMAL , wxT("&Recent projects") , wxEmptyString , wxITEM_NORMAL , m_lp );
+        mnFile->Insert( i++ , m_item );
+		
+		m_item = new wxMenuItem( mnFile , wxID_SEPARATOR , wxEmptyString , wxEmptyString , wxITEM_SEPARATOR );
         mnFile->Insert( i++ , m_item );
 
         m_item = new wxMenuItem( mnFile , idFileSaveAll , wxT("&Save All\tCTRL-ALT-A") , wxT("Save all opened workspaces, projects and files") );
@@ -1546,9 +1578,9 @@ bool RheiaWorkspaceManager::SaveAll()
 
     if ( table.size() > 0 )
     {
-        for ( iter ; iter != table.end() ; iter++ )
+        for ( ; iter != table.end() ; iter++ )
         {
-            if ( iter->second->GetModified() )
+            if ( iter->second->GetModified() ||  iter->second->GetFileName().IsEmpty() )
             {
                 wxMessageDialog dialog( m_parent, wxT("Workspace : ") + iter->first + wxT(" not saved would you like to save it ?"),
                                         wxT("Save ") + iter->first + wxT("?") , wxYES | wxNO | wxCANCEL | wxCENTRE );
@@ -1561,6 +1593,8 @@ bool RheiaWorkspaceManager::SaveAll()
                     return false;
                 }
             }
+			
+			AddLast(iter->second->GetFileName());
         }
     }
 

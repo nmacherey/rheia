@@ -214,6 +214,9 @@ public :
 
 	/** Used when my associated frame is closing */
 	void OnCloseParent( RheiaFrameEvent& event );
+	
+	/** callback used when menus are recreated */
+	void OnMenuRecreated( RheiaEvent& event );
 
 private :
 	/**********************************************************************************************************
