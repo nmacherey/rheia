@@ -39,9 +39,14 @@ class wxListCtrl;
 */
 class LOGGERS_DLLEXPORT RheiaListLogger : public RheiaLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaListLogger )
-public:
+#endif
 
+public:
+#ifdef SWIG
+	%rename(RheiaListLoggerCopy) RheiaListLogger(const wxArrayString& titles, const wxArrayInt& widths, bool fixedPitchFont = false);
+#endif
     /**
     *   Basic builder
     *
@@ -54,12 +59,12 @@ public:
     /** Default builder */
     RheiaListLogger(){};
 
-/**
+	/**
     *   Log function overload
     *   If the file has not been opened, no message will be loagged into the file and
     *   it will return safely.
     */
-    virtual void Log(const wxString& msg, RheiaLogging::RheiaLogLevel level = RheiaLogging::message)
+    virtual void Log(const wxString& msg, RheiaLogging::RheiaLogLevel level = RheiaLogging::message);
 
     /**
     *   RheiaLogger::Clear method overload (@see RheiaLogger::Clear)
@@ -150,9 +155,14 @@ protected:
 */
 class LOGGERS_DLLEXPORT RheiaTimeStampableListLogger : public RheiaLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaTimeStampableListLogger )
+#endif
 public:
 
+#ifdef SWIG
+	%rename(RheiaTimeStampableListLoggerCopy) RheiaTimeStampableListLogger(const wxArrayString& titles, const wxArrayInt& widths, bool fixedPitchFont = false);
+#endif
     /**
     *   Basic builder
     *
@@ -165,12 +175,12 @@ public:
     /** Default builder */
     RheiaTimeStampableListLogger(){};
 
-/**
+	/**
     *   Log function overload
     *   If the file has not been opened, no message will be loagged into the file and
     *   it will return safely.
     */
-    virtual void Log(const wxString& msg, RheiaLogging::RheiaLogLevel level = RheiaLogging::message)
+    virtual void Log(const wxString& msg, RheiaLogging::RheiaLogLevel level = RheiaLogging::message);
 
     /**
     *   RheiaLogger::Clear method overload (@see RheiaLogger::Clear)

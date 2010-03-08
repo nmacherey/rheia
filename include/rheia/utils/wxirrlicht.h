@@ -232,7 +232,9 @@ protected:
     void OnMouseLeave(wxMouseEvent& event);
 
 private:
+#ifndef SWIG
     DECLARE_EVENT_TABLE();
+#endif
 };//wxIrrlicht
 
 class irrKeyRegistrant

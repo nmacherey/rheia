@@ -113,6 +113,9 @@ public :
 
 	/** Remove a path from the path list by index */
 	void RemovePathByIndex( int index );
+	
+	/** Get the main module */
+	PyObject* GetMainModule() {return m_mainModule;};
 
 private :
     /**********************************************************************************************************

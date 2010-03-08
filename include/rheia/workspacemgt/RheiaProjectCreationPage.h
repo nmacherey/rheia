@@ -102,8 +102,9 @@ private :
     wxString m_appClass;
     wxString m_projectName;
     wxString m_categoryName;
-
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

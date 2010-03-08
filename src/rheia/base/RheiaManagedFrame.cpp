@@ -45,6 +45,8 @@
 #include <RheiaEventFrame.h>
 #include <RheiaDebug.h>
 
+IMPLEMENT_DYNAMIC_CLASS(RheiaManagedFrame,wxFrame)
+
 /*! id comming from the main menu bar ressource for exiting the application*/
 int idFileExit = XRCID("idFileExit");
 /*! id comming from the main menu bar ressource for exiting the application*/

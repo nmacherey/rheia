@@ -36,6 +36,8 @@ typedef void(*ProjectDestructor)( RheiaProject * );
 struct RheiaProjectRegistration
 {
     RheiaProjectRegistration():ctor(0),dtor(0){};
+
+#ifndef SWIG
     RheiaProjectRegistration(const RheiaProjectRegistration& rhs):
         name(rhs.name),
         description( rhs.description ),
@@ -43,6 +45,7 @@ struct RheiaProjectRegistration
         bitmapBaseName( rhs.bitmapBaseName ),
         ctor(rhs.ctor),
         dtor(rhs.dtor){};
+#endif
 
     wxString name;
     wxString description;
@@ -160,7 +163,7 @@ private :
     RheiaProjectRegistrationMap m_RegisteredProjects;
 };
 
-
+#ifndef SWIG
 /**
 *   @class RheiaProjectRegistrant
 *
@@ -237,5 +240,5 @@ private :
     namespace ns##object { \
         RheiaProjectRegistrant< object > object##registrant( title ); \
     }
-
+#endif
 #endif

@@ -37,8 +37,9 @@ const int rhTREE_DEFAULT = rhTREE_CLEAR_ON_DESTROY;
 */
 class BASE_DLLEXPORT RheiaTreeItem : public wxEvtHandler, public virtual RheiaObjectWithBitmap
 {
+#ifndef SWIG
     DECLARE_ABSTRACT_CLASS(RheiaTreeItem)
-
+#endif
 public :
     /******************************************************************************
     *   CONSTUCTORS
@@ -53,6 +54,9 @@ public :
     /** dtor */
     virtual ~RheiaTreeItem();
 
+#ifdef SWIG
+    %rename(RheiaTreeItemCopy) RheiaTreeItem (const RheiaTreeItem& rhs);
+#endif
     /** copy ctor */
     RheiaTreeItem (const RheiaTreeItem& rhs);
 
@@ -140,6 +144,9 @@ public :
     */
     bool Remove( const wxString& name );
 
+#ifdef SWIG
+    %rename(RemoveItem) Remove( RheiaTreeItem* item );
+#endif
     /** remove the tree map
     *   If the item already exists this method will return false
     *   @param item item ref to be removed
@@ -156,6 +163,9 @@ public :
     */
     bool Exists( const wxString& name );
 
+#ifdef SWIG
+    %rename(ItemExists) Exists( const RheiaTreeItem* item );
+#endif
     /** Check if an item exists
     *   @param name item ref to check the existance for
     *   @return tue if the item exists in the map

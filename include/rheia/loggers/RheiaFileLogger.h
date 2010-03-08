@@ -42,12 +42,16 @@ class wxListCtrl;
 */
 class LOGGERS_DLLEXPORT RheiaFileLogger : public RheiaLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaFileLogger )
-
+#endif
 public:
     /***************************************************************************
 	*  CONSTRUCTORS AND DESTRUCTORS
 	***************************************************************************/
+#ifdef SWIG
+	%rename(RheiaFileLoggerCopy) RheiaFileLogger(const wxString& filename);
+#endif
     /**
     *   Basic builder using the file name in input.
     *   When the logger will be created by the RheiaLoggerManager, the manager will
@@ -134,12 +138,16 @@ protected :
 */
 class LOGGERS_DLLEXPORT RheiaTimeStampableFileLogger : public RheiaFileLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaTimeStampableFileLogger )
-
+#endif
 public:
     /***************************************************************************
 	*  CONSTRUCTORS AND DESTRUCTORS
 	***************************************************************************/
+#ifdef SWIG
+	%rename(RheiaTimeStampableFileLoggerCopy) RheiaTimeStampableFileLogger(const wxString& filename);
+#endif
     /**
     *   Basic builder using the file name in input.
     *   When the logger will be created by the RheiaLoggerManager, the manager will

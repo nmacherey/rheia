@@ -41,6 +41,9 @@ public :
     /** default constrcutor */
     RheiaPackageInfo();
 
+#ifdef SWIG
+	%rename(RheiaPackageInfoCopy) RheiaPackageInfo(const RheiaPackageInfo& rhs);
+#endif
     /** copy constructor */
     RheiaPackageInfo(const RheiaPackageInfo& rhs);
 

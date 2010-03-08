@@ -98,7 +98,9 @@ protected :
     /*******************************************************************************
     *   EVENTS TABLE
     *******************************************************************************/
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 
     RheiaBookConfigurationPanel* m_panel;
 };

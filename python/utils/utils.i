@@ -1,14 +1,24 @@
 
-%module(package="rheia",directors="1") pyRheiaSdk
+%module(package="rheia",directors="1") utils
 %include "std_map.i"
 %{
 
 #include <wx/wxPython/wxPython.h>
 #include <wx/wxPython/wxPython_int.h>
 #include <wx/wxPython/pyclasses.h>
+#include "wx/wxPython/printfw.h"
+#include <wx/treectrl.h>
+#include <wx/wx.h>
+#include <wx/wizard.h>
 
+#include "wx/wxPython/pytree.h"
 
-#include "rheia/sdk/RheiaAppGlobals.h"
+#include "RheiaAppGlobals.h"
+#include "RheiaGlobals.h"
+#include "RheiaInfoWindow.h"
+#include "RheiaPlatform.h"
+#include "RheiaStandardPaths.h"
+#include "wxirrlicht.h"
 
 %}
 
@@ -32,5 +42,21 @@
 
 %import core.i
 %import windows.i
+%import _treectrl.i
 
-%include "rheia/sdk/RheiaAppGlobals.h"
+%pythoncode { 
+%#// A little trick to make 'wx' be a reference to this module so wx.Names can
+%#// be used here.
+import sys as _sys
+rheia = _sys.modules[__name__]
+}
+
+%import "RheiaUtilsSettings.h"
+%include utils_api.i
+
+%include "RheiaAppGlobals.h"
+%include "RheiaGlobals.h"
+%include "RheiaInfoWindow.h"
+%include "RheiaStandardPaths.h"
+%include "wxirrlicht.h"
+

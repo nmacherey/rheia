@@ -36,6 +36,11 @@ public :
 	/**********************************************************************************************************
 													CONSTRUCTORS
 	**********************************************************************************************************/
+#ifdef SWIG
+	%rename(PreRheiaManagedFrame) RheiaManagedFrame();
+#endif
+	RheiaManagedFrame(){};
+	
 	/*! Base constructor for building the main frame
 	*
 	*	@param parent Parent Pointer in which to Create the main frame
@@ -63,9 +68,6 @@ public :
 
 	/*! Creates the menu */
 	void BuildMenu( );
-
-    /** Create toolbars */
-    void BuildToolBar( );
 
     /** Creates the default frame controls and initialise the different managers info and books */
 	void BuildAui(void);
@@ -129,7 +131,10 @@ protected :
 	**********************************************************************************************************/
 
 private :
+#ifndef SWIG
+	DECLARE_DYNAMIC_CLASS(RheiaManagedFrame)
 	DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

@@ -74,8 +74,9 @@ private :
 	wxToolBarArray m_toolbars;
 	RheiaToolMenuIdMap m_toolIds;
 	int m_index;
-
+#ifndef SWIG
 	DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

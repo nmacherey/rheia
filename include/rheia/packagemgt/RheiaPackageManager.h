@@ -25,6 +25,11 @@ class wxMenuBar;
 struct RheiaPackageScanInfo
 {
     RheiaPackageScanInfo():control(NULL){};
+
+#ifdef SWIG
+	~RheiaPackageScanInfo() {};
+	%rename(RheiaPackageScanInfoCopy) RheiaPackageScanInfo( const RheiaPackageScanInfo& rhs );
+#endif
     RheiaPackageScanInfo( const RheiaPackageScanInfo& rhs ):
         name(rhs.name),
         fullname(rhs.fullname),
@@ -224,8 +229,9 @@ private :
 private :
     RheiaPackageScanInfoMap m_packages;
     RheiaManagedFrameIdMap m_frameIds;
-
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

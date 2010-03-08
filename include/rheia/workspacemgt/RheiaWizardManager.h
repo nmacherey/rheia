@@ -27,7 +27,7 @@ class RheiaEnvironmentPlugin;
 /************************************************************************************************
 *   Defines for project wizards
 ************************************************************************************************/
-
+#ifndef SWIG
 /** define a project wizard constructor function */
 typedef RheiaProjectCreationWizard*(*WizardConstructor)( wxWizard* , RheiaManagedFrame*, RheiaWorkspace* );
 
@@ -46,6 +46,7 @@ typedef void(*WizardDestructor)( RheiaProjectCreationWizard * );
 struct RheiaProjectWizardRegistration
 {
     RheiaProjectWizardRegistration():ctor(0),dtor(0){};
+
     RheiaProjectWizardRegistration(const RheiaProjectWizardRegistration& rhs):
         name(rhs.name),
         category(rhs.category),
@@ -64,7 +65,7 @@ struct RheiaProjectWizardRegistration
 
 /** define a map of RheiaProjectRegistration for storing it in the factory */
 typedef std::map< wxString , RheiaProjectWizardRegistration > RheiaProjectWizardRegistrationMap;
-
+#endif
 /**
 *   @class RheiaWizardManager
 *
@@ -201,13 +202,13 @@ private :
 
     RheiaProjectCreationWizard* m_projectWizard;
     RheiaManagedFrame* m_parent;
-
+#ifndef SWIG
     static RheiaProjectWizardRegistrationMap m_RegisteredWizards;
-
     DECLARE_EVENT_TABLE()
+#endif
 
 };
-
+#ifndef SWIG
 /**
 *   @class RheiaProjectWizardRegistrant
 *
@@ -282,5 +283,5 @@ private :
     namespace { \
         RheiaProjectWizardRegistrant< object > registrant( name , category , resName , bitmapbase ); \
     }
-
+#endif
 #endif

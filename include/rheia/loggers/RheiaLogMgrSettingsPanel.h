@@ -29,6 +29,10 @@ class RheiaConfigurationPanel;
 struct RheiaLoggerPageInfo
 {
     RheiaLoggerPageInfo() : page(NULL) {};
+#ifdef SWIG
+	~RheiaLoggerPageInfo(  ){};
+	%rename(RheiaLoggerPageInfoCopy) RheiaLoggerPageInfo( const RheiaLoggerPageInfo& rhs );
+#endif
     RheiaLoggerPageInfo( const RheiaLoggerPageInfo& rhs ) :
         name(rhs.name),
         page(rhs.page)
@@ -132,8 +136,9 @@ protected :
     /*******************************************************************************
     *   EVENTS TABLE
     *******************************************************************************/
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
-
+#endif
 private :
 
     RheiaLoggerPageInfoMap m_pages;

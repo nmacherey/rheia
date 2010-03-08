@@ -107,8 +107,10 @@ private :
 	*   ShutDown.
 	*/
 	virtual ~RheiaCenterPaneManager();
-
+	
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

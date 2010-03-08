@@ -43,7 +43,9 @@ public :
     **************************************************************************************/
     /** default constrcutor */
     RheiaPackageControl();
-
+#ifdef SWIG
+	%rename(RheiaPackageControlCopy) RheiaPackageControl(const RheiaPackageControl& rhs);
+#endif
     /** copy constructor */
     RheiaPackageControl(const RheiaPackageControl& rhs);
 

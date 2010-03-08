@@ -30,11 +30,18 @@
 class BASE_DLLEXPORT RheiaDebug
 {
 public :
+#ifndef SWIG
 	/** The log method is working as the wxString::Format method which is like the
 	 * printf one but with wxStrings,
 	 * this will create and redirect the wxLog to the independent Log window 
 	 */
 	static void Log( const wxChar* format, ... );
+#else
+	static void Log( const wxString& str )
+	{
+		RheiaDebug::Log( str );
+	}
+#endif
 	
 	/** You shal don't care about this method it is called in the RheiaManager::Close method
 	 * at the very end of the application shut down => so you shall be able to use this class

@@ -166,8 +166,9 @@ private :
 
     wxTextAttrEx m_textattr[RheiaLogging::RheiaLogLevelNumber];
     wxRichTextCtrl* m_loggerpage;
-
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

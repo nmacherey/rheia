@@ -90,6 +90,7 @@ void RheiaPythonUtils::PythonInit()
         wxMessageBox(wxT("***** Error importing the wxPython API! *****"),wxT("Error"),wxICON_ERROR);
         PyErr_Print();
         Py_Finalize();
+		hasPythonSupport = false;
         return;
     }
 

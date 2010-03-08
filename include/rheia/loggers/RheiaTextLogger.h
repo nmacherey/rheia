@@ -39,7 +39,9 @@ class wxRichTextBuffer;
 */
 class LOGGERS_DLLEXPORT RheiaTextLogger : public RheiaLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaTextLogger )
+#endif
     friend class RheiaTextLoggerPage;
 public:
 
@@ -139,7 +141,9 @@ protected:
 */
 class LOGGERS_DLLEXPORT RheiaTimeStampableTextLogger : public RheiaTextLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaTimeStampableTextLogger )
+#endif
 public:
 
     /**

@@ -43,7 +43,9 @@ class wxListCtrl;
 */
 class LOGGERS_DLLEXPORT RheiaStdLogger : public RheiaLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaStdLogger )
+#endif
 public:
     /** log function overloads */
     virtual void Log(const wxString& msg, RheiaLogging::RheiaLogLevel level = RheiaLogging::message )
@@ -78,7 +80,9 @@ public:
 */
 class LOGGERS_DLLEXPORT RheiaTimeStampableStdLogger : public RheiaLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaTimeStampableStdLogger )
+#endif
 public:
     /** log function overloads */
     virtual void Log(const wxString& msg, RheiaLogging::RheiaLogLevel level = RheiaLogging::message )

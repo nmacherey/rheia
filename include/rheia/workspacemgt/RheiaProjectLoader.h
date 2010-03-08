@@ -41,6 +41,9 @@ public :
     */
     RheiaProjectLoader( RheiaProject *project );
 
+#ifdef SWIG
+	%rename(PreRheiaProjectLoader) RheiaProjectLoader( );
+#endif
     /**
     *   Default constructor with no project
     */

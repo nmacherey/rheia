@@ -2,6 +2,8 @@
  * This file is part of the Rheia Python IDE and licensed under the GNU Lesser General Public License, version 3
  * http://www.gnu.org/licenses/lgpl-3.0.html
  */
+#include <Python.h>
+#include <wx/wxPython/wxPython.h>
 
 #include "PyConsole.h"
 #include "PyContext.h"
@@ -9,6 +11,7 @@
 #include "PyUtils.h"
 
 #include <RheiaPythonUtils.h>
+#include <RheiaPython.h>
 #include <RheiaConfigurationManager.h>
 #include <RheiaManager.h>
 
@@ -63,6 +66,15 @@ PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
 
     RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("pyconsole"));
     m_history = cfg->ReadArrayString(wxT("/history"));
+	wxString res;
+
+	if( !RheiaPythonCoreAPI_IMPORT() )
+		wxMessageBox( wxT("Error Rheia API") );
+	
+	PyObject* arg = rheiaPythonBaseConstructObject((void*)m_parent, wxT("RheiaManagedFrame"), true);
+	wxASSERT(arg != NULL);
+	
+	PyModule_AddObject(RheiaPythonUtils::Get()->GetMainModule(), "rhFrame", arg);
 
     sizer->Add( m_control, 1, wxEXPAND | wxALL, 5 );
     this->SetSizer( sizer );
@@ -71,6 +83,7 @@ PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
 
 PyConsole::~PyConsole()
 {
+	//RheiaPythonUtils::Get()->PythonExit();
     RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("pyconsole"));
     cfg->Write(wxT("/history"),m_history);
 }

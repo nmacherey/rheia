@@ -40,6 +40,13 @@ dopackage( "src/rheia" )
 dopackage( "src/tuto1" )
 dopackage( "webconnect/testapp" )
 
+-- Generate python bindings libraries
+dopackage("python/utils")
+dopackage("python/base")
+dopackage("python/loggers")
+dopackage("python/packagemgt")
+dopackage("python/workspacemgt")
+
 function CreateSymlink( pathToLink, symLink )
 	os.execute( "ln -s -f -n " .. pathToLink .. " " .. symLink  )
 end

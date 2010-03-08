@@ -29,6 +29,7 @@ class wxMenuBar;
 class wxMenu;
 class wxMenuItemId;
 
+#ifndef SWIG
 /**
 *   @class RheiaMenuFunctorBase
 *
@@ -97,6 +98,8 @@ public:
 };
 
 typedef std::vector< RheiaMenuFunctorBase* > RheiaMenuFunctorArray;
+
+#endif
 
 /**
 *	@class RheiaMenuManager
@@ -181,6 +184,7 @@ private :
     RheiaManagedFrame* m_parent;
 };
 
+#ifndef SWIG
 /**
 *	@class RheiaMenuFunctorManager
 *
@@ -233,5 +237,6 @@ private :
     **********************************************************************************************************/
     RheiaMenuFunctorArray m_funcs;
 };
+#endif
 
 #endif

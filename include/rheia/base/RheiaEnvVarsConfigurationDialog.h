@@ -116,7 +116,9 @@ protected:
     void OnDeletePath( wxCommandEvent& event );
 
 private:
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

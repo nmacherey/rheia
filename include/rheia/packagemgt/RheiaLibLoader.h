@@ -33,6 +33,11 @@
 struct RheiaDynamicLibrary
 {
     RheiaDynamicLibrary() : lib(NULL) {}
+
+#ifdef SWIG
+	~RheiaDynamicLibrary(){}
+	%rename(RheiaDynamicLibraryCopy) RheiaDynamicLibrary( const RheiaDynamicLibrary& rhs );
+#endif
     RheiaDynamicLibrary( const RheiaDynamicLibrary& rhs ):
         path( rhs.path ),
         name( rhs.name ),
@@ -89,6 +94,9 @@ public :
     */
     bool RemoveLibrary(wxDynamicLibrary* lib);
 
+#ifdef SWIG
+	%rename(RemoveLibraryByObject) RemoveLibrary(RheiaDynamicLibrary* lib);
+#endif
     /**
     *   Remove a library using its RheiaDynamicLibrary reference.
     *   This method will find the library in the registered libraries and
@@ -101,6 +109,9 @@ public :
     */
     bool RemoveLibrary(RheiaDynamicLibrary* lib);
 
+#ifdef SWIG
+	%rename(RemoveLibraryByName) RemoveLibrary(const wxString& name);
+#endif
     /**
     *   Remove a library using its name.
     *   This method will find the library in the registered libraries and
@@ -112,6 +123,9 @@ public :
     */
     bool RemoveLibrary(const wxString& name);
 
+#ifdef SWIG
+	%rename(LibraryExists) Exists( wxDynamicLibrary* lib );
+#endif
     /**
     *   Check if the given library is referenced in this manager
     *   @param lib wxDynamicLibrary reference to find
@@ -119,6 +133,9 @@ public :
     */
     bool Exists( wxDynamicLibrary* lib );
 
+#ifdef SWIG
+	%rename(LibraryExistsByObject) Exists( RheiaDynamicLibrary* lib );
+#endif
     /**
     *   Check if the given library is referenced in this manager
     *   @param lib RheiaDynamicLibrary reference to find
@@ -126,6 +143,10 @@ public :
     */
     bool Exists( RheiaDynamicLibrary* lib );
 
+
+#ifdef SWIG
+	%rename(LibraryExistsByName) Exists( const wxString& name );
+#endif
     /**
     *   Check if the given library is referenced in this manager
     *   @param name library name to find
@@ -133,6 +154,9 @@ public :
     */
     bool Exists( const wxString& name );
 
+#ifdef SWIG
+	%rename(FindLibraryByName) FindLibrary(const wxString& name);
+#endif
     /**
     *   Find a dynamic library by its name
     *   If the library was not found this method will return NULL

@@ -17,7 +17,7 @@
 #include <wx/stdpaths.h>  
 #include <wx/dir.h>
 
-#include <RheiaXtraRes.h>
+#include <RheiaXtraRes.h> 
 #include <RheiaException.h>
 #include <RheiaGlobals.h>
 #include <RheiaSplashScreen.h>

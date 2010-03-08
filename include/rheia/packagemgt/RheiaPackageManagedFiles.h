@@ -44,6 +44,9 @@ public :
     /** default constrcutor */
     RheiaPackageManagedFiles();
 
+#ifdef SWIG
+	%rename(RheiaPackageManagedFilesCopy) RheiaPackageManagedFiles(const RheiaPackageManagedFiles& rhs);
+#endif
     /** copy constructor */
     RheiaPackageManagedFiles(const RheiaPackageManagedFiles& rhs);
 

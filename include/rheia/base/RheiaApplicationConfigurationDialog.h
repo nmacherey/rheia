@@ -43,6 +43,9 @@ struct RheiaConfigurationPageInfo
     /** default constructor */
     RheiaConfigurationPageInfo():page(NULL),idxOn(-1),idxOff(-1) {};
 
+#ifdef SWIG
+	%rename(RheiaConfigurationPageInfoCopy) RheiaConfigurationPageInfo( const RheiaConfigurationPageInfo& rhs );
+#endif
     /** copy constructor */
     RheiaConfigurationPageInfo( const RheiaConfigurationPageInfo& rhs ):
         page(rhs.page),
@@ -53,7 +56,8 @@ struct RheiaConfigurationPageInfo
 		
 	/** destructor */
 	~RheiaConfigurationPageInfo(){page=NULL;}
-	
+
+#ifndef SWIG
 	/** operator = overload */
 	RheiaConfigurationPageInfo& operator= (const RheiaConfigurationPageInfo& rhs )
 	{
@@ -64,6 +68,7 @@ struct RheiaConfigurationPageInfo
 
         return *this;
 	}
+#endif
 
     RheiaConfigurationPanel* page;
     int idxOn;
@@ -207,7 +212,9 @@ private :
     wxImageList* m_lbImages;
 
 private:
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

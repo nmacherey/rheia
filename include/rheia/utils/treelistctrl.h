@@ -66,6 +66,7 @@ public:
         m_edit = edit;
     }
 
+#ifndef SWIG
     wxTreeListColumnInfo (const wxTreeListColumnInfo& other) {
         m_text = other.m_text;
         m_width = other.m_width;
@@ -75,6 +76,7 @@ public:
         m_shown = other.m_shown;
         m_edit = other.m_edit;
     }
+#endif
 
     ~wxTreeListColumnInfo() {}
 
@@ -128,8 +130,10 @@ const int wxTL_MODE_FIND_NOCASE  = 0x0020;
 
 // additional flag for HitTest
 const int wxTREE_HITTEST_ONITEMCOLUMN = 0x2000;
-extern UTILS_DLLEXPORT const wxChar* wxTreeListCtrlNameStr;
 
+#ifndef SWIG
+extern UTILS_DLLEXPORT const wxChar* wxTreeListCtrlNameStr;
+#endif
 
 class UTILS_DLLEXPORT wxTreeListCtrl : public wxControl
 {
@@ -541,9 +545,10 @@ protected:
 private:
     int m_headerHeight;
 
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
     DECLARE_DYNAMIC_CLASS(wxTreeListCtrl)
+#endif
 };
 
 #endif // TREELISTCTRL_H
-

@@ -264,21 +264,25 @@ public :
 
 	/** Sets the last workspace and write it in the configuration file */
 	bool SetLast( const wxString& path );
-
+#ifndef SWIG
 	/** Loads the last workspace */
 	bool LoadLast();
 
+#ifdef SWIG
+	%rename(LoadLastByPath) LoadLast( const wxString& path );
+#endif
 	/** Loads one of the last workspace in the list */
 	bool LoadLast( const wxString& path );
-
+#endif
 	/** Recreates the last files menus in the menubar */
 	void RecreateLastMenu();
 
 	void OnRecentOpen( wxCommandEvent& event );
 
 private :
-
+#ifndef SWIG
 	DECLARE_EVENT_TABLE()
+#endif
 };
 
 /**

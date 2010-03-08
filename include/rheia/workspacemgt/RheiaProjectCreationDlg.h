@@ -94,8 +94,9 @@ private :
     wxImageList *m_lstImages;
     wxString m_selwizard;
     bool m_newwksp;
-
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

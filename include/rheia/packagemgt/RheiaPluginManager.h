@@ -51,6 +51,7 @@ typedef RheiaPlugin*(*CreatePluginProcess)();
 */
 typedef void(*FreePluginProcess)(RheiaPlugin*);
 
+#ifndef SWIG
 /*! @brief Plugin Registration structure */
 struct RheiaPluginRegistration
 {
@@ -73,7 +74,7 @@ struct RheiaPluginRegistration
 
 /*! define the RheiaPluginRegistrationTable */
 typedef std::vector< RheiaPluginRegistration > RheiaPluginRegistrationTable;
-
+#endif
 /** define a plugin array using wxWidgets macros */
 WX_DEFINE_ARRAY(RheiaPlugin*, RheiaPluginsArray);
 
@@ -158,12 +159,6 @@ public :
                             CreatePluginProcess createProc,
                             FreePluginProcess freeProc );
 
-	/*! Exports a specific plugin in a specific file name
-	*	@param plugin The plugin to exports
-	*	@param filename The file name in which to export the plugin
-	*/
-	bool ExportPlugin(RheiaPlugin* plugin, const wxString& filename);
-
 	/**
     *   @return True if the plugin should be loaded, false if not.
     */
@@ -176,6 +171,9 @@ public :
 	*/
 	RheiaPluginRegistration* FindElement(RheiaPlugin* plugin);
 
+#ifdef SWIG
+	%rename(FindElementByName) FindElement(const wxString& pluginName);
+#endif
 	/*! Get a plugin element by its name
 	*	@param pluginName Plugin's name to get the elements
 	*/
@@ -188,8 +186,10 @@ public :
 
 	void NotifyPlugins(RheiaEvent& event);
 
+#ifndef SWIG
 	/*!	Get the array of plugin elements available in the plugin manager for a specific configuration group */
 	RheiaPluginRegistrationTable& GetPlugins(int ConfigGroup);
+#endif
 
 	/**
 	*   Get offered plugins for the given configuration group
@@ -211,9 +211,12 @@ private :
 	****************************************************************************************************/
 	RheiaPluginRegistrationTable RegisteredPlugins;						/*!< vector of registrered plugins */
 
+#ifndef SWIG
 	DECLARE_EVENT_TABLE()
+#endif
 };
 
+#ifndef SWIG
 /** @brief Plugin registration object.
 *
 * Use this class to register your new plugin with Rehia
@@ -255,5 +258,6 @@ public:
 	}
 
 };
+#endif
 
 #endif

@@ -55,6 +55,9 @@ struct RheiaHtmlHeader
     wxString timestamp;
 
     RheiaHtmlHeader();
+#ifdef SWIG
+	%rename(RheiaHtmlHeaderCopy) RheiaHtmlHeader(const RheiaHtmlHeader& rhs);
+#endif
     RheiaHtmlHeader(const RheiaHtmlHeader& rhs);
 };
 
@@ -76,13 +79,18 @@ struct RheiaHtmlHeader
 */
 class LOGGERS_DLLEXPORT RheiaHtmlLogger : public RheiaFileLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaHtmlLogger )
+#endif
 
     friend class RheiaHtmlLoggerPage;
 public:
     /***************************************************************************
 	*  CONSTRUCTORS AND DESTRUCTORS
 	***************************************************************************/
+#ifdef SWIG
+	%rename(RheiaHtmlLoggerCopy) RheiaHtmlLogger(const wxString& filename);
+#endif
     /**
     *   Basic builder using the file name in input.
     *   When the logger will be created by the RheiaLoggerManager, the manager will
@@ -175,11 +183,17 @@ protected :
 */
 class LOGGERS_DLLEXPORT RheiaTimeStampableHtmlLogger : public RheiaHtmlLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaTimeStampableHtmlLogger )
+#endif
+
 public:
     /***************************************************************************
 	*  CONSTRUCTORS AND DESTRUCTORS
 	***************************************************************************/
+#ifdef SWIG
+	%rename(RheiaTimeStampableHtmlLoggerCopy) RheiaTimeStampableHtmlLogger(const wxString& filename);
+#endif
     /**
     *   Basic builder using the file name in input.
     *   When the logger will be created by the RheiaLoggerManager, the manager will

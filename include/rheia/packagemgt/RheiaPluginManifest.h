@@ -39,6 +39,9 @@ public :
     /** default constrcutor */
     RheiaPluginManifest();
 
+#ifdef SWIG
+	%rename(RheiaPluginManifestCopy) RheiaPluginManifest(const RheiaPluginManifest& rhs);
+#endif
     /** copy constructor */
     RheiaPluginManifest(const RheiaPluginManifest& rhs);
 

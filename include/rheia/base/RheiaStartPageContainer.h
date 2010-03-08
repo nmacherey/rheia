@@ -78,8 +78,9 @@ private :
 	RheiaManagedFrame* m_parent;
 	wxString m_htmlfile;
 	wxBitmap m_bmp; 
-	
+#ifndef SWIG
 	DECLARE_EVENT_TABLE()
+#endif
 };
 
 

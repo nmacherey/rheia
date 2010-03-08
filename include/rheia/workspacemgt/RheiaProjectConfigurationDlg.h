@@ -126,8 +126,9 @@ private:
     wxImageList* m_imageList;
 
     RheiaProjectElementConfigurationPanelMap m_pages;
-
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

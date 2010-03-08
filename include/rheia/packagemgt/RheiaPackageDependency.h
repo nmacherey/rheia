@@ -13,9 +13,11 @@
 #include <RheiaGlobals.h>
 #include <RheiaPackageVersion.h>
 
+#ifndef SWIG
 /* lib xml2 imports */
 typedef struct _xmlNode xmlNode;
 typedef struct _xmlDoc xmlDoc;
+#endif
 
 /**
 *   @class RheiaPackageDependency
@@ -37,6 +39,9 @@ public :
     /** default constrcutor */
     RheiaPackageDependency();
 
+#ifdef SWIG
+	%rename(RheiaPackageDependencyCopy) RheiaPackageDependency(const RheiaPackageDependency& rhs);
+#endif
     /** copy constructor */
     RheiaPackageDependency(const RheiaPackageDependency& rhs);
 

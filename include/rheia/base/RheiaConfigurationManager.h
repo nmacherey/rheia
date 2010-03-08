@@ -153,6 +153,9 @@ public :
     */
     void Delete();
 
+#ifdef SWIG
+	%rename(DeletePath) Delete( const wxString& path );
+#endif
     /**
     *   Delete the children corresponding to the given path
     *   This method will delete the last children in the path given in argument
@@ -168,7 +171,9 @@ public :
         /*************************************************************************************
         *   STRING METHODS FOR READING AND WRITING
         *************************************************************************************/
-
+#ifdef SWIG
+	 %rename(WriteString) Write(const wxString& path,  const wxString& value,bool ignoreEmpty = false);
+#endif
     /**
     *   Write a wxString in the namespace at the given path
     *   @param path path from namespace root node in which the string has to be stored
@@ -177,6 +182,9 @@ public :
     */
     void Write(const wxString& path,  const wxString& value,bool ignoreEmpty = false);
 
+#ifdef SWIG
+	 %rename(ReadString) Read(const wxString& path, const wxString& defaultVal = wxEmptyString);
+#endif
     /**
     *   Read a wxString from the given path
     *   @param path path from which the string shall be read
@@ -185,6 +193,9 @@ public :
     */
     wxString Read(const wxString& path, const wxString& defaultVal = wxEmptyString);
 
+#ifdef SWIG
+	 %rename(DoReadString) DoRead(const wxString& path, wxString* str);
+#endif
     /**
     *   Read a wxString from the given path
     *   @param path path from which the string shall be read
@@ -193,6 +204,9 @@ public :
     */
     bool DoRead(const wxString& path, wxString* str);
 
+#ifdef SWIG
+	%rename(WriteChars) Write(const wxString& path, const char* str);
+#endif
     /**
     *   Write a char* in the namespace at the given path
     *   @param path path from namespace root node in which the string has to be stored
@@ -204,6 +218,9 @@ public :
         *   INT METHODS FOR READING AND WRITING
         *************************************************************************************/
 
+#ifdef SWIG
+	%rename(WriteInt) Write(const wxString& path, int value);
+#endif
     /**
     *   Write an INT in the namespace at the given path
     *   @param path path from namespace root node in which the INT has to be stored
@@ -211,6 +228,9 @@ public :
     */
     void Write(const wxString& path, int value);
 
+#ifdef SWIG
+	%rename(DoReadInt) DoRead(const wxString& path, int* value);
+#endif
     /**
     *   Read an INT from the given path
     *   @param path path from which the INT shall be read
@@ -230,7 +250,9 @@ public :
         /*************************************************************************************
         *   BOOL METHODS FOR READING AND WRITING
         *************************************************************************************/
-
+#ifdef SWIG
+	%rename(WriteBool) Write(const wxString& path ,  bool value);
+#endif
     /**
     *   Write a BOOL in the namespace at the given path
     *   @param path path from namespace root node in which the INT has to be stored
@@ -238,6 +260,9 @@ public :
     */
     void Write(const wxString& path ,  bool value);
 
+#ifdef SWIG
+	%rename(DoReadBool) DoRead(const wxString& path,  bool* value);
+#endif
     /**
     *   Read a BOOL from the given path
     *   @param path path from which the INT shall be read
@@ -257,7 +282,9 @@ public :
         /*************************************************************************************
         *   DOUBLE METHODS FOR READING AND WRITING
         *************************************************************************************/
-
+#ifdef SWIG
+	%rename(WriteDouble) Write(const wxString& path ,  bool value);
+#endif
     /**
     *   Write a DOUBLE in the namespace at the given path
     *   @param path path from namespace root node in which the INT has to be stored
@@ -265,6 +292,9 @@ public :
     */
     void Write(const wxString& path, double value);
 
+#ifdef SWIG
+	%rename(DoReadDouble) DoRead(const wxString& path, double* value);
+#endif
     /**
     *   Read a DOUBLE from the given path
     *   @param path path from which the INT shall be read
@@ -288,7 +318,9 @@ public :
         /*************************************************************************************
         *   ARRAY STRING METHODS FOR READING AND WRITING
         *************************************************************************************/
-
+#ifdef SWIG
+	%rename(WriteArrayString) Write(const wxString& path,  const wxArrayString& as);
+#endif
     /**
     *   Write a wxArrayString in the namespace at the given path
     *   @param path path from namespace root node in which the wxArrayString has to be stored
@@ -296,6 +328,9 @@ public :
     */
     void Write(const wxString& path,  const wxArrayString& as);
 
+#ifdef SWIG
+	%rename(DoReadArrayString) DoRead(const wxString& path, wxArrayString* as);
+#endif
     /**
     *   Read a wxArrayString from the given path
     *   @param path path from which the INT shall be read
@@ -315,6 +350,9 @@ public :
         *   STRING TO STRING MAP METHODS FOR READING AND WRITING
         *************************************************************************************/
 
+#ifdef SWIG
+	%rename(WriteStringStringMap) Write(const wxString& path,  const RheiaStringStringMap& as);
+#endif
     /**
     *   Write a RheiaStringStringMap in the namespace at the given path
     *   @param path path from namespace root node in which the RheiaStringStringMap has to be stored
@@ -322,6 +360,9 @@ public :
     */
     void Write(const wxString& path,  const RheiaStringStringMap& as);
 
+#ifdef SWIG
+	%rename(DoReadStringStringMap) DoRead(const wxString& path, RheiaStringStringMap* as);
+#endif
     /**
     *   Read a RheiaStringStringMap from the given path
     *   @param path path from which the INT shall be read
@@ -341,6 +382,9 @@ public :
         *   ARRAY INT METHODS FOR READING AND WRITING
         *************************************************************************************/
 
+#ifdef SWIG
+	%rename(WriteArrayInt) Write(const wxString& path,  const wxArrayInt& arrayInt);
+#endif
     /**
     *   Write a wxArrayInt in the namespace at the given path
     *   @param path path from namespace root node in which the wxArrayInt has to be stored
@@ -348,6 +392,9 @@ public :
     */
     void Write(const wxString& path,  const wxArrayInt& arrayInt);
 
+#ifdef SWIG
+	%rename(DoReadArrayInt) DoRead(const wxString& path, wxArrayInt* arrayInt);
+#endif
     /**
     *   Read a wxArrayInt from the given path
     *   @param path path from which the wxArrayInt shall be read
@@ -366,7 +413,9 @@ public :
         /*************************************************************************************
         *   ARRAY DOUBLE METHODS FOR READING AND WRITING
         *************************************************************************************/
-
+#ifdef SWIG
+	%rename(WriteArrayDouble) Write(const wxString& path, const wxArrayDouble& arrayDouble);
+#endif
     /**
     *   Write a wxArrayDouble in the namespace at the given path
     *   @param path path from namespace root node in which the wxArrayDouble has to be stored
@@ -374,6 +423,9 @@ public :
     */
     void Write(const wxString& path, const wxArrayDouble& arrayDouble);
 
+#ifdef SWIG
+	%rename(DoReadArrayDouble) DoRead(const wxString& path, wxArrayDouble* arrayDouble);
+#endif
     /**
     *   Read a wxArrayDouble from the given path
     *   @param path path from which the wxArrayDouble shall be read
@@ -392,7 +444,10 @@ public :
         /*************************************************************************************
         *   ARRAY BOOL METHODS FOR READING AND WRITING
         *************************************************************************************/
-
+		
+#ifdef SWIG
+	%rename(WriteArrayBool) Write(const wxString& path, const wxArrayBool& arrayBool);
+#endif
     /**
     *   Write a wxArrayBool in the namespace at the given path
     *   @param path path from namespace root node in which the wxArrayBool has to be stored
@@ -400,6 +455,9 @@ public :
     */
     void Write(const wxString& path, const wxArrayBool& arrayBool);
 
+#ifdef SWIG
+	%rename(DoReadArrayBool) DoRead(const wxString& path, wxArrayBool* arrayBool);
+#endif
     /**
     *   Read a wxArrayBool from the given path
     *   @param path path from which the wxArrayBool shall be read
@@ -424,6 +482,9 @@ public :
         *   ARRAY STRING METHODS FOR READING AND WRITING
         *************************************************************************************/
 
+#ifdef SWIG
+	%rename(WriteStdArrayString) Write(const wxString& path,  const std::vector<std::string>& arrayString);
+#endif
     /**
     *   Write a std::vector<std::string> in the namespace at the given path
     *   @param path path from namespace root node in which the std::vector<std::string> has to be stored
@@ -431,6 +492,9 @@ public :
     */
     void Write(const wxString& path,  const std::vector<std::string>& arrayString);
 
+#ifdef SWIG
+	%rename(DoReadStdArrayString) DoRead(const wxString& path, std::vector<std::string>* arrayString);
+#endif
     /**
     *   Read a std::vector<std::string> from the given path
     *   @param path path from which the std::vector<std::string> shall be read
@@ -450,6 +514,9 @@ public :
         *   ARRAY INT METHODS FOR READING AND WRITING
         *************************************************************************************/
 
+#ifdef SWIG
+	%rename(WriteStdArrayInt) Write(const wxString& path, const std::vector<int>& arrayInt);
+#endif
     /**
     *   Write a std::vector<int> in the namespace at the given path
     *   @param path path from namespace root node in which the std::vector<int> has to be stored
@@ -457,6 +524,9 @@ public :
     */
     void Write(const wxString& path, const std::vector<int>& arrayInt);
 
+#ifdef SWIG
+	%rename(DoReadStdArrayInt) DoRead(const wxString& path, std::vector<int>* arrayInt);
+#endif
     /**
     *   Read a std::vector<int> from the given path
     *   @param path path from which the std::vector<int> shall be read
@@ -475,7 +545,10 @@ public :
         /*************************************************************************************
         *   ARRAY DOUBLE METHODS FOR READING AND WRITING
         *************************************************************************************/
-
+		
+#ifdef SWIG
+	%rename(WriteStdArrayDouble) Write(const wxString& path,  const std::vector<double>& arrayDouble);
+#endif
     /**
     *   Write a std::vector<double> in the namespace at the given path
     *   @param path path from namespace root node in which the std::vector<double> has to be stored
@@ -483,6 +556,9 @@ public :
     */
     void Write(const wxString& path,  const std::vector<double>& arrayDouble);
 
+#ifdef SWIG
+	%rename(DoReadStdArrayDouble) DoRead(const wxString& path,  std::vector<double>* arrayDouble);
+#endif
     /**
     *   Read a std::vector<double> from the given path
     *   @param path path from which the std::vector<double> shall be read
@@ -502,6 +578,9 @@ public :
         *   ARRAY BOOL METHODS FOR READING AND WRITING
         *************************************************************************************/
 
+#ifdef SWIG
+	%rename(WriteStdArrayBool) Write(const wxString& path,  const std::vector<bool>& arrayBool);
+#endif
     /**
     *   Write a std::vector<bool> in the namespace at the given path
     *   @param path path from namespace root node in which the std::vector<bool> has to be stored
@@ -509,6 +588,9 @@ public :
     */
     void Write(const wxString& path,  const std::vector<bool>& arrayBool);
 
+#ifdef SWIG
+	%rename(DoReadStdArrayBool) DoRead(const wxString& path, std::vector<bool>* arrayBool);
+#endif
     /**
     *   Read a std::vector<bool> from the given path
     *   @param path path from which the std::vector<bool> shall be read
@@ -528,6 +610,9 @@ public :
     *   WXCOLOUR PRIMITIVES WRITING AND READING
     *****************************************************************************************************/
 
+#ifdef SWIG
+	%rename(WriteColour) Write(const wxString& path, const wxColour& c);
+#endif
     /**
     *   Write a wxColour in the namespace at the given path
     *   @param path path from namespace root node in which the wxColour has to be stored
@@ -535,6 +620,9 @@ public :
     */
     void Write(const wxString& path, const wxColour& c);
 
+#ifdef SWIG
+	%rename(DoReadColour) DoRead(const wxString& path, wxColour* value);
+#endif
     /**
     *   Read a wxColour from the given path
     *   @param path path from which the wxColour shall be read
@@ -551,6 +639,9 @@ public :
     */
     wxColour ReadColour(const wxString& path, const wxColour& defaultVal = *wxBLACK);
 
+#ifdef SWIG
+	%rename(WriteFont) Write(const wxString& name, const wxFont& font);
+#endif
     /**
     *   Write a wxFont in the namespace at the given path
     *   @param path path from namespace root node in which the wxFont has to be stored
@@ -558,6 +649,9 @@ public :
     */
 	void Write(const wxString& name, const wxFont& font);
 
+#ifdef SWIG
+	%rename(DoReadFond) DoRead(const wxString& name, wxFont *font);
+#endif
 	/**
     *   Read a wxFont from the given path
     *   @param path path from which the wxFont shall be read
@@ -573,6 +667,9 @@ public :
     */
     wxFont ReadFont(const wxString& name );
 
+#ifdef SWIG
+	%rename(WriteTextAttr) Write(const wxString& name, const wxTextAttr& attr);
+#endif
     /**
     *   Write a wxTextAttr in the namespace at the given path
     *   @param path path from namespace root node in which the wxTextAttr has to be stored
@@ -580,6 +677,9 @@ public :
     */
 	void Write(const wxString& name, const wxTextAttr& attr);
 
+#ifdef SWIG
+	%rename(DoReadTextAttr) Read(const wxString& name, wxTextAttr *attr);
+#endif
 	/**
     *   Read a wxTextAttr from the given path
     *   @param path path from which the wxTextAttr shall be read
@@ -795,6 +895,9 @@ public :
     */
     void WritePerspective( const wxString& path, wxAuiManager *LayoutManager, const wxString& pName, bool overwrite_existing );
 
+#ifdef SWIG
+	%rename(WritePerspectiveString) WritePerspective( const wxString& path, const wxString& pName, const wxString& pValue, bool overwrite_existing );
+#endif
     /**
     *   wxAuiManager's perspectives are stored in a wxString in order to allow them to
     *   be easily loaded/saved in any configuration file. Here is the place to save the
@@ -913,6 +1016,9 @@ public :
     */
     wxPoint ReadFramePosition( const wxString& path , wxPoint defaultval = wxDefaultPosition );
 
+#ifdef SWIG
+	%rename(ReadFramePositionAndSet) ReadFramePosition( const wxString& path , wxFrame *frame , wxPoint defaultval = wxDefaultPosition );
+#endif
     /**
     *   Read the frame position from the given path and set it in the frame
     *   @param path path name from which the information shall be read
@@ -936,6 +1042,9 @@ public :
     */
     wxSize ReadFrameSize( const wxString& path , wxSize defaultval = wxDefaultSize );
 
+#ifdef SWIG
+	%rename(ReadFrameSizeAndSet) ReadFrameSize( const wxString& path , wxFrame *frame , wxSize defaultval = wxDefaultSize );
+#endif
     /**
     *   Read the frame size from the given path and set it in the frame
     *   @param path path name from which the information shall be read
@@ -977,6 +1086,7 @@ public :
     */
     wxArrayString ListRootChildrens();
 
+#ifndef SWIG
     /**
     *   Get the xmlDoc pointer of the root configuration
     *   file your namespace/group belongs to. Please remember to never
@@ -1032,6 +1142,8 @@ private :
 
     /** namespace/group root node in the configuration file */
     xmlNode* m_root;
+
+#endif
 
 };
 

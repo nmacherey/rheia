@@ -28,8 +28,10 @@ class RheiaTreeItem;
 */
 class BASE_DLLEXPORT RheiaTreeItemData : public wxTreeItemData, public wxObject
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS(RheiaTreeItemData)
-	
+#endif
+
 public:
 	/**************************************************************************************************
 	*	CONSTRUCTORS

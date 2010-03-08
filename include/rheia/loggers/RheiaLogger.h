@@ -78,7 +78,9 @@ namespace RheiaLogging
 */
 class LOGGERS_DLLEXPORT RheiaLogger : public wxEvtHandler, public virtual RheiaPageContainer
 {
+#ifndef SWIG
     DECLARE_ABSTRACT_CLASS( RheiaLogger )
+#endif
 public:
     /***************************************************************************
 	*  CONSTRUCTORS AND DESTRUCTORS
@@ -222,7 +224,9 @@ private :
 */
 class LOGGERS_DLLEXPORT RheiaNullLogger : public RheiaLogger
 {
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS( RheiaNullLogger )
+#endif
 public:
 
     /** Simply overload the Log method in order to do nothing */

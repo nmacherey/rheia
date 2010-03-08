@@ -72,8 +72,9 @@ class UTILS_DLLEXPORT InfoWindow : public wxInfoWindowBase
     void OnTimer(wxTimerEvent& e);
     void OnMove(wxMouseEvent& e);
     void OnClick(wxMouseEvent& e);
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
-
+#endif
     public:
 
     static void Display(const wxString& title, const wxString& message, unsigned int delay = 5000, unsigned int hysteresis = 1);

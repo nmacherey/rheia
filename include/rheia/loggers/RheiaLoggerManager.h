@@ -25,6 +25,7 @@ class wxMenuBar;
 class wxStreamToTextRedirector;
 class RheiaLoggerManager;
 
+#ifndef SWIG
 /** define a logger constructor function */
 typedef RheiaLogger*(*CreateLogger)( );
 
@@ -35,7 +36,6 @@ typedef void(*FreeLogger)(RheiaLogger* logger);
 struct RheiaLoggerRegistration
 {
     RheiaLoggerRegistration() : createLogger(0), freeLogger(0) {}
-
 	RheiaLoggerRegistration(const RheiaLoggerRegistration& rhs)
 		: name(rhs.name),
 		createLogger(rhs.createLogger),
@@ -46,6 +46,7 @@ struct RheiaLoggerRegistration
 	CreateLogger createLogger;
 	FreeLogger freeLogger;
 };
+#endif
 
 /** define a map of registered loggers */
 typedef std::map< wxString , RheiaLoggerRegistration > RheiaRegisteredLoggersMap;
@@ -73,7 +74,8 @@ public :
     /******************************************************************************************
     *   REGISTERING/UNREGISTERING LOGGERS
     ******************************************************************************************/
-    /**
+#ifndef SWIG
+	/**
     *   Register a Logger in the LoggerManager, you should never use this function directly,
     *   you have to use the REGISTER_LOGGER macro to do this.
     *
@@ -90,7 +92,7 @@ public :
 
     /** List all registered loggers in this manager */
     wxArrayString ListRegisteredLoggers();
-
+#endif
     /******************************************************************************************
     *   BUILDING METHODS
     ******************************************************************************************/
@@ -117,8 +119,9 @@ private :
 
 	/*! Default destructor */
 	~RheiaLoggerFactory();
-
+#ifndef SWIG
 	RheiaRegisteredLoggersMap m_registeredLoggers;  /*!< map of registered loggers in the manager */
+#endif
 	RheiaLogger* m_nullloger;
 };
 
@@ -192,6 +195,9 @@ public :
     *   ACTIVE LOGGER MANAGEMENT
     ******************************************************************************************/
 
+#ifdef SWIG
+	%rename(SetActiveLoggerByName) SetActiveLogger( const wxString& name );
+#endif
     /**
     *   Set the active logger
     *   After a call to this method, RheiaLoggerManager will activate the logger with
@@ -211,6 +217,9 @@ public :
     */
     bool SetActiveLogger( RheiaLogger* logger );
 
+#ifdef SWIG
+	%rename(SetActiveLoggerByNameAndObject) SetActiveLogger( const wxString& name , RheiaLogger* logger );
+#endif
     /**
     *   Set the active logger and register it in the logger's map if it
     *   does not exists.
@@ -528,7 +537,9 @@ public :
     *   Clear the active logger
     */
     void ClearLog();
-
+#ifdef SWIG
+	%rename(CleaLogByName) ClearLog( const wxString& name );
+#endif
     /**
     *   Clear the log associated to the given name
     */
@@ -562,6 +573,9 @@ public :
     */
     bool DeleteLogger(RheiaLogger* logger);
 
+#ifdef SWIG
+	%rename(DeleteLoggerByName) DeleteLogger(const wxString& name);
+#endif
     /**
     *   Delete a specific logger from the manager
     *   @param name the logger's name to delete if found
@@ -574,13 +588,18 @@ public :
 	/******************************************************************************************
     *   DEALING WITH RHEIA INFOPANE MANAGER
     ******************************************************************************************/
-
+#ifdef SWIG
+	%rename(ShowLoggerByName) Show(const wxString& name);
+#endif
 	/** Show the logger at the given index */
 	void Show(const wxString& name);
 
 	/** Show the given Logger */
     void Show(RheiaLogger* logger);
 
+#ifdef SWIG
+	%rename(GetLogPageIndexByName) GetLogPageIndex( const wxString& name );
+#endif
     /** Get the page index in RheiaInfoPaneManager */
     int GetLogPageIndex( const wxString& name );
 
@@ -593,6 +612,9 @@ public :
     /** Get the loggers configuration group via its object reference */
     RheiaConfigurationManager* GetConfigurationGroupFor( RheiaLogger* logger );
 
+#ifdef SWIG
+	%rename(GetConfigurationGroupByNameFor) GetConfigurationGroupFor( const wxString& name );
+#endif
     /** Get the logger's configuration group via its name */
     RheiaConfigurationManager* GetConfigurationGroupFor( const wxString& name );
 
@@ -607,11 +629,12 @@ private :
 	RheiaManagedFrame* m_parent;
 
 private :
-
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 
-
+#ifndef SWIG
 /** @brief Logger registration object.
 *
 * Use this class to register your new Logger with Rheia
@@ -662,5 +685,7 @@ public:
     namespace { \
         RheiaLoggerRegistrant< object > registration( name );\
     }
+
+#endif
 
 #endif

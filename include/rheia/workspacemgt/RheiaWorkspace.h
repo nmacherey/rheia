@@ -56,9 +56,9 @@ class RheiaWorkspaceManager;
 */
 class WMGT_DLLEXPORT RheiaWorkspace : public RheiaTreeItem
 {
-
+#ifndef SWIG
     DECLARE_DYNAMIC_CLASS(RheiaWorkspace)
-
+#endif
 	/** Give our private member access to RheiaWorkspaceManager */
 	friend class RheiaWorkspaceManager;
 
@@ -77,6 +77,9 @@ public :
         const wxString& filename = wxEmptyString ,
 		const wxString& name = wxEmptyString );
 
+#ifdef SWIG
+	%rename(PreRheiaWorkspace) RheiaWorkspace(  );
+#endif
     /** Default ctor */
 	RheiaWorkspace(  );
 
@@ -98,6 +101,9 @@ public :
 	/** Clone method */
     virtual RheiaTreeItem* Clone();
 
+#ifdef SWIG
+	%rename(RheiaWorkspaceCopy) RheiaWorkspace( RheiaWorkspace& Wksp );
+#endif
 	/** Copy constructor
 	*	@param Wksp Reference object from which to copy info
 	*/

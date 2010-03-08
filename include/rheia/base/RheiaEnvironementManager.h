@@ -169,6 +169,8 @@ private :
     wxArrayString m_libpaths;
     RheiaManagedFrameIdMap m_frameIds;
 
+#ifndef SWIG
     DECLARE_EVENT_TABLE()
+#endif
 };
 #endif

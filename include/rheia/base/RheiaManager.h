@@ -196,10 +196,10 @@ public :
 protected :
 
     static MgrNsMap m_ns;
-
+#ifndef SWIG
     explicit RheiaMgr(const RheiaMgr<F,T>&){};							/*!< copy constructor */
     RheiaMgr<F,T>& operator=(RheiaMgr<F,T> const&){return *this;};		/*!< operator = overload */
-
+#endif
     RheiaMgr(){};					/*!< Default constructor */
     virtual ~RheiaMgr(){};			/*!< Default destructor */
 
@@ -232,6 +232,9 @@ public :
     }
 
     /** method for freeing an object */
+#ifdef SWIG
+	%rename(FreeByInstance) Free( F* in );
+#endif
     static inline void Free( F* in )
     {
         MgrNsMapIt it = m_ns.find( in );
@@ -270,10 +273,10 @@ protected :
     typedef typename std::map<F,T*>::iterator MgrNsMapIt;
 
     static MgrNsMap m_ns;
-
+#ifndef SWIG
     explicit RheiaMgrNPtr(const RheiaMgrNPtr<F,T>&){};							/*!< copy constructor */
     RheiaMgrNPtr<F,T>& operator=(RheiaMgrNPtr<F,T> const&){return *this;};		/*!< operator = overload */
-
+#endif
     RheiaMgrNPtr(){};					/*!< Default constructor */
     virtual ~RheiaMgrNPtr(){};			/*!< Default destructor */
 
@@ -306,6 +309,9 @@ public :
     }
 
     /** method for freeing an object */
+#ifdef SWIG
+	%rename(FreeByInstance) Free( const F& in );
+#endif
     static inline void Free( const F& in )
     {
         MgrNsMapIt it = m_ns.find( in );

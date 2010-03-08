@@ -201,8 +201,10 @@ private :
 	wxMenu* m_menu;
 	wxMenuItem* m_item;
 	RheiaPageMenuIdMap m_pageIds;
-
+	
+#ifndef SWIG
 	DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

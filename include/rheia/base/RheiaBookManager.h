@@ -59,12 +59,19 @@ struct RheiaPageInfo
             {};
 
     /** copy constructor */
+#ifdef SWIG
+	%rename(RheiaPageInfoCopy) RheiaPageInfo(const RheiaPageInfo& rhs);
+#endif
     RheiaPageInfo(const RheiaPageInfo& rhs):
         name(rhs.name),
         bmp(rhs.bmp),
         container(rhs.container),
         page(rhs.page)
             {};
+
+#ifdef SWIG
+	~RheiaPageInfo() {};
+#endif
 
     wxString name;
     wxBitmap bmp;
@@ -432,7 +439,9 @@ protected :
     /**********************************************************************************************************
 	*	EVENT TABLE
 	**********************************************************************************************************/
+#ifndef SWIG
 	DECLARE_EVENT_TABLE()
+#endif
 };
 
 #endif

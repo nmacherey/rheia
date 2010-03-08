@@ -61,7 +61,9 @@ class RheiaBookPage;
 */
 class WMGT_DLLEXPORT RheiaProject : public RheiaTreeItem, public RheiaPageContainer
 {
+#ifndef SWIG
     DECLARE_ABSTRACT_CLASS(RheiaProject)
+#endif
 	/*! Give our private member access to RheiRheiaTreeItemaEnvironmentPlugin */
 	friend class RheiaEnvironmentPlugin;
 	/*! Give our private member access to RheiaWorkspace */
@@ -93,11 +95,14 @@ public :
 	/** Destructor */
 	virtual ~RheiaProject();
 
+#ifdef SWIG
+	%rename(RheiaProjectCopy) RheiaProject( RheiaProject& Prj );
+#endif
 	/** Copy constructor
 	*	@param Prj reference object from which to copy info
 	*/
 	RheiaProject( RheiaProject& Prj );
-
+	
 	/**
 	* Virtual clone method for copying project derived from this class
 	* If you want to create a new project type, you have to overload this method in
@@ -205,7 +210,7 @@ protected :
     virtual bool DoSaveProjectOptions( xmlNode* parent ) = 0;
 };
 
-
+#ifndef SWIG
 /**
 *   @class RheiaProjectLayout
 *
@@ -241,5 +246,7 @@ public :
     */
     static wxString bitmapBaseName;
 };
+
+#endif
 
 #endif

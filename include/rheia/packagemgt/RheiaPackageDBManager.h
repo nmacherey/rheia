@@ -78,6 +78,9 @@ public :
     */
     RheiaPackageInfo* FindPackageByTitle(const wxString& title);
 
+#ifdef SWIG
+	%rename(ExistsByName) Exists(const wxString& name );
+#endif
     /**
     *   Specify if a package exists by its package name
     *   @param name package name
@@ -113,6 +116,9 @@ public :
     */
     bool UnregisterPackage( RheiaPackageInfo* info );
 
+#ifdef SWIG
+	%rename(UnregisterPackageByName) UnregisterPackage( const wxString& name );
+#endif
     /**
     *   Unregister a package from the data base
     *   @param name package name to be removed from the data base
@@ -241,6 +247,9 @@ private :
     /**************************************************************************************
     *   METHODS
     **************************************************************************************/
+#ifdef SWIG
+	%rename(AddDependencyFilesWithTypeFor) AddDependencyFilesFor( RheiaPackageMangedFileArray& list , const wxString& package , const wxString& type );
+#endif
     /** recursive method for determining package dependency list */
     void AddDependencyFilesFor( RheiaPackageMangedFileArray& list , const wxString& package , const wxString& type );
 
@@ -250,9 +259,11 @@ private :
 private :
 
     RheiaPackageInfoMap m_packages;
+#ifndef SWIG
     xmlDoc* m_doc;
     xmlNode* m_root;
     xmlNode* m_proot;
+#endif
 };
 
 #endif
