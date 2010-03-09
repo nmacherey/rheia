@@ -125,10 +125,10 @@ public :
 	*	MENU MANAGEMENT METHODS
 	**********************************************************************************************************/
 	/** This method is used to build the menu for this manager in RheiaManagedFrame's menubar */
-	virtual void BuildMenu( wxMenuBar* menuBar ){};
+	virtual void BuildMenu( wxMenuBar* ){};
 
 	/** This method is used to desstroy the menu for this manager from RheiaManagedFrame's menubar */
-	virtual void ReleaseMenu( wxMenuBar* menuBar ){};
+	virtual void ReleaseMenu( wxMenuBar* ){};
 
 	/**********************************************************************************************************
 	*	METHODS
@@ -392,7 +392,7 @@ protected :
     */
     void OnPageClose( wxAuiNotebookEvent& event );
 
-    virtual void DoPageClose( const wxString& name ){};
+    virtual void DoPageClose( const wxString& ){};
 
     /**
     *   Callback used when a page is going to be changed by the user

@@ -140,48 +140,39 @@ namespace FileExt{
     *   This option simply specify if the library prefix shall be managed by
     *   the application when dealing with dynamic libraries.
     */
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = false;
 #elif defined ( __WXMAC__ )  || defined ( __WXCOCOA__ )
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".dylib");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("dylib");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #elif defined ( __linux__ )  || defined ( LINUX )
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".so");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("so");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #elif defined ( FREEBSD )    || defined ( __FREEBSD__ )
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".so");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("so");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #elif defined ( NETBSD )     || defined ( __NETBSD__ )
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".so");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("so");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #elif defined ( OPENBSD )    || defined ( __OPENBSD__ )
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".so");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("so");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #elif defined ( DARWIN )     || defined ( __APPLE__ )
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".dylib");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("dylib");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #elif defined(sun) || defined(__sun)
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".so");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("so");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #else
 #warning("Cannot determine your os dynamic libraries extensions setted to default .so")
     static const wxString DYNAMIC_LIBRARY_FILE_EXT = wxT(".so");
     static const wxString DYNAMIC_LIBRARY_FILE_EXT_STANDARD = wxT("so");
     static const wxString DYNAMIC_LIBRARY_PREFIX = wxT("lib");
-    static bool MANAGE_DYNAMIC_LIBRARY_PREFIX = true;
 #endif
 };
 

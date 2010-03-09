@@ -86,18 +86,18 @@ void RheiaApplicationConfigurationDialog::SetPageSelection( const wxString& page
 }
 
 #if wxCHECK_VERSION(2, 9, 0)
-void RheiaApplicationConfigurationDialog::OnPageChanging(wxBookCtrlEvent& event)
+void RheiaApplicationConfigurationDialog::OnPageChanging(wxBookCtrlEvent& WXUNUSED(event))
 #else
-void RheiaApplicationConfigurationDialog::OnPageChanging(wxListbookEvent& event)
+void RheiaApplicationConfigurationDialog::OnPageChanging(wxListbookEvent& WXUNUSED(event))
 #endif
 {
 
 }
 
 #if wxCHECK_VERSION(2, 9, 0)
-void RheiaApplicationConfigurationDialog::OnPageChanged(wxBookCtrlEvent& event)
+void RheiaApplicationConfigurationDialog::OnPageChanged(wxBookCtrlEvent& WXUNUSED(event))
 #else
-void RheiaApplicationConfigurationDialog::OnPageChanged(wxListbookEvent& event)
+void RheiaApplicationConfigurationDialog::OnPageChanged(wxListbookEvent& WXUNUSED(event))
 #endif
 {
     UpdateListbookImages();
@@ -273,7 +273,6 @@ int RheiaApplicationConfigurationDialog::FindPageIndexByName( const wxString& na
 
 wxString RheiaApplicationConfigurationDialog::FindPageNameByObject( RheiaConfigurationPanel* page )
 {
-    wxListbook* lb = XRCCTRL(*this, "nbMain", wxListbook);
     RheiaConfigurationPageInfoMap::iterator pit = m_pages.begin();
 
     for( ; pit != m_pages.end() ; ++pit  )

@@ -13,7 +13,7 @@
 
 #include <wx/frame.h>
 
-RheiaInfoPage::RheiaInfoPage( wxWindow* parent )
+RheiaInfoPage::RheiaInfoPage( wxWindow* WXUNUSED(parent) )
 {
 
 }

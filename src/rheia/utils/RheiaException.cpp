@@ -34,8 +34,8 @@ void RheiaException::ShowErrorMessage(bool safe)
                1123, gccvers.c_str(),
                wxT(__DATE__), wxT(__TIME__));
 
-
-	std::cerr <<  rcU2C( title )  << " : " << rcU2C( err ) << std::endl;
-
-        //RheiaMessageBox(err, title, wxICON_ERROR);
+	if( safe )
+		std::cerr <<  rcU2C( title )  << " : " << rcU2C( err ) << std::endl;
+	else
+		wxMessageBox( err , wxT("Rheia exception catched !") , wxICON_ERROR );
 }

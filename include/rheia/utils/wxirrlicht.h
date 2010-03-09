@@ -201,7 +201,7 @@ protected:
     void OnSize(wxSizeEvent& event);
 
     /** wxWindow OnEraseBackground method */
-    void OnEraseBackground(wxEraseEvent& event) {}
+    void OnEraseBackground(wxEraseEvent& WXUNUSED(event)) {}
 
     /** Callback used when the timer used for rendering is matching its update value */
     void OnTimer(wxTimerEvent& event);

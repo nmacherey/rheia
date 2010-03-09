@@ -251,7 +251,7 @@ void RheiaWorkspaceManager::RegisterEvents()
     //pm->RegisterEventMethod(RheiaEVT_FRAME_CLOSING, new RheiaEventFunctor<RheiaWorkspaceManager, RheiaFrameEvent>(this, &RheiaWorkspaceManager::OnCloseParent));
 }
 
-void RheiaWorkspaceManager::OnSettingsChanged( wxCommandEvent& event )
+void RheiaWorkspaceManager::OnSettingsChanged( wxCommandEvent& WXUNUSED(event) )
 {
     ReloadConfig();
 }
@@ -504,9 +504,6 @@ bool RheiaWorkspaceManager::SaveWorkspace( RheiaWorkspace *workspace )
 
     workspace->SetModified( false );
 
-    AddLast( workspace->FileName );
-    SetLast( workspace->FileName );
-
     RheiaWorkspaceEvent evt2(RheiaEVT_WORKSPACE_SAVED,0,workspace);
     m_parent->GetEventHandler()->ProcessEvent(evt);
 
@@ -553,7 +550,7 @@ bool RheiaWorkspaceManager::AddLast( const wxString& path )
             m_LastFiles.RemoveAt( index );
             m_LastFiles.Insert( path , 0 );
     }else{
-            if( len > DefaultHistoryLength )
+            if( len > (size_t) DefaultHistoryLength )
                     m_LastFiles.Remove( m_LastFiles.Last() );
             m_LastFiles.Insert( path , 0 );
     }
@@ -579,7 +576,7 @@ bool RheiaWorkspaceManager::AddLastProject( const wxString& path )
             m_LastProjectFiles.RemoveAt( index );
             m_LastProjectFiles.Insert( path , 0 );
     }else{
-            if( len > DefaultHistoryLength )
+            if( len > (size_t) DefaultHistoryLength )
                     m_LastProjectFiles.Remove( m_LastProjectFiles.Last() );
             m_LastProjectFiles.Insert( path , 0 );
     }
@@ -614,7 +611,7 @@ void RheiaWorkspaceManager::RecreateLastMenu()
     for( size_t i = 0; i < m_LastFiles.GetCount(); i++ )
     {
             wxString itemPath = m_LastFiles[i];
-            wxMenuItem *item = m_menu->Append( idLastWksp[i] , itemPath );
+            m_menu->Append( idLastWksp[i] , itemPath );
     }
 }
 
@@ -637,7 +634,7 @@ void RheiaWorkspaceManager::RecreateLastProjectsMenu()
     for( size_t i = 0; i < m_LastProjectFiles.size(); i++ )
     {
             wxString itemPath = m_LastProjectFiles[i];
-            wxMenuItem *item = m_menu->Append( idLastPrj[i] , itemPath );
+            m_menu->Append( idLastPrj[i] , itemPath );
     }
 }
 
@@ -726,7 +723,7 @@ void RheiaWorkspaceManager::OnRecentOpen( wxCommandEvent& event )
     if( path.IsEmpty() )
         return;
 
-    RheiaWorkspace* workspace = LoadWorkspace( path );
+    LoadWorkspace( path );
 }
 
 void RheiaWorkspaceManager::OnRecentProjectOpen( wxCommandEvent& event )
@@ -938,7 +935,7 @@ bool RheiaWorkspaceManager::RemoveProjectsFor( RheiaEnvironmentPlugin* plugin , 
 }
 
 /* Used when we act on the file menu new workspace item */
-void RheiaWorkspaceManager::OnFileWorkspaceNew( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileWorkspaceNew( wxCommandEvent & WXUNUSED(event) )
 {
     wxString path = wxEmptyString;
     wxString name = wxGetTextFromUser( wxT("Enter the name of your new workspace : ") , wxT("New workspace name") , wxT("workspace") , m_parent );
@@ -986,7 +983,7 @@ void RheiaWorkspaceManager::OnFileWorkspaceNew( wxCommandEvent &event )
 }
 
 /* Used when we act on the file menu new workspace item */
-void RheiaWorkspaceManager::OnFileWorkspaceOpen( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileWorkspaceOpen( wxCommandEvent & WXUNUSED(event) )
 {
 
     wxString LastOpenPath = RheiaManager::Get()->GetConfigurationManager( wxT("load_save") )->Read( wxT("/last_workspace_path") , RheiaStandardPaths::HomeDirectory() );
@@ -1018,7 +1015,7 @@ void RheiaWorkspaceManager::OnFileWorkspaceOpen( wxCommandEvent &event )
         if ( m_workspaces.size() > 0 )
         {
             RheiaWorkspaceTable::iterator iter = m_workspaces.begin();
-            for ( iter ; iter != m_workspaces.end() ; iter++ )
+            for (  ; iter != m_workspaces.end() ; iter++ )
             {
                 wxFileName tested( iter->second->GetFileName() );
                 wxFileName local( filepaths[i] );
@@ -1047,7 +1044,7 @@ void RheiaWorkspaceManager::OnFileWorkspaceOpen( wxCommandEvent &event )
 }
 
 /* Used when we act on the file menu new workspace item */
-void RheiaWorkspaceManager::OnFileWorkspaceSave( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileWorkspaceSave( wxCommandEvent & WXUNUSED(event) )
 {
     RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
     if ( !workspace )
@@ -1063,7 +1060,7 @@ void RheiaWorkspaceManager::OnFileWorkspaceSave( wxCommandEvent &event )
 }
 
 /* Used when we act on the file menu save all workspace item */
-void RheiaWorkspaceManager::OnFileWorkspaceSaveAll( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileWorkspaceSaveAll( wxCommandEvent & WXUNUSED(event) )
 {
     RheiaWorkspaceTable table = GetWorkspaceTable();
     RheiaWorkspaceTable::iterator iter = table.begin();
@@ -1071,7 +1068,7 @@ void RheiaWorkspaceManager::OnFileWorkspaceSaveAll( wxCommandEvent &event )
 
     if ( table.size() > 0 )
     {
-        for ( iter ; iter != table.end() ; iter++ )
+        for ( ; iter != table.end() ; iter++ )
         {
             if ( iter->second->GetModified() )
             {
@@ -1087,7 +1084,7 @@ void RheiaWorkspaceManager::OnFileWorkspaceSaveAll( wxCommandEvent &event )
     }
 }
 
-void RheiaWorkspaceManager::OnFileWorkspaceClose( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileWorkspaceClose( wxCommandEvent & WXUNUSED(event) )
 {
     RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
     if ( !workspace )
@@ -1115,7 +1112,7 @@ void RheiaWorkspaceManager::OnFileWorkspaceClose( wxCommandEvent &event )
     m_parent->Thaw();
 }
 
-void RheiaWorkspaceManager::OnFileProjectNew( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileProjectNew( wxCommandEvent & WXUNUSED(event) )
 {
     /* First Find the currently selected workspace */
     RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
@@ -1129,7 +1126,7 @@ void RheiaWorkspaceManager::OnFileProjectNew( wxCommandEvent &event )
     RheiaWizardManager::Get(m_parent)->DoCreateNewProject( workspace );
 }
 
-void RheiaWorkspaceManager::OnFileProjectOpen( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileProjectOpen( wxCommandEvent & WXUNUSED(event) )
 {
     RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
 
@@ -1188,7 +1185,7 @@ void RheiaWorkspaceManager::OnFileProjectOpen( wxCommandEvent &event )
                                16 );
 }
 
-void RheiaWorkspaceManager::OnFileProjectSave( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileProjectSave( wxCommandEvent & WXUNUSED(event) )
 {
     RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
 
@@ -1258,7 +1255,7 @@ void RheiaWorkspaceManager::OnFileProjectSave( wxCommandEvent &event )
     m_parent->GetEventHandler()->ProcessEvent(evt2);
 }
 
-void RheiaWorkspaceManager::OnFileProjectSaveAs( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileProjectSaveAs( wxCommandEvent & WXUNUSED(event) )
 {
     RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
 
@@ -1320,7 +1317,7 @@ void RheiaWorkspaceManager::OnFileProjectSaveAs( wxCommandEvent &event )
     m_parent->GetEventHandler()->ProcessEvent(evt2);
 }
 
-void RheiaWorkspaceManager::OnFileProjectClose( wxCommandEvent &event )
+void RheiaWorkspaceManager::OnFileProjectClose( wxCommandEvent & WXUNUSED(event) )
 {
     RheiaWorkspace *workspace = FindWorkspace( GetCurrentSelectedWorkspace() );
 
@@ -1546,7 +1543,7 @@ void RheiaWorkspaceManager::ReleaseMenu( wxMenuBar* menuBar )
     }
 }
 
-void RheiaWorkspaceManager::OnConfigure(wxCommandEvent& event)
+void RheiaWorkspaceManager::OnConfigure(wxCommandEvent& WXUNUSED(event))
 {
     RheiaConfigurationDialog dialog( m_parent );
     RheiaWkspMgrSettingsPanel* m_panel = new RheiaWkspMgrSettingsPanel(&dialog);

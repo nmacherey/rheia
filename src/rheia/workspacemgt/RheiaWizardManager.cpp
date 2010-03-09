@@ -105,7 +105,6 @@ bool RheiaWizardManager::DoCreateNewProject( RheiaWorkspace* workspace )
         workspace->UpdateTree( m_tree , 16 );
         RheiaCenterPaneManager::Get(m_parent)->AddPage( m_project->GetName() , m_project );
 
-        RheiaProject* project = m_projectWizard->GetProject();
         RheiaProjectEvent event(RheiaEVT_PROJECT_CREATED,
                 0,
                 m_project,
@@ -165,7 +164,7 @@ void RheiaWizardManager::OnCancelWizard( wxWizardEvent& event )
     return;
 }
 
-void RheiaWizardManager::OnWizardFinish( wxWizardEvent& event )
+void RheiaWizardManager::OnWizardFinish( wxWizardEvent& WXUNUSED(event) )
 {
     m_projectWizard->OnWizardFinished();
 }
@@ -241,8 +240,6 @@ wxArrayString RheiaWizardManager::GetWizardListFor( const wxString& category )
 
     for ( ; it != m_RegisteredWizards.end() ; it++ )
     {
-        int idx = ret.Index( it->second.category );
-
         if( it->second.category.IsSameAs(category) )
             ret.Add( it->first );
     }

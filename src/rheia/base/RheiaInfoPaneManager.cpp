@@ -55,7 +55,7 @@ void RheiaInfoPaneManager::RegisterEvents()
     pm->RegisterEventMethod(RheiaEVT_INFOMGR_SETTINGS_CHANGED, new RheiaEventFunctor<RheiaInfoPaneManager>(this, wxCommandEventHandler(RheiaInfoPaneManager::OnConfigChanged)));
 }
 
-void RheiaInfoPaneManager::OnConfigChanged(wxCommandEvent& event)
+void RheiaInfoPaneManager::OnConfigChanged(wxCommandEvent& WXUNUSED(event))
 {
     if( m_book )
         ReloadConfiguration();
@@ -117,7 +117,7 @@ void RheiaInfoPaneManager::ReleaseMenu( wxMenuBar* menuBar )
     }
 }
 
-void RheiaInfoPaneManager::OnConfigureInfoWindow(wxCommandEvent& event)
+void RheiaInfoPaneManager::OnConfigureInfoWindow(wxCommandEvent& WXUNUSED(event))
 {
     RheiaConfigurationDialog dialog( m_parent );
     RheiaInfoMgrSettingsPanel* m_panel = new RheiaInfoMgrSettingsPanel(&dialog);
@@ -252,7 +252,7 @@ void RheiaInfoPaneManager::OnSelectPageMenu(wxCommandEvent& event)
     event.Skip();
 }
 
-void RheiaInfoPaneManager::OnToolsUpdateUI( wxUpdateUIEvent& event )
+void RheiaInfoPaneManager::OnToolsUpdateUI( wxUpdateUIEvent& WXUNUSED(event) )
 {
     wxMenuBar* mbar = m_parent->GetMenuBar();
     wxAuiManager* m_layout = m_parent->GetLayoutManager();
@@ -263,7 +263,7 @@ void RheiaInfoPaneManager::OnToolsUpdateUI( wxUpdateUIEvent& event )
         mbar->Check(tit->second, PageIsOpened(tit->first) );
 }
 
-void RheiaInfoPaneManager::OnToggleMgtBook(wxCommandEvent& event)
+void RheiaInfoPaneManager::OnToggleMgtBook(wxCommandEvent& WXUNUSED(event))
 {
     wxAuiManager* m_layout = m_parent->GetLayoutManager();
     m_layout->GetPane(m_book).Show(!m_layout->GetPane(m_book).IsShown());

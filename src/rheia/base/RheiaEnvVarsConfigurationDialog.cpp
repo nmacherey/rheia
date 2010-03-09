@@ -36,7 +36,7 @@
 
 namespace{
 
-    int wxCALLBACK sortByTitle(long item1, long item2, wxIntPtr sortData)
+    int wxCALLBACK sortByTitle(long item1, long item2, wxIntPtr WXUNUSED(sortData) )
     {
         const wxString *elem1 = (const wxString*)item1;
         const wxString *elem2 = (const wxString*)item2;
@@ -124,7 +124,7 @@ void RheiaEnvVarsConfigurationDialog::DoUpdatePathList()
     list->SortItems(sortByTitle, 0);
 }
 
-void RheiaEnvVarsConfigurationDialog::OnUpdateUI(wxUpdateUIEvent& event)
+void RheiaEnvVarsConfigurationDialog::OnUpdateUI(wxUpdateUIEvent& WXUNUSED(event))
 {
 
 }
@@ -134,7 +134,7 @@ void RheiaEnvVarsConfigurationDialog::EndModal(int retCode)
     wxDialog::EndModal( retCode );
 }
 
-void RheiaEnvVarsConfigurationDialog::OnAddNewVariable( wxCommandEvent& event )
+void RheiaEnvVarsConfigurationDialog::OnAddNewVariable( wxCommandEvent& WXUNUSED(event) )
 {
     RheiaEnvVarsSelectionDialog dialog( this );
 
@@ -145,7 +145,7 @@ void RheiaEnvVarsConfigurationDialog::OnAddNewVariable( wxCommandEvent& event )
     DoUpdateList();
 }
 
-void RheiaEnvVarsConfigurationDialog::OnAddNewPath( wxCommandEvent& event )
+void RheiaEnvVarsConfigurationDialog::OnAddNewPath( wxCommandEvent& WXUNUSED(event) )
 {
     wxDirDialog dialog( this , wxT("Choose a directory") );
 
@@ -156,7 +156,7 @@ void RheiaEnvVarsConfigurationDialog::OnAddNewPath( wxCommandEvent& event )
     DoUpdatePathList();
 }
 
-void RheiaEnvVarsConfigurationDialog::OnDeleteVariable( wxCommandEvent& event )
+void RheiaEnvVarsConfigurationDialog::OnDeleteVariable( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* list = XRCCTRL(*this, "lstAvailableVars", wxListCtrl);
 
@@ -174,7 +174,7 @@ void RheiaEnvVarsConfigurationDialog::OnDeleteVariable( wxCommandEvent& event )
     DoUpdateList();
 }
 
-void RheiaEnvVarsConfigurationDialog::OnDeletePath( wxCommandEvent& event )
+void RheiaEnvVarsConfigurationDialog::OnDeletePath( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* list = XRCCTRL(*this, "lstAvailablePaths", wxListCtrl);
 
@@ -192,7 +192,7 @@ void RheiaEnvVarsConfigurationDialog::OnDeletePath( wxCommandEvent& event )
     DoUpdatePathList();
 }
 
-void RheiaEnvVarsConfigurationDialog::OnEditVariable( wxCommandEvent& event )
+void RheiaEnvVarsConfigurationDialog::OnEditVariable( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* list = XRCCTRL(*this, "lstAvailableVars", wxListCtrl);
 

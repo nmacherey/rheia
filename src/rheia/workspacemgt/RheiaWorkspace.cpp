@@ -51,6 +51,10 @@ void RheiaWorkspace::Create( RheiaManagedFrame* parent,
         const wxString& filename,
 		const wxString& name )
 {
+	m_parent = parent;
+	FileName = filename;
+	isLoaded = false;
+	Name = name;
     /* register the workspace as a Main frames event handler */
     m_parent->PushEventHandler(this);
 }

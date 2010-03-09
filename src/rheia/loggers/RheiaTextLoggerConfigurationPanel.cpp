@@ -130,7 +130,7 @@ void RheiaTextLoggerConfigurationPanel::DoInitEnvironment()
         wxFont small_font(default_font);
         small_font.SetPointSize(size - 4);
 
-        for(unsigned int i = 0; i < RheiaLogging::RheiaLogLevelNumber ; ++i)
+        for(unsigned int i = 0; i < (unsigned int) RheiaLogging::RheiaLogLevelNumber ; ++i)
         {
             m_textattr[i].SetFlags( wxTEXT_ATTR_FONT | wxTEXT_ATTR_ALIGNMENT );
             m_textattr[i].SetFont(default_font);
@@ -315,7 +315,7 @@ void RheiaTextLoggerConfigurationPanel::UpdateAlignmentFor( int selection , wxTe
     m_textattr[selection].SetAlignment( align );
 }
 
-void RheiaTextLoggerConfigurationPanel::OnChooseFont( wxCommandEvent& event )
+void RheiaTextLoggerConfigurationPanel::OnChooseFont( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* lst = XRCCTRL( *this , "lstTextLogLevels" , wxListCtrl );
 
@@ -339,7 +339,7 @@ void RheiaTextLoggerConfigurationPanel::OnChooseFont( wxCommandEvent& event )
     }
 }
 
-void RheiaTextLoggerConfigurationPanel::OnChooseForegroundColor( wxCommandEvent& event )
+void RheiaTextLoggerConfigurationPanel::OnChooseForegroundColor( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* lst = XRCCTRL( *this , "lstTextLogLevels" , wxListCtrl );
 
@@ -363,7 +363,7 @@ void RheiaTextLoggerConfigurationPanel::OnChooseForegroundColor( wxCommandEvent&
     }
 }
 
-void RheiaTextLoggerConfigurationPanel::OnChooseBackgroundColor( wxCommandEvent& event )
+void RheiaTextLoggerConfigurationPanel::OnChooseBackgroundColor( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* lst = XRCCTRL( *this , "lstTextLogLevels" , wxListCtrl );
 
@@ -387,7 +387,7 @@ void RheiaTextLoggerConfigurationPanel::OnChooseBackgroundColor( wxCommandEvent&
     }
 }
 
-void RheiaTextLoggerConfigurationPanel::OnUnderlinedCheck( wxCommandEvent& event )
+void RheiaTextLoggerConfigurationPanel::OnUnderlinedCheck( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* lst = XRCCTRL( *this , "lstTextLogLevels" , wxListCtrl );
 
@@ -401,7 +401,7 @@ void RheiaTextLoggerConfigurationPanel::OnUnderlinedCheck( wxCommandEvent& event
     UpdateSample();
 }
 
-void RheiaTextLoggerConfigurationPanel::OnChangeAlignment( wxCommandEvent& event )
+void RheiaTextLoggerConfigurationPanel::OnChangeAlignment( wxCommandEvent& WXUNUSED(event) )
 {
     wxListCtrl* lst = XRCCTRL( *this , "lstTextLogLevels" , wxListCtrl );
 
@@ -424,7 +424,7 @@ void RheiaTextLoggerConfigurationPanel::OnChangeAlignment( wxCommandEvent& event
     }
 }
 
-void RheiaTextLoggerConfigurationPanel::OnListSelection( wxListEvent& event )
+void RheiaTextLoggerConfigurationPanel::OnListSelection( wxListEvent& WXUNUSED(event) )
 {
     wxListCtrl* lst = XRCCTRL( *this , "lstTextLogLevels" , wxListCtrl );
 

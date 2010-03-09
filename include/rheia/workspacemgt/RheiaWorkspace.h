@@ -134,7 +134,7 @@ public :
 	*	untill the workspace is not saved, the modifications will not be taken into account. Hence this just
 	*	renames the workspace in run - time.
 	*/
-	virtual bool Rename( const wxString& name , bool confirm = false ) {return true;};
+	virtual bool Rename( const wxString& , bool ) {return true;};
 
 	/**********************************************************************************
     *   EVENT RELATED METHODS
@@ -148,7 +148,7 @@ public :
     /** this method is used to build specific menu information about the item when the user
     *   request it
     */
-    virtual void OnRequestContextMenu( wxMenu* menu ) {};
+    virtual void OnRequestContextMenu( wxMenu* ) {};
 
     /** this method is used whent the item is about to be deleted */
     virtual void OnPreDelete() {};

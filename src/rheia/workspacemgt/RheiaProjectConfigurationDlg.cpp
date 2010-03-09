@@ -133,21 +133,21 @@ void RheiaProjectConfigurationDlg::SetPageSelection( const wxString& page_name )
 }
 
 #if wxCHECK_VERSION(2, 9, 0)
-void RheiaProjectConfigurationDlg::OnPageChanging(wxBookCtrlEvent& event)
+void RheiaProjectConfigurationDlg::OnPageChanging(wxBookCtrlEvent& WXUNUSED(event))
 {
 }
 #else
-void RheiaProjectConfigurationDlg::OnPageChanging(wxListbookEvent& event)
+void RheiaProjectConfigurationDlg::OnPageChanging(wxListbookEvent& WXUNUSED(event))
 {
 }
 #endif
 
 #if wxCHECK_VERSION(2, 9, 0)
-void RheiaProjectConfigurationDlg::OnPageChanged(wxBookCtrlEvent& event)
+void RheiaProjectConfigurationDlg::OnPageChanged(wxBookCtrlEvent& WXUNUSED(event))
 {
 }
 #else
-void RheiaProjectConfigurationDlg::OnPageChanged(wxListbookEvent& event)
+void RheiaProjectConfigurationDlg::OnPageChanged(wxListbookEvent& WXUNUSED(event))
 {
 }
 #endif

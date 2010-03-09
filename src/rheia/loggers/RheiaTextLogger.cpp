@@ -53,7 +53,7 @@ void RheiaTextLogger::RegisterEvents()
     pm->RegisterEventMethod(RheiaEVT_TXT_LOGGER_SETTINGS, new RheiaEventFunctor<RheiaTextLogger>(this, wxCommandEventHandler(RheiaTextLogger::OnTextLoggerSettings)));
 }
 
-void RheiaTextLogger::OnTextLoggerSettings(wxCommandEvent& event)
+void RheiaTextLogger::OnTextLoggerSettings(wxCommandEvent& WXUNUSED(event))
 {
     UpdateSettings();
 }
@@ -80,7 +80,7 @@ void RheiaTextLogger::UpdateSettings()
         wxFont small_font(default_font);
         small_font.SetPointSize(size - 4);
 
-        for(unsigned int i = 0; i < RheiaLogging::RheiaLogLevelNumber ; ++i)
+        for(unsigned int i = 0; i < (unsigned int) RheiaLogging::RheiaLogLevelNumber ; ++i)
         {
             m_textattr[i].SetFlags( wxTEXT_ATTR_FONT | wxTEXT_ATTR_ALIGNMENT );
             m_textattr[i].SetFont(default_font);

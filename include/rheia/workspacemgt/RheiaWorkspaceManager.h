@@ -311,7 +311,9 @@ public :
     *
     *   @param parent the parent window in which the panel shall be created
     */
-    RheiaWorkspaceBookPage( wxWindow* parent , RheiaWorkspaceManager* wmgr ):RheiaBookPage(parent)
+    RheiaWorkspaceBookPage( wxWindow* parent , RheiaWorkspaceManager* wmgr ):
+		RheiaBookPage(parent),
+		m_wmgr(wmgr)
     {
         wxPanel::Create(parent,wxID_ANY);
         m_sizer = new wxBoxSizer( wxVERTICAL );

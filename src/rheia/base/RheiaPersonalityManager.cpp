@@ -29,7 +29,7 @@ RheiaPersonalityManager::RheiaPersonalityManager()
     RheiaPersonalityManager::pers = _T("default");
 }
 
-void RheiaPersonalityManager::SetPersonality(const wxString& personality, bool createIfNotExist)
+void RheiaPersonalityManager::SetPersonality(const wxString& personality, bool WXUNUSED(createIfNotExist))
 {
     pers = personality;
 }

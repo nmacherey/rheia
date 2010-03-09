@@ -42,11 +42,11 @@ RheiaProject::RheiaProject(
     const wxString& filename ,
     const wxString& name ):
     RheiaTreeItem(),
-    m_parent( parent ),
     m_filename( filename ),
     m_loaded( false ),
     m_name( name ),
-    m_workspace( workspace )
+    m_workspace( workspace ),
+	m_parent( parent )
 {
 	if(m_parent)
         m_parent->PushEventHandler(this);
@@ -57,6 +57,11 @@ RheiaProject::RheiaProject(
 RheiaProject::~RheiaProject(){
     RheiaCenterPaneManager *cpm = RheiaCenterPaneManager::Get(m_parent);
     cpm->DeletePage(m_name);
+	
+	RheiaWorkspaceManager* wmgr = RheiaWorkspaceManager::Get(m_parent);
+	if( !m_filename.IsEmpty() )
+		wmgr->AddLastProject(m_filename);
+	
     if(m_parent)
         m_parent->RemoveEventHandler(this);
 }
@@ -66,11 +71,11 @@ RheiaProject::~RheiaProject(){
 */
 RheiaProject::RheiaProject( RheiaProject& Prj ) :
     RheiaTreeItem( Prj ),
-    m_parent( Prj.m_parent ),
     m_filename( Prj.m_filename ),
     m_loaded( Prj.m_loaded ),
     m_name( Prj.m_name ),
-    m_workspace( Prj.m_workspace )
+    m_workspace( Prj.m_workspace ),
+	m_parent( Prj.m_parent )
 {
 	if(m_parent)
         m_parent->PushEventHandler(this);

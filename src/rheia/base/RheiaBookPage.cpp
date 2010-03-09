@@ -13,7 +13,7 @@
 
 #include <wx/frame.h>
 
-RheiaBookPage::RheiaBookPage( wxWindow* parent )
+RheiaBookPage::RheiaBookPage( wxWindow* WXUNUSED(parent) )
 {
 
 }

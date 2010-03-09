@@ -56,7 +56,7 @@ public:
                           int flag = wxALIGN_LEFT,
                           int image = -1,
                           bool shown = true,
-                          bool edit = false) {
+                          bool edit = false):wxObject() {
         m_text = text;
         m_width = width;
         m_flag = flag;
@@ -67,7 +67,7 @@ public:
     }
 
 #ifndef SWIG
-    wxTreeListColumnInfo (const wxTreeListColumnInfo& other) {
+    wxTreeListColumnInfo (const wxTreeListColumnInfo& other):wxObject() {
         m_text = other.m_text;
         m_width = other.m_width;
         m_flag = other.m_flag;

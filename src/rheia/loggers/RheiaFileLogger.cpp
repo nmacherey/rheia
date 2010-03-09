@@ -53,7 +53,7 @@ void RheiaFileLogger::Log( const wxString& msg, RheiaLogging::RheiaLogLevel leve
 }
 
 
-RheiaConfigurationPanel* RheiaFileLogger::GetConfigurationTool( wxWindow* parent )
+RheiaConfigurationPanel* RheiaFileLogger::GetConfigurationTool( wxWindow* WXUNUSED(parent) )
 {
     return NULL;
 }

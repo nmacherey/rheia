@@ -113,7 +113,6 @@ void RheiaPackageManagementDialog::DoBuildPackagesPage()
 
     for( unsigned int i = 0; i < pkgNames.GetCount() ; ++i )
     {
-        int n = 0;
         RheiaPackageInfo* info = RheiaPackageDBManager::Get()->FindPackageByName(pkgNames[i]);
         RheiaPackageTreeItemData* data = new RheiaPackageTreeItemData( info );
 
@@ -197,7 +196,6 @@ void RheiaPackageManagementDialog::DoUpdatePackageTree()
 
         if( tit == m_packageIds.end() )
         {
-            int n = 0;
             RheiaPackageInfo* info = RheiaPackageDBManager::Get()->FindPackageByName(pkgNames[i]);
             RheiaPackageTreeItemData* data = new RheiaPackageTreeItemData( info );
 
@@ -342,7 +340,7 @@ void RheiaPackageManagementDialog::DoUpdatePackageInfoFor( RheiaPackageInfo* inf
     txtMaintainerWebsite->SetLabel( maint->GetWebSite() );
 }
 
-void RheiaPackageManagementDialog::OnInstallPackage( wxCommandEvent& event )
+void RheiaPackageManagementDialog::OnInstallPackage( wxCommandEvent& WXUNUSED(event) )
 {
     wxString LastOpenPath = RheiaManager::Get()->GetConfigurationManager( wxT("load_save") )->Read( wxT("/last_package_path") , RheiaStandardPaths::HomeDirectory() );
 
@@ -377,17 +375,17 @@ void RheiaPackageManagementDialog::OnInstallPackage( wxCommandEvent& event )
     DoUpdatePackageTree();
 }
 
-void RheiaPackageManagementDialog::OnRemovePackage( wxCommandEvent& event )
+void RheiaPackageManagementDialog::OnRemovePackage( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
 
-void RheiaPackageManagementDialog::OnPackageInstalled( RheiaEvent& event )
+void RheiaPackageManagementDialog::OnPackageInstalled( RheiaEvent& WXUNUSED(event) )
 {
     //DoUpdatePackageTree();
 }
 
-void RheiaPackageManagementDialog::OnPackageRemoved( RheiaEvent& event )
+void RheiaPackageManagementDialog::OnPackageRemoved( RheiaEvent& WXUNUSED(event) )
 {
     DoUpdatePackageTree();
 }

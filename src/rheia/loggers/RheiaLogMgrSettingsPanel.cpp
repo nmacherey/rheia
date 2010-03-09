@@ -79,7 +79,7 @@ void RheiaLogMgrSettingsPanel::DoInitEnvironment()
 
     wxNotebook* nb = XRCCTRL( *this , "nbMain" , wxNotebook );
 
-    for( int i = 0 ; i < loggers.GetCount() ; ++i )
+    for( unsigned int i = 0 ; i < loggers.GetCount() ; ++i )
     {
         RheiaConfigurationPanel* page = RheiaConfigurationToolsManager::Get()->CreateTool( loggers[i] , nb );
 
@@ -131,7 +131,7 @@ bool RheiaLogMgrSettingsPanel::OnCancel()
     return true;
 }
 
-void RheiaLogMgrSettingsPanel::OnAutoHideLogs(wxCommandEvent& event)
+void RheiaLogMgrSettingsPanel::OnAutoHideLogs(wxCommandEvent& WXUNUSED(event) )
 {
     bool en = XRCCTRL(*this, "chkAutoHideLogs", wxCheckBox)->GetValue();
     XRCCTRL(*this, "chkAutoShowLogsOnWarning", wxCheckBox)->Enable(en);

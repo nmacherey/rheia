@@ -640,7 +640,7 @@ bool RheiaPackageManager::InstallPackage( const wxString& name ,
         pd->Update( 4, wxT("Checking package dependencies...") );
 
     RheiaLoggerManager::sdLog( wxT("RheiaPackageManager::InstallPackage::Checking package dependencies..."), RheiaLogging::info );
-    RheiaPackageDependencies* deps = ctrl->GetDependencies();
+    //RheiaPackageDependencies* deps = ctrl->GetDependencies();
 
     /** @todo here check if all package dependecies are satisfied or not */
 

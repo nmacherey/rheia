@@ -31,11 +31,6 @@ RheiaToolBarManager::RheiaToolBarManager(RheiaManagedFrame* parent):
     wxEvtHandler(),
     m_parent(parent)
 {
-	/******************************************************************************************************************
-	*	First get build the toolbar from the resources
-	******************************************************************************************************************/
-	wxXmlResource *myres = wxXmlResource::Get();
-
 	wxString resPath = RheiaStandardPaths::DataDirectoryGlobal();
     wxString xrcToolbarName = _T("main_toolbar");
 
@@ -51,9 +46,6 @@ RheiaToolBarManager::RheiaToolBarManager(RheiaManagedFrame* parent):
     m_toolbar->Realize();
     m_toolbar->SetInitialSize();
 
-	/******************************************************************************************************************
-	*	Finally Push me as event handler in the main frame, so that we can receive the event from the toolbar
-	******************************************************************************************************************/
 	m_parent->PushEventHandler( this );
 
 	wxAuiManager* m_layout = m_parent->GetLayoutManager();
@@ -179,7 +171,7 @@ void RheiaToolBarManager::OnSelectToolbarMenu(wxCommandEvent& event)
     event.Skip();
 }
 
-void RheiaToolBarManager::OnToolsUpdateUI( wxUpdateUIEvent& event )
+void RheiaToolBarManager::OnToolsUpdateUI( wxUpdateUIEvent& WXUNUSED(event) )
 {
     wxMenuBar* mbar = m_parent->GetMenuBar();
     wxAuiManager* m_layout = m_parent->GetLayoutManager();

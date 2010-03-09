@@ -51,7 +51,7 @@ void RheiaCenterPaneManager::RegisterEvents()
     pm->RegisterEventMethod(RheiaEVT_CENTERMGR_SETTINGS_CHANGED, new RheiaEventFunctor<RheiaCenterPaneManager>(this, wxCommandEventHandler(RheiaCenterPaneManager::OnConfigChanged)));
 }
 
-void RheiaCenterPaneManager::OnConfigChanged(wxCommandEvent& event)
+void RheiaCenterPaneManager::OnConfigChanged(wxCommandEvent& WXUNUSED(event))
 {
     if( m_book )
         ReloadConfiguration();
@@ -91,7 +91,7 @@ void RheiaCenterPaneManager::ReleaseMenu( wxMenuBar* menuBar )
     }
 }
 
-void RheiaCenterPaneManager::OnConfigure(wxCommandEvent& event)
+void RheiaCenterPaneManager::OnConfigure(wxCommandEvent& WXUNUSED(event))
 {
     RheiaConfigurationDialog dialog( m_parent );
     RheiaCenterMgrSettingsPanel* m_panel = new RheiaCenterMgrSettingsPanel(&dialog);

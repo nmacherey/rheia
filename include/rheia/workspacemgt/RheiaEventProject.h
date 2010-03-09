@@ -31,7 +31,7 @@ class RheiaProject;
 *	@date	21-Nov-2008
 *	@version 0.0.1
 */
-class WMGT_DLLEXPORT RheiaProjectEvent : public RheiaEvent
+class WMGT_DLLEXPORT RheiaProjectEvent : public RheiaEvent 
 {
 public:
 	/*******************************************************************************************************

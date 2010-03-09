@@ -158,7 +158,7 @@ int RheiaProjectCreationPage::GetSelectedProjectIndex()
     return data->Index;
 }
 
-void RheiaProjectCreationPage::OnCategoryChanged(wxCommandEvent& event)
+void RheiaProjectCreationPage::OnCategoryChanged(wxCommandEvent& WXUNUSED(event))
 {
     ClearList();
     BuildList();

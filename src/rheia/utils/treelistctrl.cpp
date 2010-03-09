@@ -580,7 +580,7 @@ public:
     void OnMouse( wxMouseEvent &event );
     void OnIdle( wxIdleEvent &event );
     void OnScroll(wxScrollWinEvent& event);
-    void OnCaptureLost(wxMouseCaptureLostEvent &event) { ;; }
+    void OnCaptureLost(wxMouseCaptureLostEvent & WXUNUSED(event)) { ;; }
 
     // implementation helpers
     int GetColumnCount() const
@@ -3351,7 +3351,7 @@ void wxTreeListMainWindow::PaintLevel (wxTreeListItem *item, wxDC &dc,
                 }
 #else
                 wxRect rect (x-m_btnWidth2, y_mid-m_btnHeight2, m_btnWidth, m_btnHeight);
-                int flag = item->IsExpanded()? wxCONTROL_EXPANDED: 0;
+                int flag = (item->IsExpanded()? wxCONTROL_EXPANDED: 0);
                 wxRendererNative::GetDefault().DrawTreeItemButton (this, dc, rect, flag);
 #endif
 

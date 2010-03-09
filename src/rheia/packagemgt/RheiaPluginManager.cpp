@@ -80,12 +80,12 @@ RheiaPluginManager::~RheiaPluginManager()
     UnloadAllPlugins();
 }
 
-void RheiaPluginManager::CreateMenu(wxMenuBar* menuBar)
+void RheiaPluginManager::CreateMenu(wxMenuBar* WXUNUSED(menuBar))
 {
 
 }
 
-void RheiaPluginManager::ReleaseMenu(wxMenuBar* menuBar)
+void RheiaPluginManager::ReleaseMenu(wxMenuBar* WXUNUSED(menuBar))
 {
 
 }
@@ -177,7 +177,7 @@ bool RheiaPluginManager::RegisterPlugin(const wxString& name,
     RheiaPackageVersion* sdkversion = manifest->GetSDKVersion();
     long major = sdkversion->GetMajor();
     long minor = sdkversion->GetMinor();
-    long build = sdkversion->GetBuild();
+    //long build = sdkversion->GetBuild();
 
     long dmajor = AutoVersion::MAJOR;
     long dminor = AutoVersion::MINOR;

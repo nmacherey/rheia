@@ -160,7 +160,7 @@ bool RheiaBookManager::ActivatePage( const wxString& name )
 
         info.page = info.container->BuildMainWindow( m_book );
         info.bmp = info.container->GetBitmap( 16 );
-        bool value = m_book->AddPage( info.page , info.name , true , info.bmp );
+        m_book->AddPage( info.page , info.name , true , info.bmp );
         info.page->OnCreate();
         SendEvent(RheiaEVT_CENTER_PAGE_OPENED);
     }
@@ -391,7 +391,7 @@ void RheiaBookManager::OnPageClose( wxAuiNotebookEvent& event )
     page->OnPageClosed();
 }
 
-void RheiaBookManager::OnPageChanging( wxAuiNotebookEvent& event )
+void RheiaBookManager::OnPageChanging( wxAuiNotebookEvent& WXUNUSED(event) )
 {
 }
 

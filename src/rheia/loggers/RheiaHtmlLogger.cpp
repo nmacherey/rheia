@@ -32,13 +32,13 @@ namespace TimeHtmlLogger
 
 RheiaHtmlHeader::RheiaHtmlHeader() :
     message     (wxT("font-size: 12pt;")),
-    info        (wxT("color: black; font-size: 12pt;")),
     warning     (wxT("color: blue; margin-left: 2em;")),
     success     (wxT("margin-left: 2em; border-left: 1px solid black;")),
     error       (wxT("margin-left: 2em; border-left: 1px solid red;")),
     fatalerror  (wxT("color: red; font-weight: bold;")),
+	info        (wxT("color: black; font-size: 12pt;")),
+	status      (wxT("color: green; font-style: italic;")),
     syserror    (wxT("color: maroon;")),
-    status      (wxT("color: green; font-style: italic;")),
     debug       (wxT("color: blue; font-style: italic;")),
     trace       (wxT("color: blue; font-style: italic;")),
     h1          (wxT("font-size: 16pt;")),

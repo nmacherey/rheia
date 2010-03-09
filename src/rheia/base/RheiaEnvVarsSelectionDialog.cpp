@@ -62,7 +62,7 @@ RheiaEnvVarsSelectionDialog::RheiaEnvVarsSelectionDialog(wxWindow* parent):wxDia
     CenterOnParent();
 }
 
-void RheiaEnvVarsSelectionDialog::OnUpdateUI(wxUpdateUIEvent& event)
+void RheiaEnvVarsSelectionDialog::OnUpdateUI(wxUpdateUIEvent& WXUNUSED(event))
 {
     wxTextCtrl *m_txtkey = XRCCTRL(*this,"txtVarName",wxTextCtrl);
     wxTextCtrl *m_txtvalue = XRCCTRL(*this,"txtVarValue",wxTextCtrl);
@@ -72,7 +72,7 @@ void RheiaEnvVarsSelectionDialog::OnUpdateUI(wxUpdateUIEvent& event)
     m_btnok->Enable(enable);
 }
 
-void RheiaEnvVarsSelectionDialog::OnBrowse( wxCommandEvent& event )
+void RheiaEnvVarsSelectionDialog::OnBrowse( wxCommandEvent& WXUNUSED(event) )
 {
     wxDirDialog dialog(this, wxT("Choose a directory"));
 

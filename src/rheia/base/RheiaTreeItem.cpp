@@ -142,7 +142,7 @@ RheiaTreeItem* RheiaTreeItem::Find( const wxString& name , bool recursive )
     return it->second;
 }
 
-wxString RheiaTreeItem::GetItemName( RheiaTreeItem* item , bool recursive )
+wxString RheiaTreeItem::GetItemName( RheiaTreeItem* item , bool WXUNUSED(recursive) )
 {
     RheiaTreeItemMap::iterator it = m_items.begin();
 

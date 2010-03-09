@@ -220,7 +220,7 @@ void RheiaLoggerManager::ReleaseMenu( wxMenuBar* menuBar )
     mnSettings->Delete( menuId );
 }
 
-void RheiaLoggerManager::OnConfigure(wxCommandEvent& event)
+void RheiaLoggerManager::OnConfigure(wxCommandEvent& WXUNUSED(event) )
 {
     RheiaConfigurationDialog dialog( m_parent );
     RheiaLogMgrSettingsPanel* m_panel = new RheiaLogMgrSettingsPanel(&dialog);
@@ -525,7 +525,7 @@ wxArrayString RheiaLoggerFactory::ListRegisteredLoggers()
     return ret;
 }
 
-RheiaLogger* RheiaLoggerFactory::BuildLogger( const wxString& type, const wxString& name )
+RheiaLogger* RheiaLoggerFactory::BuildLogger( const wxString& type, const wxString& WXUNUSED(name) )
 {
     RheiaRegisteredLoggersMap::iterator rit = m_registeredLoggers.find(type);
 

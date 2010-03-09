@@ -56,7 +56,7 @@ public:
     RheiaMenuFunctorBase( ) {}
 
     /** basic constructor */
-    RheiaMenuFunctorBase( const RheiaMenuFunctorBase& rhs ) {}
+    RheiaMenuFunctorBase( const RheiaMenuFunctorBase& ) {}
 
     /************************************************************************************
     *   METHODS

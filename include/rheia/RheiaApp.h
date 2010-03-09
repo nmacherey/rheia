@@ -43,7 +43,7 @@ public:
 	int ParseCmdLine(RheiaMainFrame* handlerFrame);
 
 	/*! Callback OnAppActivate, called when the application recieves the event : EVT_ACTIVATE_APP */
-	void OnAppActivate(wxActivateEvent& event){};
+	void OnAppActivate(wxActivateEvent& WXUNUSED(event)){};
 
 	/*! OnCmdLineParsed() Callback overload, called when the command line has been parsed
 	*

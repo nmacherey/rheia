@@ -165,7 +165,7 @@ public:
     *   this method.
     *   @param menu the parent wxMenu in which you shall add items
     */
-    virtual void BuildMenu( wxMenu* menu ) {};
+    virtual void BuildMenu( wxMenu* ) {};
 
     /**
     *   The logger manager can be configured via RheiaApplicationSettingsDialog....
@@ -184,7 +184,7 @@ public:
     *   @param parent the parent window in which the log window shall be created
     *   @return NULL if the logger is not displaying in a log window (default)
     */
-	virtual RheiaBookPage* BuildMainWindow( wxWindow* parent ) { return NULL; };
+	virtual RheiaBookPage* BuildMainWindow( wxWindow* ) { return NULL; };
 
 	/**
     *   Callback used when the page is requested to be closed in the center pane
@@ -230,7 +230,7 @@ class LOGGERS_DLLEXPORT RheiaNullLogger : public RheiaLogger
 public:
 
     /** Simply overload the Log method in order to do nothing */
-    virtual void Log( const wxString& msg, RheiaLogging::RheiaLogLevel level = RheiaLogging::message ){};
+    virtual void Log( const wxString&, RheiaLogging::RheiaLogLevel ){};
 };
 
 #endif

@@ -50,7 +50,7 @@
 namespace
 {
 
-int wxCALLBACK sortByTitle(long item1, long item2, long sortData)
+int wxCALLBACK sortByTitle(long item1, long item2, long WXUNUSED(sortData) )
 {
     const wxString *elem1 = (const wxString*)item1;
     const wxString *elem2 = (const wxString*)item2;

@@ -109,7 +109,7 @@ public :
     /** this method is used to build specific menu information about the item when the user
     *   request it
     */
-    virtual void OnRequestContextMenu( wxMenu* menu ) {};
+    virtual void OnRequestContextMenu( wxMenu* ) {};
 
     /** this method is used whent the item is about to be deleted */
     virtual void OnPreDelete() {};

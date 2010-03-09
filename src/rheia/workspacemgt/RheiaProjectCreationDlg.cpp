@@ -73,7 +73,7 @@ RheiaProjectCreationDlg::~RheiaProjectCreationDlg()
 {
 }
 
-void RheiaProjectCreationDlg::OnChangeCategory(wxCommandEvent& event)
+void RheiaProjectCreationDlg::OnChangeCategory(wxCommandEvent& WXUNUSED(event))
 {
     wxChoice* m_cbCat = XRCCTRL(*this,"cbProject",wxChoice);
     BuildListFor(m_cbCat->GetStringSelection());
@@ -122,7 +122,7 @@ void RheiaProjectCreationDlg::BuildListFor( const wxString& category )
 
 }
 
-void RheiaProjectCreationDlg::OnUpdateUI(wxUpdateUIEvent& event)
+void RheiaProjectCreationDlg::OnUpdateUI(wxUpdateUIEvent& WXUNUSED(event))
 {
     wxListCtrl* lst = XRCCTRL( *this , "lstWizards" , wxListCtrl );
     int sel = lst->GetNextItem(-1,wxLIST_NEXT_ALL,wxLIST_STATE_SELECTED);
@@ -137,7 +137,7 @@ void RheiaProjectCreationDlg::ChangeView()
     lst->SetSingleStyle(style);
 }
 
-void RheiaProjectCreationDlg::OnViewChange(wxCommandEvent& event)
+void RheiaProjectCreationDlg::OnViewChange(wxCommandEvent& WXUNUSED(event))
 {
     ChangeView();
 }
@@ -165,7 +165,7 @@ void RheiaProjectCreationDlg::EndModal(int retCode)
     wxDialog::EndModal(retCode);
 }
 
-void RheiaProjectCreationDlg::OnWizardActivated( wxListEvent& event )
+void RheiaProjectCreationDlg::OnWizardActivated( wxListEvent& WXUNUSED(event) )
 {
     EndModal( wxID_OK );
 }

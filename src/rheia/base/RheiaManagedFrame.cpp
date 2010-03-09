@@ -102,7 +102,7 @@ void RheiaManagedFrame::LoadLayout()
 
 void RheiaManagedFrame::RegisterEvents()
 {
-    RheiaEventsManager* emgr = RheiaEventsManager::Get();
+    //RheiaEventsManager* emgr = RheiaEventsManager::Get();
 }
 
 void RheiaManagedFrame::BuildStatusBar()
@@ -148,7 +148,7 @@ void RheiaManagedFrame::BuildAui(void)
 
     SetToolBar(0);
 
-    wxToolBar* ToolBar = RheiaToolBarManager::Get(this)->GetToolBar();
+    RheiaToolBarManager::Get(this)->GetToolBar();
 
     m_layout->SetFlags(wxAUI_MGR_DEFAULT | wxAUI_MGR_ALLOW_ACTIVE_PANE | wxAUI_MGR_TRANSPARENT_DRAG);
     m_layout->Update();
@@ -214,7 +214,7 @@ void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
 	RheiaDebug::Free();
 }
 
-void RheiaManagedFrame::OnAboutRheia( wxCommandEvent& event )
+void RheiaManagedFrame::OnAboutRheia( wxCommandEvent& WXUNUSED(event) )
 {
     RheiaAboutDialog dialog( this );
     dialog.ShowModal();
@@ -236,7 +236,7 @@ void RheiaManagedFrame::OnViewMenuUpdateUI( wxUpdateUIEvent& event )
     event.Skip();
 }
 
-void RheiaManagedFrame::OnToggleStatusBar( wxCommandEvent &event )
+void RheiaManagedFrame::OnToggleStatusBar( wxCommandEvent &WXUNUSED(event) )
 {
     Freeze();
     wxStatusBar* sb = GetStatusBar();
@@ -255,7 +255,7 @@ void RheiaManagedFrame::OnToggleStatusBar( wxCommandEvent &event )
     Thaw();
 }
 
-void RheiaManagedFrame::OnToggleFullScreen( wxCommandEvent &event )
+void RheiaManagedFrame::OnToggleFullScreen( wxCommandEvent &WXUNUSED(event) )
 {
     ShowFullScreen( !IsFullScreen(), wxFULLSCREEN_NOTOOLBAR// | wxFULLSCREEN_NOSTATUSBAR
                     | wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION );
@@ -263,7 +263,7 @@ void RheiaManagedFrame::OnToggleFullScreen( wxCommandEvent &event )
 
 /* Callback called when requesting the exit of the application, generates an EVT_CLOSE in order to centralize with
 other close controls */
-void RheiaManagedFrame::OnFileExit( wxCommandEvent& event )
+void RheiaManagedFrame::OnFileExit( wxCommandEvent& WXUNUSED(event) )
 {
     m_closeOnly = false;
     Close(true);
@@ -271,7 +271,7 @@ void RheiaManagedFrame::OnFileExit( wxCommandEvent& event )
 
 /* Callback called when requesting the exit of the application, generates an EVT_CLOSE in order to centralize with
 other close controls */
-void RheiaManagedFrame::OnFileClose( wxCommandEvent& event )
+void RheiaManagedFrame::OnFileClose( wxCommandEvent& WXUNUSED(event) )
 {
     m_closeOnly = true;
     Close(true);

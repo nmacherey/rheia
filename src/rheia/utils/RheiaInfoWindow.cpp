@@ -199,7 +199,7 @@ InfoWindow::~InfoWindow()
     active_messages.erase(my_message_iterator);
 };
 
-void InfoWindow::OnTimer(wxTimerEvent& e)
+void InfoWindow::OnTimer(wxTimerEvent& WXUNUSED(e))
 {
     switch (status)
     {
@@ -232,13 +232,13 @@ void InfoWindow::OnTimer(wxTimerEvent& e)
     };
 };
 
-void InfoWindow::OnMove(wxMouseEvent& e)
+void InfoWindow::OnMove(wxMouseEvent& WXUNUSED(e))
 {
     if (status == 2)
         m_timer->Start(m_delay, true);
 }
 
-void InfoWindow::OnClick(wxMouseEvent& e)
+void InfoWindow::OnClick(wxMouseEvent& WXUNUSED(e))
 {
     ks = 6;
     status = 3;

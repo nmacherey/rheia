@@ -76,7 +76,7 @@ void RheiaLeftPaneManager::BuildMenu( wxMenuBar* menuBar )
     }
 }
 
-void RheiaLeftPaneManager::OnConfigChanged(wxCommandEvent& event)
+void RheiaLeftPaneManager::OnConfigChanged(wxCommandEvent& WXUNUSED(event))
 {
     if( m_book )
         ReloadConfiguration();
@@ -96,7 +96,7 @@ void RheiaLeftPaneManager::ReloadConfiguration()
     ReloadBookConfiguration(icfg);
 }
 
-void RheiaLeftPaneManager::OnConfigure(wxCommandEvent& event)
+void RheiaLeftPaneManager::OnConfigure(wxCommandEvent& WXUNUSED(event))
 {
     RheiaConfigurationDialog dialog( m_parent );
     RheiaLeftMgrSettingsPanel* m_panel = new RheiaLeftMgrSettingsPanel(&dialog);
@@ -161,6 +161,8 @@ bool RheiaLeftPaneManager::AddPage( wxString name, RheiaPageContainer* container
     m_menu->AppendCheckItem(m_pageIds[name],name,wxT("Display the page ") + name )->Check(true);
     Connect( m_pageIds[name] , wxEVT_COMMAND_MENU_SELECTED , wxCommandEventHandler(RheiaLeftPaneManager::OnSelectPageMenu) );
     Connect( m_pageIds[name] , wxEVT_UPDATE_UI , wxUpdateUIEventHandler(RheiaLeftPaneManager::OnToolsUpdateUI) );
+	
+	return true;
 }
 
 bool RheiaLeftPaneManager::DeletePage( const wxString& name )
@@ -247,7 +249,7 @@ void RheiaLeftPaneManager::OnSelectPageMenu(wxCommandEvent& event)
     event.Skip();
 }
 
-void RheiaLeftPaneManager::OnToolsUpdateUI( wxUpdateUIEvent& event )
+void RheiaLeftPaneManager::OnToolsUpdateUI( wxUpdateUIEvent& WXUNUSED(event) )
 {
     wxMenuBar* mbar = m_parent->GetMenuBar();
     wxAuiManager* m_layout = m_parent->GetLayoutManager();
@@ -258,7 +260,7 @@ void RheiaLeftPaneManager::OnToolsUpdateUI( wxUpdateUIEvent& event )
         mbar->Check(tit->second, PageIsOpened(tit->first) );
 }
 
-void RheiaLeftPaneManager::OnToggleMgtBook(wxCommandEvent& event)
+void RheiaLeftPaneManager::OnToggleMgtBook(wxCommandEvent& WXUNUSED(event))
 {
     wxAuiManager* m_layout = m_parent->GetLayoutManager();
     m_layout->GetPane(m_book).Show(!m_layout->GetPane(m_book).IsShown());

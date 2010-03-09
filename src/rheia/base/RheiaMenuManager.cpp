@@ -119,12 +119,12 @@ void RheiaMenuManager::CreateMenuBar()
     }
 }
 
-void RheiaMenuManager::OnMenuCallbackAdded( wxCommandEvent& event )
+void RheiaMenuManager::OnMenuCallbackAdded( wxCommandEvent& WXUNUSED(event) )
 {
     RecreateMenuBar();
 }
 
-void RheiaMenuManager::OnMenuCallbackRemoved( wxCommandEvent& event )
+void RheiaMenuManager::OnMenuCallbackRemoved( wxCommandEvent& WXUNUSED(event) )
 {
     RecreateMenuBar();
 }

@@ -225,12 +225,12 @@ void wxIrrlicht::StopRendering(){
     m_Timer.Stop();
 }//StopRendering()
 
-void wxIrrlicht::OnMouseEnter(wxMouseEvent& event)
+void wxIrrlicht::OnMouseEnter(wxMouseEvent& WXUNUSED(event))
 {
     StartRendering(20);
 }
 
-void wxIrrlicht::OnMouseLeave(wxMouseEvent& event)
+void wxIrrlicht::OnMouseLeave(wxMouseEvent& WXUNUSED(event))
 {
     StopRendering();
 }
@@ -279,13 +279,13 @@ void wxIrrlicht::OnPostRender() {
     }//if
 }//OnPostRender()
 
-void wxIrrlicht::OnPaint(wxPaintEvent& event){
+void wxIrrlicht::OnPaint(wxPaintEvent& WXUNUSED(event)){
     wxPaintDC paint_dc(this);
 
     Render();
 }//OnPaint()
 
-void wxIrrlicht::OnSize(wxSizeEvent& event) {
+void wxIrrlicht::OnSize(wxSizeEvent& WXUNUSED(event)) {
     if (!m_pDriver) {
         return;
 	}//if
@@ -321,7 +321,7 @@ void wxIrrlicht::OnSize(wxSizeEvent& event) {
 	}//if
 }//OnSize
 
-void wxIrrlicht::OnTimer(wxTimerEvent& event) {
+void wxIrrlicht::OnTimer(wxTimerEvent& WXUNUSED(event)) {
     Render();
 }
 

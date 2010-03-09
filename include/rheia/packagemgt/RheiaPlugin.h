@@ -75,7 +75,7 @@ public:
 	*	@param parent The parent window.
 	*	@return A pointer to the plugin's RheiaConfigurationPanel. It is deleted by the caller.
 	*/
-	virtual RheiaConfigurationPanel* GetConfigurationPanel(wxWindow* parent){ return 0; }
+	virtual RheiaConfigurationPanel* GetConfigurationPanel(wxWindow*){ return 0; }
 
 	/** 
 	* See whether this plugin is plugged or not. You might never perform plugin task 
@@ -102,7 +102,7 @@ public:
 	* @return the toolbar if the plugin is creating a toolbar else
 	* return nothing.
 	*/
-	virtual wxToolBar* BuildToolBar(wxWindow* parent) {return 0L;};
+	virtual wxToolBar* BuildToolBar(wxWindow*) {return 0L;};
 
 	/** 
 	* Create the plugin menu in the menubar... This shall be called by your
@@ -111,7 +111,7 @@ public:
 	* for example, when the menu is recreated from the wxMenuManager
 	* @param menuBar the wxMenuBar to create items in
 	*/
-	virtual void BuildMenu(wxMenuBar* menuBar){};
+	virtual void BuildMenu(wxMenuBar*){};
 
 protected:
 	/**
@@ -132,7 +132,7 @@ protected:
 	*         case *don't* use RheiaManager::Get()->Get...() functions or the
 	*         behaviour is undefined...
 	*/
-	virtual void OnUnplug(bool appShutDown){}
+	virtual void OnUnplug(bool){}
 
 	/*! Holds the plugin's type. Set in the default constructor. */
 	RheiaPluginType Type;
