@@ -176,12 +176,43 @@ RheiaWorkspaceManager::RheiaWorkspaceManager(RheiaManagedFrame* parent):
 	
 	RheiaConfigurationManager *wcfg = RheiaManager::Get()->GetConfigurationManager(_T("workspace_manager"));
 	
-	/* */
+	/* Now load last workspace files and check if they are available 
+	 * if not remove them from the list 
+	 */
     m_LastFiles = wcfg->ReadArrayString( wxT("/recent_workspaces" ) );
     m_Last = wcfg->Read( wxT("/last_workspace") );
+	int i = 0;
+	while( i < (int) m_LastFiles.GetCount() )
+	{
+		wxFileName fname(m_LastFiles[i]);
+		if( !fname.FileExists() )
+			m_LastFiles.RemoveAt(i);
+		else
+			i++;
+		
+	}
+	
+	wxFileName fname(m_Last);
+	if( !fname.FileExists() )
+		m_Last = wxEmptyString;
 	
 	m_LastProjectFiles = wcfg->ReadArrayString( wxT("/recent_projects" ) );
     m_LastProject = wcfg->Read( wxT("/last_project") );
+	
+	i = 0;
+	while( i < (int) m_LastProjectFiles.GetCount() )
+	{
+		wxFileName fname2(m_LastProjectFiles[i]);
+		if( !fname2.FileExists() )
+			m_LastProjectFiles.RemoveAt(i);
+		else
+			i++;
+		
+	}
+	
+	wxFileName fname2(m_LastProject);
+	if( !fname2.FileExists() )
+		m_LastProject = wxEmptyString;
 }
 
 void RheiaWorkspaceManager::OnMenuRecreated( RheiaEvent& event )

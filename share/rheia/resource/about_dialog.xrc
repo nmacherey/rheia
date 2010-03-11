@@ -27,7 +27,7 @@
 			</object>
 			<object class="sizeritem">
 				<object class="wxStaticBitmap" name="bmpRheiaLogo">
-					<size>300,200</size>
+					<size>430,270</size>
 					<font>
 						<size>14</size>
 						<weight>bold</weight>

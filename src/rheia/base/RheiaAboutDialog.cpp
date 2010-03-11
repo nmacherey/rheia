@@ -46,6 +46,10 @@ RheiaAboutDialog::RheiaAboutDialog( wxWindow* parent )
         wxMessageBox(_("Error loadding ressource") , _("Error") );
 
     myres->LoadDialog(this, parent, xrcDialogName);
+	
+	wxStaticBitmap* bmp = XRCCTRL(*this,"bmpRheiaLogo",wxStaticBitmap);
+	wxBitmap logo = RheiaLoadBitmap( resPath + _T("/resource.zip#zip:splash_screen.png") );
+	bmp->SetBitmap(logo);
 
     /***************************************************************
     *   DESCRIPTION
