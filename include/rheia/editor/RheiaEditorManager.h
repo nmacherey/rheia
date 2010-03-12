@@ -79,17 +79,6 @@ class EDITOR_DLLEXPORT RheiaEditorManager : public wxEvtHandler, public RheiaMgr
 {
     friend class RheiaMgr<RheiaManagedFrame,RheiaEditorManager>;
 public :
-    /**************************************************************************************
-    *   STATIC METHODS FOR GENERAL STUFF
-    **************************************************************************************/
-    /** Static method for adding handlers in this manager */
-    static void PushHandler( RheiaEditorHandler* handler );
-	
-	/** Static method for removing handlers in this manager */
-    static void RemoveHandler( RheiaEditorHandler* handler );
-
-    /** static method for freeing memory */
-    static void RemoveAll();
 
     /**************************************************************************************
     *   METHODS
@@ -185,8 +174,8 @@ private :
 
     /** open files array */
     RheiaEditorMap m_files;
+	RheiaEditorFile* m_currentFile;
     RheiaEditorBase* m_currentEditor;
-    RheiaEditorFile* m_currentFile;
     wxString m_lastFind;
 
     /**************************************************************************************
@@ -241,12 +230,38 @@ private :
 
     /*** In the Settings menu */
     int idConfigure;
+};
 
+/**
+*   @class RheiaEditorFactory
+*   @brief This is the basic class for managing files in an editor
+*
+*   @author Nicolas Macherey (nm@graymat.fr)
+*   @date 14-February-2009
+*   @version 0.1.0
+*/
+class EDITOR_DLLEXPORT RheiaEditorFactory : public Mgr<RheiaEditorFactory>
+{
+    friend class Mgr<RheiaEditorFactory>;
+public :
     /**************************************************************************************
-    *   STATICS
+    *   STATIC METHODS FOR GENERAL STUFF
     **************************************************************************************/
-    /** static objects class for handling handlers */
-    static RheiaEditorHandlerArray m_handlers;
+    /** Static method for adding handlers in this manager */
+    void PushHandler( RheiaEditorHandler* handler );
+	
+	/** Static method for removing handlers in this manager */
+    void RemoveHandler( RheiaEditorHandler* handler );
+
+    /** static method for freeing memory */
+    void RemoveAll();
+	
+	/** static objects class for handling handlers */
+    RheiaEditorHandlerArray m_handlers;
+	
+private :
+	RheiaEditorFactory() {};
+	~RheiaEditorFactory();
 };
 
 
@@ -269,17 +284,22 @@ public:
 	RheiaEditorHandlerRegistrant( )
 	{
 		m_instance = new T();
-		RheiaEditorManager::PushHandler( m_instance );
+		RheiaEditorFactory::Get()->PushHandler( m_instance );
 	}
 
 	/** default destructor */
 	~RheiaEditorHandlerRegistrant()
 	{
-	    RheiaEditorManager::RemoveHandler( m_instance );
+	    RheiaEditorFactory::Get()->RemoveHandler( m_instance );
 	}
 	
 private :
     T* m_instance;
 };
+
+#define REGISTER_EDITOR_HANDLER(object) \
+    namespace { \
+        RheiaEditorHandlerRegistrant<object> object##Registrant; \
+    }
 
 #endif

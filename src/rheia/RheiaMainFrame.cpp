@@ -59,6 +59,7 @@
 #include <RheiaEventsManager.h>
 #include <RheiaPackageManagementDialog.h>
 #include <RheiaStartPageContainer.h>
+#include <RheiaEditorManager.h>
 
 RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
        wxWindowID id,
@@ -106,6 +107,8 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
     RheiaLoggerManager::Get(this)->BuildMenu(m_menuBar);
     RheiaLogger* log = RheiaLoggerManager::Get(this)->GetRheiaDebugLogger();
     log->Log( wxT("RheiaMainFrame::Registering Rheia Events..."), RheiaLogging::info );
+	
+	RheiaEditorManager::Get(this)->BuildMenu( m_menuBar );
 
     m_layout->Update();
 //

@@ -24,13 +24,15 @@
 namespace
 {
     RheiaMgr<RheiaManagedFrame,RheiaEditorManager>::MgrNsMap locmap;
-    RheiaEditorHandlerArray arr;
 }
 
 /*! Global instance for the RheiaEditorManager */
 template<> RheiaMgr<RheiaManagedFrame,RheiaEditorManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaEditorManager>::m_ns = locmap;
-RheiaEditorHandlerArray RheiaEditorManager::m_handlers = arr;
 
+/** global instance for RheiaEditorFactory */
+template<> RheiaEditorFactory* Mgr<RheiaEditorFactory>::instance = 0;
+/** global instance for RheiaEditorFactory */
+template<> bool  Mgr<RheiaEditorFactory>::isShutdown = false;
 
 RheiaEditorManager::RheiaEditorManager( RheiaManagedFrame* parent ):
     wxEvtHandler(),
@@ -170,13 +172,13 @@ void RheiaEditorManager::ReleaseMenu( wxMenuBar* menuBar )
 
 }
 
-void RheiaEditorManager::PushHandler( RheiaEditorHandler* handler )
+void RheiaEditorFactory::PushHandler( RheiaEditorHandler* handler )
 {
     if( m_handlers.Index(handler) == wxNOT_FOUND )
         m_handlers.Add( handler );
 }
 
-void RheiaEditorManager::RemoveHandler( RheiaEditorHandler* handler )
+void RheiaEditorFactory::RemoveHandler( RheiaEditorHandler* handler )
 {
 	if( m_handlers.Index(handler) == wxNOT_FOUND )
         m_handlers.Remove( handler );
@@ -184,10 +186,15 @@ void RheiaEditorManager::RemoveHandler( RheiaEditorHandler* handler )
 	delete handler;
 }
 
-void RheiaEditorManager::RemoveAll()
+void RheiaEditorFactory::RemoveAll()
 {
     for( unsigned int i = 0; i < m_handlers.GetCount() ; ++i )
         delete m_handlers[i];
+}
+
+RheiaEditorFactory::~RheiaEditorFactory()
+{
+	RemoveAll();
 }
 
 void RheiaEditorManager::RegisterEvents()
@@ -273,7 +280,7 @@ void RheiaEditorManager::RegisterEvents()
 void RheiaEditorManager::OnOpenFileUI( wxUpdateUIEvent& event )
 {
     wxMenuBar* menuBar = m_parent->GetMenuBar();
-    menuBar->Enable(idOpen, (m_handlers.GetCount() > 0) );
+    menuBar->Enable(idOpen, (RheiaEditorFactory::Get()->m_handlers.GetCount() > 0) );
 }
 
 void RheiaEditorManager::OnSaveFileUI( wxUpdateUIEvent& event )
@@ -325,9 +332,9 @@ void RheiaEditorManager::OnFileOpen( wxCommandEvent& event )
 {
     wxString f_exts;
 
-    for( unsigned int i = 0 ; i < m_handlers.GetCount() ; ++i )
+    for( unsigned int i = 0 ; i < RheiaEditorFactory::Get()->m_handlers.GetCount() ; ++i )
     {
-        wxArrayString exts = m_handlers[i]->GetExtensions();
+        wxArrayString exts = RheiaEditorFactory::Get()->m_handlers[i]->GetExtensions();
         for( unsigned int j = 0; j < exts.GetCount() ; ++j )
             f_exts += exts[j] + wxT("|");
     }
@@ -360,10 +367,10 @@ bool RheiaEditorManager::Open(const wxString& filename)
 {
     RheiaEditorHandler* handler = NULL;
 
-    for( unsigned int j = 0; j < m_handlers.GetCount() ; ++j )
-        if( m_handlers[j]->CanHandle(filename) )
+    for( unsigned int j = 0; j < RheiaEditorFactory::Get()->m_handlers.GetCount() ; ++j )
+        if( RheiaEditorFactory::Get()->m_handlers[j]->CanHandle(filename) )
         {
-            handler = m_handlers[j];
+            handler = RheiaEditorFactory::Get()->m_handlers[j];
             break;
         }
 
@@ -539,11 +546,11 @@ bool RheiaEditorManager::SaveFile( RheiaEditorFile* file , bool force_file )
     {
         wxString f_exts;
 
-        for( unsigned int i = 0 ; i < m_handlers.GetCount() ; ++i )
+        for( unsigned int i = 0 ; i < RheiaEditorFactory::Get()->m_handlers.GetCount() ; ++i )
         {
-            if( m_handlers[i]->CanHandle(m_currentEditor->GetContext()) )
+            if( RheiaEditorFactory::Get()->m_handlers[i]->CanHandle(m_currentEditor->GetContext()) )
             {
-                wxArrayString exts = m_handlers[i]->GetExtensions();
+                wxArrayString exts = RheiaEditorFactory::Get()->m_handlers[i]->GetExtensions();
                 for( unsigned int j = 0; j < exts.GetCount() ; ++j )
                     f_exts += exts[j] + wxT("|");
             }

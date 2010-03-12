@@ -54,10 +54,10 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../include/rheia/python" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" , "../../webconnect/include" }
+package.includepaths = { "../../include/rheia/python" , "../../include/rheia/editor" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" , "../../webconnect/include" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
-package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "webconnect" }
+package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "webconnect" , "rheiaeditor" }
 
 -- Set the defines.
 package.defines = { "HAVE_CONFIG_H" }
@@ -139,6 +139,7 @@ table.insert( package.config["Debug"].links , "librheiapython-dbg" )
 table.insert( package.config["Debug"].links , "librheiapackagemgt-dbg" )
 table.insert( package.config["Debug"].links , "librheiaworkspacemgt-dbg" )
 table.insert( package.config["Debug"].links , "libwebconnect-dbg" )
+table.insert( package.config["Debug"].links , "librheiaeditor-dbg" )
 
 table.insert( package.config["Release"].links , "libgmcsirocsa" )
 table.insert( package.config["Release"].links , "libgmqsastime" )
@@ -152,6 +153,7 @@ table.insert( package.config["Release"].links , "librheiapython" )
 table.insert( package.config["Release"].links , "librheiapackagemgt" )
 table.insert( package.config["Release"].links , "librheiaworkspacemgt" )
 table.insert( package.config["Release"].links , "libwebconnect" )
+table.insert( package.config["Release"].links , "librheiaeditor" )
 
 if( not options["no-irrlicht"] ) then
 	table.insert( package.defines, "RHEIA_USE_IRRLICHT" )
