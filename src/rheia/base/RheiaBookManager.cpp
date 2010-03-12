@@ -413,8 +413,16 @@ RheiaBookPage* RheiaBookManager::GetActivePage()
 
 void RheiaBookManager::OnPageChanged( wxAuiNotebookEvent& event )
 {
+	if( m_book->GetPageCount() == 0 )
+		return;
+		
     int index = event.GetOldSelection();
-    RheiaBookPage* page = (RheiaBookPage*) m_book->GetPage( index );
+	RheiaBookPage* page = NULL;
+
+	if( index != -1 && index < (int) m_book->GetPageCount() )
+	{
+		page = (RheiaBookPage*) m_book->GetPage( index );
+	}
 
     if( page != NULL && !page->OnPageChanging() )
     {
@@ -423,9 +431,12 @@ void RheiaBookManager::OnPageChanged( wxAuiNotebookEvent& event )
     }
 
     index = event.GetSelection();
-    page = (RheiaBookPage*) m_book->GetPage( index );
-
-    SendEvent(RheiaEVT_CENTER_PAGE_CHANGED);
+	page = NULL;
+	if( index != -1 && index < (int) m_book->GetPageCount() )
+	{
+		page = (RheiaBookPage*) m_book->GetPage( index );
+		SendEvent(RheiaEVT_CENTER_PAGE_CHANGED);
+	}
 
     if( page != NULL )
         page->OnPageChanged();

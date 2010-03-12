@@ -51,6 +51,7 @@ RheiaMenuManager::RheiaMenuManager( RheiaManagedFrame* parent ):
     {
         CreateMenuBar();
         m_parent->PushEventHandler(this);
+		m_parent->Connect(RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaMenuManager::OnFrameClosing), NULL, this);
     }
 
     RegisterEvents();
@@ -136,7 +137,7 @@ void RheiaMenuManager::RegisterEvents()
 
     pm->RegisterEventMethod(RheiaEVT_MENU_CALLBACK_ADDED, new RheiaEventFunctor<RheiaMenuManager>(this, wxCommandEventHandler(RheiaMenuManager::OnMenuCallbackAdded)));
     pm->RegisterEventMethod(RheiaEVT_MENU_CALLBACK_REMOVED, new RheiaEventFunctor<RheiaMenuManager>(this, wxCommandEventHandler(RheiaMenuManager::OnMenuCallbackRemoved)));
-    pm->RegisterEventMethod(RheiaEVT_FRAME_CLOSING, new RheiaEventFunctor<RheiaMenuManager>(this, RheiaFrameEventHandler(RheiaMenuManager::OnFrameClosing)));
+    
 }
 
 void RheiaMenuManager::SendEvent( const wxEventType& type )

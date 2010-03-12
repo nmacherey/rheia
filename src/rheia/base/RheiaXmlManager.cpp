@@ -1163,7 +1163,7 @@ bool RheiaXmlManager::Read(const wxString& path, xmlNode* rootNode, wxFont *font
 
 wxFont RheiaXmlManager::ReadFont(const wxString& path, xmlNode* rootNode )
 {
-	wxFont ret;
+	wxFont ret(10, wxFONTFAMILY_SWISS , wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 
 	if ( Read( path, rootNode , &ret ) )
 		return ret;

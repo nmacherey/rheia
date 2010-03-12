@@ -1642,6 +1642,8 @@ void RheiaWorkspaceManager::OnCloseParent( RheiaFrameEvent& event )
 	
 	wcfg->Write( wxT("/recent_projects" ) , m_LastProjectFiles );
     wcfg->Read( wxT("/last_project") , m_LastProject );
+	
+	m_parent->RemoveEventHandler(this);
 
     event.Skip();
 }
