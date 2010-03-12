@@ -176,6 +176,14 @@ void RheiaEditorManager::PushHandler( RheiaEditorHandler* handler )
         m_handlers.Add( handler );
 }
 
+void RheiaEditorManager::RemoveHandler( RheiaEditorHandler* handler )
+{
+	if( m_handlers.Index(handler) == wxNOT_FOUND )
+        m_handlers.Remove( handler );
+
+	delete handler;
+}
+
 void RheiaEditorManager::RemoveAll()
 {
     for( unsigned int i = 0; i < m_handlers.GetCount() ; ++i )

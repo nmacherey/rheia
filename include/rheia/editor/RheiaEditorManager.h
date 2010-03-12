@@ -84,6 +84,9 @@ public :
     **************************************************************************************/
     /** Static method for adding handlers in this manager */
     static void PushHandler( RheiaEditorHandler* handler );
+	
+	/** Static method for removing handlers in this manager */
+    static void RemoveHandler( RheiaEditorHandler* handler );
 
     /** static method for freeing memory */
     static void RemoveAll();
@@ -244,6 +247,39 @@ private :
     **************************************************************************************/
     /** static objects class for handling handlers */
     static RheiaEditorHandlerArray m_handlers;
+};
+
+
+/**
+ * @class RheiaEditorHandlerRegistrant
+ * @brief base template class for registering file handlers in the RheiaEditorManager
+ * @author Nicolas Macherey (nm@graymat.fr)
+ * @date 14-February-2009
+ * @version 0.1.0
+ */
+template<class T> class RheiaEditorHandlerRegistrant
+{
+public:
+	/**
+	*   Base constructor
+	*   When building this object we regiter the template class T given in the
+	*   template cast and the build and destroy method.
+	*	@param name The configuration tool's name, commonly it is the object name.
+	*/
+	RheiaEditorHandlerRegistrant( )
+	{
+		m_instance = new T();
+		RheiaEditorManager::PushHandler( m_instance );
+	}
+
+	/** default destructor */
+	~RheiaEditorHandlerRegistrant()
+	{
+	    RheiaEditorManager::RemoveHandler( m_instance );
+	}
+	
+private :
+    T* m_instance;
 };
 
 #endif
