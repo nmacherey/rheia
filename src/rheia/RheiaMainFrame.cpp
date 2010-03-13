@@ -60,6 +60,7 @@
 #include <RheiaPackageManagementDialog.h>
 #include <RheiaStartPageContainer.h>
 #include <RheiaEditorManager.h>
+#include <RheiaEditorPropertyPanel.h>
 
 RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
        wxWindowID id,
@@ -109,6 +110,12 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
     log->Log( wxT("RheiaMainFrame::Registering Rheia Events..."), RheiaLogging::info );
 	
 	RheiaEditorManager::Get(this)->BuildMenu( m_menuBar );
+	RheiaEditorPropertyPanel* m_pppanel = new RheiaEditorPropertyPanel(this,NULL);
+	
+	m_layout->AddPane( m_pppanel , wxAuiPaneInfo().
+                            Name(wxT("ManagementPane")).Caption(_("Editor Configuration")).
+                            BestSize(300,600).MinSize(wxSize(100,100)).
+                            Right().Layer(1));
 
     m_layout->Update();
 //
