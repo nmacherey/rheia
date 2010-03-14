@@ -9,6 +9,8 @@
 #include "RheiaEditorPropertyPanel.h"
 #include "RheiaEditorLayout.h"
 
+#if wxCHECK_VERSION(2,9,0)
+
 namespace
 {
 const wxString whiteSpaceChoices[] = {
@@ -759,3 +761,5 @@ wxPGProperty* RheiaEditorPropertyPanel::CreatePropertyDir( wxPGProperty* parent 
 	
 	return ret;
 }
+
+#endif //if wxCHECK_VERSION(2,9,0)

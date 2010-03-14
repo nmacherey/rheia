@@ -15,6 +15,8 @@
 
 #include <wx/wx.h>
 
+#if wxCHECK_VERSION(2,9,0)
+
 #include <wx/propgrid/propgrid.h>
 #include <wx/propgrid/advprops.h>
 #include <wx/propgrid/manager.h>
@@ -301,4 +303,5 @@ protected:
     }
 };
 
-#endif
+#endif //if wxCHECK_VERSION(2,9,0)
+#endif 

@@ -82,13 +82,15 @@ void RheiaToolBarManager::AddToolBar( const wxString& name , wxToolBar* toolbar 
     m_toolbars[name] = toolbar;
     m_index++;
 
-    int layer = m_index / 5 + 1;
-    int pos = m_index % 5;
+    int layer = m_index / 3 + 1;
+    int pos = (m_index % 3);
 
     wxAuiManager* m_layout = m_parent->GetLayoutManager();
     m_layout->AddPane( toolbar, wxAuiPaneInfo().
                            Name(name).
-                           ToolbarPane().Top().Layer(layer).Position(pos) );
+                           ToolbarPane().Top().Layer(layer).
+						   Position(pos) );
+						   
     wxMenuBar* menuBar = m_parent->GetMenuBar();
     int idx = menuBar->FindMenu(wxT("View"));
     if( idx != wxNOT_FOUND )

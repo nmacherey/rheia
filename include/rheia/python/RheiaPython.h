@@ -74,6 +74,7 @@
 #include <wx/generic/datectrl.h>
 #include <wx/filectrl.h>
 #include <wx/notifmsg.h>
+#include <wx/wizard.h>
 
 // C++ version of Python aware wxTreeCtrl
 class wxPyTreeCtrl : public wxTreeCtrl {

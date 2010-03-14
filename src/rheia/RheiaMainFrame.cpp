@@ -61,6 +61,7 @@
 #include <RheiaStartPageContainer.h>
 #include <RheiaEditorManager.h>
 #include <RheiaEditorPropertyPanel.h>
+#include <RheiaPythonConsoleManager.h>
 
 RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
        wxWindowID id,
@@ -98,25 +99,32 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
     RheiaLeftPaneManager::Get(this)->AddPage( wxT("Workspaces") , RheiaWorkspaceManager::Get(this) );
     RheiaWorkspaceManager::Get(this)->BuildMenu( m_menuBar );
 
-    wxToolBar* wksptb = RheiaWorkspaceManager::Get(this)->BuildToolBar(this);
-    RheiaToolBarManager::Get(this)->AddToolBar(wxT("Workspaces"),wksptb);
-
-    wxToolBar* prjtb = RheiaWorkspaceManager::Get(this)->BuildProjectsToolBar(this);
-    RheiaToolBarManager::Get(this)->AddToolBar(wxT("Projects"),prjtb);
-
     RheiaLoggerManager::Get(this)->InitializeEnvironment();
     RheiaLoggerManager::Get(this)->BuildMenu(m_menuBar);
     RheiaLogger* log = RheiaLoggerManager::Get(this)->GetRheiaDebugLogger();
     log->Log( wxT("RheiaMainFrame::Registering Rheia Events..."), RheiaLogging::info );
 	
 	RheiaEditorManager::Get(this)->BuildMenu( m_menuBar );
+	
+	/*
 	RheiaEditorPropertyPanel* m_pppanel = new RheiaEditorPropertyPanel(this,NULL);
 	
 	m_layout->AddPane( m_pppanel , wxAuiPaneInfo().
                             Name(wxT("ManagementPane")).Caption(_("Editor Configuration")).
                             BestSize(300,600).MinSize(wxSize(100,100)).
-                            Right().Layer(1));
+                            Right().Layer(1));*/
+	
+	/*** Build toolbars */
+	wxToolBar* prjtb = RheiaWorkspaceManager::Get(this)->BuildProjectsToolBar(this);
+    RheiaToolBarManager::Get(this)->AddToolBar(wxT("Projects"),prjtb);
+	
+	wxToolBar* wksptb = RheiaWorkspaceManager::Get(this)->BuildToolBar(this);
+    RheiaToolBarManager::Get(this)->AddToolBar(wxT("Workspaces"),wksptb);
 
+	RheiaEditorManager::Get(this)->BuildToolBar( this );
+	
+	RheiaInfoPaneManager::Get(this)->AddPage(wxT("Python console"), RheiaPythonConsoleManager::Get(this));
+	
     m_layout->Update();
 //
     RegisterEvents();  

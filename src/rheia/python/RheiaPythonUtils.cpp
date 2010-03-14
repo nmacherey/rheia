@@ -6,8 +6,22 @@
 *	@version 0.0.2
 */
 #include <RheiaPythonUtils.h>
+#include <iostream>
 
+#include <Python.h>
+#include <node.h>
+#include <errcode.h>
+#include <grammar.h>
+#include <parsetok.h>
+#include <compile.h>
+#include <object.h>
+#include <compile.h>
+#include <eval.h>
+
+#include <Python.h>
 #include <wx/wxPython/wxPython.h>
+
+#include "RheiaPython.h"
 
 #include <wx/xrc/xmlres.h>
 #include <wx/fs_zip.h>
@@ -34,6 +48,8 @@
 #include <RheiaProfileManager.h>
 #include <RheiaXmlManager.h>
 #include <RheiaEventsManager.h>
+
+extern grammar _PyParser_Grammar; /* From graminit.c */
 
 /*! declare global instance for the RheiaPythonUtils */
 template<> RheiaPythonUtils* Mgr<RheiaPythonUtils>::instance = 0;
@@ -80,19 +96,6 @@ void RheiaPythonUtils::PythonInit()
     Py_INCREF(m_mainDict);
 
     PyDict_SetItemString(m_mainDict, "__builtins__", PyEval_GetBuiltins());
-
-    // Save the current Python thread state and release the
-    // Global Interpreter Lock.
-    // Load the wxPython core API.  Imports the wx._core_ module and sets a
-    // local pointer to a function table located there.  The pointer is used
-    // internally by the rest of the API functions.
-    if ( ! wxPyCoreAPI_IMPORT() ) {
-        wxMessageBox(wxT("***** Error importing the wxPython API! *****"),wxT("Error"),wxICON_ERROR);
-        PyErr_Print();
-        Py_Finalize();
-		hasPythonSupport = false;
-        return;
-    }
 
     //m_mainTState = wxPyBeginAllowThreads();
 
@@ -229,6 +232,8 @@ bool RheiaPythonUtils::PythonExecuteCommand( const wxString& command , bool file
     // Finally, after all Python stuff is done, release the GIL
     //wxPyEndBlockThreads(blocked);
     return false;
+	
+	
 }
 
 wxString RheiaPythonUtils::PythonGetTraceback()
@@ -475,47 +480,106 @@ int RheiaPythonUtils::PythonGetFlagFromString( const wxString& command )
     return flag;
 }
 
-bool RheiaPythonUtils::ShallExecuteCommand( const wxString& command , int nolines )
-{
-    int Len = command.Len();
-
-    if( command[Len-2] == wxT(':') )
-        return false;
-
-    if( command[Len-1] == wxT('\n') && command[Len-2] == wxT('\n') )
-        return true;
-
-    if( command[Len-1] == wxT('\n') && nolines == 1 )
-        return true;
-
-    return false;
+int RheiaPythonUtils::ShallExecuteCommand( const wxString& command , wxString& error , int nolines )
+{	
+	PyObject *src;
+	PyObject *exc, *val, *trb, obj;
+	char *msg = NULL;
+	
+	src = Py_CompileString (rcU2C(command), "<stdin>", Py_single_input);
+	if (NULL != src)
+	{
+		int ret = 1;
+		if( command[command.Len() -2] != wxT('\n') && nolines > 1 )
+			ret = 0;
+			
+		Py_XDECREF (src);
+		return ret;
+	}
+	else if (PyErr_ExceptionMatches (PyExc_SyntaxError))
+	{
+		PyErr_Fetch (&exc, &val, &trb);
+		if (PyArg_ParseTuple (val, "sO", &msg, &obj) &&
+		!strcmp (msg, "unexpected EOF while parsing")) /* E_EOF */
+		{
+			Py_XDECREF (exc);
+			Py_XDECREF (val);
+			Py_XDECREF (trb);
+			return 0;
+		}
+		else
+		{
+			PyErr_Restore (exc, val, trb);
+			error += PythonGetTraceback();
+			return -1;
+		}
+	}
+	else
+	{
+		error += PythonGetTraceback();
+		return -1;
+	}
 }
 
 
 bool RheiaPythonUtils::PythonEvalString( const wxString& command, wxString& result , int flag )
-{
-    // As always, first grab the GIL
-    //wxPyBlock_t blocked = wxPyBeginBlockThreads();
+{	
+	char buf[BUFSIZ];
+	
+	fflush(stdout);
+	FILE* stream;
+	stream = freopen( "console" , "w+" , stdout);
+	
+	PyObject *src;
+	PyObject *dum;
+	src = Py_CompileString (rcU2C(command), "<stdin>", Py_single_input);
+	
+	if (NULL != src)
+	/* compiled just fine - */
+	{
 
-    PyObject* res = PyRun_String( command.ToUTF8().data() , flag , m_mainDict, m_mainDict );
+		/* so execute it */
+		dum = PyEval_EvalCode ((PyCodeObject *)src, m_mainDict, m_mainDict);
+		fseek( stream , 0 , SEEK_SET );
+		char c;
+		int i = 0;
+		while ( (c = fgetc(stream)) != EOF )
+		{
+			buf[i++]=c;
+		}
+		if( i != 0 )
+		{
+			buf[i-1] = '\0';
+			result = RheiaC2U( buf );
+		}
+		
+		fclose(stream);
+		
+		Py_XDECREF (dum);
+		Py_XDECREF (src);
 
-    // Finally, after all Python stuff is done, release the GIL
-    //wxPyEndBlockThreads(blocked);
-
-    if ( res == NULL )
-    {
-        wxString traceback = PythonGetTraceback();
-        result.Clear();
-        result += traceback;
-        return false;
-    }
-
-    if( res == NULL )
-        return true;
-
-    result = PyObjectToWxString( res );
-
-    return true;
+		if (PyErr_Occurred ())
+		{
+			wxString traceback = PythonGetTraceback();
+			result.Clear();
+			result += traceback;
+			return false;
+		}
+		
+		//PyErr_Print ();
+		return true;
+	}
+	else
+	{
+		fclose(stream);
+		wxString traceback = PythonGetTraceback();
+		result.Clear();
+		result += traceback;
+		return false;
+	}
+	
+	fclose(stream);
+	return false;
 }
 
 bool RheiaPythonUtils::PythonGetError( wxString& className , wxString& errorText )
@@ -632,3 +696,30 @@ void RheiaPythonUtils::RemovePathByIndex( int index )
 
     m_paths.RemoveAt( index );
 }
+
+bool RheiaPythonUtils::ImportWxPythonAPI()
+{
+	 // Save the current Python thread state and release the
+    // Global Interpreter Lock.
+    // Load the wxPython core API.  Imports the wx._core_ module and sets a
+    // local pointer to a function table located there.  The pointer is used
+    // internally by the rest of the API functions.
+    if ( ! wxPyCoreAPI_IMPORT() ) {
+        PyErr_Print();
+        return false;
+    }
+	
+	return true;
+}
+	
+bool RheiaPythonUtils::ImportRheiaPytonhAPI()
+{
+	if( !RheiaPythonCoreAPI_IMPORT() )
+	{
+		PyErr_Print();
+        return false;
+    }
+	
+	return true;
+}
+	

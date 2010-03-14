@@ -8,8 +8,8 @@
 
 #include <iostream>
 #include <RheiaPythonUtils.h>
-#include "PyEditorBase.h"
-#include "PyContext.h"
+#include "RheiaPythonLayout.h"
+#include "RheiaBookPage.h"
 
 #include <pythonrun.h>
 
@@ -74,7 +74,7 @@ private:
     wxSTD streambuf *m_sbufOld;
 };
 
-class PyConsole : public RheiaBookPage
+class RheiaPythonConsole : public RheiaBookPage
 {
 public :
 
@@ -86,10 +86,10 @@ public :
     *   @param parent the parent window in which the editor shall be created
     *   @param container the PyFile which handles the data displayed in the container
     */
-    PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent );
+    RheiaPythonConsole( RheiaManagedFrame* toplevel , wxWindow* parent );
 
     /** Default dtor (do not forgot to make it virtual...) */
-    virtual ~PyConsole();
+    virtual ~RheiaPythonConsole();
 
     /** Reloads the container contents */
     virtual void Reload();
@@ -175,21 +175,13 @@ public :
     /** Get the title for this page */
     virtual wxString GetTitle() {return wxEmptyString;};
 
-    /** Add the context menu in the given context menu stuff
-    *   @param menu the menu in which you should append your editor's specific options
-    */
-    virtual void AddContextMenuStuff( wxMenu* menu ) {};
-
-    /** Higlight all occurences of the given expression */
-    virtual void HighlightOccurrences( const wxString& expr , int flag = matchAll );
-
 protected :
     /**************************************************************************************
     *   ATTRIBUTES
     **************************************************************************************/
     /** container for this editor */
     RheiaManagedFrame* m_parent;
-    PyEditorContext* m_context;
+    RheiaPythonLayout* m_context;
     wxSStyledTextCtrl* m_control;
     wxSStreamToTextRedirector *m_stdoutred;
     wxSStreamToTextRedirector *m_stderrred;

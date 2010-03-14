@@ -22,6 +22,9 @@ class RheiaEditorFile;
 class RheiaEditorLayout;
 class RheiaEditorBase;
 class wxMenuBar;
+class wxToolbar;
+class wxStaticText;
+class wxTextCtrl;
 
 /**
 *   @class RheiaEditorHandler
@@ -177,6 +180,14 @@ private :
 	RheiaEditorFile* m_currentFile;
     RheiaEditorBase* m_currentEditor;
     wxString m_lastFind;
+	
+	wxToolBar* m_tbEdition;
+	wxToolBar* m_tbPythonTools;
+	
+	wxStaticText* m_txtGoto;
+	wxTextCtrl* m_txtGotoLine;
+	wxStaticText* m_stFind;
+	wxTextCtrl* m_txtFind;
 
     /**************************************************************************************
     *   EVENTS IDS
@@ -223,6 +234,7 @@ private :
     int idFind;
     int idFindInFiles;
     int idFindNext;
+	int idFindPrevious;
     int idReplace;
     int idReplaceInFiles;
     int idReplaceNext;

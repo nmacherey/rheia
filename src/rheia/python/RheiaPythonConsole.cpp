@@ -5,9 +5,10 @@
 #include <Python.h>
 #include <wx/wxPython/wxPython.h>
 
-#include "PyConsole.h"
-#include "PyContext.h"
-#include "PyConsoleManager.h"
+#include "RheiaPythonConsole.h"
+#include "RheiaPythonLayout.h"
+#include "RheiaPythonConsoleManager.h"
+#include "RheiaEditorBase.h"
 
 #include <RheiaPythonUtils.h>
 #include <RheiaPython.h>
@@ -21,18 +22,18 @@ namespace
 }
 
 
-BEGIN_EVENT_TABLE(PyConsole,RheiaBookPage)
-    EVT_CONTEXT_MENU(PyConsole::OnRequestContextMenu)
-    //EVT_STC_KEY_PROCESS(wxID_ANY , PyConsole::OnStcKey)
+BEGIN_EVENT_TABLE(RheiaPythonConsole,RheiaBookPage)
+    EVT_CONTEXT_MENU(RheiaPythonConsole::OnRequestContextMenu)
+    //EVT_STC_KEY_PROCESS(wxID_ANY , RheiaPythonConsole::OnStcKey)
 END_EVENT_TABLE()
 
-PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
+RheiaPythonConsole::RheiaPythonConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
     RheiaBookPage(parent),
     m_parent(toplevel),
     m_context(NULL)
 {
     RheiaPythonUtils::Get()->PythonInit();
-    m_context = new PyContext;
+    m_context = new RheiaPythonLayout;
     wxPanel::Create(parent,wxID_ANY);
     m_ID = wxNewId();
 
@@ -64,7 +65,7 @@ PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
     Registerevents();
     RegisterSTCEvents();
 
-    RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("pyconsole"));
+    RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("RheiaPythonConsole"));
     m_history = cfg->ReadArrayString(wxT("/history"));
 	wxString res;
 
@@ -73,14 +74,14 @@ PyConsole::PyConsole( RheiaManagedFrame* toplevel , wxWindow* parent ):
     this->Layout();
 }
 
-PyConsole::~PyConsole()
+RheiaPythonConsole::~RheiaPythonConsole()
 {
 	//RheiaPythonUtils::Get()->PythonExit();
-    RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("pyconsole"));
+    RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("RheiaPythonConsole"));
     cfg->Write(wxT("/history"),m_history);
 }
 
-void PyConsole::Reload()
+void RheiaPythonConsole::Reload()
 {
     m_control->SetLexer(m_context->GetLexer());
     wxArrayString kw = m_context->GetKeywords();
@@ -203,19 +204,19 @@ void PyConsole::Reload()
     m_control->UsePopUp(false);
 }
 
-void PyConsole::Registerevents()
+void RheiaPythonConsole::Registerevents()
 {
-    Connect(idSaveMe,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(PyConsole::OnSaveMe));
-    Connect(idSaveAs,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(PyConsole::OnSaveMeAs));
-    Connect(idCut,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(PyConsole::OnContextMenu));
-    Connect(idCopy,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(PyConsole::OnContextMenu));
-    Connect(idPaste,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(PyConsole::OnContextMenu));
-    Connect(idDelete,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(PyConsole::OnContextMenu));
-    Connect(idSelectAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(PyConsole::OnContextMenu));
-    m_control->Connect(m_ID,wxEVT_KEY_DOWN,wxKeyEventHandler(PyConsole::OnStcKey),NULL,this);
+    Connect(idSaveMe,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnSaveMe));
+    Connect(idSaveAs,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnSaveMeAs));
+    Connect(idCut,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
+    Connect(idCopy,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
+    Connect(idPaste,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
+    Connect(idDelete,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
+    Connect(idSelectAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
+    m_control->Connect(m_ID,wxEVT_KEY_DOWN,wxKeyEventHandler(RheiaPythonConsole::OnStcKey),NULL,this);
 }
 
-void PyConsole::OnRequestContextMenu( wxContextMenuEvent& event )
+void RheiaPythonConsole::OnRequestContextMenu( wxContextMenuEvent& event )
 {
     wxMenu* m_menu = BuilContextMenu();
 
@@ -227,24 +228,24 @@ void PyConsole::OnRequestContextMenu( wxContextMenuEvent& event )
     PopupMenu( m_menu , pos );
 }
 
-void PyConsole::DefineMarker(int marker, int markerType, wxColor fore, wxColor back)
+void RheiaPythonConsole::DefineMarker(int marker, int markerType, wxColor fore, wxColor back)
 {
     m_control->MarkerDefine(marker, markerType);
     m_control->MarkerSetForeground(marker, fore);
     m_control->MarkerSetBackground(marker, back);
 }
 
-bool PyConsole::Save( const wxString& filename )
+bool RheiaPythonConsole::Save( const wxString& filename )
 {
     return m_control->SaveFile(filename);
 }
 
-bool PyConsole::Load( const wxString& filename )
+bool RheiaPythonConsole::Load( const wxString& filename )
 {
     return m_control->LoadFile(filename);
 }
 
-wxMenu* PyConsole::BuilContextMenu()
+wxMenu* RheiaPythonConsole::BuilContextMenu()
 {
     wxMenu* m_menu = new wxMenu();;
     m_menu->Append( idSaveMe , wxT("&Save...") , wxT("Save me ..."));
@@ -260,17 +261,17 @@ wxMenu* PyConsole::BuilContextMenu()
     return m_menu;
 }
 
-void PyConsole::OnSaveMe( wxCommandEvent& event )
+void RheiaPythonConsole::OnSaveMe( wxCommandEvent& event )
 {
 
 }
 
-void PyConsole::OnSaveMeAs( wxCommandEvent& event )
+void RheiaPythonConsole::OnSaveMeAs( wxCommandEvent& event )
 {
 
 }
 
-void PyConsole::OnContextMenu(wxCommandEvent& event)
+void RheiaPythonConsole::OnContextMenu(wxCommandEvent& event)
 {
     int id = event.GetId();
 
@@ -286,7 +287,7 @@ void PyConsole::OnContextMenu(wxCommandEvent& event)
         DoSelectAll();
 }
 
-void PyConsole::DoCut()
+void RheiaPythonConsole::DoCut()
 {
 	int eof = m_control->GetLength();
     int pos = m_control->GetCurrentPos();
@@ -323,7 +324,7 @@ void PyConsole::DoCut()
 	m_control->Cut();
 }
 
-void PyConsole::DoPaste()
+void RheiaPythonConsole::DoPaste()
 {
 	int eof = m_control->GetLength();
     int pos = m_control->GetCurrentPos();
@@ -351,7 +352,7 @@ void PyConsole::DoPaste()
 	m_control->Paste();
 }
 
-void PyConsole::DoDelete()
+void RheiaPythonConsole::DoDelete()
 {
 	int eof = m_control->GetLength();
     int pos = m_control->GetCurrentPos();
@@ -376,38 +377,38 @@ void PyConsole::DoDelete()
 	m_control->ReplaceSelection(wxEmptyString);
 };
 
-void PyConsole::DoCopy()
+void RheiaPythonConsole::DoCopy()
 {
 	m_control->Copy();
 }
 
-void PyConsole::RegisterSTCEvents()
+void RheiaPythonConsole::RegisterSTCEvents()
 {
     // dynamic events
     Connect( m_ID, wxEVT_STC_MARGINCLICK,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnMarginClick );
+             &RheiaPythonConsole::OnMarginClick );
     Connect( m_ID, wxEVT_STC_UPDATEUI,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnUpdateUI );
+             &RheiaPythonConsole::OnUpdateUI );
     Connect( m_ID, wxEVT_STC_CHANGE,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnChange );
+             &RheiaPythonConsole::OnChange );
     Connect( m_ID, wxEVT_STC_CHARADDED,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnCharAdded );
+             &RheiaPythonConsole::OnCharAdded );
     Connect( m_ID, wxEVT_STC_DWELLSTART,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnDwellStart );
+             &RheiaPythonConsole::OnDwellStart );
     Connect( m_ID, wxEVT_STC_DWELLEND,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnDwellEnd );
+             &RheiaPythonConsole::OnDwellEnd );
     Connect( m_ID, wxEVT_STC_MODIFIED,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnModified );
+             &RheiaPythonConsole::OnModified );
     Connect( m_ID, wxEVT_STC_KEY,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &PyConsole::OnStcKey );
+             &RheiaPythonConsole::OnStcKey );
 
 
     int scintilla_events[] =
@@ -437,12 +438,12 @@ void PyConsole::RegisterSTCEvents()
     {
         Connect( m_ID, scintilla_events[i],
                  (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-                 &PyConsole::OnStcEvent );
+                 &RheiaPythonConsole::OnStcEvent );
         ++i;
     }
 }
 
-void PyConsole::OnCharAdded (wxStyledTextEvent &event)
+void RheiaPythonConsole::OnCharAdded (wxStyledTextEvent &event)
 {
     char chr = (char)event.GetKey();
     int currentLine = m_control->GetCurrentLine();
@@ -543,42 +544,42 @@ void PyConsole::OnCharAdded (wxStyledTextEvent &event)
 }
 
 //! misc
-void PyConsole::OnMarginClick (wxStyledTextEvent &event)
+void RheiaPythonConsole::OnMarginClick (wxStyledTextEvent &event)
 {
 
 }
 
-void PyConsole::OnUpdateUI(wxStyledTextEvent& event)
+void RheiaPythonConsole::OnUpdateUI(wxStyledTextEvent& event)
 {
 
 }
 
-void PyConsole::OnChange(wxStyledTextEvent& event)
+void RheiaPythonConsole::OnChange(wxStyledTextEvent& event)
 {
 
 }
 
-void PyConsole::OnDwellStart(wxStyledTextEvent& event)
+void RheiaPythonConsole::OnDwellStart(wxStyledTextEvent& event)
 {
 
 }
 
-void PyConsole::OnDwellEnd(wxStyledTextEvent& event)
+void RheiaPythonConsole::OnDwellEnd(wxStyledTextEvent& event)
 {
 
 }
 
-void PyConsole::OnModified(wxStyledTextEvent& event)
+void RheiaPythonConsole::OnModified(wxStyledTextEvent& event)
 {
 
 }
 
-void PyConsole::OnZoom(wxStyledTextEvent& event)
+void RheiaPythonConsole::OnZoom(wxStyledTextEvent& event)
 {
 
 }
 
-void PyConsole::OnStcKey(wxKeyEvent& event)
+void RheiaPythonConsole::OnStcKey(wxKeyEvent& event)
 {
     //int key = event.GetKeyCode();
     int key = event.GetKeyCode();
@@ -722,58 +723,12 @@ void PyConsole::OnStcKey(wxKeyEvent& event)
     event.Skip();
 }
 
-void PyConsole::OnStcEvent(wxStyledTextEvent& event)
+void RheiaPythonConsole::OnStcEvent(wxStyledTextEvent& event)
 {
-    if( event.GetEventType() == wxEVT_STC_DOUBLECLICK )
-    {
-        wxString word = m_control->GetSelectedText();
-        HighlightOccurrences(word, wxSTC_FIND_MATCHCASE | wxSTC_FIND_WORDSTART );
-        event.Skip();
-    }
+
 }
 
-void PyConsole::HighlightOccurrences( const wxString& expr , int flag )
-{
-    static int old_a;
-    static int old_b;
-
-    int a,b;
-
-    const int theIndicator = MATCH_INDICATOR;
-
-    m_control->GetSelection(&a,&b);
-    m_control->SendMsg( 2500 , theIndicator , 0 );
-
-    if(old_a == a && old_b == b) // whatever the current state is, we've already done it once
-        return;
-
-    old_a = a;
-    old_b = b;
-
-    wxString selectedText(m_control->GetTextRange(a, b));
-    int eof = m_control->GetLength();
-    m_control->SendMsg( 2505 , 0 , eof );
-
-    if( selectedText.Len() > 2        // if there is no text selected (a == b), it stops here and does not hog the cpu further
-            && selectedText.Find(_T(' ')) == wxNOT_FOUND
-            && selectedText.Find(_T('\t')) == wxNOT_FOUND
-            && selectedText.Find(_T('\n')) == wxNOT_FOUND )
-    {
-
-        // search for every occurence
-        int lengthFound = 0; // we need this to work properly with multibyte characters
-        for ( int pos = m_control->FindText(0, eof, selectedText, flag );
-                pos != wxSTC_INVALID_POSITION ;
-                pos = m_control->FindText(pos+=selectedText.Len(), eof, selectedText, flag) )
-        {
-            // does not make sense anymore: check that the found occurrence is not the same as the selected,
-            // since it is not selected in the second view -> so highlight it
-            m_control->SendMsg( 2504 , pos , selectedText.Len() );
-        }
-    }
-}
-
-bool PyConsole::LineHasMarker(int marker, int line)
+bool RheiaPythonConsole::LineHasMarker(int marker, int line)
 {
     if (line == -1)
         line = m_control->GetCurrentLine();

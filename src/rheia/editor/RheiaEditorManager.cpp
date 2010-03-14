@@ -15,11 +15,13 @@
 #include <RheiaConfigurationManager.h>
 #include <RheiaCenterPaneManager.h>
 #include <RheiaStandardPaths.h>
+#include <RheiaToolBarManager.h>
 
 #include <wx/menu.h>
 #include <wx/filedlg.h>
 #include <wx/filefn.h>
 #include <wx/regex.h>
+#include <wx/toolbar.h>
 
 namespace
 {
@@ -76,6 +78,7 @@ RheiaEditorManager::RheiaEditorManager( RheiaManagedFrame* parent ):
     idMenuSearch = wxNewId();
     idFind = wxNewId();
     idFindNext = wxNewId();
+	idFindPrevious = wxNewId();
     idFindInFiles = wxNewId();
     idReplace = wxNewId();
     idReplaceNext = wxNewId();
@@ -164,7 +167,61 @@ void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )
 
 void RheiaEditorManager::BuildToolBar(wxWindow* parent)
 {
-
+	wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") );
+	
+	m_tbPythonTools = new wxToolBar( parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL ); 
+	m_tbPythonTools->AddTool( idCopy, wxT("Copy"), RheiaLoadBitmap( path + wxT("#zip:copy_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Copy Selection"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idPaste, wxT("Paste"), RheiaLoadBitmap( path + wxT("#zip:paste_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Paste selection"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idCut, wxT("Cut"), RheiaLoadBitmap( path + wxT("#zip:cut_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Cut selection"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idDelete, wxT("Delete"), RheiaLoadBitmap( path + wxT("#zip:copy_close_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Delete Selection"), wxEmptyString ); 
+	m_tbPythonTools->AddSeparator(); 
+	m_tbPythonTools->AddTool( idUndo, wxT("Undo"), RheiaLoadBitmap( path + wxT("#zip:back_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Undo"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idRedo, wxT("Redo"), RheiaLoadBitmap( path + wxT("#zip:next_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Redo"), wxEmptyString ); 
+	m_tbPythonTools->AddSeparator(); 
+	m_tbPythonTools->AddTool( idSelectAll, wxT("Select All"), RheiaLoadBitmap( path + wxT("#zip:support_ok_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Select All"), wxEmptyString ); 
+	m_tbPythonTools->AddSeparator(); 
+	m_tbPythonTools->AddTool( idFoldCurrentBlock, wxT("Fold "), RheiaLoadBitmap( path + wxT("#zip:folder_up_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Fold current block"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idUnfoldCurrentBlock, wxT("Unfold"), RheiaLoadBitmap( path + wxT("#zip:folder_down_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Unfold current block"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idFoldAll, wxT("Fold All"), RheiaLoadBitmap( path + wxT("#zip:folder_remove_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Fold all blocks"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idUnfoldAll, wxT("Unfold All"), RheiaLoadBitmap( path + wxT("#zip:folder_add_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Unfold all blocks"), wxEmptyString ); 
+	m_tbPythonTools->AddSeparator(); 
+	m_txtGoto = new wxStaticText( m_tbPythonTools, wxID_ANY, wxT("Go to :"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_txtGoto->Wrap( -1 );
+	m_tbPythonTools->AddControl( m_txtGoto );
+	m_txtGotoLine = new wxTextCtrl( m_tbPythonTools, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB|wxTE_RICH );
+	m_tbPythonTools->AddControl( m_txtGotoLine );
+	m_tbPythonTools->AddSeparator(); 
+	m_stFind = new wxStaticText( m_tbPythonTools, wxID_ANY, wxT("Find :"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_stFind->Wrap( -1 );
+	m_tbPythonTools->AddControl( m_stFind );
+	m_txtFind = new wxTextCtrl( m_tbPythonTools, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB|wxTE_RICH );
+	m_tbPythonTools->AddControl( m_txtFind );
+	m_tbPythonTools->AddTool( idFindNext, wxT("Find Next"), RheiaLoadBitmap( path + wxT("#zip:support_down_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Find Next Item"), wxEmptyString ); 
+	m_tbPythonTools->AddTool( idFindPrevious, wxT("Find Previous"), RheiaLoadBitmap( path + wxT("#zip:support_up_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Find Previous item"), wxEmptyString ); 
+	m_tbPythonTools->Realize();
+	
+	RheiaToolBarManager::Get(m_parent)->AddToolBar(wxT("Editor tools"),m_tbPythonTools);
+	
+	
+	
+	m_tbEdition = new wxToolBar( parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL ); 
+	
+	m_tbEdition->AddTool( idOpen , wxT("Load"), RheiaLoadBitmap( path + wxT("#zip:doc_favorite_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Load an existing file"), wxEmptyString ); 
+	m_tbEdition->AddTool( idNew, wxT("New"), RheiaLoadBitmap( path + wxT("#zip:copy_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Create a new file"), wxEmptyString ); 
+	m_tbEdition->AddSeparator(); 
+	m_tbEdition->AddTool( idSaveCurrent, wxT("Save"), RheiaLoadBitmap( path + wxT("#zip:diskette_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Save the current document"), wxEmptyString ); 
+	m_tbEdition->AddTool( idSaveAs, wxT("Save as.."), RheiaLoadBitmap( path + wxT("#zip:copy_favorite_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Save the current document in a new file"), wxEmptyString ); 
+	m_tbEdition->AddSeparator(); 
+	m_tbEdition->AddTool( idToggleBookMark, wxT("Bookmark"), RheiaLoadBitmap( path + wxT("#zip:book_add_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Bookmark current line"), wxEmptyString ); 
+	m_tbEdition->AddTool( idToggleBookMark, wxT("Toggle bookmark"), RheiaLoadBitmap( path + wxT("#zip:book_close_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Toggle current bookmark"), wxEmptyString ); 
+	m_tbEdition->AddTool( idNextBookmark, wxT("Next bookmark"), RheiaLoadBitmap( path + wxT("#zip:book_down_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Next bookmark"), wxEmptyString ); 
+	m_tbEdition->AddTool( idPreviousBookMark, wxT("Previous bookmark"), RheiaLoadBitmap( path + wxT("#zip:book_up_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Previous bookmark"), wxEmptyString ); 
+	m_tbEdition->AddSeparator(); 
+	m_tbEdition->AddTool( idCommentSel, wxT("Comment selection"), RheiaLoadBitmap( path + wxT("#zip:contact_add_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Comment selection"), wxEmptyString ); 
+	m_tbEdition->AddTool( idUncommentSel, wxT("Toggle comment"), RheiaLoadBitmap( path + wxT("#zip:contact_remove_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Toggle comment on selection"), wxEmptyString ); 
+	m_tbEdition->Realize();
+	
+	RheiaToolBarManager::Get(m_parent)->AddToolBar(wxT("Editor toolbar"),m_tbEdition);
 }
 
 void RheiaEditorManager::ReleaseMenu( wxMenuBar* menuBar )

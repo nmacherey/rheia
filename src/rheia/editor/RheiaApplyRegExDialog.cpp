@@ -37,21 +37,19 @@ RheiaApplyRegExDialog::RheiaApplyRegExDialog( wxWindow* parent, wxWindowID id, c
 	sbSizer11 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Options") ), wxVERTICAL );
 
 	chkReExtended = new wxCheckBox( this, wxID_ANY, wxT("Use extended regex syntax"), wxDefaultPosition, wxDefaultSize, 0 );
-	chkReExtended->SetValue(true);
 	sbSizer11->Add( chkReExtended, 0, wxALL, 5 );
 
 	chkReAdvanced = new wxCheckBox( this, wxID_ANY, wxT("Use advanced regex syntax"), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer11->Add( chkReAdvanced, 0, wxALL, 5 );
 
 	chkReBasic = new wxCheckBox( this, wxID_ANY, wxT("Use basic regex syntax"), wxDefaultPosition, wxDefaultSize, 0 );
+	chkReBasic->SetValue(true);
 	sbSizer11->Add( chkReBasic, 0, wxALL, 5 );
 
 	chkReIgnore = new wxCheckBox( this, wxID_ANY, wxT("Ingore case in match"), wxDefaultPosition, wxDefaultSize, 0 );
-	chkReIgnore->SetValue(true);
 	sbSizer11->Add( chkReIgnore, 0, wxALL, 5 );
 
 	chkReNosub = new wxCheckBox( this, wxID_ANY, wxT("Only check match, don't set back references"), wxDefaultPosition, wxDefaultSize, 0 );
-	chkReNosub->SetValue(true);
 	sbSizer11->Add( chkReNosub, 0, wxALL, 5 );
 
 	chkReNewline = new wxCheckBox( this, wxID_ANY, wxT("If not set, treat ':"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -98,7 +96,7 @@ RheiaApplyRegExDialog::RheiaApplyRegExDialog( wxWindow* parent, wxWindowID id, c
 	m_sdbSizer2Cancel = new wxButton( this, wxID_CANCEL );
 	m_sdbSizer2->AddButton( m_sdbSizer2Cancel );
 	m_sdbSizer2->Realize();
-	bSizer18->Add( m_sdbSizer2, 1, wxEXPAND, 5 );
+	bSizer18->Add( m_sdbSizer2, 1, wxALL|wxEXPAND, 5 );
 
 	RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("PyRegExDialog"));
 	m_history = cfg->ReadArrayString( wxT("/regex/history") );
@@ -113,7 +111,8 @@ RheiaApplyRegExDialog::RheiaApplyRegExDialog( wxWindow* parent, wxWindowID id, c
 
 	this->SetSizer( bSizer18 );
 	this->Layout();
-
+	
+	bSizer18->SetSizeHints(this);
 	this->Centre( wxBOTH );
 }
 

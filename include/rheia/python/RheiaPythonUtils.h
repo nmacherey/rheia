@@ -25,6 +25,16 @@ class PYTHON_DLLEXPORT RheiaPythonUtils : public wxEvtHandler, public Mgr<RheiaP
 	friend class RheiaManager;
 
 public :
+	/**********************************************************************************************************
+	*	RHEIA API IMPORTS
+	**********************************************************************************************************/
+	
+	/** import the wxPython core API */
+	bool ImportWxPythonAPI();
+	
+	/** import the Rheia python API */
+	bool ImportRheiaPytonhAPI();
+	
     /**********************************************************************************************************
 	*	METHODS
 	**********************************************************************************************************/
@@ -62,7 +72,7 @@ public :
 	int PythonGetFlagFromString( const wxString& command );
 
 	/** check if the given string shall be executed */
-	bool ShallExecuteCommand( const wxString& command , int nolines );
+	int ShallExecuteCommand( const wxString& command , wxString& error , int nolines );
 
 	/**
 	*   Get the python traceback module output
