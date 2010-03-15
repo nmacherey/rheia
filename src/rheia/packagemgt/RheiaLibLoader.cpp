@@ -8,9 +8,9 @@
 #include <RheiaLibLoader.h>
 
 /** Global instance for the RheiaLibLoader */
-template<> RheiaLibLoader* Mgr<RheiaLibLoader>::instance = 0;
+template<> RheiaLibLoader* Singleton<RheiaLibLoader>::instance = 0;
 /** Global instance for the RheiaLibLoader */
-template<> bool  Mgr<RheiaLibLoader>::isShutdown = false;
+template<> bool  Singleton<RheiaLibLoader>::isShutdown = false;
 
 RheiaLibLoader::RheiaLibLoader()
 {

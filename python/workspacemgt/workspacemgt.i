@@ -162,9 +162,9 @@
 %include "RheiaProjectCreationDlg.h"
 %include "RheiaProjectCreationWizard.h"
 
-typedef Mgr<RheiaProjectFactory> MgrRheiaProjectFactory;
-%rename(MgrRheiaProjectFactory) Mgr<RheiaProjectFactory>;
-%template(MgrRheiaProjectFactory) Mgr<RheiaProjectFactory>;
+typedef Singleton<RheiaProjectFactory> MgrRheiaProjectFactory;
+%rename(MgrRheiaProjectFactory) Singleton<RheiaProjectFactory>;
+%template(MgrRheiaProjectFactory) Singleton<RheiaProjectFactory>;
 %include "RheiaProjectFactory.h"
 
 %include "RheiaProjectLoader.h"

@@ -142,17 +142,17 @@ rheia = _sys.modules[__name__]
 
 %include pluginevent.i
 
-typedef Mgr<RheiaLibLoader> MgrRheiaLibLoader;
-%rename(MgrRheiaLibLoader) Mgr<RheiaLibLoader>;
-%template(MgrRheiaLibLoader) Mgr<RheiaLibLoader>;
+typedef Singleton<RheiaLibLoader> MgrRheiaLibLoader;
+%rename(MgrRheiaLibLoader) Singleton<RheiaLibLoader>;
+%template(MgrRheiaLibLoader) Singleton<RheiaLibLoader>;
 
 %include "RheiaLibLoader.h"
 
 %include "RheiaPackageControl.h"
 
-typedef Mgr<RheiaPackageDBManager> MgrRheiaPackageDBManager;
-%rename(MgrRheiaPackageDBManager) Mgr<RheiaPackageDBManager>;
-%template(MgrRheiaPackageDBManager) Mgr<RheiaPackageDBManager>;
+typedef Singleton<RheiaPackageDBManager> MgrRheiaPackageDBManager;
+%rename(MgrRheiaPackageDBManager) Singleton<RheiaPackageDBManager>;
+%template(MgrRheiaPackageDBManager) Singleton<RheiaPackageDBManager>;
 
 %include "RheiaPackageDBManager.h"
 %include "RheiaPackageVersion.h"
@@ -175,15 +175,15 @@ typedef Mgr<RheiaPackageDBManager> MgrRheiaPackageDBManager;
 
 %include "RheiaPackageManagementDialog.h"
 
-typedef Mgr<RheiaPackageManager> MgrRheiaPackageManager;
-%rename(MgrRheiaPackageManager) Mgr<RheiaPackageManager>;
-%template(MgrRheiaPackageManager) Mgr<RheiaPackageManager>;
+typedef Singleton<RheiaPackageManager> MgrRheiaPackageManager;
+%rename(MgrRheiaPackageManager) Singleton<RheiaPackageManager>;
+%template(MgrRheiaPackageManager) Singleton<RheiaPackageManager>;
 
 %include "RheiaPackageManager.h"
 
-typedef Mgr<RheiaPluginManager> MgrRheiaPluginManager;
-%rename(MgrRheiaPluginManager) Mgr<RheiaPluginManager>;
-%template(MgrRheiaPluginManager) Mgr<RheiaPluginManager>;
+typedef Singleton<RheiaPluginManager> MgrRheiaPluginManager;
+%rename(MgrRheiaPluginManager) Singleton<RheiaPluginManager>;
+%template(MgrRheiaPluginManager) Singleton<RheiaPluginManager>;
 
 %include "RheiaPluginManager.h"
 %include "RheiaPluginManifest.h"

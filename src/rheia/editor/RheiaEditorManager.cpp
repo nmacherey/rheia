@@ -32,9 +32,9 @@ namespace
 template<> RheiaMgr<RheiaManagedFrame,RheiaEditorManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaEditorManager>::m_ns = locmap;
 
 /** global instance for RheiaEditorFactory */
-template<> RheiaEditorFactory* Mgr<RheiaEditorFactory>::instance = 0;
+template<> RheiaEditorFactory* Singleton<RheiaEditorFactory>::instance = 0;
 /** global instance for RheiaEditorFactory */
-template<> bool  Mgr<RheiaEditorFactory>::isShutdown = false;
+template<> bool  Singleton<RheiaEditorFactory>::isShutdown = false;
 
 RheiaEditorManager::RheiaEditorManager( RheiaManagedFrame* parent ):
     wxEvtHandler(),
@@ -772,4 +772,94 @@ void RheiaEditorManager::AskForFindInFiles()
     RheiaFindFilesDialog dialog(m_parent);
     if( dialog.ShowModal() != wxID_OK )
         return;
+}
+
+int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly )
+{
+	if( expr.IsEmpty() || editor == NULL )
+		return -1;
+	
+	int start, end, pos;
+	wxStyledTextCtrl* control = editor->GetControl();
+	editor->HighlightOccurrences(expr,flag);
+	
+	if( selOnly )
+	{
+		start = control->GetSelectionStart();
+		end = control->GetSelectionEnd();
+	}
+	else
+	{
+		start = control->GetCurrentPos();
+		end = control->GetLength();
+	}
+	
+	m_findData.start = start;
+	m_findData.end = end;
+	m_findData.expr = expr;
+	m_findData.selOnly = selOnly;
+	m_findData.flag = flag;
+	m_findData.pos = start;
+	
+	while(1)
+	{
+		pos = control->FindText(start, end, expr , flag);
+		m_findData.pos = pos;
+		
+		if( pos != -1 && start != end )
+		{
+			int line = control->LineFromPosition(pos);
+			int onScreen = control->LinesOnScreen() >> 1;
+            int l1 = line - onScreen;
+            int l2 = line + onScreen;
+			
+            for(int l=l1; l<=l2;l+=2)       // unfold visible lines on screen
+                control->EnsureVisible(l);
+				
+            control->GotoLine(l1);          // center selection on screen
+            control->GotoLine(l2);
+            control->GotoLine(line);
+            control->SetSelectionStart(pos);
+			control->SetSelectionEnd(pos+expr.Len());
+            m_findData.start = pos;
+            break; // done
+			
+		}//end if( pos != -1 && start != end )
+		else
+		{
+			wxBell();
+			if( pos == -1 && !selOnly && start== 0 && end == control->GetLength() )
+			{
+				wxString msg = expr + wxT(" not found !");
+				wxMessageBox(msg,wxT("Result"),wxICON_INFORMATION,m_parent);
+				return -1;
+			}
+			else if( pos == -1 && selOnly )
+			{
+				wxString msg = expr + wxT(" not found in selection ! Would you like to restart the search from the begining of the document ?");
+				int ret = wxMessageBox(msg,wxT("Result"),wxICON_QUESTION|wxYES_NO,m_parent);
+				if( ret == wxID_NO )
+					return -1;
+				else
+				{
+					m_findData.start = 0;
+					m_findData.end = control->GetLength();
+				}
+			}
+			else
+			{
+				wxString msg = expr + wxT(" not found in range ! Would you like to restart the search on the whole document ?");
+				int ret = wxMessageBox(msg,wxT("Result"),wxICON_QUESTION|wxYES_NO,m_parent);
+				if( ret == wxID_NO )
+					return -1;
+				else
+				{
+					m_findData.start = 0;
+					m_findData.end = control->GetLength();
+				}
+			}
+		}
+	}// end while(1)
+	
+	return m_findData.pos;
 }

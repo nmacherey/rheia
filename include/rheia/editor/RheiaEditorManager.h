@@ -14,6 +14,8 @@
 #include <RheiaBookPage.h>
 #include <RheiaException.h>
 
+#include <wx/stc/stc.h>
+
 #include "RheiaEditorSettings.h"
 
 #include <map>
@@ -25,6 +27,11 @@ class wxMenuBar;
 class wxToolbar;
 class wxStaticText;
 class wxTextCtrl;
+
+const int matchStart          = wxSTC_FIND_WORDSTART;
+const int matchCase           = wxSTC_FIND_MATCHCASE;
+const int matchWholeWord      = wxSTC_FIND_WHOLEWORD;
+const int matchAll            = 0;
 
 /**
 *   @class RheiaEditorHandler
@@ -170,7 +177,20 @@ private :
 
     /** Get current editor */
     RheiaEditorBase* GetCurrentEditor();
-
+	
+	/**************************************************************************************
+    *   FIND / REPLACE METHODS
+    **************************************************************************************/
+	/** Find the given expression int the given editor
+	 * @param editor Editor in which the expression shall be found
+	 * @param expr Expression to find
+	 * @param flag one of the wxSCI_FIND_WHOLEWORD, wxSCI_FIND_WORDSTART, wxSCI_FIND_MATCHCASE flags
+	 * @param selOnly specify if the find shall be done in the selected teext only ot not
+	 * @return the current position for the first expression found in the editor or 
+	 * -1 if the expression does not exists
+	 */
+	int FindIn( RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly );
+	
 private :
     /** parented managed window */
     RheiaManagedFrame* m_parent;
@@ -242,6 +262,21 @@ private :
 
     /*** In the Settings menu */
     int idConfigure;
+	
+	/** @struct InternalFindData
+	 * @brief basic class fo storing find info internally
+	 */
+	struct InternalFindData
+	{
+		wxString expr;
+		int start;
+		int end;
+		bool selOnly;
+		int pos;
+		int flag;
+	};
+	
+	InternalFindData m_findData;
 };
 
 /**
@@ -252,9 +287,9 @@ private :
 *   @date 14-February-2009
 *   @version 0.1.0
 */
-class EDITOR_DLLEXPORT RheiaEditorFactory : public Mgr<RheiaEditorFactory>
+class EDITOR_DLLEXPORT RheiaEditorFactory : public Singleton<RheiaEditorFactory>
 {
-    friend class Mgr<RheiaEditorFactory>;
+    friend class Singleton<RheiaEditorFactory>;
 public :
     /**************************************************************************************
     *   STATIC METHODS FOR GENERAL STUFF

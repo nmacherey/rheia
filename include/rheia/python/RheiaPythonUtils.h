@@ -16,10 +16,10 @@
 
 #include <Python.h>
 
-class PYTHON_DLLEXPORT RheiaPythonUtils : public wxEvtHandler, public Mgr<RheiaPythonUtils>
+class PYTHON_DLLEXPORT RheiaPythonUtils : public wxEvtHandler, public Singleton<RheiaPythonUtils>
 {
-    /** Give our private member access to Mgr */
-	friend class Mgr<RheiaPythonUtils>;
+    /** Give our private member access to Singleton */
+	friend class Singleton<RheiaPythonUtils>;
 
 	/** Give our private member access to RheiaManager */
 	friend class RheiaManager;

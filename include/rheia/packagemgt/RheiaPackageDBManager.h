@@ -51,10 +51,10 @@ typedef struct _xmlDoc xmlDoc;
 *   @version 0.0.1
 *   @date 18-October-2009
 */
-class PMGT_DLLEXPORT RheiaPackageDBManager : public Mgr<RheiaPackageDBManager>
+class PMGT_DLLEXPORT RheiaPackageDBManager : public Singleton<RheiaPackageDBManager>
 {
     /** give Mrg<RheiaConfigurationManager> our private members access */
-    friend class Mgr<RheiaPackageDBManager>;
+    friend class Singleton<RheiaPackageDBManager>;
 
     /** give RheiaManager our private memebers access */
     friend class RheiaManager;

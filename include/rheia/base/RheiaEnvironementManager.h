@@ -48,13 +48,13 @@ typedef std::map< wxString , wxString > RheiaStringStringMap;
 *	@date 23-September-2009
 *	@version 0.0.1
 */
-class BASE_DLLEXPORT RheiaEnvironementManager : public wxEvtHandler , public Mgr<RheiaEnvironementManager>
+class BASE_DLLEXPORT RheiaEnvironementManager : public wxEvtHandler , public Singleton<RheiaEnvironementManager>
 {
     /** give RheiaManager our private memebers access */
     friend class RheiaManager;
 
-    /** give Mgr our private members access */
-    friend class Mgr<RheiaEnvironementManager>;
+    /** give Singleton our private members access */
+    friend class Singleton<RheiaEnvironementManager>;
 
 public :
     /******************************************************************************************************

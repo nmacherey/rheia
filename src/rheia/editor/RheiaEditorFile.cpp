@@ -38,6 +38,6 @@ bool RheiaEditorFile::OnPageClosed()
     if( !RheiaEditorManager::Get(m_parent)->NotifyClose(this) )
         return false;
 
-    m_page == NULL;
+    m_page = NULL;
     return true;
 }

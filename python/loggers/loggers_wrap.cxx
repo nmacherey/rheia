@@ -2470,71 +2470,71 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 #define SWIGTYPE_p_InfoWindow swig_types[0]
 #define SWIGTYPE_p_MgrNsMap swig_types[1]
 #define SWIGTYPE_p_MgrNsMapIt swig_types[2]
-#define SWIGTYPE_p_MgrTRheiaEnvironementManager_t swig_types[3]
-#define SWIGTYPE_p_MgrTRheiaEventsManager_t swig_types[4]
-#define SWIGTYPE_p_MgrTRheiaLoggerFactory_t swig_types[5]
-#define SWIGTYPE_p_MgrTRheiaPersonalityManager_t swig_types[6]
-#define SWIGTYPE_p_MgrTRheiaProfileManager_t swig_types[7]
-#define SWIGTYPE_p_MgrTRheiaXulManager_t swig_types[8]
-#define SWIGTYPE_p_RheiaApplicationConfigurationDialog swig_types[9]
-#define SWIGTYPE_p_RheiaApplicationGeneralPanel swig_types[10]
-#define SWIGTYPE_p_RheiaBookConfigurationPanel swig_types[11]
-#define SWIGTYPE_p_RheiaBookManager swig_types[12]
-#define SWIGTYPE_p_RheiaBookPage swig_types[13]
-#define SWIGTYPE_p_RheiaCenterMgrSettingsPanel swig_types[14]
-#define SWIGTYPE_p_RheiaCenterPaneManager swig_types[15]
-#define SWIGTYPE_p_RheiaConfigurationDialog swig_types[16]
-#define SWIGTYPE_p_RheiaConfigurationManager swig_types[17]
-#define SWIGTYPE_p_RheiaConfigurationPanel swig_types[18]
-#define SWIGTYPE_p_RheiaConfigurationPathsDialog swig_types[19]
-#define SWIGTYPE_p_RheiaDockSystSettingsPanel swig_types[20]
-#define SWIGTYPE_p_RheiaEnvironementManager swig_types[21]
-#define SWIGTYPE_p_RheiaEvent swig_types[22]
-#define SWIGTYPE_p_RheiaEventsManager swig_types[23]
-#define SWIGTYPE_p_RheiaFileLogger swig_types[24]
-#define SWIGTYPE_p_RheiaFrameEvent swig_types[25]
-#define SWIGTYPE_p_RheiaHtmlHeader swig_types[26]
-#define SWIGTYPE_p_RheiaHtmlLogger swig_types[27]
-#define SWIGTYPE_p_RheiaInfoMgrSettingsPanel swig_types[28]
-#define SWIGTYPE_p_RheiaInfoPage swig_types[29]
-#define SWIGTYPE_p_RheiaInfoPaneManager swig_types[30]
-#define SWIGTYPE_p_RheiaLeftMgrSettingsPanel swig_types[31]
-#define SWIGTYPE_p_RheiaLeftPaneManager swig_types[32]
-#define SWIGTYPE_p_RheiaLogMgrSettingsPanel swig_types[33]
-#define SWIGTYPE_p_RheiaLogger swig_types[34]
-#define SWIGTYPE_p_RheiaLoggerFactory swig_types[35]
-#define SWIGTYPE_p_RheiaLoggerManager swig_types[36]
-#define SWIGTYPE_p_RheiaLoggerPageInfo swig_types[37]
-#define SWIGTYPE_p_RheiaManagedFrame swig_types[38]
-#define SWIGTYPE_p_RheiaMenuManager swig_types[39]
-#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaCenterPaneManager_t swig_types[40]
-#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaInfoPaneManager_t swig_types[41]
-#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaLeftPaneManager_t swig_types[42]
-#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaLoggerManager_t swig_types[43]
-#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaMenuManager_t swig_types[44]
-#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaStatusBarManager_t swig_types[45]
-#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaToolBarManager_t swig_types[46]
-#define SWIGTYPE_p_RheiaNullLogger swig_types[47]
-#define SWIGTYPE_p_RheiaObjectWithBitmap swig_types[48]
-#define SWIGTYPE_p_RheiaPageContainer swig_types[49]
-#define SWIGTYPE_p_RheiaPersonalityManager swig_types[50]
-#define SWIGTYPE_p_RheiaProfileManager swig_types[51]
-#define SWIGTYPE_p_RheiaSplashScreen swig_types[52]
-#define SWIGTYPE_p_RheiaStartPage swig_types[53]
-#define SWIGTYPE_p_RheiaStartPageContainer swig_types[54]
-#define SWIGTYPE_p_RheiaStatusBarManager swig_types[55]
-#define SWIGTYPE_p_RheiaStdLogger swig_types[56]
-#define SWIGTYPE_p_RheiaTextLogger swig_types[57]
-#define SWIGTYPE_p_RheiaTextLoggerConfigurationPanel swig_types[58]
-#define SWIGTYPE_p_RheiaTextLoggerPage swig_types[59]
-#define SWIGTYPE_p_RheiaTimeStampableFileLogger swig_types[60]
-#define SWIGTYPE_p_RheiaTimeStampableHtmlLogger swig_types[61]
-#define SWIGTYPE_p_RheiaTimeStampableStdLogger swig_types[62]
-#define SWIGTYPE_p_RheiaTimeStampableTextLogger swig_types[63]
-#define SWIGTYPE_p_RheiaToolBarManager swig_types[64]
-#define SWIGTYPE_p_RheiaTreeItem swig_types[65]
-#define SWIGTYPE_p_RheiaTreeItemData swig_types[66]
-#define SWIGTYPE_p_RheiaXulManager swig_types[67]
+#define SWIGTYPE_p_RheiaApplicationConfigurationDialog swig_types[3]
+#define SWIGTYPE_p_RheiaApplicationGeneralPanel swig_types[4]
+#define SWIGTYPE_p_RheiaBookConfigurationPanel swig_types[5]
+#define SWIGTYPE_p_RheiaBookManager swig_types[6]
+#define SWIGTYPE_p_RheiaBookPage swig_types[7]
+#define SWIGTYPE_p_RheiaCenterMgrSettingsPanel swig_types[8]
+#define SWIGTYPE_p_RheiaCenterPaneManager swig_types[9]
+#define SWIGTYPE_p_RheiaConfigurationDialog swig_types[10]
+#define SWIGTYPE_p_RheiaConfigurationManager swig_types[11]
+#define SWIGTYPE_p_RheiaConfigurationPanel swig_types[12]
+#define SWIGTYPE_p_RheiaConfigurationPathsDialog swig_types[13]
+#define SWIGTYPE_p_RheiaDockSystSettingsPanel swig_types[14]
+#define SWIGTYPE_p_RheiaEnvironementManager swig_types[15]
+#define SWIGTYPE_p_RheiaEvent swig_types[16]
+#define SWIGTYPE_p_RheiaEventsManager swig_types[17]
+#define SWIGTYPE_p_RheiaFileLogger swig_types[18]
+#define SWIGTYPE_p_RheiaFrameEvent swig_types[19]
+#define SWIGTYPE_p_RheiaHtmlHeader swig_types[20]
+#define SWIGTYPE_p_RheiaHtmlLogger swig_types[21]
+#define SWIGTYPE_p_RheiaInfoMgrSettingsPanel swig_types[22]
+#define SWIGTYPE_p_RheiaInfoPage swig_types[23]
+#define SWIGTYPE_p_RheiaInfoPaneManager swig_types[24]
+#define SWIGTYPE_p_RheiaLeftMgrSettingsPanel swig_types[25]
+#define SWIGTYPE_p_RheiaLeftPaneManager swig_types[26]
+#define SWIGTYPE_p_RheiaLogMgrSettingsPanel swig_types[27]
+#define SWIGTYPE_p_RheiaLogger swig_types[28]
+#define SWIGTYPE_p_RheiaLoggerFactory swig_types[29]
+#define SWIGTYPE_p_RheiaLoggerManager swig_types[30]
+#define SWIGTYPE_p_RheiaLoggerPageInfo swig_types[31]
+#define SWIGTYPE_p_RheiaManagedFrame swig_types[32]
+#define SWIGTYPE_p_RheiaMenuManager swig_types[33]
+#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaCenterPaneManager_t swig_types[34]
+#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaInfoPaneManager_t swig_types[35]
+#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaLeftPaneManager_t swig_types[36]
+#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaLoggerManager_t swig_types[37]
+#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaMenuManager_t swig_types[38]
+#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaStatusBarManager_t swig_types[39]
+#define SWIGTYPE_p_RheiaMgrTRheiaManagedFrame_RheiaToolBarManager_t swig_types[40]
+#define SWIGTYPE_p_RheiaNullLogger swig_types[41]
+#define SWIGTYPE_p_RheiaObjectWithBitmap swig_types[42]
+#define SWIGTYPE_p_RheiaPageContainer swig_types[43]
+#define SWIGTYPE_p_RheiaPersonalityManager swig_types[44]
+#define SWIGTYPE_p_RheiaProfileManager swig_types[45]
+#define SWIGTYPE_p_RheiaSplashScreen swig_types[46]
+#define SWIGTYPE_p_RheiaStartPage swig_types[47]
+#define SWIGTYPE_p_RheiaStartPageContainer swig_types[48]
+#define SWIGTYPE_p_RheiaStatusBarManager swig_types[49]
+#define SWIGTYPE_p_RheiaStdLogger swig_types[50]
+#define SWIGTYPE_p_RheiaTextLogger swig_types[51]
+#define SWIGTYPE_p_RheiaTextLoggerConfigurationPanel swig_types[52]
+#define SWIGTYPE_p_RheiaTextLoggerPage swig_types[53]
+#define SWIGTYPE_p_RheiaTimeStampableFileLogger swig_types[54]
+#define SWIGTYPE_p_RheiaTimeStampableHtmlLogger swig_types[55]
+#define SWIGTYPE_p_RheiaTimeStampableStdLogger swig_types[56]
+#define SWIGTYPE_p_RheiaTimeStampableTextLogger swig_types[57]
+#define SWIGTYPE_p_RheiaToolBarManager swig_types[58]
+#define SWIGTYPE_p_RheiaTreeItem swig_types[59]
+#define SWIGTYPE_p_RheiaTreeItemData swig_types[60]
+#define SWIGTYPE_p_RheiaXulManager swig_types[61]
+#define SWIGTYPE_p_SingletonTRheiaEnvironementManager_t swig_types[62]
+#define SWIGTYPE_p_SingletonTRheiaEventsManager_t swig_types[63]
+#define SWIGTYPE_p_SingletonTRheiaLoggerFactory_t swig_types[64]
+#define SWIGTYPE_p_SingletonTRheiaPersonalityManager_t swig_types[65]
+#define SWIGTYPE_p_SingletonTRheiaProfileManager_t swig_types[66]
+#define SWIGTYPE_p_SingletonTRheiaXulManager_t swig_types[67]
 #define SWIGTYPE_p__xmlDoc swig_types[68]
 #define SWIGTYPE_p__xmlNode swig_types[69]
 #define SWIGTYPE_p__xmlXPathContext swig_types[70]
@@ -4538,7 +4538,7 @@ SWIGINTERN PyObject *_wrap_RheiaLogger_BuildMenu(PyObject *SWIGUNUSEDPARM(self),
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   char *  kwnames[] = {
-    (char *) "self",(char *) "menu", NULL 
+    (char *) "self",(char *)"arg2", NULL 
   };
   Swig::Director *director = 0;
   
@@ -6107,7 +6107,7 @@ SWIGINTERN PyObject *_wrap_MgrRheiaLoggerFactory_Valid(PyObject *SWIGUNUSEDPARM(
   if (!SWIG_Python_UnpackTuple(args,"MgrRheiaLoggerFactory_Valid",0,0,0)) SWIG_fail;
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (bool)Mgr<RheiaLoggerFactory >::SWIGTEMPLATEDISAMBIGUATOR Valid();
+    result = (bool)Singleton<RheiaLoggerFactory >::SWIGTEMPLATEDISAMBIGUATOR Valid();
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -6127,7 +6127,7 @@ SWIGINTERN PyObject *_wrap_MgrRheiaLoggerFactory_Get(PyObject *SWIGUNUSEDPARM(se
   if (!SWIG_Python_UnpackTuple(args,"MgrRheiaLoggerFactory_Get",0,0,0)) SWIG_fail;
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (RheiaLoggerFactory *)Mgr<RheiaLoggerFactory >::SWIGTEMPLATEDISAMBIGUATOR Get();
+    result = (RheiaLoggerFactory *)Singleton<RheiaLoggerFactory >::SWIGTEMPLATEDISAMBIGUATOR Get();
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -6144,7 +6144,7 @@ SWIGINTERN PyObject *_wrap_MgrRheiaLoggerFactory_Free(PyObject *SWIGUNUSEDPARM(s
   if (!SWIG_Python_UnpackTuple(args,"MgrRheiaLoggerFactory_Free",0,0,0)) SWIG_fail;
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    Mgr<RheiaLoggerFactory >::SWIGTEMPLATEDISAMBIGUATOR Free();
+    Singleton<RheiaLoggerFactory >::SWIGTEMPLATEDISAMBIGUATOR Free();
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -6158,7 +6158,7 @@ fail:
 SWIGINTERN PyObject *MgrRheiaLoggerFactory_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_MgrTRheiaLoggerFactory_t, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_SingletonTRheiaLoggerFactory_t, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -10132,23 +10132,23 @@ static void *_p_RheiaFileLoggerTo_p_RheiaLogger(void *x) {
 static void *_p_RheiaTimeStampableFileLoggerTo_p_RheiaLogger(void *x) {
     return (void *)((RheiaLogger *) (RheiaFileLogger *) ((RheiaTimeStampableFileLogger *) x));
 }
-static void *_p_RheiaXulManagerTo_p_MgrTRheiaXulManager_t(void *x) {
-    return (void *)((Mgr<RheiaXulManager > *)  ((RheiaXulManager *) x));
+static void *_p_RheiaXulManagerTo_p_SingletonTRheiaXulManager_t(void *x) {
+    return (void *)((Singleton<RheiaXulManager > *)  ((RheiaXulManager *) x));
 }
-static void *_p_RheiaProfileManagerTo_p_MgrTRheiaProfileManager_t(void *x) {
-    return (void *)((Mgr<RheiaProfileManager > *)  ((RheiaProfileManager *) x));
+static void *_p_RheiaProfileManagerTo_p_SingletonTRheiaProfileManager_t(void *x) {
+    return (void *)((Singleton<RheiaProfileManager > *)  ((RheiaProfileManager *) x));
 }
-static void *_p_RheiaPersonalityManagerTo_p_MgrTRheiaPersonalityManager_t(void *x) {
-    return (void *)((Mgr<RheiaPersonalityManager > *)  ((RheiaPersonalityManager *) x));
+static void *_p_RheiaPersonalityManagerTo_p_SingletonTRheiaPersonalityManager_t(void *x) {
+    return (void *)((Singleton<RheiaPersonalityManager > *)  ((RheiaPersonalityManager *) x));
 }
 static void *_p_RheiaMenuManagerTo_p_RheiaMgrTRheiaManagedFrame_RheiaMenuManager_t(void *x) {
     return (void *)((RheiaMgr<RheiaManagedFrame,RheiaMenuManager > *)  ((RheiaMenuManager *) x));
 }
-static void *_p_RheiaEventsManagerTo_p_MgrTRheiaEventsManager_t(void *x) {
-    return (void *)((Mgr<RheiaEventsManager > *)  ((RheiaEventsManager *) x));
+static void *_p_RheiaEventsManagerTo_p_SingletonTRheiaEventsManager_t(void *x) {
+    return (void *)((Singleton<RheiaEventsManager > *)  ((RheiaEventsManager *) x));
 }
-static void *_p_RheiaEnvironementManagerTo_p_MgrTRheiaEnvironementManager_t(void *x) {
-    return (void *)((Mgr<RheiaEnvironementManager > *)  ((RheiaEnvironementManager *) x));
+static void *_p_RheiaEnvironementManagerTo_p_SingletonTRheiaEnvironementManager_t(void *x) {
+    return (void *)((Singleton<RheiaEnvironementManager > *)  ((RheiaEnvironementManager *) x));
 }
 static void *_p_RheiaLoggerManagerTo_p_RheiaMgrTRheiaManagedFrame_RheiaLoggerManager_t(void *x) {
     return (void *)((RheiaMgr<RheiaManagedFrame,RheiaLoggerManager > *)  ((RheiaLoggerManager *) x));
@@ -11278,8 +11278,8 @@ static void *_p_RheiaApplicationConfigurationDialogTo_p_wxWindow(void *x) {
 static void *_p_wxMDIParentFrameTo_p_wxWindow(void *x) {
     return (void *)((wxWindow *) (wxTopLevelWindow *)(wxFrame *) ((wxMDIParentFrame *) x));
 }
-static void *_p_RheiaLoggerFactoryTo_p_MgrTRheiaLoggerFactory_t(void *x) {
-    return (void *)((Mgr<RheiaLoggerFactory > *)  ((RheiaLoggerFactory *) x));
+static void *_p_RheiaLoggerFactoryTo_p_SingletonTRheiaLoggerFactory_t(void *x) {
+    return (void *)((Singleton<RheiaLoggerFactory > *)  ((RheiaLoggerFactory *) x));
 }
 static void *_p_InfoWindowTo_p_wxDialog(void *x) {
     return (void *)((wxDialog *)  ((InfoWindow *) x));
@@ -11502,17 +11502,6 @@ static void *_p_RheiaStartPageTo_p_RheiaBookPage(void *x) {
 }
 static swig_type_info _swigt__p_MgrNsMap = {"_p_MgrNsMap", "MgrNsMap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MgrNsMapIt = {"_p_MgrNsMapIt", "MgrNsMapIt *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_MgrTRheiaEnvironementManager_t = {"_p_MgrTRheiaEnvironementManager_t", "Mgr<RheiaEnvironementManager > *|MgrRheiaEnvironementManager *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RheiaEnvironementManager = {"_p_RheiaEnvironementManager", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_MgrTRheiaEventsManager_t = {"_p_MgrTRheiaEventsManager_t", "Mgr<RheiaEventsManager > *|MgrRheiaEventsManager *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RheiaEventsManager = {"_p_RheiaEventsManager", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_MgrTRheiaLoggerFactory_t = {"_p_MgrTRheiaLoggerFactory_t", "Mgr<RheiaLoggerFactory > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_MgrTRheiaPersonalityManager_t = {"_p_MgrTRheiaPersonalityManager_t", "Mgr<RheiaPersonalityManager > *|MgrRheiaPersonalityManager *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RheiaPersonalityManager = {"_p_RheiaPersonalityManager", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_MgrTRheiaProfileManager_t = {"_p_MgrTRheiaProfileManager_t", "Mgr<RheiaProfileManager > *|MgrRheiaProfileManager *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RheiaProfileManager = {"_p_RheiaProfileManager", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_MgrTRheiaXulManager_t = {"_p_MgrTRheiaXulManager_t", "Mgr<RheiaXulManager > *|MgrRheiaXulManager *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RheiaXulManager = {"_p_RheiaXulManager", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_RheiaBookPage = {"_p_RheiaBookPage", "RheiaBookPage *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RheiaStartPage = {"_p_RheiaStartPage", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_RheiaConfigurationManager = {"_p_RheiaConfigurationManager", "RheiaConfigurationManager *", 0, 0, (void*)0, 0};
@@ -11559,6 +11548,17 @@ static swig_type_info _swigt__p_RheiaTimeStampableFileLogger = {"_p_RheiaTimeSta
 static swig_type_info _swigt__p_RheiaTimeStampableHtmlLogger = {"_p_RheiaTimeStampableHtmlLogger", "RheiaTimeStampableHtmlLogger *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RheiaTimeStampableStdLogger = {"_p_RheiaTimeStampableStdLogger", "RheiaTimeStampableStdLogger *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RheiaTimeStampableTextLogger = {"_p_RheiaTimeStampableTextLogger", "RheiaTimeStampableTextLogger *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SingletonTRheiaEnvironementManager_t = {"_p_SingletonTRheiaEnvironementManager_t", "Singleton<RheiaEnvironementManager > *|MgrRheiaEnvironementManager *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RheiaEnvironementManager = {"_p_RheiaEnvironementManager", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_SingletonTRheiaEventsManager_t = {"_p_SingletonTRheiaEventsManager_t", "Singleton<RheiaEventsManager > *|MgrRheiaEventsManager *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RheiaEventsManager = {"_p_RheiaEventsManager", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_SingletonTRheiaLoggerFactory_t = {"_p_SingletonTRheiaLoggerFactory_t", "Singleton<RheiaLoggerFactory > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SingletonTRheiaPersonalityManager_t = {"_p_SingletonTRheiaPersonalityManager_t", "Singleton<RheiaPersonalityManager > *|MgrRheiaPersonalityManager *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RheiaPersonalityManager = {"_p_RheiaPersonalityManager", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_SingletonTRheiaProfileManager_t = {"_p_SingletonTRheiaProfileManager_t", "Singleton<RheiaProfileManager > *|MgrRheiaProfileManager *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RheiaProfileManager = {"_p_RheiaProfileManager", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_SingletonTRheiaXulManager_t = {"_p_SingletonTRheiaXulManager_t", "Singleton<RheiaXulManager > *|MgrRheiaXulManager *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RheiaXulManager = {"_p_RheiaXulManager", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p__xmlDoc = {"_p__xmlDoc", "_xmlDoc *|xmlDoc *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p__xmlNode = {"_p__xmlNode", "_xmlNode *|xmlNode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p__xmlXPathContext = {"_p__xmlXPathContext", "_xmlXPathContext *|xmlXPathContext *", 0, 0, (void*)0, 0};
@@ -11758,12 +11758,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_InfoWindow,
   &_swigt__p_MgrNsMap,
   &_swigt__p_MgrNsMapIt,
-  &_swigt__p_MgrTRheiaEnvironementManager_t,
-  &_swigt__p_MgrTRheiaEventsManager_t,
-  &_swigt__p_MgrTRheiaLoggerFactory_t,
-  &_swigt__p_MgrTRheiaPersonalityManager_t,
-  &_swigt__p_MgrTRheiaProfileManager_t,
-  &_swigt__p_MgrTRheiaXulManager_t,
   &_swigt__p_RheiaApplicationConfigurationDialog,
   &_swigt__p_RheiaApplicationGeneralPanel,
   &_swigt__p_RheiaBookConfigurationPanel,
@@ -11823,6 +11817,12 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_RheiaTreeItem,
   &_swigt__p_RheiaTreeItemData,
   &_swigt__p_RheiaXulManager,
+  &_swigt__p_SingletonTRheiaEnvironementManager_t,
+  &_swigt__p_SingletonTRheiaEventsManager_t,
+  &_swigt__p_SingletonTRheiaLoggerFactory_t,
+  &_swigt__p_SingletonTRheiaPersonalityManager_t,
+  &_swigt__p_SingletonTRheiaProfileManager_t,
+  &_swigt__p_SingletonTRheiaXulManager_t,
   &_swigt__p__xmlDoc,
   &_swigt__p__xmlNode,
   &_swigt__p__xmlXPathContext,
@@ -12012,17 +12012,6 @@ static swig_type_info *swig_type_initial[] = {
 
 static swig_cast_info _swigc__p_MgrNsMap[] = {  {&_swigt__p_MgrNsMap, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MgrNsMapIt[] = {  {&_swigt__p_MgrNsMapIt, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RheiaEnvironementManager[] = {{&_swigt__p_RheiaEnvironementManager, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MgrTRheiaEnvironementManager_t[] = {  {&_swigt__p_MgrTRheiaEnvironementManager_t, 0, 0, 0},  {&_swigt__p_RheiaEnvironementManager, _p_RheiaEnvironementManagerTo_p_MgrTRheiaEnvironementManager_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RheiaEventsManager[] = {{&_swigt__p_RheiaEventsManager, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MgrTRheiaEventsManager_t[] = {  {&_swigt__p_MgrTRheiaEventsManager_t, 0, 0, 0},  {&_swigt__p_RheiaEventsManager, _p_RheiaEventsManagerTo_p_MgrTRheiaEventsManager_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MgrTRheiaLoggerFactory_t[] = {  {&_swigt__p_RheiaLoggerFactory, _p_RheiaLoggerFactoryTo_p_MgrTRheiaLoggerFactory_t, 0, 0},  {&_swigt__p_MgrTRheiaLoggerFactory_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RheiaPersonalityManager[] = {{&_swigt__p_RheiaPersonalityManager, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MgrTRheiaPersonalityManager_t[] = {  {&_swigt__p_MgrTRheiaPersonalityManager_t, 0, 0, 0},  {&_swigt__p_RheiaPersonalityManager, _p_RheiaPersonalityManagerTo_p_MgrTRheiaPersonalityManager_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RheiaProfileManager[] = {{&_swigt__p_RheiaProfileManager, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MgrTRheiaProfileManager_t[] = {  {&_swigt__p_MgrTRheiaProfileManager_t, 0, 0, 0},  {&_swigt__p_RheiaProfileManager, _p_RheiaProfileManagerTo_p_MgrTRheiaProfileManager_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RheiaXulManager[] = {{&_swigt__p_RheiaXulManager, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MgrTRheiaXulManager_t[] = {  {&_swigt__p_MgrTRheiaXulManager_t, 0, 0, 0},  {&_swigt__p_RheiaXulManager, _p_RheiaXulManagerTo_p_MgrTRheiaXulManager_t, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RheiaStartPage[] = {{&_swigt__p_RheiaStartPage, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RheiaBookPage[] = {  {&_swigt__p_RheiaTextLoggerPage, _p_RheiaTextLoggerPageTo_p_RheiaBookPage, 0, 0},  {&_swigt__p_RheiaBookPage, 0, 0, 0},  {&_swigt__p_RheiaStartPage, _p_RheiaStartPageTo_p_RheiaBookPage, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RheiaConfigurationManager[] = {  {&_swigt__p_RheiaConfigurationManager, 0, 0, 0},{0, 0, 0, 0}};
@@ -12069,6 +12058,17 @@ static swig_cast_info _swigc__p_RheiaTimeStampableFileLogger[] = {  {&_swigt__p_
 static swig_cast_info _swigc__p_RheiaTimeStampableHtmlLogger[] = {  {&_swigt__p_RheiaTimeStampableHtmlLogger, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RheiaTimeStampableStdLogger[] = {  {&_swigt__p_RheiaTimeStampableStdLogger, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RheiaTimeStampableTextLogger[] = {  {&_swigt__p_RheiaTimeStampableTextLogger, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RheiaEnvironementManager[] = {{&_swigt__p_RheiaEnvironementManager, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SingletonTRheiaEnvironementManager_t[] = {  {&_swigt__p_SingletonTRheiaEnvironementManager_t, 0, 0, 0},  {&_swigt__p_RheiaEnvironementManager, _p_RheiaEnvironementManagerTo_p_SingletonTRheiaEnvironementManager_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RheiaEventsManager[] = {{&_swigt__p_RheiaEventsManager, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SingletonTRheiaEventsManager_t[] = {  {&_swigt__p_SingletonTRheiaEventsManager_t, 0, 0, 0},  {&_swigt__p_RheiaEventsManager, _p_RheiaEventsManagerTo_p_SingletonTRheiaEventsManager_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SingletonTRheiaLoggerFactory_t[] = {  {&_swigt__p_RheiaLoggerFactory, _p_RheiaLoggerFactoryTo_p_SingletonTRheiaLoggerFactory_t, 0, 0},  {&_swigt__p_SingletonTRheiaLoggerFactory_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RheiaPersonalityManager[] = {{&_swigt__p_RheiaPersonalityManager, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SingletonTRheiaPersonalityManager_t[] = {  {&_swigt__p_SingletonTRheiaPersonalityManager_t, 0, 0, 0},  {&_swigt__p_RheiaPersonalityManager, _p_RheiaPersonalityManagerTo_p_SingletonTRheiaPersonalityManager_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RheiaProfileManager[] = {{&_swigt__p_RheiaProfileManager, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SingletonTRheiaProfileManager_t[] = {  {&_swigt__p_SingletonTRheiaProfileManager_t, 0, 0, 0},  {&_swigt__p_RheiaProfileManager, _p_RheiaProfileManagerTo_p_SingletonTRheiaProfileManager_t, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RheiaXulManager[] = {{&_swigt__p_RheiaXulManager, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SingletonTRheiaXulManager_t[] = {  {&_swigt__p_SingletonTRheiaXulManager_t, 0, 0, 0},  {&_swigt__p_RheiaXulManager, _p_RheiaXulManagerTo_p_SingletonTRheiaXulManager_t, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p__xmlDoc[] = {  {&_swigt__p__xmlDoc, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p__xmlNode[] = {  {&_swigt__p__xmlNode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p__xmlXPathContext[] = {  {&_swigt__p__xmlXPathContext, 0, 0, 0},{0, 0, 0, 0}};
@@ -12268,12 +12268,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_InfoWindow,
   _swigc__p_MgrNsMap,
   _swigc__p_MgrNsMapIt,
-  _swigc__p_MgrTRheiaEnvironementManager_t,
-  _swigc__p_MgrTRheiaEventsManager_t,
-  _swigc__p_MgrTRheiaLoggerFactory_t,
-  _swigc__p_MgrTRheiaPersonalityManager_t,
-  _swigc__p_MgrTRheiaProfileManager_t,
-  _swigc__p_MgrTRheiaXulManager_t,
   _swigc__p_RheiaApplicationConfigurationDialog,
   _swigc__p_RheiaApplicationGeneralPanel,
   _swigc__p_RheiaBookConfigurationPanel,
@@ -12333,6 +12327,12 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_RheiaTreeItem,
   _swigc__p_RheiaTreeItemData,
   _swigc__p_RheiaXulManager,
+  _swigc__p_SingletonTRheiaEnvironementManager_t,
+  _swigc__p_SingletonTRheiaEventsManager_t,
+  _swigc__p_SingletonTRheiaLoggerFactory_t,
+  _swigc__p_SingletonTRheiaPersonalityManager_t,
+  _swigc__p_SingletonTRheiaProfileManager_t,
+  _swigc__p_SingletonTRheiaXulManager_t,
   _swigc__p__xmlDoc,
   _swigc__p__xmlNode,
   _swigc__p__xmlXPathContext,

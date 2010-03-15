@@ -44,9 +44,9 @@
 #include <libxml/xpath.h>
 
 /** global instance for RheiaConfigurationPattern */
-template<> RheiaConfigurationPattern* Mgr<RheiaConfigurationPattern>::instance = 0;
+template<> RheiaConfigurationPattern* Singleton<RheiaConfigurationPattern>::instance = 0;
 /** global instance for RheiaConfigurationPattern */
-template<> bool  Mgr<RheiaConfigurationPattern>::isShutdown = false;
+template<> bool  Singleton<RheiaConfigurationPattern>::isShutdown = false;
 
 namespace
 {

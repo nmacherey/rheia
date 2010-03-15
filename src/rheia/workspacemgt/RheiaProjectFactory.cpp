@@ -11,9 +11,9 @@
 #include <RheiaWorkspace.h>
 
 /*! Global instance for the plugin manager */
-template<> RheiaProjectFactory* Mgr<RheiaProjectFactory>::instance = 0;
+template<> RheiaProjectFactory* Singleton<RheiaProjectFactory>::instance = 0;
 /*! Global isShutdown for the Menu manager */
-template<> bool  Mgr<RheiaProjectFactory>::isShutdown = false;
+template<> bool  Singleton<RheiaProjectFactory>::isShutdown = false;
 
 RheiaProjectFactory::RheiaProjectFactory()
 {

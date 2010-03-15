@@ -65,7 +65,7 @@ class WMGT_DLLEXPORT RheiaWorkspaceManager : public wxEvtHandler , public RheiaP
 	typedef std::map< wxString , WorkspaceInfo > WorkspaceInfoMap;
 
 public :
-	friend class RheiaMgr<RheiaManagedFrame,RheiaWorkspaceManager>;				/*!< Give our private member access to Mgr */
+	friend class RheiaMgr<RheiaManagedFrame,RheiaWorkspaceManager>;				/*!< Give our private member access to Singleton */
 	friend class RheiaManager;								/*!< Give our private member access to RheiaManager */
 	friend class RheiaWorkspaceBookPage;
 

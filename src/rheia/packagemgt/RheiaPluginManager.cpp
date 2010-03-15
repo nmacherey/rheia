@@ -57,8 +57,8 @@
 #include <wx/filefn.h>
 
 /*! Global instance for the plugin manager */
-template<> RheiaPluginManager* Mgr<RheiaPluginManager>::instance = 0;
-template<> bool  Mgr<RheiaPluginManager>::isShutdown = false;
+template<> RheiaPluginManager* Singleton<RheiaPluginManager>::instance = 0;
+template<> bool  Singleton<RheiaPluginManager>::isShutdown = false;
 
 BEGIN_EVENT_TABLE(RheiaPluginManager, wxEvtHandler)
     //

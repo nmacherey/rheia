@@ -21,9 +21,9 @@
 #include <wx/menu.h>
 
 /*! Global instance for the environement manager */
-template<> RheiaEnvironementManager* Mgr<RheiaEnvironementManager>::instance = 0;
+template<> RheiaEnvironementManager* Singleton<RheiaEnvironementManager>::instance = 0;
 /*! Global isShutdown for the environement manager */
-template<> bool  Mgr<RheiaEnvironementManager>::isShutdown = false;
+template<> bool  Singleton<RheiaEnvironementManager>::isShutdown = false;
 
 BEGIN_EVENT_TABLE(RheiaEnvironementManager,wxEvtHandler)
     //EVT_FRAME_CLOSING( RheiaEnvironementManager::OnCloseFrame )

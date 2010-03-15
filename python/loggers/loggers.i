@@ -116,9 +116,9 @@ rheia = _sys.modules[__name__]
 %include "RheiaFileLogger.h"
 %include "RheiaHtmlLogger.h"
 
-typedef Mgr<RheiaLoggerFactory> MgrRheiaLoggerFactory;
-%rename(MgrRheiaLoggerFactory) Mgr<RheiaLoggerFactory>;
-%template(MgrRheiaLoggerFactory) Mgr<RheiaLoggerFactory>;
+typedef Singleton<RheiaLoggerFactory> MgrRheiaLoggerFactory;
+%rename(MgrRheiaLoggerFactory) Singleton<RheiaLoggerFactory>;
+%template(MgrRheiaLoggerFactory) Singleton<RheiaLoggerFactory>;
 
 typedef RheiaMgr<RheiaManagedFrame,RheiaLoggerManager> RheiaMgrRheiaLoggerManager;
 %rename(RheiaMgrRheiaLoggerManager) RheiaMgr<RheiaManagedFrame,RheiaLoggerManager>;

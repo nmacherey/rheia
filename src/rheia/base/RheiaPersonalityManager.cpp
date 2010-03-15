@@ -19,8 +19,8 @@
 
 #include <wx/arrstr.h>
 
-template<> RheiaPersonalityManager* Mgr<RheiaPersonalityManager>::instance = 0;
-template<> bool  Mgr<RheiaPersonalityManager>::isShutdown = false;
+template<> RheiaPersonalityManager* Singleton<RheiaPersonalityManager>::instance = 0;
+template<> bool  Singleton<RheiaPersonalityManager>::isShutdown = false;
 
 wxString RheiaPersonalityManager::pers;
 

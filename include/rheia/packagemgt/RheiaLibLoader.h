@@ -65,10 +65,10 @@ typedef std::map< wxString , RheiaDynamicLibrary > RheiaDynamicLibraryMap;
 *	@version 0.0.1
 **/
 
-class PMGT_DLLEXPORT RheiaLibLoader : public Mgr<RheiaLibLoader>
+class PMGT_DLLEXPORT RheiaLibLoader : public Singleton<RheiaLibLoader>
 {
-	/** Give Mgr access to our private members */
-	friend class Mgr<RheiaLibLoader>;
+	/** Give Singleton access to our private members */
+	friend class Singleton<RheiaLibLoader>;
 	/** Give RheiaManager Access to our private memebers */
 	friend class RheiaManager;
 public :

@@ -3107,24 +3107,6 @@ static RheiaPythonCoreAPI API = {
 
 
 
-SWIGINTERN int
-SWIG_AsVal_bool (PyObject *obj, bool *val)
-{
-  if (obj == Py_True) {
-    if (val) *val = true;
-    return SWIG_OK;
-  } else if (obj == Py_False) {
-    if (val) *val = false;
-    return SWIG_OK;
-  } else {
-    long v = 0;
-    int res = SWIG_AddCast(SWIG_AsVal_long (obj, val ? &v : 0));
-    if (SWIG_IsOK(res) && val) *val = v ? true : false;
-    return res;
-  }
-}
-
-
 SWIGINTERNINLINE PyObject *
 SWIG_From_int  (int value)
 {    
@@ -3241,6 +3223,24 @@ SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
     }
   }  
   return res;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_bool (PyObject *obj, bool *val)
+{
+  if (obj == Py_True) {
+    if (val) *val = true;
+    return SWIG_OK;
+  } else if (obj == Py_False) {
+    if (val) *val = false;
+    return SWIG_OK;
+  } else {
+    long v = 0;
+    int res = SWIG_AddCast(SWIG_AsVal_long (obj, val ? &v : 0));
+    if (SWIG_IsOK(res) && val) *val = v ? true : false;
+    return res;
+  }
 }
 
 
@@ -4478,29 +4478,6 @@ SWIGINTERN PyObject *DYNAMIC_LIBRARY_PREFIX_get(void) {
     pyobj = PyString_FromStringAndSize((&FileExt::DYNAMIC_LIBRARY_PREFIX)->c_str(), (&FileExt::DYNAMIC_LIBRARY_PREFIX)->Len());
 #endif
   }
-  return pyobj;
-}
-
-
-SWIGINTERN int MANAGE_DYNAMIC_LIBRARY_PREFIX_set(PyObject *_val) {
-  {
-    bool val;
-    int res = SWIG_AsVal_bool(_val, &val);
-    if (!SWIG_IsOK(res)) {
-      SWIG_exception_fail(SWIG_ArgError(res), "in variable '""FileExt::MANAGE_DYNAMIC_LIBRARY_PREFIX""' of type '""bool""'");
-    }
-    FileExt::MANAGE_DYNAMIC_LIBRARY_PREFIX = static_cast< bool >(val);
-  }
-  return 0;
-fail:
-  return 1;
-}
-
-
-SWIGINTERN PyObject *MANAGE_DYNAMIC_LIBRARY_PREFIX_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_bool(static_cast< bool >(FileExt::MANAGE_DYNAMIC_LIBRARY_PREFIX));
   return pyobj;
 }
 
@@ -8152,7 +8129,6 @@ SWIGEXPORT void SWIG_init(void) {
   SWIG_addvarlink(SWIG_globals(),(char*)"DYNAMIC_LIBRARY_FILE_EXT",DYNAMIC_LIBRARY_FILE_EXT_get, DYNAMIC_LIBRARY_FILE_EXT_set);
   SWIG_addvarlink(SWIG_globals(),(char*)"DYNAMIC_LIBRARY_FILE_EXT_STANDARD",DYNAMIC_LIBRARY_FILE_EXT_STANDARD_get, DYNAMIC_LIBRARY_FILE_EXT_STANDARD_set);
   SWIG_addvarlink(SWIG_globals(),(char*)"DYNAMIC_LIBRARY_PREFIX",DYNAMIC_LIBRARY_PREFIX_get, DYNAMIC_LIBRARY_PREFIX_set);
-  SWIG_addvarlink(SWIG_globals(),(char*)"MANAGE_DYNAMIC_LIBRARY_PREFIX",MANAGE_DYNAMIC_LIBRARY_PREFIX_get, MANAGE_DYNAMIC_LIBRARY_PREFIX_set);
   SWIG_Python_SetConstant(d, "sisLargeIcons",SWIG_From_int(static_cast< int >(sisLargeIcons)));
   SWIG_Python_SetConstant(d, "sisNoIcons",SWIG_From_int(static_cast< int >(sisNoIcons)));
   SWIG_Python_SetConstant(d, "ptNone",SWIG_From_int(static_cast< int >(ptNone)));

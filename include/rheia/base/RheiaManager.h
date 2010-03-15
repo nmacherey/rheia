@@ -125,12 +125,12 @@ private :
 };
 
 
-/*! @class Mgr
+/*! @class Singleton
 *
-*	@brief Mgr is the class used for simulating static manager.
+*	@brief Singleton is the class used for simulating static manager.
 *
-*	To use this class simply inherit your object from Mgr<YourModule> and instanciate
-*	instance and isShutdown static variables for the Mgr<YourModule> then you will
+*	To use this class simply inherit your object from Singleton<YourModule> and instanciate
+*	instance and isShutdown static variables for the Singleton<YourModule> then you will
 *	have access to your object global instance quite similarly to RheiaManager :
 *	YourModule::Get().
 *
@@ -140,18 +140,18 @@ private :
 *	@date 02-Dec-2008
 *	@version 0.0.1
 */
-template <class MgrT> class Mgr
+template <class MgrT> class Singleton
 {
     static MgrT *instance;										/*!< global instance for the module */
     static bool isShutdown;										/*!< is the module shutting down */
 
-    explicit Mgr(const Mgr<MgrT>&){};							/*!< copy constructor */
-    Mgr<MgrT>& operator=(Mgr<MgrT> const&){return *this;};		/*!< operator = overload */
+    explicit Singleton(const Singleton<MgrT>&){};							/*!< copy constructor */
+    Singleton<MgrT>& operator=(Singleton<MgrT> const&){return *this;};		/*!< operator = overload */
 
 protected:
 
-    Mgr(){assert(Mgr<MgrT>::instance == 0);}					/*!< Default constructor */
-    virtual ~Mgr(){Mgr<MgrT>::instance = 0;}					/*!< Default destructor */
+    Singleton(){assert(Singleton<MgrT>::instance == 0);}					/*!< Default constructor */
+    virtual ~Singleton(){Singleton<MgrT>::instance = 0;}					/*!< Default destructor */
 
 public:
 

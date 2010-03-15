@@ -142,10 +142,10 @@ typedef std::map< wxString , RheiaConfigurationToolRegistration > RheiaConfigura
 *   @version 0.0.1
 *   @date 17-November-2009
 */
-class BASE_DLLEXPORT RheiaConfigurationToolsManager : public Mgr<RheiaConfigurationToolsManager>
+class BASE_DLLEXPORT RheiaConfigurationToolsManager : public Singleton<RheiaConfigurationToolsManager>
 {
     /** give Mrg our private members access */
-    friend class Mgr<RheiaConfigurationToolsManager>;
+    friend class Singleton<RheiaConfigurationToolsManager>;
 
 public :
     /*******************************************************************************

@@ -8,9 +8,9 @@
 #include <RheiaConfigurationToolsManager.h>
 
 /*! declare global instance for the RheiaConfigurationToolsManager */
-template<> RheiaConfigurationToolsManager* Mgr<RheiaConfigurationToolsManager>::instance = 0;
+template<> RheiaConfigurationToolsManager* Singleton<RheiaConfigurationToolsManager>::instance = 0;
 /*! declare global isShutdown variable for the RheiaConfigurationToolsManager */
-template<> bool  Mgr<RheiaConfigurationToolsManager>::isShutdown = false;
+template<> bool  Singleton<RheiaConfigurationToolsManager>::isShutdown = false;
 
 
 RheiaConfigurationToolsManager::RheiaConfigurationToolsManager()

@@ -16,6 +16,7 @@
 
 #include "RheiaEditorSettings.h"
 #include "RheiaEditorLayout.h"
+#include "RheiaEditorManager.h"
 
 #include <wx/event.h>
 #include <wx/menu.h>
@@ -27,11 +28,6 @@
 
 /* imports */
 class RheiaEditorFile;
-
-//const int matchStart          = wxSTC_FIND_WORDSTART;
-const int matchCase           = wxSTC_FIND_MATCHCASE;
-const int matchWholeWord      = wxSTC_FIND_WHOLEWORD;
-const int matchAll            = 0;
 
 const int NUMBER_MARGIN_ID = 0;
 const int EDIT_TRACKER_MARGIN_ID = 1;
@@ -248,10 +244,10 @@ public :
     /** Find all occurences of the given expression
     *   @return the number of matches for the given expression
     */
-    virtual int Find( const wxString& expr , int flag = matchAll ){return 0;};
+    virtual int Find( const wxString& expr , int flag = matchAll );
 
     /** Find next occurence of the given expression */
-    virtual int FindNext( const wxString& expr , int flag = matchAll ){return 0;};
+    virtual int FindNext( const wxString& expr , int flag = matchAll );
 
     /** Find all occurences of the given expression */
     virtual void Replace( const wxString& expr , int flag = matchAll ){};
@@ -367,6 +363,9 @@ public :
     virtual void AddContextMenuStuff( wxMenu* menu ) {};
 
     virtual bool GetModified();
+	
+	/** get the styled text control in this editor */
+	wxStyledTextCtrl* GetControl() {return m_control;};
 
 protected :
     /**************************************************************************************
@@ -378,6 +377,7 @@ protected :
     RheiaEditorLayout* m_context;
     wxStyledTextCtrl* m_control;
     int m_ID;
+	int m_lastFindPos;
 
     /**************************************************************************************
     *   EVENT IDS

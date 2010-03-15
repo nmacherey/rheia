@@ -53,9 +53,9 @@
 #include <wx/filefn.h>
 
 /*! declare global instance for the RheiaPackageManager */
-template<> RheiaPackageManager* Mgr<RheiaPackageManager>::instance = 0;
+template<> RheiaPackageManager* Singleton<RheiaPackageManager>::instance = 0;
 /*! declare global isShutdown for the RheiaPackageManager */
-template<> bool Mgr<RheiaPackageManager>::isShutdown = false;
+template<> bool Singleton<RheiaPackageManager>::isShutdown = false;
 
 BEGIN_EVENT_TABLE(RheiaPackageManager,wxEvtHandler)
     //EVT_FRAME_CLOSING( RheiaPackageManager::OnCloseFrame )

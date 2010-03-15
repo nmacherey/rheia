@@ -34,15 +34,15 @@ class RheiaEvent;
 *	@date	04-January-2010
 *	@version 0.0.1
 */
-class BASE_DLLEXPORT RheiaEventsManager : public Mgr<RheiaEventsManager>
+class BASE_DLLEXPORT RheiaEventsManager : public Singleton<RheiaEventsManager>
 {
     /************************************************************************************
     *   FRIENDS
     ************************************************************************************/
     /** Give our private members access to the rheia manager */
     friend class RheiaManager;
-    /** Give Mgr class access to our private members */
-    friend class Mgr<RheiaEventsManager>;
+    /** Give Singleton class access to our private members */
+    friend class Singleton<RheiaEventsManager>;
 
 public :
     /************************************************************************************

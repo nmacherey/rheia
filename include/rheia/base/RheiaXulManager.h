@@ -22,10 +22,10 @@
  * @version 1.0.1
  * @date 2-March-2010
  */
-class BASE_DLLEXPORT RheiaXulManager : public Mgr<RheiaXulManager> 
+class BASE_DLLEXPORT RheiaXulManager : public Singleton<RheiaXulManager> 
 {
 	friend class RheiaManager;
-	friend class Mgr<RheiaXulManager>;
+	friend class Singleton<RheiaXulManager>;
 
 public :
 	

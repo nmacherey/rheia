@@ -24,10 +24,10 @@
 *	@date	21-Nov-2008
 *	@version 0.0.2
 */
-class BASE_DLLEXPORT RheiaPersonalityManager : public Mgr<RheiaPersonalityManager>
+class BASE_DLLEXPORT RheiaPersonalityManager : public Singleton<RheiaPersonalityManager>
 {
-    /** give Mgr access to our private members */
-    friend class Mgr<RheiaPersonalityManager>;
+    /** give Singleton access to our private members */
+    friend class Singleton<RheiaPersonalityManager>;
     /** give Manager access to our private members */
     friend class RheiaManager;
 

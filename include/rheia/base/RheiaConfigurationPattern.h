@@ -75,7 +75,7 @@ typedef struct _xmlXPathContext xmlXPathContext;
 *	@date	19-November-2009
 *	@version 0.0.2
 */
-class BASE_DLLEXPORT RheiaConfigurationPattern : public Mgr<RheiaConfigurationPattern>
+class BASE_DLLEXPORT RheiaConfigurationPattern : public Singleton<RheiaConfigurationPattern>
 {
     /************************************************************************************
     *   FRIENDS
@@ -84,8 +84,8 @@ class BASE_DLLEXPORT RheiaConfigurationPattern : public Mgr<RheiaConfigurationPa
     friend class RheiaConfigurationManager;
     /** Give our private members access to the rheia manager */
     friend class RheiaManager;
-    /** Give Mgr class access to our private members */
-    friend class Mgr<RheiaConfigurationPattern>;
+    /** Give Singleton class access to our private members */
+    friend class Singleton<RheiaConfigurationPattern>;
 
 protected:
     /************************************************************************************

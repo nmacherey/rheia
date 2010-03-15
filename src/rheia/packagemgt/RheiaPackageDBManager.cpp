@@ -24,9 +24,9 @@
 #include <libxml/xpath.h>
 
 /*! declare global instance for the RheiaPackageDBManager */
-template<> RheiaPackageDBManager* Mgr<RheiaPackageDBManager>::instance = 0;
+template<> RheiaPackageDBManager* Singleton<RheiaPackageDBManager>::instance = 0;
 /*! declare global isShutdown for the RheiaPackageDBManager */
-template<> bool Mgr<RheiaPackageDBManager>::isShutdown = false;
+template<> bool Singleton<RheiaPackageDBManager>::isShutdown = false;
 
 
 

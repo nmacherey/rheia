@@ -35,9 +35,9 @@ namespace
 template<> RheiaMgr<RheiaManagedFrame,RheiaMenuManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaMenuManager>::m_ns = locmap;
 
 /*! Global instance for the RheiaMenuFunctorManager */
-template<> RheiaMenuFunctorManager* Mgr<RheiaMenuFunctorManager>::instance = 0;
+template<> RheiaMenuFunctorManager* Singleton<RheiaMenuFunctorManager>::instance = 0;
 /*! Global isShutdown for the RheiaMenuFunctorManager */
-template<> bool  Mgr<RheiaMenuFunctorManager>::isShutdown = false;
+template<> bool  Singleton<RheiaMenuFunctorManager>::isShutdown = false;
 
 /**********************************************************************************************************
 *	CONSTRUCTORS

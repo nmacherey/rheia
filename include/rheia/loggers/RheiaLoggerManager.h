@@ -63,10 +63,10 @@ typedef std::map< wxString , RheiaLogger* > RheiaLoggerMap;
 *	@date	20-April-2009
 *	@version 0.0.2
 */
-class LOGGERS_DLLEXPORT RheiaLoggerFactory : public Mgr<RheiaLoggerFactory>
+class LOGGERS_DLLEXPORT RheiaLoggerFactory : public Singleton<RheiaLoggerFactory>
 {
-	/*! Give our private member access to Mgr */
-	friend class Mgr<RheiaLoggerFactory>;
+	/*! Give our private member access to Singleton */
+	friend class Singleton<RheiaLoggerFactory>;
 	/*! Give our private member access to RheiaManager */
 	friend class RheiaManager;
 
@@ -150,7 +150,7 @@ private :
 */
 class LOGGERS_DLLEXPORT RheiaLoggerManager : public wxEvtHandler, public RheiaMgr<RheiaManagedFrame,RheiaLoggerManager>
 {
-	/*! Give our private member access to Mgr */
+	/*! Give our private member access to Singleton */
 	friend class RheiaMgr<RheiaManagedFrame,RheiaLoggerManager>;
 
 	/*! Give our private member access to RheiaManager */

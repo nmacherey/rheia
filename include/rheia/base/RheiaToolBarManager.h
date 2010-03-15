@@ -28,7 +28,7 @@ typedef std::map<wxToolBar*,int> RheiaToolMenuIdMap;
 */
 class BASE_DLLEXPORT RheiaToolBarManager : public wxEvtHandler, public RheiaMgr<RheiaManagedFrame,RheiaToolBarManager>
 {
-	friend class RheiaMgr<RheiaManagedFrame,RheiaToolBarManager>;				/*!< Give our private member access to Mgr */
+	friend class RheiaMgr<RheiaManagedFrame,RheiaToolBarManager>;				/*!< Give our private member access to Singleton */
 	friend class RheiaManager;							                        /*!< Give our private member access to RheiaManager */
 public :
 	/**********************************************************************************************************

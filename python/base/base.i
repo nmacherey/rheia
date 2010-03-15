@@ -121,16 +121,16 @@ typedef RheiaMgr<RheiaManagedFrame,RheiaCenterPaneManager> RheiaMgrRheiaCenterPa
 
 %include "RheiaDebug.h"
 
-typedef Mgr<RheiaEnvironementManager> MgrRheiaEnvironementManager;
-%rename(MgrRheiaEnvironementManager) Mgr<RheiaEnvironementManager>;
-%template(MgrRheiaEnvironementManager) Mgr<RheiaEnvironementManager>;
+typedef Singleton<RheiaEnvironementManager> MgrRheiaEnvironementManager;
+%rename(MgrRheiaEnvironementManager) Singleton<RheiaEnvironementManager>;
+%template(MgrRheiaEnvironementManager) Singleton<RheiaEnvironementManager>;
 %include "RheiaEnvironementManager.h"
 
 %include rh_event.i
 
-typedef Mgr<RheiaEventsManager> MgrRheiaEventsManager;
-%rename(MgrRheiaEventsManager) Mgr<RheiaEventsManager>;
-%template(MgrRheiaEventsManager) Mgr<RheiaEventsManager>;
+typedef Singleton<RheiaEventsManager> MgrRheiaEventsManager;
+%rename(MgrRheiaEventsManager) Singleton<RheiaEventsManager>;
+%template(MgrRheiaEventsManager) Singleton<RheiaEventsManager>;
 %include "RheiaEventsManager.h"
 
 typedef RheiaMgr<RheiaManagedFrame,RheiaInfoPaneManager> RheiaMgrRheiaInfoPaneManager;
@@ -166,15 +166,15 @@ typedef RheiaMgr<RheiaManagedFrame,RheiaMenuManager> RheiaMgrRheiaMenuManager;
 
 %include "RheiaPageContainer.h"
 
-typedef Mgr<RheiaPersonalityManager> MgrRheiaPersonalityManager;
-%rename(MgrRheiaPersonalityManager) Mgr<RheiaPersonalityManager>;
-%template(MgrRheiaPersonalityManager) Mgr<RheiaPersonalityManager>;
+typedef Singleton<RheiaPersonalityManager> MgrRheiaPersonalityManager;
+%rename(MgrRheiaPersonalityManager) Singleton<RheiaPersonalityManager>;
+%template(MgrRheiaPersonalityManager) Singleton<RheiaPersonalityManager>;
 
 %include "RheiaPersonalityManager.h"
 
-typedef Mgr<RheiaProfileManager> MgrRheiaProfileManager;
-%rename(MgrRheiaProfileManager) Mgr<RheiaProfileManager>;
-%template(MgrRheiaProfileManager) Mgr<RheiaProfileManager>;
+typedef Singleton<RheiaProfileManager> MgrRheiaProfileManager;
+%rename(MgrRheiaProfileManager) Singleton<RheiaProfileManager>;
+%template(MgrRheiaProfileManager) Singleton<RheiaProfileManager>;
 
 %include "RheiaProfileManager.h"
 
@@ -196,8 +196,8 @@ typedef RheiaMgr<RheiaManagedFrame,RheiaToolBarManager> RheiaMgrRheiaToolBarMana
 %include "RheiaTreeItem.h"
 %include "RheiaTreeItemData.h"
 
-typedef Mgr<RheiaXulManager> MgrRheiaXulManager;
-%rename(MgrRheiaXulManager) Mgr<RheiaXulManager>;
-%template(MgrRheiaXulManager) Mgr<RheiaXulManager>;
+typedef Singleton<RheiaXulManager> MgrRheiaXulManager;
+%rename(MgrRheiaXulManager) Singleton<RheiaXulManager>;
+%template(MgrRheiaXulManager) Singleton<RheiaXulManager>;
 
 %include "RheiaXulManager.h"

@@ -29,8 +29,8 @@
 
 #include <iostream>
 
-template<> RheiaProfileManager* Mgr<RheiaProfileManager>::instance = 0;
-template<> bool  Mgr<RheiaProfileManager>::isShutdown = false;
+template<> RheiaProfileManager* Singleton<RheiaProfileManager>::instance = 0;
+template<> bool  Singleton<RheiaProfileManager>::isShutdown = false;
 
 /*
 *			Default constructor for RheiaProfileManager. This method is private, because

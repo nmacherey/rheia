@@ -84,7 +84,7 @@ typedef std::map< wxString , RheiaProjectWizardRegistration > RheiaProjectWizard
 */
 class WMGT_DLLEXPORT RheiaWizardManager : public wxEvtHandler, public RheiaMgr< RheiaManagedFrame, RheiaWizardManager >
 {
-    /** give Mgr our private members access */
+    /** give Singleton our private members access */
     friend class RheiaMgr< RheiaManagedFrame, RheiaWizardManager >;
     /** give RheiaManager our private members access */
     friend class RheiaManager;

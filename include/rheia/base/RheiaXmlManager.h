@@ -32,10 +32,10 @@ WX_DEFINE_ARRAY_INT(bool,wxArrayBool);
 *	@date	11-Jan-2009
 *	@version 0.0.1
 */
-class BASE_DLLEXPORT RheiaXmlManager : public Mgr<RheiaXmlManager> , public wxEvtHandler
+class BASE_DLLEXPORT RheiaXmlManager : public Singleton<RheiaXmlManager> , public wxEvtHandler
 {
-	/*! Give Mgr access to our private members */
-	friend class Mgr<RheiaXmlManager>;
+	/*! Give Singleton access to our private members */
+	friend class Singleton<RheiaXmlManager>;
 	/*! Give RheiaManager Access to our private members */
 	friend class RheiaManager;
 	friend class RheiaConfigurationManager;

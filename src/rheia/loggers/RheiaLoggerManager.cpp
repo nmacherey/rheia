@@ -28,9 +28,9 @@
 #include <iostream>
 
 /*! declare global instance for RheiaLoggerManager */
-template<> RheiaLoggerFactory* Mgr<RheiaLoggerFactory>::instance = 0;
+template<> RheiaLoggerFactory* Singleton<RheiaLoggerFactory>::instance = 0;
 /*! declare global isShutdown variable for RheiaLoggerManager */
-template<> bool  Mgr<RheiaLoggerFactory>::isShutdown = false;
+template<> bool  Singleton<RheiaLoggerFactory>::isShutdown = false;
 
 namespace
 {

@@ -24,7 +24,7 @@ class wxFrame;
 */
 class BASE_DLLEXPORT RheiaStatusBarManager : public wxEvtHandler, public RheiaMgr<RheiaManagedFrame,RheiaStatusBarManager>
 {
-	friend class RheiaMgr<RheiaManagedFrame,RheiaStatusBarManager>;				/*!< Give our private member access to Mgr */
+	friend class RheiaMgr<RheiaManagedFrame,RheiaStatusBarManager>;				/*!< Give our private member access to Singleton */
 	friend class RheiaManager;								                    /*!< Give our private member access to RheiaManager */
 public :
 	/**********************************************************************************************************

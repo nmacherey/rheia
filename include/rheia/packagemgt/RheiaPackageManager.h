@@ -55,13 +55,13 @@ typedef std::map< wxString , RheiaPackageScanInfo > RheiaPackageScanInfoMap;
 *   @version 0.0.1
 *   @date 23-November-2009
 */
-class PMGT_DLLEXPORT RheiaPackageManager : public wxEvtHandler, public Mgr<RheiaPackageManager>
+class PMGT_DLLEXPORT RheiaPackageManager : public wxEvtHandler, public Singleton<RheiaPackageManager>
 {
     /** give RheiaManager our private members access */
     friend class RheiaManager;
 
-    /** give Mgr our private members access */
-    friend class Mgr<RheiaPackageManager>;
+    /** give Singleton our private members access */
+    friend class Singleton<RheiaPackageManager>;
 
 public :
 

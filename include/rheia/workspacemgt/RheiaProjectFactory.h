@@ -79,10 +79,10 @@ typedef std::map< wxString , RheiaProjectRegistration > RheiaProjectRegistration
 *   @date 24-April-2009
 *   @version 0.0.1
 */
-class WMGT_DLLEXPORT RheiaProjectFactory : public Mgr<RheiaProjectFactory>
+class WMGT_DLLEXPORT RheiaProjectFactory : public Singleton<RheiaProjectFactory>
 {
-    /*! give our private members acces to Mgr */
-    friend class Mgr<RheiaProjectFactory>;
+    /*! give our private members acces to Singleton */
+    friend class Singleton<RheiaProjectFactory>;
     /*! give our private members acces to RheiaManager */
     friend class RheiaManager;
 

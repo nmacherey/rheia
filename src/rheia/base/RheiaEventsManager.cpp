@@ -20,9 +20,9 @@
 #include <wx/aui/aui.h>
 
 /** global instance for RheiaEventsManager */
-template<> RheiaEventsManager* Mgr<RheiaEventsManager>::instance = 0;
+template<> RheiaEventsManager* Singleton<RheiaEventsManager>::instance = 0;
 /** global instance for RheiaEventsManager */
-template<> bool  Mgr<RheiaEventsManager>::isShutdown = false;
+template<> bool  Singleton<RheiaEventsManager>::isShutdown = false;
 
 RheiaEventsManager::RheiaEventsManager()
 {

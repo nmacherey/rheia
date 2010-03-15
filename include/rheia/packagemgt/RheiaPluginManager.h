@@ -90,10 +90,10 @@ WX_DEFINE_ARRAY(RheiaPlugin*, RheiaPluginsArray);
 *	@version 0.0.1
 **/
 
-class PMGT_DLLEXPORT RheiaPluginManager : public wxEvtHandler, public Mgr<RheiaPluginManager>
+class PMGT_DLLEXPORT RheiaPluginManager : public wxEvtHandler, public Singleton<RheiaPluginManager>
 {
-	/** Give Mgr access to our private members */
-	friend class Mgr<RheiaPluginManager>;
+	/** Give Singleton access to our private members */
+	friend class Singleton<RheiaPluginManager>;
 
 	/** Give RheiaManager access to our private memebers */
 	friend class RheiaManager;

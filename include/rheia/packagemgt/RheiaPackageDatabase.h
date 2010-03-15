@@ -23,13 +23,13 @@
 *   @version 0.0.1
 *   @date 23-November-2009
 */
-class PMGT_DLLEXPORT RheiaPackageDatabase : public Mgr<RheiaPackageDatabase>
+class PMGT_DLLEXPORT RheiaPackageDatabase : public Singleton<RheiaPackageDatabase>
 {
     /** give RheiaManager our private members access */
     friend class RheiaManager;
 
-    /** give Mgr our private members access */
-    friend class Mgr<RheiaPackageDatabase>;
+    /** give Singleton our private members access */
+    friend class Singleton<RheiaPackageDatabase>;
 
 public :
 

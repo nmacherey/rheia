@@ -52,9 +52,9 @@
 extern grammar _PyParser_Grammar; /* From graminit.c */
 
 /*! declare global instance for the RheiaPythonUtils */
-template<> RheiaPythonUtils* Mgr<RheiaPythonUtils>::instance = 0;
+template<> RheiaPythonUtils* Singleton<RheiaPythonUtils>::instance = 0;
 /*! declare global isShutdown for the RheiaPythonUtils */
-template<> bool  Mgr<RheiaPythonUtils>::isShutdown = false;
+template<> bool  Singleton<RheiaPythonUtils>::isShutdown = false;
 
 namespace
 {

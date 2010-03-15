@@ -32,10 +32,10 @@
 *		@author Nicolas MACHEREY (nm@graymat.fr)
 *		@date 27-Jan-2009
 */
-class BASE_DLLEXPORT RheiaProfileManager : public wxEvtHandler, public Mgr<RheiaProfileManager>
+class BASE_DLLEXPORT RheiaProfileManager : public wxEvtHandler, public Singleton<RheiaProfileManager>
 {
 		/*! Give our private members access to Mrg */
-		friend class Mgr< RheiaProfileManager >;
+		friend class Singleton< RheiaProfileManager >;
 		/*! Give our private members access to RheiaManager */
 		friend class RheiaManager;
 

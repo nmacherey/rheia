@@ -23,7 +23,9 @@ RheiaEditorBase::RheiaEditorBase( RheiaManagedFrame* toplevel, wxWindow* parent 
     m_context(context)
 {
     wxPanel::Create(parent,wxID_ANY);
-
+	
+	m_lastFindPos = -1;
+	
     idCloseMe               = wxNewId();
     idCloseAll              = wxNewId();
     idCloseAllOthers        = wxNewId();
@@ -708,23 +710,10 @@ void RheiaEditorBase::DoSelectLine()
 
 void RheiaEditorBase::HighlightOccurrences( const wxString& expr , int flag )
 {
-    static int old_a;
-    static int old_b;
-
-    int a,b;
-
     const int theIndicator = MATCH_INDICATOR;
-
-    m_control->GetSelection(&a,&b);
     m_control->SendMsg( 2500 , theIndicator , 0 );
 
-    if(old_a == a && old_b == b) // whatever the current state is, we've already done it once
-        return;
-
-    old_a = a;
-    old_b = b;
-
-    wxString selectedText(m_control->GetTextRange(a, b));
+    wxString selectedText = expr;
     int eof = m_control->GetLength();
     m_control->SendMsg( 2505 , 0 , eof );
 
@@ -735,13 +724,10 @@ void RheiaEditorBase::HighlightOccurrences( const wxString& expr , int flag )
     {
 
         // search for every occurence
-        int lengthFound = 0; // we need this to work properly with multibyte characters
         for ( int pos = m_control->FindText(0, eof, selectedText, flag );
                 pos != wxSTC_INVALID_POSITION ;
                 pos = m_control->FindText(pos+=selectedText.Len(), eof, selectedText, flag) )
         {
-            // does not make sense anymore: check that the found occurrence is not the same as the selected,
-            // since it is not selected in the second view -> so highlight it
             m_control->SendMsg( 2504 , pos , selectedText.Len() );
         }
     }
@@ -926,3 +912,45 @@ void RheiaEditorBase::DoApplyRegex( const wxRegEx& expression , const wxString& 
     else
         m_control->SetText(text);
 }
+
+int RheiaEditorBase::Find( const wxString& expr , int flag )
+{
+    const int theIndicator = MATCH_INDICATOR;
+    m_control->SendMsg( 2500 , theIndicator , 0 );
+	int ret = -1;
+    wxString selectedText = expr;
+	bool findFirst = false;
+	
+    int eof = m_control->GetLength();
+    m_control->SendMsg( 2505 , 0 , eof );
+
+    if( selectedText.Len() > 2        // if there is no text selected (a == b), it stops here and does not hog the cpu further
+            && selectedText.Find(_T(' ')) == wxNOT_FOUND
+            && selectedText.Find(_T('\t')) == wxNOT_FOUND
+            && selectedText.Find(_T('\n')) == wxNOT_FOUND )
+    {
+
+        // search for every occurence
+        for ( int pos = m_control->FindText(0, eof, selectedText, flag );
+                pos != wxSTC_INVALID_POSITION ;
+                pos = m_control->FindText(pos+=selectedText.Len(), eof, selectedText, flag) )
+        {
+			if( !findFirst )
+			{
+				m_control->SetSelectionStart(pos);
+				m_control->SetSelectionEnd(pos+=selectedText.Len());
+				ret = pos;
+				m_lastFindPos = ret;
+			}
+            m_control->SendMsg( 2504 , pos , selectedText.Len() );
+        }
+    }
+	
+	return ret;
+}
+
+int RheiaEditorBase::FindNext( const wxString& expr , int flag )
+{
+	return 0;
+}
+

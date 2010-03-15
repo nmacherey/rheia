@@ -198,10 +198,10 @@ private :
 *	@date	21-Nov-2008
 *	@version 0.0.1
 */
-class BASE_DLLEXPORT RheiaMenuFunctorManager : public wxEvtHandler, public Mgr<RheiaMenuFunctorManager>
+class BASE_DLLEXPORT RheiaMenuFunctorManager : public wxEvtHandler, public Singleton<RheiaMenuFunctorManager>
 {
-    /** Give our private member access to Mgr */
-    friend class Mgr<RheiaMenuFunctorManager>;
+    /** Give our private member access to Singleton */
+    friend class Singleton<RheiaMenuFunctorManager>;
     /** Give our private member access to RheiaManager */
     friend class RheiaManager;
 public :

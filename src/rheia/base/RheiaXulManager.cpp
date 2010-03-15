@@ -11,9 +11,9 @@
 #include "webcontrol.h"
 
 /** global instance for RheiaXulManager */
-template<> RheiaXulManager* Mgr<RheiaXulManager>::instance = 0;
+template<> RheiaXulManager* Singleton<RheiaXulManager>::instance = 0;
 /** global instance for RheiaXulManager */
-template<> bool  Mgr<RheiaXulManager>::isShutdown = false;
+template<> bool  Singleton<RheiaXulManager>::isShutdown = false;
 
 
 void RheiaXulManager::Init( const wxString& path )

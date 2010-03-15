@@ -31,8 +31,8 @@
 #include <wx/stdpaths.h>
 
 /*! Global instance for the plugin manager */
-template<> RheiaXmlManager* Mgr<RheiaXmlManager>::instance = 0;
-template<> bool  Mgr<RheiaXmlManager>::isShutdown = false;
+template<> RheiaXmlManager* Singleton<RheiaXmlManager>::instance = 0;
+template<> bool  Singleton<RheiaXmlManager>::isShutdown = false;
 
 /********************************************************************************************************
 * namespace for default node names for RheiaXmlManager
