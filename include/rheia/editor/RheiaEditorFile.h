@@ -100,6 +100,8 @@ public :
     const wxString& GetFileName() {return m_filename;}
 
     void SetFileName( const wxString& filename ){m_filename = filename;}
+	
+	RheiaEditorBase* GetPage() {return m_page;};
 
 protected :
     wxBitmap m_bitmap;

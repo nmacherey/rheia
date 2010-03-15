@@ -14,8 +14,10 @@
 
 #include <RheiaConfigurationManager.h>
 #include <RheiaCenterPaneManager.h>
+#include <RheiaInfoPaneManager.h>
 #include <RheiaStandardPaths.h>
 #include <RheiaToolBarManager.h>
+#include <RheiaSearchResults.h>
 
 #include <wx/menu.h>
 #include <wx/filedlg.h>
@@ -93,6 +95,9 @@ RheiaEditorManager::RheiaEditorManager( RheiaManagedFrame* parent ):
     idConfigure = wxNewId();
 
     RegisterEvents();
+	
+	m_searchResults = new RheiaSearchResults(m_parent);
+	RheiaInfoPaneManager::Get(m_parent)->AddPage(wxT("Search results"),m_searchResults);
 }
 
 RheiaEditorManager::~RheiaEditorManager()
@@ -155,10 +160,8 @@ void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )
         wxMenu* mnSearch = new wxMenu();
         mnSearch->Append( idFind , wxT("Find\tCtrl-F1") , wxT("Find Text") );
         mnSearch->Append( idFindNext , wxT("Find Next\tF3") , wxT("Find Next") );
-        mnSearch->Append( idFindInFiles , wxT("Find In Files\tCtrl-F3") , wxT("Find Next") );
         mnSearch->Append( idReplace , wxT("Replace\tCtrl-Shift-L") , wxT("Find Next") );
         mnSearch->Append( idReplace , wxT("Replace Nexy\tCtrl-Shift-L") , wxT("Find Next") );
-        mnSearch->Append( idReplaceInFiles , wxT("Replace In Files\tCtrl-Shift-F3") , wxT("Find Next") );
         mnEdit->AppendSeparator();
         mnSearch->Append( idApplyRegEx , wxT("Apply regular expression\tAlt-X") , wxT("Regular expression") );
         menuBar->Insert( idx +1 , mnSearch , wxT("&Search") );
@@ -692,9 +695,9 @@ void RheiaEditorManager::OnMenuEdit( wxCommandEvent& event )
     else if( id == idSelectLine && m_currentEditor->CanSelectLine() )
         m_currentEditor->DoSelectLine();
     else if( id == idFind )
-        {}
+		DoStartFind();
     else if( id == idFindNext )
-        {}
+		FindNextIn(m_currentEditor);
     else if( id == idReplace )
         {}
     else if( id == idReplaceNext )
@@ -779,32 +782,43 @@ int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr ,
 	if( expr.IsEmpty() || editor == NULL )
 		return -1;
 	
+	m_lastExpr = expr;
+	m_lastFlag = flag;
+	
 	int start, end, pos;
 	wxStyledTextCtrl* control = editor->GetControl();
 	editor->HighlightOccurrences(expr,flag);
 	
-	if( selOnly )
+	if( editor->m_findData.start == -1 || !editor->m_findData.expr.IsSameAs(expr) )
 	{
-		start = control->GetSelectionStart();
-		end = control->GetSelectionEnd();
+		if( selOnly )
+		{
+			start = control->GetSelectionStart();
+			end = control->GetSelectionEnd();
+		}
+		else
+		{
+			start = control->GetCurrentPos();
+			end = control->GetLength();
+		}
 	}
 	else
 	{
-		start = control->GetCurrentPos();
-		end = control->GetLength();
+		start = editor->m_findData.start;
+		end = editor->m_findData.end;
 	}
 	
-	m_findData.start = start;
-	m_findData.end = end;
-	m_findData.expr = expr;
-	m_findData.selOnly = selOnly;
-	m_findData.flag = flag;
-	m_findData.pos = start;
+	editor->m_findData.start = start;
+	editor->m_findData.end = end;
+	editor->m_findData.expr = expr;
+	editor->m_findData.selOnly = selOnly;
+	editor->m_findData.flag = flag;
+	editor->m_findData.pos = start;
 	
 	while(1)
 	{
 		pos = control->FindText(start, end, expr , flag);
-		m_findData.pos = pos;
+		editor->m_findData.pos = pos;
 		
 		if( pos != -1 && start != end )
 		{
@@ -821,7 +835,7 @@ int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr ,
             control->GotoLine(line);
             control->SetSelectionStart(pos);
 			control->SetSelectionEnd(pos+expr.Len());
-            m_findData.start = pos;
+            editor->m_findData.start = pos+expr.Len();
             break; // done
 			
 		}//end if( pos != -1 && start != end )
@@ -842,8 +856,8 @@ int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr ,
 					return -1;
 				else
 				{
-					m_findData.start = 0;
-					m_findData.end = control->GetLength();
+					editor->m_findData.start = 0;
+					editor->m_findData.end = control->GetLength();
 				}
 			}
 			else
@@ -854,12 +868,137 @@ int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr ,
 					return -1;
 				else
 				{
-					m_findData.start = 0;
-					m_findData.end = control->GetLength();
+					editor->m_findData.start = 0;
+					editor->m_findData.end = control->GetLength();
 				}
 			}
 		}
 	}// end while(1)
 	
-	return m_findData.pos;
+	return editor->m_findData.pos;
+}
+
+int RheiaEditorManager::FindAllIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly )
+{
+	int count;
+	
+	if( expr.IsEmpty() || editor == NULL )
+		return -1;
+	
+	int start, end, pos;
+	wxStyledTextCtrl* control = editor->GetControl();
+	editor->HighlightOccurrences(expr,flag);
+	
+
+	start = 0;
+	end = control->GetLength();
+	
+	while(1)
+	{
+		pos = control->FindText(start, end, expr , flag);
+		
+		if( pos != -1 && start != end )
+		{
+			int line = control->LineFromPosition(pos);
+			int onScreen = control->LinesOnScreen() >> 1;
+            int l1 = line - onScreen;
+            int l2 = line + onScreen;
+			
+            for(int l=l1; l<=l2;l+=2)       // unfold visible lines on screen
+                control->EnsureVisible(l);
+				
+            control->GotoLine(l1);          // center selection on screen
+            control->GotoLine(l2);
+            control->GotoLine(line);
+            
+			SearchResult res;
+			res.line = line+1;
+			res.file = editor->GetContainer()->GetFileName();
+			res.text = control->GetLine(line);
+			
+			search.push_back(res);
+			
+            start = pos+expr.Len();
+			
+		}//end if( pos != -1 && start != end )
+		else
+		{
+			break;
+		}
+	}// end while(1)
+	
+	return editor->m_findData.pos;
+}
+
+int RheiaEditorManager::FindNextIn( RheiaEditorBase* editor )
+{
+	m_currentEditor = GetCurrentEditor();
+    if( !m_currentEditor )
+        return -1;
+		
+	if( !editor->m_findData.expr.IsSameAs(m_lastExpr) )
+	{
+		editor->m_findData.start = -1;
+		editor->m_findData.end = -1;
+		return FindIn( m_currentEditor , m_lastExpr , m_lastFlag , false );
+	}
+	
+	return FindIn( m_currentEditor , m_lastExpr , editor->m_findData.flag , editor->m_findData.selOnly );
+}
+
+void RheiaEditorManager::DoStartFind()
+{
+	m_currentEditor = GetCurrentEditor();
+    if( !m_currentEditor )
+        return;
+		
+	RheiaFindFilesDialog dialog(m_parent);
+	
+	if( dialog.ShowModal() != wxID_OK )
+		return;
+		
+	int flag = 0;
+	
+	if( dialog.MatchCase() )
+		flag |= wxSTC_FIND_MATCHCASE;
+	if( dialog.WholeWord() )
+		flag |= wxSTC_FIND_WHOLEWORD;
+	if( dialog.StartWord() )
+		flag |= wxSTC_FIND_WORDSTART;
+		
+	int scope = dialog.Scope();
+	bool selOnly = (scope == 3);
+	SearchResultArray m_search;
+	RheiaEditorMap::iterator it = m_files.begin();
+	
+	switch(scope)
+	{
+		case 0:
+		case 3:
+			FindIn(m_currentEditor,dialog.GetExpr(),flag,selOnly);
+			break;
+		case 1:
+			for( ; it != m_files.end() ; ++it )
+			{
+				FindAllIn( m_search , it->second->GetPage() , dialog.GetExpr() , flag , false );
+			}
+			
+			m_searchResults->Update(m_search);
+			RheiaInfoPaneManager::Get(m_parent)->ActivatePage( wxT("Search results") );
+			
+			break;
+		case 2:
+			break;
+	}
+}
+
+void RheiaEditorManager::Goto( const wxString& file , int line , const wxString& text )
+{
+	RheiaEditorMap::iterator it = m_files.find(file);
+	if( it == m_files.end() )
+		return;
+	
+	RheiaCenterPaneManager::Get(m_parent)->ActivatePage(file);
+	it->second->GetPage()->Goto(line);
+	it->second->GetPage()->HighlightOccurrences(text,wxSTC_FIND_WHOLEWORD);
 }

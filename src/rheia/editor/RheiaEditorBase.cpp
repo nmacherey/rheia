@@ -954,3 +954,7 @@ int RheiaEditorBase::FindNext( const wxString& expr , int flag )
 	return 0;
 }
 
+void RheiaEditorBase::Goto( int line )
+{
+	m_control->GotoLine(line);
+}

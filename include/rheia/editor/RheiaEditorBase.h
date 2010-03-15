@@ -90,6 +90,7 @@ enum SplitWindow
 */
 class EDITOR_DLLEXPORT RheiaEditorBase : public RheiaBookPage
 {
+	friend class RheiaEditorManager;
 public :
 
     /**************************************************************************************
@@ -256,7 +257,7 @@ public :
     virtual void ReplaceNext( const wxString& expr , int flag = matchAll ){};
 
     /** Goto the given line */
-    virtual void Goto( int line ) {};
+    virtual void Goto( int line );
 
     /** Clear undo redo history */
     virtual bool CanClearHistory() {return true;};
@@ -378,6 +379,8 @@ protected :
     wxStyledTextCtrl* m_control;
     int m_ID;
 	int m_lastFindPos;
+	
+	InternalFindData m_findData;
 
     /**************************************************************************************
     *   EVENT IDS

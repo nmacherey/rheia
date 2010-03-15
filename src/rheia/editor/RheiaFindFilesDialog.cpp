@@ -6,10 +6,26 @@
 *   @version 0.0.1
 */
 #include "RheiaFindFilesDialog.h"
+#include "RheiaManager.h"
+#include "RheiaConfigurationManager.h"
+#include "RheiaStandardPaths.h"
 
+#include <wx/dirdlg.h>
 
 RheiaFindFilesDialog::RheiaFindFilesDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
+	m_wholeWord = false;
+	m_startWord = false;
+	m_matchCase = false;
+	m_wrapAtEOF = false;
+	m_scope = 0;
+
+	m_recursive = false;
+	m_hiddenFiles = false;
+	
+	idRbScope = wxNewId();
+	idSelectpath = wxNewId();
+	
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
 	wxBoxSizer* bSizer20;
@@ -53,7 +69,7 @@ RheiaFindFilesDialog::RheiaFindFilesDialog( wxWindow* parent, wxWindowID id, con
 
 	fgSizer6->Add( sbSizer13, 1, wxALL|wxEXPAND, 5 );
 
-	wxString rbScopeChoices[] = { wxT("Open files"), wxT("Search path") };
+	wxString rbScopeChoices[] = { wxT("Current file") , wxT("Open files"), wxT("Search path") , wxT("Selection Only") };
 	int rbScopeNChoices = sizeof( rbScopeChoices ) / sizeof( wxString );
 	rbScope = new wxRadioBox( this, wxID_ANY, wxT("Scope"), wxDefaultPosition, wxDefaultSize, rbScopeNChoices, rbScopeChoices, 1, wxRA_SPECIFY_COLS );
 	rbScope->SetSelection( 0 );
@@ -72,7 +88,6 @@ RheiaFindFilesDialog::RheiaFindFilesDialog( wxWindow* parent, wxWindowID id, con
 	bSizer26->Add( m_staticText14, 0, wxALL, 5 );
 
 	txtPath = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	txtPath->Enable( false );
 
 	bSizer26->Add( txtPath, 1, wxALL|wxEXPAND, 0 );
 
@@ -89,7 +104,6 @@ RheiaFindFilesDialog::RheiaFindFilesDialog( wxWindow* parent, wxWindowID id, con
 	bSizer27->Add( m_staticText15, 0, wxALL, 5 );
 
 	txtMask = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	txtMask->Enable( false );
 
 	bSizer27->Add( txtMask, 1, wxALL|wxEXPAND, 0 );
 
@@ -111,13 +125,9 @@ RheiaFindFilesDialog::RheiaFindFilesDialog( wxWindow* parent, wxWindowID id, con
 	bSizer29 = new wxBoxSizer( wxHORIZONTAL );
 
 	chkRecursive = new wxCheckBox( this, wxID_ANY, wxT("Recurse subdirectories"), wxDefaultPosition, wxDefaultSize, 0 );
-	chkRecursive->Enable( false );
-
 	bSizer29->Add( chkRecursive, 1, wxALL|wxEXPAND, 5 );
 
 	chkHiddenFiles = new wxCheckBox( this, wxID_ANY, wxT("Hidden files"), wxDefaultPosition, wxDefaultSize, 0 );
-	chkHiddenFiles->Enable( false );
-
 	bSizer29->Add( chkHiddenFiles, 0, wxALL, 5 );
 
 	sbSizer16->Add( bSizer29, 0, wxEXPAND, 5 );
@@ -137,11 +147,98 @@ RheiaFindFilesDialog::RheiaFindFilesDialog( wxWindow* parent, wxWindowID id, con
 
 	this->SetSizer( bSizer20 );
 	this->Layout();
-
+	
+	//bSizer20->SetSizeHints(this);
+	this->SetSize(wxSize(600,450));
 	this->Centre( wxBOTH );
+	
+	rbScope->Connect(wxEVT_COMMAND_RADIOBOX_SELECTED,wxCommandEventHandler(RheiaFindFilesDialog::OnScopeChange),NULL,this);
+	btnSelPath->Connect(wxEVT_COMMAND_BUTTON_CLICKED,wxCommandEventHandler(RheiaFindFilesDialog::OnBtnSearchPath),NULL,this);
+	
+	EnableSearchPaths( rbScope->GetSelection() == 2 );
+	
+	RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("FindFilesDialog"));
+	m_history = cfg->ReadArrayString( wxT("/history") );
+	
+	cbFindText->Append(m_history);
 }
 
 RheiaFindFilesDialog::~RheiaFindFilesDialog()
 {
 }
 
+void RheiaFindFilesDialog::EndModal( int retCode )
+{
+	if (retCode == wxID_OK)
+    {
+		m_expr = cbFindText->GetValue();
+		
+		if( m_expr.IsEmpty() )
+		{
+			wxMessageBox( wxT("Cannot leave empty find expression !") , wxT("warning") , wxICON_ERROR , this );
+			return;
+		}
+		
+		m_wholeWord = chkWholeWord->IsChecked();
+		m_startWord = chkStartWord->IsChecked();
+		m_matchCase = chkMatchCase->IsChecked();
+		m_wrapAtEOF = chkWrapAtEof->IsChecked();
+		m_scope = rbScope->GetSelection();
+		
+		m_path = txtPath->GetValue();
+		m_masks = txtMask->GetValue();
+		m_recursive = chkRecursive->IsChecked();
+		m_hiddenFiles = chkHiddenFiles->IsChecked();
+		
+		if( m_history.Index(m_expr) != wxNOT_FOUND )
+            m_history.RemoveAt(m_history.Index(m_expr));
+
+        m_history.Insert(m_expr,0);
+
+        if( m_history.GetCount() > MAX_FIND_HIST )
+            m_history.RemoveAt(MAX_FIND_HIST);
+
+        RheiaConfigurationManager* cfg = RheiaManager::Get()->GetConfigurationManager(wxT("FindFilesDialog"));
+        cfg->Write( wxT("/history") , m_history );
+	}
+	wxDialog::EndModal(retCode);
+}
+
+void RheiaFindFilesDialog::OnScopeChange(wxCommandEvent& event)
+{
+	EnableSearchPaths( rbScope->GetSelection() == 2 );
+}
+
+void RheiaFindFilesDialog::OnBtnSearchPath(wxCommandEvent& event)
+{
+	wxString LastOpenPath = RheiaManager::Get()->GetConfigurationManager( wxT("search_paths") )->Read( wxT("/last_path") , RheiaStandardPaths::HomeDirectory() );
+
+	wxDirDialog dialog( m_parent,
+						 wxT("Select the search path"),
+						 LastOpenPath,
+						 wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST );
+
+	if ( dialog.ShowModal() == wxID_OK )
+	{
+		wxString path = dialog.GetPath();
+		RheiaManager::Get()->GetConfigurationManager( wxT("search_paths") )->Write( wxT("/last_path") , path );
+		txtPath->SetValue( path );
+	}
+	else
+	{
+		return;
+	}
+}
+
+void RheiaFindFilesDialog::EnableSearchPaths(bool value)
+{
+	m_staticText14->Enable(value);
+    txtPath->Enable(value);
+    btnSelPath->Enable(value);
+    m_staticText15->Enable(value);
+    txtMask->Enable(value);
+
+    m_staticText17->Enable(value);
+    chkRecursive->Enable(value);
+    chkHiddenFiles->Enable(value);
+}

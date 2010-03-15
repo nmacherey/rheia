@@ -17,6 +17,7 @@
 #include <wx/stc/stc.h>
 
 #include "RheiaEditorSettings.h"
+#include "RheiaSearchResults.h"
 
 #include <map>
 
@@ -27,6 +28,7 @@ class wxMenuBar;
 class wxToolbar;
 class wxStaticText;
 class wxTextCtrl;
+class RheiaSearchResults;
 
 const int matchStart          = wxSTC_FIND_WORDSTART;
 const int matchCase           = wxSTC_FIND_MATCHCASE;
@@ -77,6 +79,44 @@ WX_DEFINE_ARRAY( RheiaEditorFile* , RheiaEditorArray );
 
 typedef std::map<wxString,RheiaEditorFile*> RheiaEditorMap;
 
+/** @struct InternalFindData
+ * @brief basic class fo storing find info internally
+ */
+struct InternalFindData
+{
+	InternalFindData():start(-1),end(-1),selOnly(false),pos(-1),flag(0){};
+#ifndef SWIG
+	InternalFindData(const InternalFindData& rhs):
+		expr(rhs.expr),
+		start(rhs.start),
+		end(rhs.end),
+		selOnly(rhs.selOnly),
+		pos(rhs.pos),
+		flag(rhs.flag){}
+	
+	InternalFindData& operator=(const InternalFindData& rhs)
+	{
+		expr = rhs.expr;
+		start = rhs.start;
+		end = rhs.end;
+		selOnly = rhs.selOnly;
+		pos = rhs.pos;
+		flag = rhs.flag;
+		
+		return (*this);
+	}
+	
+#endif
+	~InternalFindData() {};
+	
+	wxString expr;
+	int start;
+	int end;
+	bool selOnly;
+	int pos;
+	int flag;
+};
+	
 /**
 *   @class RheiaEditorManager
 *   @brief This is the basic class for managing files in an editor
@@ -104,6 +144,9 @@ public :
 
     /** Notify Editor Closed */
     bool NotifyClose(RheiaEditorFile* file);
+	
+	/** Goto the given line in the given editor */
+	void Goto( const wxString& file , int line , const wxString& text );
 
 private :
     /** ctor */
@@ -181,7 +224,10 @@ private :
 	/**************************************************************************************
     *   FIND / REPLACE METHODS
     **************************************************************************************/
-	/** Find the given expression int the given editor
+	/** Method that starts the find */
+	void DoStartFind();
+	
+	/** Find the given expression in the given editor
 	 * @param editor Editor in which the expression shall be found
 	 * @param expr Expression to find
 	 * @param flag one of the wxSCI_FIND_WHOLEWORD, wxSCI_FIND_WORDSTART, wxSCI_FIND_MATCHCASE flags
@@ -190,6 +236,23 @@ private :
 	 * -1 if the expression does not exists
 	 */
 	int FindIn( RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly );
+	
+	/** Find all occurences of the given expression in the given editor
+	 * @param editor Editor in which the expression shall be found
+	 * @param expr Expression to find
+	 * @param flag one of the wxSCI_FIND_WHOLEWORD, wxSCI_FIND_WORDSTART, wxSCI_FIND_MATCHCASE flags
+	 * @param selOnly specify if the find shall be done in the selected teext only ot not
+	 * @return the current position for the first expression found in the editor or 
+	 * -1 if the expression does not exists
+	 */
+	int FindAllIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly );
+	
+	/** Find the next expression from previous search in the given editor
+	 * @param editor Editor in which the expression shall be found
+	 * @return the current position for the next expression found in the editor or 
+	 * -1 if the expression does not exists
+	 */
+	int FindNextIn( RheiaEditorBase* editor );
 	
 private :
     /** parented managed window */
@@ -208,6 +271,8 @@ private :
 	wxTextCtrl* m_txtGotoLine;
 	wxStaticText* m_stFind;
 	wxTextCtrl* m_txtFind;
+	
+	RheiaSearchResults* m_searchResults;
 
     /**************************************************************************************
     *   EVENTS IDS
@@ -263,20 +328,9 @@ private :
     /*** In the Settings menu */
     int idConfigure;
 	
-	/** @struct InternalFindData
-	 * @brief basic class fo storing find info internally
-	 */
-	struct InternalFindData
-	{
-		wxString expr;
-		int start;
-		int end;
-		bool selOnly;
-		int pos;
-		int flag;
-	};
-	
-	InternalFindData m_findData;
+	/*** last expression seach */
+	wxString m_lastExpr;
+	int m_lastFlag;
 };
 
 /**
