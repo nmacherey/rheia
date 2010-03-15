@@ -260,11 +260,11 @@ class RheiaBookManager(wx._core.EvtHandler):
     def __init__(self): raise AttributeError, "No constructor defined"
     __repr__ = _swig_repr
     def BuildMenu(*args, **kwargs):
-        """BuildMenu(self, MenuBar menuBar)"""
+        """BuildMenu(self, MenuBar ?)"""
         return _base.RheiaBookManager_BuildMenu(*args, **kwargs)
 
     def ReleaseMenu(*args, **kwargs):
-        """ReleaseMenu(self, MenuBar menuBar)"""
+        """ReleaseMenu(self, MenuBar ?)"""
         return _base.RheiaBookManager_ReleaseMenu(*args, **kwargs)
 
     def GetNoteBook(*args, **kwargs):
@@ -2035,7 +2035,7 @@ class RheiaTreeItem(wx._core.EvtHandler,utils.RheiaObjectWithBitmap):
         return _base.RheiaTreeItem_OnItemRightClick(*args, **kwargs)
 
     def OnRequestContextMenu(*args, **kwargs):
-        """OnRequestContextMenu(self, Menu menu)"""
+        """OnRequestContextMenu(self, Menu ?)"""
         return _base.RheiaTreeItem_OnRequestContextMenu(*args, **kwargs)
 
     def OnPreDelete(*args, **kwargs):

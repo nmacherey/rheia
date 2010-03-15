@@ -77,7 +77,15 @@ RheiaEditorBase::RheiaEditorBase( RheiaManagedFrame* toplevel, wxWindow* parent 
 
 RheiaEditorBase::~RheiaEditorBase()
 {
+	delete m_context;
+}
 
+void RheiaEditorBase::SetContext(RheiaEditorLayout* context)
+{
+	delete m_context;
+	m_context = context;
+	
+	Reload();
 }
 
 void RheiaEditorBase::Reload()

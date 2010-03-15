@@ -132,14 +132,6 @@ void RheiaPythonUtils::PythonInit()
     PythonExecuteCommand( wxT("import __main__") ); // to access explicitly global variables
     PythonExecuteCommand( command );
 
-//    // import the pyRheiaSdk into the python module
-//    if ( !PythonExecuteCommand( wxT("from rheia import *"),
-//                                wxT( "Couldn't load rheia module. Python support will be disabled." ) ) )
-//    {
-//        PythonExit();
-//        return;
-//    }
-//
     PythonExecuteCommand(
         _("def rheia_exception_msg(type, value, tb, msg):\n"
             "  lst = traceback.format_exception(type, value, tb)\n"

@@ -178,6 +178,9 @@ private :
 
     /** On file open */
     void OnFileOpen( wxCommandEvent& event );
+	
+	/** On file open */
+    void OnFileNew( wxCommandEvent& event );
 
     /** On file open */
     void OnFileSave( wxCommandEvent& event );

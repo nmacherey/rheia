@@ -110,7 +110,7 @@ class RheiaPlugin(wx._core.EvtHandler):
         return _packagemgt.RheiaPlugin_GetGroupIdentifier(*args, **kwargs)
 
     def GetConfigurationPanel(*args, **kwargs):
-        """GetConfigurationPanel(self, Window parent) -> RheiaConfigurationPanel"""
+        """GetConfigurationPanel(self, Window ?) -> RheiaConfigurationPanel"""
         return _packagemgt.RheiaPlugin_GetConfigurationPanel(*args, **kwargs)
 
     def IsPlugged(*args, **kwargs):
@@ -122,11 +122,11 @@ class RheiaPlugin(wx._core.EvtHandler):
         return _packagemgt.RheiaPlugin_CanUnplug(*args, **kwargs)
 
     def BuildToolBar(*args, **kwargs):
-        """BuildToolBar(self, Window parent) -> ToolBar"""
+        """BuildToolBar(self, Window ?) -> ToolBar"""
         return _packagemgt.RheiaPlugin_BuildToolBar(*args, **kwargs)
 
     def BuildMenu(*args, **kwargs):
-        """BuildMenu(self, MenuBar menuBar)"""
+        """BuildMenu(self, MenuBar ?)"""
         return _packagemgt.RheiaPlugin_BuildMenu(*args, **kwargs)
 
 _packagemgt.RheiaPlugin_swigregister(RheiaPlugin)

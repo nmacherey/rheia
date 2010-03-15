@@ -21,7 +21,7 @@ bool RheiaEditorFile::Load()
 {
     if( m_page == NULL || m_filename.IsEmpty() )
         return false;
-
+	m_page->DoClear();
     return m_page->Load(m_filename);
 }
 

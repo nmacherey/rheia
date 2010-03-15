@@ -202,6 +202,12 @@ public :
 	*   @return false if the page cannot be removed
 	*/
 	virtual bool RemovePage( const wxString& name );
+	
+	/** Rename the given page 
+	 * @param odlName actual name
+	 * @param newName new page name
+	 */
+	void RenamePage( const wxString& oldName , const wxString& newName );
 
 	/**
 	*   Remove a page from the notebook but do not delete its corresponding

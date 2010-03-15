@@ -18,6 +18,7 @@
 #include <RheiaStandardPaths.h>
 #include <RheiaToolBarManager.h>
 #include <RheiaSearchResults.h>
+#include <RheiaDefaultLayout.h>
 
 #include <wx/menu.h>
 #include <wx/filedlg.h>
@@ -111,17 +112,19 @@ void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )
     int idx = menuBar->FindMenu(wxT("File"));
     if( idx != wxNOT_FOUND )
     {
+		int i = 0;
         wxMenu* mnFile = menuBar->GetMenu( idx );
-        mnFile->Insert( 0, idOpen , wxT("&Open File\tCtrl-O") , wxT("Open a new file from the manager") );
-        mnFile->Insert( 1, idCloseCurrent , wxT("&Close the current file\tCtrl-W") , wxT("Close the current file") );
-        mnFile->Insert( 2, idCloseAll , wxT("Close all opened files\tCtrl-Alt-W") , wxT("Close the current file") );
-        mnFile->Insert( 3, idCloseAllOthers , wxT("Close all opened files except the active one\tCtrl-Shift-W") , wxT("Close the current file") );
+		mnFile->Insert( i++, idNew , wxT("&New File\tCtrl-N") , wxT("Create a new file from the manager") );
+        mnFile->Insert( i++, idOpen , wxT("&Open File\tCtrl-O") , wxT("Open a new file from the manager") );
+        mnFile->Insert( i++, idCloseCurrent , wxT("&Close the current file\tCtrl-W") , wxT("Close the current file") );
+        mnFile->Insert( i++, idCloseAll , wxT("Close all opened files\tCtrl-Alt-W") , wxT("Close the current file") );
+        mnFile->Insert( i++, idCloseAllOthers , wxT("Close all opened files except the active one\tCtrl-Shift-W") , wxT("Close the current file") );
 
-        mnFile->InsertSeparator(4);
+        mnFile->InsertSeparator(i++);
 
-        mnFile->Insert( 5, idSaveCurrent , wxT("Save\tCtrl-S") , wxT("Save the current file") );
-        mnFile->Insert( 6, idSaveAs , wxT("Save as\tCtrl-Shift-S") , wxT("Save the current file in a new file") );
-        mnFile->Insert( 7, idSaveAll , wxT("Save all\tAlt-Shift-S") , wxT("Save all modified files") );
+        mnFile->Insert( i++, idSaveCurrent , wxT("Save\tCtrl-S") , wxT("Save the current file") );
+        mnFile->Insert( i++, idSaveAs , wxT("Save as\tCtrl-Shift-S") , wxT("Save the current file in a new file") );
+        mnFile->Insert( i++, idSaveAll , wxT("Save all\tAlt-Shift-S") , wxT("Save all modified files") );
     }
 
     idx = menuBar->FindMenu(wxT("Edit"));
@@ -309,7 +312,8 @@ void RheiaEditorManager::RegisterEvents()
     Connect(idAutoFormatAll,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
     Connect(idCommentSel,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
     Connect(idUncommentSel,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
-
+	
+	Connect(idNew,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileNew));
     Connect(idOpen,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileOpen));
     Connect(idSaveCurrent,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileSave));
     Connect(idSaveAs,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileSaveAs));
@@ -414,6 +418,8 @@ void RheiaEditorManager::OnFileOpen( wxCommandEvent& event )
         for( unsigned int j = 0; j < exts.GetCount() ; ++j )
             f_exts += exts[j] + wxT("|");
     }
+	
+	f_exts += wxT("All files (*)|*");
 
     wxString LastOpenPath = RheiaManager::Get()->GetConfigurationManager( wxT("load_save") )->Read( wxT("/last_file_path") , RheiaStandardPaths::HomeDirectory() );
 
@@ -439,6 +445,17 @@ void RheiaEditorManager::OnFileOpen( wxCommandEvent& event )
         Open(filepaths[i]);
 }
 
+void RheiaEditorManager::OnFileNew( wxCommandEvent& event )
+{
+	static int count = 1;
+	wxString Name = wxString::Format(wxT("Untitled#%d"),count++);
+	RheiaEditorLayout* context = new RheiaDefaultLayout();
+	
+	RheiaEditorFile* file = new RheiaEditorFile(m_parent,context,Name);
+	if( file != NULL )
+	   AddFile(Name,file);
+}
+
 bool RheiaEditorManager::Open(const wxString& filename)
 {
     RheiaEditorHandler* handler = NULL;
@@ -449,15 +466,21 @@ bool RheiaEditorManager::Open(const wxString& filename)
             handler = RheiaEditorFactory::Get()->m_handlers[j];
             break;
         }
-
+	
+	RheiaEditorLayout* context;
+	
     if( handler )
     {
-        RheiaEditorLayout* context = handler->CreateContext();
-
-        RheiaEditorFile* file = new RheiaEditorFile(m_parent,context,filename);
-        if( file != NULL )
-           return AddFile(filename,file);
-    }
+        context = handler->CreateContext();
+	}
+	else
+	{
+		context = new RheiaDefaultLayout();
+	}
+	
+	RheiaEditorFile* file = new RheiaEditorFile(m_parent,context,filename);
+	if( file != NULL )
+	   return AddFile(filename,file);
 
     return false;
 }
@@ -469,8 +492,27 @@ void RheiaEditorManager::OnFileSave( wxCommandEvent& event )
         return;
 
     m_currentFile = m_currentEditor->GetContainer();
-
-    if( m_currentEditor->GetModified() )
+	
+	if( m_currentFile->GetFileName().Contains(wxT("Untitled")) )
+	{
+		wxString oldName = m_currentFile->GetFileName();
+		if( SaveFile(m_currentFile) )
+		{
+			RheiaCenterPaneManager::Get(m_parent)->RenamePage(oldName,m_currentFile->GetFileName());
+			RheiaEditorMap::iterator it = m_files.find(oldName);
+			
+			if( it != m_files.end() )
+			{
+				RheiaEditorFile* file = it->second;
+				m_files.erase(it);
+				RheiaEditorMap::iterator it2 = m_files.find(m_currentFile->GetFileName());
+				
+				if( it2 == m_files.end() )
+					m_files[m_currentFile->GetFileName()] = file;
+			}
+		}
+	}
+    else if( m_currentEditor->GetModified() )
         SaveFile(m_currentFile);
 
     m_currentEditor = NULL;
@@ -482,8 +524,26 @@ void RheiaEditorManager::OnFileSaveAs( wxCommandEvent& event )
     m_currentEditor = GetCurrentEditor();
     if( !m_currentEditor )
         return;
-
-    SaveFile(m_currentFile,true);
+	
+	m_currentFile = m_currentEditor->GetContainer();
+	wxString oldName = m_currentFile->GetFileName();
+	
+    if( SaveFile(m_currentFile,true) )
+	{
+		RheiaCenterPaneManager::Get(m_parent)->RenamePage(oldName,m_currentFile->GetFileName());
+		RheiaEditorMap::iterator it = m_files.find(oldName);
+		
+		if( it != m_files.end() )
+		{
+			RheiaEditorFile* file = it->second;
+			m_files.erase(it);
+			
+			RheiaEditorMap::iterator it2 = m_files.find(m_currentFile->GetFileName());
+			
+			if( it2 == m_files.end() )
+				m_files[m_currentFile->GetFileName()] = file;
+		}
+	}
 
     m_currentEditor = NULL;
     m_currentFile = NULL;
@@ -545,7 +605,7 @@ RheiaEditorBase* RheiaEditorManager::GetCurrentEditor()
     RheiaEditorMap::iterator it = m_files.begin();
     for( ; it != m_files.end() ; ++it )
     {
-        if( it->second->GetTitle() == active )
+        if( it->second->GetFileName() == active )
             return (RheiaEditorBase*) RheiaCenterPaneManager::Get(m_parent)->GetActivePage();
     }
 
@@ -618,7 +678,53 @@ bool RheiaEditorManager::CloseFile( RheiaEditorFile* file , bool askfor )
 
 bool RheiaEditorManager::SaveFile( RheiaEditorFile* file , bool force_file )
 {
-    if( file->GetFileName().IsEmpty() || force_file )
+	if( file->GetFileName().Contains(wxT("Untitled")) )
+    {
+		wxString f_exts;
+
+        for( unsigned int i = 0 ; i < RheiaEditorFactory::Get()->m_handlers.GetCount() ; ++i )
+        {
+            wxArrayString exts = RheiaEditorFactory::Get()->m_handlers[i]->GetExtensions();
+			for( unsigned int j = 0; j < exts.GetCount() ; ++j )
+				f_exts += exts[j] + wxT("|");
+        }
+
+        f_exts += wxT("All file (*)|*");
+
+        wxString LastOpenPath = RheiaManager::Get()->GetConfigurationManager( wxT("load_save") )->Read( wxT("/last_file_path") , RheiaStandardPaths::HomeDirectory() );
+
+        wxFileDialog dialog( m_parent,
+                             wxT("Select the workspace files you want to load..."),
+                             LastOpenPath,
+                             wxEmptyString,
+                             f_exts,
+                             wxFD_SAVE | wxFD_OVERWRITE_PROMPT );
+
+        if ( dialog.ShowModal() != wxID_OK )
+        {
+            return false;
+        }
+
+        wxString filepath;
+        filepath = dialog.GetPath();
+        RheiaManager::Get()->GetConfigurationManager( wxT("load_save") )->Write( wxT("/last_file_path") , wxFileName(filepath).GetPath() );
+
+        file->SetFileName(filepath);
+		RheiaEditorLayout* context;
+		file->Save();
+		
+		for( unsigned int i = 0 ; i < RheiaEditorFactory::Get()->m_handlers.GetCount() ; ++i )
+        {
+            if( RheiaEditorFactory::Get()->m_handlers[i]->CanHandle(filepath) )
+            {
+                context = RheiaEditorFactory::Get()->m_handlers[i]->CreateContext();
+				file->GetPage()->SetContext(context);
+				file->Load();
+				break;
+            }
+        }
+	}
+    else if( file->GetFileName().IsEmpty() || force_file )
     {
         wxString f_exts;
 
@@ -632,8 +738,7 @@ bool RheiaEditorManager::SaveFile( RheiaEditorFile* file , bool force_file )
             }
         }
 
-        if( f_exts.IsEmpty() )
-            f_exts = wxT("All file (*)|*");
+        f_exts += wxT("All file (*)|*");
 
         wxString LastOpenPath = RheiaManager::Get()->GetConfigurationManager( wxT("load_save") )->Read( wxT("/last_file_path") , RheiaStandardPaths::HomeDirectory() );
 
@@ -675,6 +780,10 @@ bool RheiaEditorManager::AddFile( const wxString& filename , RheiaEditorFile* fi
 
     m_currentFile = file;
     m_currentEditor = (RheiaEditorBase*) RheiaCenterPaneManager::Get(m_parent)->FindPageByName(file->GetTitle());
+	
+	if( file->GetFileName().Contains(wxT("Untitled")) )
+		return true;
+		
     return file->Load();
 }
 

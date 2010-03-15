@@ -108,6 +108,9 @@ public :
 
     /** Get the context */
     RheiaEditorLayout* GetContext() {return m_context;};
+	
+	/** Set the context */
+	void SetContext(RheiaEditorLayout* context);
 
     /**************************************************************************************
     *   ACCESSORS

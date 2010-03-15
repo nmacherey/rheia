@@ -207,6 +207,33 @@ bool RheiaBookManager::RemovePage( const wxString& name )
     return true;
 }
 
+void RheiaBookManager::RenamePage( const wxString& oldName , const wxString& newName )
+{
+	if( !m_book )
+        RheiaThrow( wxT("RheiaBookManager::Error::DeletePage call Create Window with the proper window first") );
+
+    RheiaPageInfoMap::iterator it = m_pages.find( oldName );
+    if( it == m_pages.end() )
+        return;
+	
+	int index = m_book->GetPageIndex(it->second.page);
+	if( index == wxNOT_FOUND)
+		return;
+		
+	RheiaPageInfoMap::iterator it2 = m_pages.find( newName );
+	if( it2 != m_pages.end() )
+		return;
+
+	RheiaPageInfo info = it->second;
+    m_pages.erase( it );
+	
+	info.name = newName;
+	m_pages[newName] = info;
+	m_book->SetPageText(index,newName);
+
+    return;
+}
+
 bool RheiaBookManager::ClosePage( const wxString& name )
 {
     if( !m_book )
