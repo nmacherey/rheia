@@ -546,11 +546,17 @@ bool RheiaPythonUtils::PythonEvalString( const wxString& command, wxString& resu
 		while ( (c = fgetc(stream)) != EOF )
 		{
 			buf[i++]=c;
+			if( i >= BUFSIZ )
+			{
+				buf[i-1] = '\0';
+				result += RheiaC2U( buf );
+				i = 0;
+			}	
 		}
 		if( i != 0 )
 		{
 			buf[i-1] = '\0';
-			result = RheiaC2U( buf );
+			result += RheiaC2U( buf );
 		}
 		
 		fclose(stream);

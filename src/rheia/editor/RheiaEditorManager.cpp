@@ -24,6 +24,7 @@
 #include <wx/filefn.h>
 #include <wx/regex.h>
 #include <wx/toolbar.h>
+#include <wx/progdlg.h>
 
 namespace
 {
@@ -205,6 +206,8 @@ void RheiaEditorManager::BuildToolBar(wxWindow* parent)
 	
 	RheiaToolBarManager::Get(m_parent)->AddToolBar(wxT("Editor tools"),m_tbPythonTools);
 	
+	m_txtGotoLine->Connect(wxEVT_COMMAND_TEXT_ENTER,wxCommandEventHandler(RheiaEditorManager::OnGotoTextEnter),NULL,this);
+	m_txtFind->Connect(wxEVT_COMMAND_TEXT_ENTER,wxCommandEventHandler(RheiaEditorManager::OnFindTextEnter),NULL,this);
 	
 	
 	m_tbEdition = new wxToolBar( parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL ); 
@@ -225,6 +228,19 @@ void RheiaEditorManager::BuildToolBar(wxWindow* parent)
 	m_tbEdition->Realize();
 	
 	RheiaToolBarManager::Get(m_parent)->AddToolBar(wxT("Editor toolbar"),m_tbEdition);
+}
+
+void RheiaEditorManager::OnGotoTextEnter(wxCommandEvent& event)
+{
+	m_currentEditor = GetCurrentEditor();
+	if( !m_currentEditor )
+		return;
+		
+	wxString lineTxt = m_txtGotoLine->GetValue();
+	long line;
+	lineTxt.ToLong(&line);
+	
+	m_currentEditor->Goto(line);
 }
 
 void RheiaEditorManager::ReleaseMenu( wxMenuBar* menuBar )
@@ -852,24 +868,28 @@ int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr ,
 			{
 				wxString msg = expr + wxT(" not found in selection ! Would you like to restart the search from the begining of the document ?");
 				int ret = wxMessageBox(msg,wxT("Result"),wxICON_QUESTION|wxYES_NO,m_parent);
-				if( ret == wxID_NO )
+				if( ret == wxID_NO || ret == wxNO )
 					return -1;
 				else
 				{
 					editor->m_findData.start = 0;
 					editor->m_findData.end = control->GetLength();
+					start = editor->m_findData.start;
+					end = editor->m_findData.end;
 				}
 			}
 			else
 			{
 				wxString msg = expr + wxT(" not found in range ! Would you like to restart the search on the whole document ?");
 				int ret = wxMessageBox(msg,wxT("Result"),wxICON_QUESTION|wxYES_NO,m_parent);
-				if( ret == wxID_NO )
+				if( ret == wxID_NO || ret == wxNO )
 					return -1;
 				else
 				{
 					editor->m_findData.start = 0;
 					editor->m_findData.end = control->GetLength();
+					start = editor->m_findData.start;
+					end = editor->m_findData.end;
 				}
 			}
 		}
@@ -900,21 +920,13 @@ int RheiaEditorManager::FindAllIn( SearchResultArray& search , RheiaEditorBase* 
 		if( pos != -1 && start != end )
 		{
 			int line = control->LineFromPosition(pos);
-			int onScreen = control->LinesOnScreen() >> 1;
-            int l1 = line - onScreen;
-            int l2 = line + onScreen;
-			
-            for(int l=l1; l<=l2;l+=2)       // unfold visible lines on screen
-                control->EnsureVisible(l);
-				
-            control->GotoLine(l1);          // center selection on screen
-            control->GotoLine(l2);
-            control->GotoLine(line);
             
 			SearchResult res;
 			res.line = line+1;
 			res.file = editor->GetContainer()->GetFileName();
 			res.text = control->GetLine(line);
+			
+			res.text.Replace(wxT("\t"),wxT(""),true);
 			
 			search.push_back(res);
 			
@@ -946,6 +958,19 @@ int RheiaEditorManager::FindNextIn( RheiaEditorBase* editor )
 	return FindIn( m_currentEditor , m_lastExpr , editor->m_findData.flag , editor->m_findData.selOnly );
 }
 
+void RheiaEditorManager::OnFindTextEnter(wxCommandEvent& event)
+{
+	m_currentEditor = GetCurrentEditor();
+    if( !m_currentEditor )
+        return;
+		
+	wxString expr = m_txtFind->GetValue();
+	int flag = wxSTC_FIND_MATCHCASE;
+	bool selOnly = false;
+	
+	FindIn(m_currentEditor,expr,flag,selOnly);
+}
+
 void RheiaEditorManager::DoStartFind()
 {
 	m_currentEditor = GetCurrentEditor();
@@ -970,6 +995,7 @@ void RheiaEditorManager::DoStartFind()
 	bool selOnly = (scope == 3);
 	SearchResultArray m_search;
 	RheiaEditorMap::iterator it = m_files.begin();
+	wxProgressDialog *progress;
 	
 	switch(scope)
 	{
@@ -978,13 +1004,17 @@ void RheiaEditorManager::DoStartFind()
 			FindIn(m_currentEditor,dialog.GetExpr(),flag,selOnly);
 			break;
 		case 1:
-			for( ; it != m_files.end() ; ++it )
+			progress = new wxProgressDialog(wxT("Searching in files"),wxT("Searching in files"),m_files.size(),m_parent);
+			
+			for( int i =1 ; it != m_files.end() ; ++it,++i )
 			{
+				progress->Update(i);
 				FindAllIn( m_search , it->second->GetPage() , dialog.GetExpr() , flag , false );
 			}
 			
 			m_searchResults->Update(m_search);
 			RheiaInfoPaneManager::Get(m_parent)->ActivatePage( wxT("Search results") );
+			progress->Destroy();
 			
 			break;
 		case 2:

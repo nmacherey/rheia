@@ -202,6 +202,12 @@ private :
 
     /** OnAplly Regular expression */
     void AskForFindInFiles( );
+	
+	/** On Goto Text Enter */
+	void OnGotoTextEnter(wxCommandEvent& event);
+	
+	/** On Find text enter */
+	void OnFindTextEnter(wxCommandEvent& event);
 
     /**************************************************************************************
     *   METHODS
