@@ -29,6 +29,7 @@ class wxToolbar;
 class wxStaticText;
 class wxTextCtrl;
 class RheiaSearchResults;
+class wxRegEx;
 
 const int matchStart          = wxSTC_FIND_WORDSTART;
 const int matchCase           = wxSTC_FIND_MATCHCASE;
@@ -78,6 +79,7 @@ WX_DEFINE_ARRAY( RheiaEditorHandler* , RheiaEditorHandlerArray );
 WX_DEFINE_ARRAY( RheiaEditorFile* , RheiaEditorArray );
 
 typedef std::map<wxString,RheiaEditorFile*> RheiaEditorMap;
+typedef std::map<wxString,wxWindowID> RheiaLangIds;
 
 /** @struct InternalFindData
  * @brief basic class fo storing find info internally
@@ -246,7 +248,31 @@ private :
 	 */
 	int FindIn( RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly );
 	
+	/** Find the given regular expression in the given editor
+	 * @param editor Editor in which the expression shall be found
+	 * @param expr Expression to find
+	 * @param re regular expression to find
+	 * @param advanced specify if the regular expression has been compiled with the advanced flag
+	 * @param selOnly specify if the find shall be done in the selected teext only ot not
+	 * @return the current position for the first expression found in the editor or 
+	 * -1 if the expression does not exists
+	 */
+	int FindReIn( RheiaEditorBase* editor , const wxString& expr , wxRegEx& re , bool advanced , bool selOnly );
+	
+	/** Find the given regular expression in the given editor
+	 * @param search array of search to fill
+	 * @param editor Editor in which the expression shall be found
+	 * @param expr Expression to find
+	 * @param re regular expression to find
+	 * @param advanced specify if the regular expression has been compiled with the advanced flag
+	 * @param selOnly specify if the find shall be done in the selected teext only ot not
+	 * @return the current position for the first expression found in the editor or 
+	 * -1 if the expression does not exists
+	 */
+	int FindAllReIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , wxRegEx& re , bool advanced , bool selOnly );
+	
 	/** Find all occurences of the given expression in the given editor
+	 * @param search array of serach to fill
 	 * @param editor Editor in which the expression shall be found
 	 * @param expr Expression to find
 	 * @param flag one of the wxSCI_FIND_WHOLEWORD, wxSCI_FIND_WORDSTART, wxSCI_FIND_MATCHCASE flags
@@ -322,6 +348,7 @@ private :
     int idAutoFormatAll;
     int idCommentSel;
     int idUncommentSel;
+	RheiaLangIds m_langIds;
 
     /*** In the Search menu */
     int idMenuSearch;
@@ -339,7 +366,11 @@ private :
 	
 	/*** last expression seach */
 	wxString m_lastExpr;
+	wxString m_lastExprRep;
 	int m_lastFlag;
+	wxString m_lastRExpr;
+	wxString m_lastRExprRep;
+	int m_lastFlags;
 };
 
 /**

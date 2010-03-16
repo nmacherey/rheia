@@ -215,8 +215,8 @@ void RheiaEditorManager::BuildToolBar(wxWindow* parent)
 	
 	m_tbEdition = new wxToolBar( parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL ); 
 	
-	m_tbEdition->AddTool( idOpen , wxT("Load"), RheiaLoadBitmap( path + wxT("#zip:doc_favorite_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Load an existing file"), wxEmptyString ); 
-	m_tbEdition->AddTool( idNew, wxT("New"), RheiaLoadBitmap( path + wxT("#zip:copy_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Create a new file"), wxEmptyString ); 
+	m_tbEdition->AddTool( idNew, wxT("New"), RheiaLoadBitmap( path + wxT("#zip:doc_favorite_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Create a new file"), wxEmptyString ); 
+	m_tbEdition->AddTool( idOpen , wxT("Load"), RheiaLoadBitmap( path + wxT("#zip:copy_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Load an existing file"), wxEmptyString ); 
 	m_tbEdition->AddSeparator(); 
 	m_tbEdition->AddTool( idSaveCurrent, wxT("Save"), RheiaLoadBitmap( path + wxT("#zip:diskette_24_hot.png")), wxNullBitmap, wxITEM_NORMAL, wxT("Save the current document"), wxEmptyString ); 
 	m_tbEdition->AddTool( idSaveAs, wxT("Save as.."), RheiaLoadBitmap( path + wxT("#zip:copy_favorite_24_hot.png") ), wxNullBitmap, wxITEM_NORMAL, wxT("Save the current document in a new file"), wxEmptyString ); 
@@ -876,21 +876,53 @@ void RheiaEditorManager::OnApplyRegEx( wxCommandEvent& event )
     regex.Compile( expr , flags );
 
     m_currentEditor = GetCurrentEditor();
-
-    if( m_currentEditor && dialog.CurrentFile() )
-        m_currentEditor->DoApplyRegex( regex , repStr , false , false );
-    else if( m_currentEditor && dialog.SelectionOnly() )
-        m_currentEditor->DoApplyRegex( regex , repStr , true , false );
-    else if( dialog.AllFiles() )
-    {
-        RheiaEditorMap::iterator it = m_files.begin();
-        for( ; it != m_files.end() ; ++it )
-        {
-            RheiaEditorBase* editor = (RheiaEditorBase*) RheiaCenterPaneManager::Get(m_parent)->FindPageByName(it->second->GetTitle());
-            if( editor != NULL )
-                editor->DoApplyRegex( regex , repStr , false , false );
-        }
-    }
+	bool advanced = false;
+	m_lastFlags = flags;
+	
+#ifdef wxHAS_REGEX_ADVANCED
+	advanced = (flags & wxRE_ADVANCED);
+#endif
+	wxProgressDialog *progress;
+	
+	if( repStr.IsEmpty() )
+	{
+		if( m_currentEditor && dialog.CurrentFile() )
+			FindReIn( m_currentEditor , expr , regex , advanced , false );
+		else if( m_currentEditor && dialog.SelectionOnly() )
+			FindReIn( m_currentEditor , expr , regex , advanced , true );
+		else if( dialog.AllFiles() )
+		{
+			progress = new wxProgressDialog(wxT("Searching in files"),wxT("Searching in files"),m_files.size(),m_parent);
+			RheiaEditorMap::iterator it = m_files.begin();
+			SearchResultArray m_search;
+			for( int i =1 ; it != m_files.end() ; ++it,++i )
+			{
+				progress->Update(i);
+				FindAllReIn( m_search , it->second->GetPage() , expr , regex , wxSTC_FIND_REGEXP, false );
+			}
+			
+			m_searchResults->Update(m_search);
+			RheiaInfoPaneManager::Get(m_parent)->ActivatePage( wxT("Search results") );
+			progress->Destroy();
+		}
+	}
+	else
+	{
+		if( m_currentEditor && dialog.CurrentFile() )
+			m_currentEditor->DoApplyRegex( regex , repStr , false , false );
+		else if( m_currentEditor && dialog.SelectionOnly() )
+			m_currentEditor->DoApplyRegex( regex , repStr , true , false );
+		else if( dialog.AllFiles() )
+		{
+			RheiaEditorMap::iterator it = m_files.begin();
+			for( ; it != m_files.end() ; ++it )
+			{
+				RheiaEditorBase* editor = (RheiaEditorBase*) RheiaCenterPaneManager::Get(m_parent)->FindPageByName(it->second->GetTitle());
+				if( editor != NULL )
+					editor->DoApplyRegex( regex , repStr , false , false );
+			}
+		}
+	}
 
     m_currentEditor = NULL;
 }
@@ -1007,6 +1039,131 @@ int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr ,
 	return editor->m_findData.pos;
 }
 
+int RheiaEditorManager::FindReIn( RheiaEditorBase* editor , const wxString& expr  , wxRegEx& re , bool advanced , bool selOnly )
+{
+	if( expr.IsEmpty() || editor == NULL )
+		return -1;
+	
+	m_lastRExpr = expr;
+	int flag = wxSTC_FIND_REGEXP;
+	
+	int start, end, pos;
+	wxStyledTextCtrl* control = editor->GetControl();
+	editor->HighlightOccurrences(expr,flag);
+	
+	if( editor->m_findData.start == -1 || !editor->m_findData.expr.IsSameAs(expr) )
+	{
+		if( selOnly )
+		{
+			start = control->GetSelectionStart();
+			end = control->GetSelectionEnd();
+		}
+		else
+		{
+			start = control->GetCurrentPos();
+			end = control->GetLength();
+		}
+	}
+	else
+	{
+		start = editor->m_findData.start;
+		end = editor->m_findData.end;
+	}
+	
+	editor->m_findData.start = start;
+	editor->m_findData.end = end;
+	editor->m_findData.expr = expr;
+	editor->m_findData.selOnly = selOnly;
+	editor->m_findData.flag = flag;
+	editor->m_findData.pos = start;
+	size_t beg,len;
+	
+	while(1)
+	{
+		wxString text=control->GetTextRange(start, end);
+		if (re.Matches(text))
+		{
+			re.GetMatch(&beg,&len,0);
+			pos=beg+start;
+			if (beg==0&&len==0)
+			{
+				text=text.Mid(1);
+				if (re.Matches(text))
+				{
+					re.GetMatch(&beg,&len,0);
+					pos=beg+start+1;
+				}
+				else
+					pos=-1;
+			}
+		}
+		else
+			pos=-1;
+		
+		editor->m_findData.pos = pos;
+		
+		if( pos != -1 && start != end )
+		{
+			int line = control->LineFromPosition(pos);
+			int onScreen = control->LinesOnScreen() >> 1;
+            int l1 = line - onScreen;
+            int l2 = line + onScreen;
+			
+            for(int l=l1; l<=l2;l+=2)       // unfold visible lines on screen
+                control->EnsureVisible(l);
+				
+            control->GotoLine(l1);          // center selection on screen
+            control->GotoLine(l2);
+            control->GotoLine(line);
+            control->SetSelectionStart(pos);
+			control->SetSelectionEnd(pos+len);
+            editor->m_findData.start = pos+len;
+            break; // done
+			
+		}//end if( pos != -1 && start != end )
+		else
+		{
+			wxBell();
+			if( pos == -1 && !selOnly && start== 0 && end == control->GetLength() )
+			{
+				wxString msg = expr + wxT(" not found !");
+				wxMessageBox(msg,wxT("Result"),wxICON_INFORMATION,m_parent);
+				return -1;
+			}
+			else if( pos == -1 && selOnly )
+			{
+				wxString msg = expr + wxT(" not found in selection ! Would you like to restart the search from the begining of the document ?");
+				int ret = wxMessageBox(msg,wxT("Result"),wxICON_QUESTION|wxYES_NO,m_parent);
+				if( ret == wxID_NO || ret == wxNO )
+					return -1;
+				else
+				{
+					editor->m_findData.start = 0;
+					editor->m_findData.end = control->GetLength();
+					start = editor->m_findData.start;
+					end = editor->m_findData.end;
+				}
+			}
+			else
+			{
+				wxString msg = expr + wxT(" not found in range ! Would you like to restart the search on the whole document ?");
+				int ret = wxMessageBox(msg,wxT("Result"),wxICON_QUESTION|wxYES_NO,m_parent);
+				if( ret == wxID_NO || ret == wxNO )
+					return -1;
+				else
+				{
+					editor->m_findData.start = 0;
+					editor->m_findData.end = control->GetLength();
+					start = editor->m_findData.start;
+					end = editor->m_findData.end;
+				}
+			}
+		}
+	}// end while(1)
+	
+	return editor->m_findData.pos;
+}
+
 int RheiaEditorManager::FindAllIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly )
 {
 	int count;
@@ -1051,17 +1208,102 @@ int RheiaEditorManager::FindAllIn( SearchResultArray& search , RheiaEditorBase* 
 	return editor->m_findData.pos;
 }
 
+int RheiaEditorManager::FindAllReIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , wxRegEx& re , bool advanced , bool selOnly )
+{
+	int count;
+	
+	if( expr.IsEmpty() || editor == NULL )
+		return -1;
+	
+	int start, end, pos;
+	wxStyledTextCtrl* control = editor->GetControl();
+	
+
+	start = 0;
+	end = control->GetLength();
+	size_t beg,len;
+	
+	while(1)
+	{
+		wxString text=control->GetTextRange(start, end);
+		if (re.Matches(text))
+		{
+			re.GetMatch(&beg,&len,0);
+			pos=beg+start;
+			if (beg==0&&len==0)
+			{
+				text=text.Mid(1);
+				if (re.Matches(text))
+				{
+					re.GetMatch(&beg,&len,0);
+					pos=beg+start+1;
+				}
+				else
+					pos=-1;
+			}
+		}
+		else
+			pos=-1;
+		
+		if( pos != -1 && start != end )
+		{
+			int line = control->LineFromPosition(pos);
+            
+			SearchResult res;
+			res.line = line+1;
+			res.file = editor->GetContainer()->GetFileName();
+			res.text = control->GetLine(line);
+			
+			res.text.Replace(wxT("\t"),wxT(""),true);
+			
+			search.push_back(res);
+			
+            start = pos+len;
+			
+		}//end if( pos != -1 && start != end )
+		else
+		{
+			break;
+		}
+	}// end while(1)
+	
+	return editor->m_findData.pos;
+}
+
 int RheiaEditorManager::FindNextIn( RheiaEditorBase* editor )
 {
 	m_currentEditor = GetCurrentEditor();
     if( !m_currentEditor )
         return -1;
-		
-	if( !editor->m_findData.expr.IsSameAs(m_lastExpr) )
+	
+	wxRegEx regex;
+	
+	if( !editor->m_findData.expr.IsSameAs(m_lastExpr) && !(editor->m_findData.flag & wxSTC_FIND_REGEXP)  )
 	{
 		editor->m_findData.start = -1;
 		editor->m_findData.end = -1;
 		return FindIn( m_currentEditor , m_lastExpr , m_lastFlag , false );
+	}
+	else if( !editor->m_findData.expr.IsSameAs(m_lastRExpr) && (editor->m_findData.flag & wxSTC_FIND_REGEXP)  )
+	{
+		editor->m_findData.start = -1;
+		editor->m_findData.end = -1;
+		
+		regex.Compile( m_lastRExpr , m_lastFlags );
+		bool advanced = false;
+#ifdef wxHAS_REGEX_ADVANCED
+		advanced = (m_lastFlags & wxRE_ADVANCED);
+#endif
+		return FindReIn( m_currentEditor , m_lastRExpr , regex , advanced , false );
+	}
+	else if(editor->m_findData.flag & wxSTC_FIND_REGEXP)
+	{
+		regex.Compile( m_lastRExpr , m_lastFlags );
+		bool advanced = false;
+#ifdef wxHAS_REGEX_ADVANCED
+		advanced = (m_lastFlags & wxRE_ADVANCED);
+#endif
+		return FindReIn( m_currentEditor , m_lastRExpr , regex , advanced , false );
 	}
 	
 	return FindIn( m_currentEditor , m_lastExpr , editor->m_findData.flag , editor->m_findData.selOnly );

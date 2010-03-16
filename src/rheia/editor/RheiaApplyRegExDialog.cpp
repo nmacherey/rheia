@@ -132,11 +132,6 @@ void RheiaApplyRegExDialog::EndModal(int retCode)
         }
 
         m_replace = cbReplacement->GetValue();
-        if( m_replace.IsEmpty() )
-        {
-            wxMessageBox( wxT("Cannot leave empty the replacement string...") , wxT("WARNING") , wxICON_ERROR , GetParent() );
-            return;
-        }
 
         int flag = 0;
 

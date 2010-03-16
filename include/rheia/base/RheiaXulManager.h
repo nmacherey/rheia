@@ -28,15 +28,35 @@ class BASE_DLLEXPORT RheiaXulManager : public Singleton<RheiaXulManager>
 	friend class Singleton<RheiaXulManager>;
 
 public :
-	
+
+	/** Initialize xulrunner 
+	 * @note that this must be called after adding plugin paths to xulrunner
+	 */
 	void Init(const wxString& path);
+	
+	/** Specify xulrunner for specific plugins it shall load 
+	 * when starting
+	 */
 	void AddPluginPath( const wxString& path );
+	
+	/** Find the XulRunner dir located on your system */
+	wxString FindXulRunner(const wxString& xulrunner_dirname);
+	
+	/** hcek if xulrunner is running or not */
+	bool IsRunning() {return m_initialized;};
 	
 private :
 	
+	/** ctor */
 	RheiaXulManager():m_initialized(false)
 		{};
+		
+	/** dtor */
 	~RheiaXulManager(){};
+	
+	/***************************************************************************
+	 * PRIVATE MEMBERS
+	 **************************************************************************/
 	
 	bool m_initialized;
 };
