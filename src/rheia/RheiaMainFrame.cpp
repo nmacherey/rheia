@@ -124,6 +124,7 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
 	RheiaEditorManager::Get(this)->BuildToolBar( this );
 	
 	RheiaInfoPaneManager::Get(this)->AddPage(wxT("Python console"), RheiaPythonConsoleManager::Get(this));
+	RheiaPythonConsoleManager::Get(this)->BuildMenu(m_menuBar);
 	
     m_layout->Update();
 //

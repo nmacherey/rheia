@@ -824,14 +824,6 @@ void RheiaEditorManager::OnMenuEdit( wxCommandEvent& event )
 		DoStartFind();
     else if( id == idFindNext )
 		FindNextIn(m_currentEditor);
-    else if( id == idReplace )
-        {}
-    else if( id == idReplaceNext )
-        {}
-    else if( id == idFindInFiles )
-        AskForFindInFiles();
-    else if( id == idReplaceInFiles )
-        {}
     else if( id == idToggleBookMark )
         m_currentEditor->ToggleBookmark();
     else if( id == idNextBookmark )

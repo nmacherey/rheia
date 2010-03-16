@@ -299,6 +299,10 @@ class RheiaBookManager(wx._core.EvtHandler):
         """RemovePage(self, String name) -> bool"""
         return _base.RheiaBookManager_RemovePage(*args, **kwargs)
 
+    def RenamePage(*args, **kwargs):
+        """RenamePage(self, String oldName, String newName)"""
+        return _base.RheiaBookManager_RenamePage(*args, **kwargs)
+
     def ClosePage(*args, **kwargs):
         """ClosePage(self, String name) -> bool"""
         return _base.RheiaBookManager_ClosePage(*args, **kwargs)
@@ -2161,6 +2165,14 @@ class RheiaXulManager(MgrRheiaXulManager):
     def AddPluginPath(*args, **kwargs):
         """AddPluginPath(self, String path)"""
         return _base.RheiaXulManager_AddPluginPath(*args, **kwargs)
+
+    def FindXulRunner(*args, **kwargs):
+        """FindXulRunner(self, String xulrunner_dirname) -> String"""
+        return _base.RheiaXulManager_FindXulRunner(*args, **kwargs)
+
+    def IsRunning(*args, **kwargs):
+        """IsRunning(self) -> bool"""
+        return _base.RheiaXulManager_IsRunning(*args, **kwargs)
 
 _base.RheiaXulManager_swigregister(RheiaXulManager)
 

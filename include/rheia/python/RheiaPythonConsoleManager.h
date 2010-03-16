@@ -73,10 +73,14 @@ private :
 	*   ShutDown.
 	*/
     virtual ~RheiaPythonConsoleManager();
+	
+	/** Event callbakc used when the user wants to send a file in the menu */
+	void OnSendFile(wxCommandEvent& event);
 
     /** parented managed frame */
     RheiaManagedFrame* m_parent;
     wxBitmap m_bmp;
+	int idSendFile;
 };
 
  #endif

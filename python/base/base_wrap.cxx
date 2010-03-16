@@ -5961,6 +5961,67 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RheiaBookManager_RenamePage(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaBookManager *arg1 = (RheiaBookManager *) 0 ;
+  wxString *arg2 = 0 ;
+  wxString *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool temp2 = false ;
+  bool temp3 = false ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "oldName",(char *) "newName", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:RheiaBookManager_RenamePage",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaBookManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaBookManager_RenamePage" "', expected argument " "1"" of type '" "RheiaBookManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaBookManager * >(argp1);
+  {
+    arg2 = wxString_in_helper(obj1);
+    if (arg2 == NULL) SWIG_fail;
+    temp2 = true;
+  }
+  {
+    arg3 = wxString_in_helper(obj2);
+    if (arg3 == NULL) SWIG_fail;
+    temp3 = true;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->RenamePage((wxString const &)*arg2,(wxString const &)*arg3);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  {
+    if (temp2)
+    delete arg2;
+  }
+  {
+    if (temp3)
+    delete arg3;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp2)
+    delete arg2;
+  }
+  {
+    if (temp3)
+    delete arg3;
+  }
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_RheiaBookManager_ClosePage(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   RheiaBookManager *arg1 = (RheiaBookManager *) 0 ;
@@ -20237,6 +20298,88 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RheiaXulManager_FindXulRunner(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaXulManager *arg1 = (RheiaXulManager *) 0 ;
+  wxString *arg2 = 0 ;
+  wxString result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool temp2 = false ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "xulrunner_dirname", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaXulManager_FindXulRunner",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaXulManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaXulManager_FindXulRunner" "', expected argument " "1"" of type '" "RheiaXulManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaXulManager * >(argp1);
+  {
+    arg2 = wxString_in_helper(obj1);
+    if (arg2 == NULL) SWIG_fail;
+    temp2 = true;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (arg1)->FindXulRunner((wxString const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+#if wxUSE_UNICODE
+    resultobj = PyUnicode_FromWideChar((&result)->c_str(), (&result)->Len());
+#else
+    resultobj = PyString_FromStringAndSize((&result)->c_str(), (&result)->Len());
+#endif
+  }
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaXulManager_IsRunning(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RheiaXulManager *arg1 = (RheiaXulManager *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RheiaXulManager, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaXulManager_IsRunning" "', expected argument " "1"" of type '" "RheiaXulManager *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaXulManager * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->IsRunning();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RheiaXulManager_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
@@ -20324,6 +20467,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"RheiaBookManager_AddPage", (PyCFunction) _wrap_RheiaBookManager_AddPage, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaBookManager_DeletePage", (PyCFunction) _wrap_RheiaBookManager_DeletePage, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaBookManager_RemovePage", (PyCFunction) _wrap_RheiaBookManager_RemovePage, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaBookManager_RenamePage", (PyCFunction) _wrap_RheiaBookManager_RenamePage, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaBookManager_ClosePage", (PyCFunction) _wrap_RheiaBookManager_ClosePage, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaBookManager_PageIsOpened", (PyCFunction) _wrap_RheiaBookManager_PageIsOpened, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaBookManager_PageExists", (PyCFunction) _wrap_RheiaBookManager_PageExists, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -20714,6 +20858,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"MgrRheiaXulManager_swigregister", MgrRheiaXulManager_swigregister, METH_VARARGS, NULL},
 	 { (char *)"RheiaXulManager_Init", (PyCFunction) _wrap_RheiaXulManager_Init, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaXulManager_AddPluginPath", (PyCFunction) _wrap_RheiaXulManager_AddPluginPath, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaXulManager_FindXulRunner", (PyCFunction) _wrap_RheiaXulManager_FindXulRunner, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaXulManager_IsRunning", (PyCFunction)_wrap_RheiaXulManager_IsRunning, METH_O, NULL},
 	 { (char *)"RheiaXulManager_swigregister", RheiaXulManager_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
