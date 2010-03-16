@@ -39,6 +39,7 @@ protected:
 	wxCheckBox* m_chkAllDocuments;
 	wxStaticLine* m_staticline1;
 	wxButton* m_btnYes;
+	wxButton* m_btnNo;
 	wxButton* m_btnCancel;
 	wxButton* m_btnAll;
 	int idAll;
@@ -54,6 +55,12 @@ public:
 	
 	/** basic dtor */
 	virtual ~RheiaTextReplaceDialog();
+	
+	/** btn end */
+	void OnBtnClick( wxCommandEvent& event );
+	
+	/** btn end */
+	void OnBtnNo( wxCommandEvent& event );
 	
 	/** Dialog End modal overload */
 	virtual void EndModal( int retCode );

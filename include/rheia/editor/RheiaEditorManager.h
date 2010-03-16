@@ -259,6 +259,18 @@ private :
 	 */
 	int FindReIn( RheiaEditorBase* editor , const wxString& expr , wxRegEx& re , bool advanced , bool selOnly );
 	
+	/** Replace the given regular expression matches in the given editor
+	 * @param editor Editor in which the expression shall be found
+	 * @param expr Expression to find
+	 * @param rep replacing expression
+	 * @param re regular expression to find
+	 * @param advanced specify if the regular expression has been compiled with the advanced flag
+	 * @param selOnly specify if the find shall be done in the selected teext only ot not
+	 * @return the current position for the first expression found in the editor or 
+	 * -1 if the expression does not exists
+	 */
+	int ReplaceReIn( RheiaEditorBase* editor , const wxString& expr , const wxString& rep , wxRegEx& re , bool advanced , bool selOnly , bool confirm = true );
+	
 	/** Find the given regular expression in the given editor
 	 * @param search array of search to fill
 	 * @param editor Editor in which the expression shall be found

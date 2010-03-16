@@ -40,6 +40,9 @@ RheiaTextReplaceDialog::RheiaTextReplaceDialog( wxWindow* parent, wxWindowID id,
 	m_btnYes = new wxButton( this, wxID_YES, wxT("Yes"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer2->Add( m_btnYes, 0, wxALL, 0 );
 	
+	m_btnNo = new wxButton( this, wxID_NO, wxT("No"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer2->Add( m_btnNo, 0, wxALL, 0 );
+	
 	m_btnCancel = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer2->Add( m_btnCancel, 0, wxALL, 0 );
 	
@@ -53,6 +56,8 @@ RheiaTextReplaceDialog::RheiaTextReplaceDialog( wxWindow* parent, wxWindowID id,
 	
 	// Connect Events
 	m_btnAll->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( RheiaTextReplaceDialog::OnApplyAll ), NULL, this );
+	m_btnYes->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( RheiaTextReplaceDialog::OnBtnClick ), NULL, this );
+	m_btnNo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( RheiaTextReplaceDialog::OnBtnNo ), NULL, this );
 	
 	this->SetSizer( bSizer1 );
 	this->Layout();
@@ -75,4 +80,14 @@ void RheiaTextReplaceDialog::EndModal( int retCode )
 {
 	m_applyAll = m_chkAllDocuments->IsChecked();
 	wxDialog::EndModal(retCode);
+}
+
+void RheiaTextReplaceDialog::OnBtnClick( wxCommandEvent& event )
+{
+	EndModal( wxYES );
+}
+
+void RheiaTextReplaceDialog::OnBtnNo( wxCommandEvent& event )
+{
+	EndModal( wxNO );
 }
