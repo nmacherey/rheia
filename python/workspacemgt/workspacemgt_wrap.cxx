@@ -2580,200 +2580,203 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 #define SWIGTYPE_p_int swig_types[110]
 #define SWIGTYPE_p_std__invalid_argument swig_types[111]
 #define SWIGTYPE_p_std__mapTRheiaManagedFrame_p_int_std__lessTRheiaManagedFrame_p_t_std__allocatorTstd__pairTRheiaManagedFrame_pconst_int_t_t_t swig_types[112]
-#define SWIGTYPE_p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t swig_types[113]
-#define SWIGTYPE_p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t swig_types[114]
-#define SWIGTYPE_p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t swig_types[115]
-#define SWIGTYPE_p_std__mapTwxString_RheiaLoggerPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaLoggerPageInfo_t_t_t swig_types[116]
-#define SWIGTYPE_p_std__mapTwxString_RheiaLoggerRegistration_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaLoggerRegistration_t_t_t swig_types[117]
-#define SWIGTYPE_p_std__mapTwxString_RheiaLogger_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaLogger_p_t_t_t swig_types[118]
-#define SWIGTYPE_p_std__mapTwxString_RheiaPackageDependency_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageDependency_p_t_t_t swig_types[119]
-#define SWIGTYPE_p_std__mapTwxString_RheiaPackageFile_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageFile_p_t_t_t swig_types[120]
-#define SWIGTYPE_p_std__mapTwxString_RheiaPackageInfo_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageInfo_p_t_t_t swig_types[121]
-#define SWIGTYPE_p_std__mapTwxString_RheiaPackageLib_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageLib_p_t_t_t swig_types[122]
-#define SWIGTYPE_p_std__mapTwxString_RheiaPackageManagedFile_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageManagedFile_p_t_t_t swig_types[123]
-#define SWIGTYPE_p_std__mapTwxString_RheiaPackageScanInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageScanInfo_t_t_t swig_types[124]
-#define SWIGTYPE_p_std__mapTwxString_RheiaPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPageInfo_t_t_t swig_types[125]
-#define SWIGTYPE_p_std__mapTwxString_RheiaProjectRegistration_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaProjectRegistration_t_t_t swig_types[126]
-#define SWIGTYPE_p_std__mapTwxString_RheiaTreeItem_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaTreeItem_p_t_t_t swig_types[127]
-#define SWIGTYPE_p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t swig_types[128]
-#define SWIGTYPE_p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t swig_types[129]
-#define SWIGTYPE_p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t swig_types[130]
-#define SWIGTYPE_p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t swig_types[131]
-#define SWIGTYPE_p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t swig_types[132]
-#define SWIGTYPE_p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t swig_types[133]
-#define SWIGTYPE_p_std__mapTwxToolBar_p_int_std__lessTwxToolBar_p_t_std__allocatorTstd__pairTwxToolBar_pconst_int_t_t_t swig_types[134]
-#define SWIGTYPE_p_std__vectorTRheiaPackageManagedFile_p_t swig_types[135]
-#define SWIGTYPE_p_swig__PySwigIterator swig_types[136]
-#define SWIGTYPE_p_unsigned_char swig_types[137]
-#define SWIGTYPE_p_unsigned_int swig_types[138]
-#define SWIGTYPE_p_unsigned_long swig_types[139]
-#define SWIGTYPE_p_wxANIHandler swig_types[140]
-#define SWIGTYPE_p_wxAcceleratorTable swig_types[141]
-#define SWIGTYPE_p_wxActivateEvent swig_types[142]
-#define SWIGTYPE_p_wxBMPHandler swig_types[143]
-#define SWIGTYPE_p_wxBitmap swig_types[144]
-#define SWIGTYPE_p_wxBoxSizer swig_types[145]
-#define SWIGTYPE_p_wxCURHandler swig_types[146]
-#define SWIGTYPE_p_wxCalculateLayoutEvent swig_types[147]
-#define SWIGTYPE_p_wxChildFocusEvent swig_types[148]
-#define SWIGTYPE_p_wxClipboardTextEvent swig_types[149]
-#define SWIGTYPE_p_wxCloseEvent swig_types[150]
-#define SWIGTYPE_p_wxColourData swig_types[151]
-#define SWIGTYPE_p_wxColourDialog swig_types[152]
-#define SWIGTYPE_p_wxCommandEvent swig_types[153]
-#define SWIGTYPE_p_wxContextMenuEvent swig_types[154]
-#define SWIGTYPE_p_wxControl swig_types[155]
-#define SWIGTYPE_p_wxControlWithItems swig_types[156]
-#define SWIGTYPE_p_wxDateEvent swig_types[157]
-#define SWIGTYPE_p_wxDialog swig_types[158]
-#define SWIGTYPE_p_wxDialogLayoutAdapter swig_types[159]
-#define SWIGTYPE_p_wxDirDialog swig_types[160]
-#define SWIGTYPE_p_wxDisplayChangedEvent swig_types[161]
-#define SWIGTYPE_p_wxDropFilesEvent swig_types[162]
-#define SWIGTYPE_p_wxDuplexMode swig_types[163]
-#define SWIGTYPE_p_wxEraseEvent swig_types[164]
-#define SWIGTYPE_p_wxEvent swig_types[165]
-#define SWIGTYPE_p_wxEventBlocker swig_types[166]
-#define SWIGTYPE_p_wxEvtHandler swig_types[167]
-#define SWIGTYPE_p_wxFSFile swig_types[168]
-#define SWIGTYPE_p_wxFileDialog swig_types[169]
-#define SWIGTYPE_p_wxFileSystem swig_types[170]
-#define SWIGTYPE_p_wxFindDialogEvent swig_types[171]
-#define SWIGTYPE_p_wxFindReplaceData swig_types[172]
-#define SWIGTYPE_p_wxFindReplaceDialog swig_types[173]
-#define SWIGTYPE_p_wxFlexGridSizer swig_types[174]
-#define SWIGTYPE_p_wxFocusEvent swig_types[175]
-#define SWIGTYPE_p_wxFontData swig_types[176]
-#define SWIGTYPE_p_wxFontDialog swig_types[177]
-#define SWIGTYPE_p_wxFrame swig_types[178]
-#define SWIGTYPE_p_wxGBSizerItem swig_types[179]
-#define SWIGTYPE_p_wxGIFHandler swig_types[180]
-#define SWIGTYPE_p_wxGridBagSizer swig_types[181]
-#define SWIGTYPE_p_wxGridSizer swig_types[182]
-#define SWIGTYPE_p_wxICOHandler swig_types[183]
-#define SWIGTYPE_p_wxIconizeEvent swig_types[184]
-#define SWIGTYPE_p_wxIdleEvent swig_types[185]
-#define SWIGTYPE_p_wxImage swig_types[186]
-#define SWIGTYPE_p_wxImageHandler swig_types[187]
-#define SWIGTYPE_p_wxIndividualLayoutConstraint swig_types[188]
-#define SWIGTYPE_p_wxInitDialogEvent swig_types[189]
-#define SWIGTYPE_p_wxJPEGHandler swig_types[190]
-#define SWIGTYPE_p_wxKeyEvent swig_types[191]
-#define SWIGTYPE_p_wxLayoutAlgorithm swig_types[192]
-#define SWIGTYPE_p_wxLayoutConstraints swig_types[193]
-#define SWIGTYPE_p_wxMDIChildFrame swig_types[194]
-#define SWIGTYPE_p_wxMDIClientWindow swig_types[195]
-#define SWIGTYPE_p_wxMDIParentFrame swig_types[196]
-#define SWIGTYPE_p_wxMaximizeEvent swig_types[197]
-#define SWIGTYPE_p_wxMenu swig_types[198]
-#define SWIGTYPE_p_wxMenuBar swig_types[199]
-#define SWIGTYPE_p_wxMenuEvent swig_types[200]
-#define SWIGTYPE_p_wxMenuItem swig_types[201]
-#define SWIGTYPE_p_wxMessageDialog swig_types[202]
-#define SWIGTYPE_p_wxMiniFrame swig_types[203]
-#define SWIGTYPE_p_wxMouseCaptureChangedEvent swig_types[204]
-#define SWIGTYPE_p_wxMouseCaptureLostEvent swig_types[205]
-#define SWIGTYPE_p_wxMouseEvent swig_types[206]
-#define SWIGTYPE_p_wxMoveEvent swig_types[207]
-#define SWIGTYPE_p_wxMultiChoiceDialog swig_types[208]
-#define SWIGTYPE_p_wxNavigationKeyEvent swig_types[209]
-#define SWIGTYPE_p_wxNcPaintEvent swig_types[210]
-#define SWIGTYPE_p_wxNotifyEvent swig_types[211]
-#define SWIGTYPE_p_wxNumberEntryDialog swig_types[212]
-#define SWIGTYPE_p_wxObject swig_types[213]
-#define SWIGTYPE_p_wxPCXHandler swig_types[214]
-#define SWIGTYPE_p_wxPNGHandler swig_types[215]
-#define SWIGTYPE_p_wxPNMHandler swig_types[216]
-#define SWIGTYPE_p_wxPageSetupDialog swig_types[217]
-#define SWIGTYPE_p_wxPageSetupDialogData swig_types[218]
-#define SWIGTYPE_p_wxPaintEvent swig_types[219]
-#define SWIGTYPE_p_wxPaletteChangedEvent swig_types[220]
-#define SWIGTYPE_p_wxPanel swig_types[221]
-#define SWIGTYPE_p_wxPaperSize swig_types[222]
-#define SWIGTYPE_p_wxPasswordEntryDialog swig_types[223]
-#define SWIGTYPE_p_wxPopupWindow swig_types[224]
-#define SWIGTYPE_p_wxPreviewCanvas swig_types[225]
-#define SWIGTYPE_p_wxPreviewControlBar swig_types[226]
-#define SWIGTYPE_p_wxPreviewFrame swig_types[227]
-#define SWIGTYPE_p_wxPrintData swig_types[228]
-#define SWIGTYPE_p_wxPrintDialog swig_types[229]
-#define SWIGTYPE_p_wxPrintDialogData swig_types[230]
-#define SWIGTYPE_p_wxPrintPreview swig_types[231]
-#define SWIGTYPE_p_wxPrinter swig_types[232]
-#define SWIGTYPE_p_wxProgressDialog swig_types[233]
-#define SWIGTYPE_p_wxPyApp swig_types[234]
-#define SWIGTYPE_p_wxPyCommandEvent swig_types[235]
-#define SWIGTYPE_p_wxPyEvent swig_types[236]
-#define SWIGTYPE_p_wxPyEvtHandler swig_types[237]
-#define SWIGTYPE_p_wxPyHScrolledWindow swig_types[238]
-#define SWIGTYPE_p_wxPyHVScrolledWindow swig_types[239]
-#define SWIGTYPE_p_wxPyHtmlListBox swig_types[240]
-#define SWIGTYPE_p_wxPyImageHandler swig_types[241]
-#define SWIGTYPE_p_wxPyPanel swig_types[242]
-#define SWIGTYPE_p_wxPyPopupTransientWindow swig_types[243]
-#define SWIGTYPE_p_wxPyPreviewControlBar swig_types[244]
-#define SWIGTYPE_p_wxPyPreviewFrame swig_types[245]
-#define SWIGTYPE_p_wxPyPrintPreview swig_types[246]
-#define SWIGTYPE_p_wxPyPrintout swig_types[247]
-#define SWIGTYPE_p_wxPyScrolledWindow swig_types[248]
-#define SWIGTYPE_p_wxPySizer swig_types[249]
-#define SWIGTYPE_p_wxPyTaskBarIcon swig_types[250]
-#define SWIGTYPE_p_wxPyTreeCtrl swig_types[251]
-#define SWIGTYPE_p_wxPyTreeItemData swig_types[252]
-#define SWIGTYPE_p_wxPyVListBox swig_types[253]
-#define SWIGTYPE_p_wxPyVScrolledWindow swig_types[254]
-#define SWIGTYPE_p_wxPyValidator swig_types[255]
-#define SWIGTYPE_p_wxPyWindow swig_types[256]
-#define SWIGTYPE_p_wxPyWizardPage swig_types[257]
-#define SWIGTYPE_p_wxQueryLayoutInfoEvent swig_types[258]
-#define SWIGTYPE_p_wxQueryNewPaletteEvent swig_types[259]
-#define SWIGTYPE_p_wxSashEvent swig_types[260]
-#define SWIGTYPE_p_wxSashLayoutWindow swig_types[261]
-#define SWIGTYPE_p_wxSashWindow swig_types[262]
-#define SWIGTYPE_p_wxScrollEvent swig_types[263]
-#define SWIGTYPE_p_wxScrollWinEvent swig_types[264]
-#define SWIGTYPE_p_wxScrolledWindow swig_types[265]
-#define SWIGTYPE_p_wxSetCursorEvent swig_types[266]
-#define SWIGTYPE_p_wxShowEvent swig_types[267]
-#define SWIGTYPE_p_wxSimpleHtmlListBox swig_types[268]
-#define SWIGTYPE_p_wxSingleChoiceDialog swig_types[269]
-#define SWIGTYPE_p_wxSizeEvent swig_types[270]
-#define SWIGTYPE_p_wxSizer swig_types[271]
-#define SWIGTYPE_p_wxSizerItem swig_types[272]
-#define SWIGTYPE_p_wxSplashScreen swig_types[273]
-#define SWIGTYPE_p_wxSplashScreenWindow swig_types[274]
-#define SWIGTYPE_p_wxSplitterEvent swig_types[275]
-#define SWIGTYPE_p_wxSplitterWindow swig_types[276]
-#define SWIGTYPE_p_wxStandardDialogLayoutAdapter swig_types[277]
-#define SWIGTYPE_p_wxStaticBoxSizer swig_types[278]
-#define SWIGTYPE_p_wxStatusBar swig_types[279]
-#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[280]
-#define SWIGTYPE_p_wxString swig_types[281]
-#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[282]
-#define SWIGTYPE_p_wxTGAHandler swig_types[283]
-#define SWIGTYPE_p_wxTIFFHandler swig_types[284]
-#define SWIGTYPE_p_wxTaskBarIconEvent swig_types[285]
-#define SWIGTYPE_p_wxTextCtrlBase swig_types[286]
-#define SWIGTYPE_p_wxTextEntryDialog swig_types[287]
-#define SWIGTYPE_p_wxThreadEvent swig_types[288]
-#define SWIGTYPE_p_wxTipWindow swig_types[289]
-#define SWIGTYPE_p_wxTopLevelWindow swig_types[290]
-#define SWIGTYPE_p_wxTreeCtrl swig_types[291]
-#define SWIGTYPE_p_wxTreeEvent swig_types[292]
-#define SWIGTYPE_p_wxTreeItemId swig_types[293]
-#define SWIGTYPE_p_wxUpdateUIEvent swig_types[294]
-#define SWIGTYPE_p_wxValidator swig_types[295]
-#define SWIGTYPE_p_wxWindow swig_types[296]
-#define SWIGTYPE_p_wxWindowCreateEvent swig_types[297]
-#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[298]
-#define SWIGTYPE_p_wxWizard swig_types[299]
-#define SWIGTYPE_p_wxWizardEvent swig_types[300]
-#define SWIGTYPE_p_wxWizardPage swig_types[301]
-#define SWIGTYPE_p_wxWizardPageSimple swig_types[302]
-#define SWIGTYPE_p_wxWrapSizer swig_types[303]
-#define SWIGTYPE_p_wxXPMHandler swig_types[304]
-static swig_type_info *swig_types[306];
-static swig_module_info swig_module = {swig_types, 305, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__mapTwxAuiToolBar_p_int_std__lessTwxAuiToolBar_p_t_std__allocatorTstd__pairTwxAuiToolBar_pconst_int_t_t_t swig_types[113]
+#define SWIGTYPE_p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t swig_types[114]
+#define SWIGTYPE_p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t swig_types[115]
+#define SWIGTYPE_p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t swig_types[116]
+#define SWIGTYPE_p_std__mapTwxString_RheiaLoggerPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaLoggerPageInfo_t_t_t swig_types[117]
+#define SWIGTYPE_p_std__mapTwxString_RheiaLoggerRegistration_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaLoggerRegistration_t_t_t swig_types[118]
+#define SWIGTYPE_p_std__mapTwxString_RheiaLogger_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaLogger_p_t_t_t swig_types[119]
+#define SWIGTYPE_p_std__mapTwxString_RheiaPackageDependency_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageDependency_p_t_t_t swig_types[120]
+#define SWIGTYPE_p_std__mapTwxString_RheiaPackageFile_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageFile_p_t_t_t swig_types[121]
+#define SWIGTYPE_p_std__mapTwxString_RheiaPackageInfo_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageInfo_p_t_t_t swig_types[122]
+#define SWIGTYPE_p_std__mapTwxString_RheiaPackageLib_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageLib_p_t_t_t swig_types[123]
+#define SWIGTYPE_p_std__mapTwxString_RheiaPackageManagedFile_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageManagedFile_p_t_t_t swig_types[124]
+#define SWIGTYPE_p_std__mapTwxString_RheiaPackageScanInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPackageScanInfo_t_t_t swig_types[125]
+#define SWIGTYPE_p_std__mapTwxString_RheiaPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaPageInfo_t_t_t swig_types[126]
+#define SWIGTYPE_p_std__mapTwxString_RheiaProjectRegistration_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaProjectRegistration_t_t_t swig_types[127]
+#define SWIGTYPE_p_std__mapTwxString_RheiaTreeItem_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaTreeItem_p_t_t_t swig_types[128]
+#define SWIGTYPE_p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t swig_types[129]
+#define SWIGTYPE_p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t swig_types[130]
+#define SWIGTYPE_p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t swig_types[131]
+#define SWIGTYPE_p_std__mapTwxString_wxAuiToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxAuiToolBar_p_t_t_t swig_types[132]
+#define SWIGTYPE_p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t swig_types[133]
+#define SWIGTYPE_p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t swig_types[134]
+#define SWIGTYPE_p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t swig_types[135]
+#define SWIGTYPE_p_std__mapTwxToolBar_p_int_std__lessTwxToolBar_p_t_std__allocatorTstd__pairTwxToolBar_pconst_int_t_t_t swig_types[136]
+#define SWIGTYPE_p_std__vectorTRheiaPackageManagedFile_p_t swig_types[137]
+#define SWIGTYPE_p_swig__PySwigIterator swig_types[138]
+#define SWIGTYPE_p_unsigned_char swig_types[139]
+#define SWIGTYPE_p_unsigned_int swig_types[140]
+#define SWIGTYPE_p_unsigned_long swig_types[141]
+#define SWIGTYPE_p_wxANIHandler swig_types[142]
+#define SWIGTYPE_p_wxAcceleratorTable swig_types[143]
+#define SWIGTYPE_p_wxActivateEvent swig_types[144]
+#define SWIGTYPE_p_wxAuiToolBar swig_types[145]
+#define SWIGTYPE_p_wxBMPHandler swig_types[146]
+#define SWIGTYPE_p_wxBitmap swig_types[147]
+#define SWIGTYPE_p_wxBoxSizer swig_types[148]
+#define SWIGTYPE_p_wxCURHandler swig_types[149]
+#define SWIGTYPE_p_wxCalculateLayoutEvent swig_types[150]
+#define SWIGTYPE_p_wxChildFocusEvent swig_types[151]
+#define SWIGTYPE_p_wxClipboardTextEvent swig_types[152]
+#define SWIGTYPE_p_wxCloseEvent swig_types[153]
+#define SWIGTYPE_p_wxColourData swig_types[154]
+#define SWIGTYPE_p_wxColourDialog swig_types[155]
+#define SWIGTYPE_p_wxCommandEvent swig_types[156]
+#define SWIGTYPE_p_wxContextMenuEvent swig_types[157]
+#define SWIGTYPE_p_wxControl swig_types[158]
+#define SWIGTYPE_p_wxControlWithItems swig_types[159]
+#define SWIGTYPE_p_wxDateEvent swig_types[160]
+#define SWIGTYPE_p_wxDialog swig_types[161]
+#define SWIGTYPE_p_wxDialogLayoutAdapter swig_types[162]
+#define SWIGTYPE_p_wxDirDialog swig_types[163]
+#define SWIGTYPE_p_wxDisplayChangedEvent swig_types[164]
+#define SWIGTYPE_p_wxDropFilesEvent swig_types[165]
+#define SWIGTYPE_p_wxDuplexMode swig_types[166]
+#define SWIGTYPE_p_wxEraseEvent swig_types[167]
+#define SWIGTYPE_p_wxEvent swig_types[168]
+#define SWIGTYPE_p_wxEventBlocker swig_types[169]
+#define SWIGTYPE_p_wxEvtHandler swig_types[170]
+#define SWIGTYPE_p_wxFSFile swig_types[171]
+#define SWIGTYPE_p_wxFileDialog swig_types[172]
+#define SWIGTYPE_p_wxFileSystem swig_types[173]
+#define SWIGTYPE_p_wxFindDialogEvent swig_types[174]
+#define SWIGTYPE_p_wxFindReplaceData swig_types[175]
+#define SWIGTYPE_p_wxFindReplaceDialog swig_types[176]
+#define SWIGTYPE_p_wxFlexGridSizer swig_types[177]
+#define SWIGTYPE_p_wxFocusEvent swig_types[178]
+#define SWIGTYPE_p_wxFontData swig_types[179]
+#define SWIGTYPE_p_wxFontDialog swig_types[180]
+#define SWIGTYPE_p_wxFrame swig_types[181]
+#define SWIGTYPE_p_wxGBSizerItem swig_types[182]
+#define SWIGTYPE_p_wxGIFHandler swig_types[183]
+#define SWIGTYPE_p_wxGridBagSizer swig_types[184]
+#define SWIGTYPE_p_wxGridSizer swig_types[185]
+#define SWIGTYPE_p_wxICOHandler swig_types[186]
+#define SWIGTYPE_p_wxIconizeEvent swig_types[187]
+#define SWIGTYPE_p_wxIdleEvent swig_types[188]
+#define SWIGTYPE_p_wxImage swig_types[189]
+#define SWIGTYPE_p_wxImageHandler swig_types[190]
+#define SWIGTYPE_p_wxIndividualLayoutConstraint swig_types[191]
+#define SWIGTYPE_p_wxInitDialogEvent swig_types[192]
+#define SWIGTYPE_p_wxJPEGHandler swig_types[193]
+#define SWIGTYPE_p_wxKeyEvent swig_types[194]
+#define SWIGTYPE_p_wxLayoutAlgorithm swig_types[195]
+#define SWIGTYPE_p_wxLayoutConstraints swig_types[196]
+#define SWIGTYPE_p_wxMDIChildFrame swig_types[197]
+#define SWIGTYPE_p_wxMDIClientWindow swig_types[198]
+#define SWIGTYPE_p_wxMDIParentFrame swig_types[199]
+#define SWIGTYPE_p_wxMaximizeEvent swig_types[200]
+#define SWIGTYPE_p_wxMenu swig_types[201]
+#define SWIGTYPE_p_wxMenuBar swig_types[202]
+#define SWIGTYPE_p_wxMenuEvent swig_types[203]
+#define SWIGTYPE_p_wxMenuItem swig_types[204]
+#define SWIGTYPE_p_wxMessageDialog swig_types[205]
+#define SWIGTYPE_p_wxMiniFrame swig_types[206]
+#define SWIGTYPE_p_wxMouseCaptureChangedEvent swig_types[207]
+#define SWIGTYPE_p_wxMouseCaptureLostEvent swig_types[208]
+#define SWIGTYPE_p_wxMouseEvent swig_types[209]
+#define SWIGTYPE_p_wxMoveEvent swig_types[210]
+#define SWIGTYPE_p_wxMultiChoiceDialog swig_types[211]
+#define SWIGTYPE_p_wxNavigationKeyEvent swig_types[212]
+#define SWIGTYPE_p_wxNcPaintEvent swig_types[213]
+#define SWIGTYPE_p_wxNotifyEvent swig_types[214]
+#define SWIGTYPE_p_wxNumberEntryDialog swig_types[215]
+#define SWIGTYPE_p_wxObject swig_types[216]
+#define SWIGTYPE_p_wxPCXHandler swig_types[217]
+#define SWIGTYPE_p_wxPNGHandler swig_types[218]
+#define SWIGTYPE_p_wxPNMHandler swig_types[219]
+#define SWIGTYPE_p_wxPageSetupDialog swig_types[220]
+#define SWIGTYPE_p_wxPageSetupDialogData swig_types[221]
+#define SWIGTYPE_p_wxPaintEvent swig_types[222]
+#define SWIGTYPE_p_wxPaletteChangedEvent swig_types[223]
+#define SWIGTYPE_p_wxPanel swig_types[224]
+#define SWIGTYPE_p_wxPaperSize swig_types[225]
+#define SWIGTYPE_p_wxPasswordEntryDialog swig_types[226]
+#define SWIGTYPE_p_wxPopupWindow swig_types[227]
+#define SWIGTYPE_p_wxPreviewCanvas swig_types[228]
+#define SWIGTYPE_p_wxPreviewControlBar swig_types[229]
+#define SWIGTYPE_p_wxPreviewFrame swig_types[230]
+#define SWIGTYPE_p_wxPrintData swig_types[231]
+#define SWIGTYPE_p_wxPrintDialog swig_types[232]
+#define SWIGTYPE_p_wxPrintDialogData swig_types[233]
+#define SWIGTYPE_p_wxPrintPreview swig_types[234]
+#define SWIGTYPE_p_wxPrinter swig_types[235]
+#define SWIGTYPE_p_wxProgressDialog swig_types[236]
+#define SWIGTYPE_p_wxPyApp swig_types[237]
+#define SWIGTYPE_p_wxPyCommandEvent swig_types[238]
+#define SWIGTYPE_p_wxPyEvent swig_types[239]
+#define SWIGTYPE_p_wxPyEvtHandler swig_types[240]
+#define SWIGTYPE_p_wxPyHScrolledWindow swig_types[241]
+#define SWIGTYPE_p_wxPyHVScrolledWindow swig_types[242]
+#define SWIGTYPE_p_wxPyHtmlListBox swig_types[243]
+#define SWIGTYPE_p_wxPyImageHandler swig_types[244]
+#define SWIGTYPE_p_wxPyPanel swig_types[245]
+#define SWIGTYPE_p_wxPyPopupTransientWindow swig_types[246]
+#define SWIGTYPE_p_wxPyPreviewControlBar swig_types[247]
+#define SWIGTYPE_p_wxPyPreviewFrame swig_types[248]
+#define SWIGTYPE_p_wxPyPrintPreview swig_types[249]
+#define SWIGTYPE_p_wxPyPrintout swig_types[250]
+#define SWIGTYPE_p_wxPyScrolledWindow swig_types[251]
+#define SWIGTYPE_p_wxPySizer swig_types[252]
+#define SWIGTYPE_p_wxPyTaskBarIcon swig_types[253]
+#define SWIGTYPE_p_wxPyTreeCtrl swig_types[254]
+#define SWIGTYPE_p_wxPyTreeItemData swig_types[255]
+#define SWIGTYPE_p_wxPyVListBox swig_types[256]
+#define SWIGTYPE_p_wxPyVScrolledWindow swig_types[257]
+#define SWIGTYPE_p_wxPyValidator swig_types[258]
+#define SWIGTYPE_p_wxPyWindow swig_types[259]
+#define SWIGTYPE_p_wxPyWizardPage swig_types[260]
+#define SWIGTYPE_p_wxQueryLayoutInfoEvent swig_types[261]
+#define SWIGTYPE_p_wxQueryNewPaletteEvent swig_types[262]
+#define SWIGTYPE_p_wxSashEvent swig_types[263]
+#define SWIGTYPE_p_wxSashLayoutWindow swig_types[264]
+#define SWIGTYPE_p_wxSashWindow swig_types[265]
+#define SWIGTYPE_p_wxScrollEvent swig_types[266]
+#define SWIGTYPE_p_wxScrollWinEvent swig_types[267]
+#define SWIGTYPE_p_wxScrolledWindow swig_types[268]
+#define SWIGTYPE_p_wxSetCursorEvent swig_types[269]
+#define SWIGTYPE_p_wxShowEvent swig_types[270]
+#define SWIGTYPE_p_wxSimpleHtmlListBox swig_types[271]
+#define SWIGTYPE_p_wxSingleChoiceDialog swig_types[272]
+#define SWIGTYPE_p_wxSizeEvent swig_types[273]
+#define SWIGTYPE_p_wxSizer swig_types[274]
+#define SWIGTYPE_p_wxSizerItem swig_types[275]
+#define SWIGTYPE_p_wxSplashScreen swig_types[276]
+#define SWIGTYPE_p_wxSplashScreenWindow swig_types[277]
+#define SWIGTYPE_p_wxSplitterEvent swig_types[278]
+#define SWIGTYPE_p_wxSplitterWindow swig_types[279]
+#define SWIGTYPE_p_wxStandardDialogLayoutAdapter swig_types[280]
+#define SWIGTYPE_p_wxStaticBoxSizer swig_types[281]
+#define SWIGTYPE_p_wxStatusBar swig_types[282]
+#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[283]
+#define SWIGTYPE_p_wxString swig_types[284]
+#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[285]
+#define SWIGTYPE_p_wxTGAHandler swig_types[286]
+#define SWIGTYPE_p_wxTIFFHandler swig_types[287]
+#define SWIGTYPE_p_wxTaskBarIconEvent swig_types[288]
+#define SWIGTYPE_p_wxTextCtrlBase swig_types[289]
+#define SWIGTYPE_p_wxTextEntryDialog swig_types[290]
+#define SWIGTYPE_p_wxThreadEvent swig_types[291]
+#define SWIGTYPE_p_wxTipWindow swig_types[292]
+#define SWIGTYPE_p_wxTopLevelWindow swig_types[293]
+#define SWIGTYPE_p_wxTreeCtrl swig_types[294]
+#define SWIGTYPE_p_wxTreeEvent swig_types[295]
+#define SWIGTYPE_p_wxTreeItemId swig_types[296]
+#define SWIGTYPE_p_wxUpdateUIEvent swig_types[297]
+#define SWIGTYPE_p_wxValidator swig_types[298]
+#define SWIGTYPE_p_wxWindow swig_types[299]
+#define SWIGTYPE_p_wxWindowCreateEvent swig_types[300]
+#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[301]
+#define SWIGTYPE_p_wxWizard swig_types[302]
+#define SWIGTYPE_p_wxWizardEvent swig_types[303]
+#define SWIGTYPE_p_wxWizardPage swig_types[304]
+#define SWIGTYPE_p_wxWizardPageSimple swig_types[305]
+#define SWIGTYPE_p_wxWrapSizer swig_types[306]
+#define SWIGTYPE_p_wxXPMHandler swig_types[307]
+static swig_type_info *swig_types[309];
+static swig_module_info swig_module = {swig_types, 308, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -9430,7 +9433,7 @@ SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_BuildToolBar(PyObject *SWIGUNUS
   PyObject *resultobj = 0;
   RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
   wxWindow *arg2 = (wxWindow *) 0 ;
-  wxToolBar *result = 0 ;
+  wxAuiToolBar *result = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -9454,13 +9457,11 @@ SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_BuildToolBar(PyObject *SWIGUNUS
   arg2 = reinterpret_cast< wxWindow * >(argp2);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxToolBar *)(arg1)->BuildToolBar(arg2);
+    result = (wxAuiToolBar *)(arg1)->BuildToolBar(arg2);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
-  {
-    resultobj = wxPyMake_wxObject(result, (bool)0); 
-  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxAuiToolBar, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -9471,7 +9472,7 @@ SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_BuildProjectsToolBar(PyObject *
   PyObject *resultobj = 0;
   RheiaWorkspaceManager *arg1 = (RheiaWorkspaceManager *) 0 ;
   wxWindow *arg2 = (wxWindow *) 0 ;
-  wxToolBar *result = 0 ;
+  wxAuiToolBar *result = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -9495,13 +9496,11 @@ SWIGINTERN PyObject *_wrap_RheiaWorkspaceManager_BuildProjectsToolBar(PyObject *
   arg2 = reinterpret_cast< wxWindow * >(argp2);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxToolBar *)(arg1)->BuildProjectsToolBar(arg2);
+    result = (wxAuiToolBar *)(arg1)->BuildProjectsToolBar(arg2);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
-  {
-    resultobj = wxPyMake_wxObject(result, (bool)0); 
-  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxAuiToolBar, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -10578,9 +10577,6 @@ static void *_p_RheiaPluginEventTo_p_RheiaEvent(void *x) {
 static void *_p_RheiaLibLoaderTo_p_SingletonTRheiaLibLoader_t(void *x) {
     return (void *)((Singleton<RheiaLibLoader > *)  ((RheiaLibLoader *) x));
 }
-static void *_p_RheiaPluginManagerTo_p_SingletonTRheiaPluginManager_t(void *x) {
-    return (void *)((Singleton<RheiaPluginManager > *)  ((RheiaPluginManager *) x));
-}
 static void *_p_RheiaPackageManagerTo_p_SingletonTRheiaPackageManager_t(void *x) {
     return (void *)((Singleton<RheiaPackageManager > *)  ((RheiaPackageManager *) x));
 }
@@ -10610,6 +10606,9 @@ static void *_p_RheiaEnvironementManagerTo_p_SingletonTRheiaEnvironementManager_
 }
 static void *_p_RheiaWizardManagerTo_p_RheiaMgrTRheiaManagedFrame_RheiaWizardManager_t(void *x) {
     return (void *)((RheiaMgr<RheiaManagedFrame,RheiaWizardManager > *)  ((RheiaWizardManager *) x));
+}
+static void *_p_RheiaPluginManagerTo_p_SingletonTRheiaPluginManager_t(void *x) {
+    return (void *)((Singleton<RheiaPluginManager > *)  ((RheiaPluginManager *) x));
 }
 static void *_p_RheiaBookConfigurationPanelTo_p_RheiaConfigurationPanel(void *x) {
     return (void *)((RheiaConfigurationPanel *)  ((RheiaBookConfigurationPanel *) x));
@@ -12368,6 +12367,7 @@ static swig_type_info _swigt__p_f_p_RheiaProject__void = {"_p_f_p_RheiaProject__
 static swig_type_info _swigt__p_int = {"_p_int", "int *|wxEventType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTRheiaManagedFrame_p_int_std__lessTRheiaManagedFrame_p_t_std__allocatorTstd__pairTRheiaManagedFrame_pconst_int_t_t_t = {"_p_std__mapTRheiaManagedFrame_p_int_std__lessTRheiaManagedFrame_p_t_std__allocatorTstd__pairTRheiaManagedFrame_pconst_int_t_t_t", "std::map<RheiaManagedFrame *,int,std::less<RheiaManagedFrame * >,std::allocator<std::pair<RheiaManagedFrame *const,int > > > *|RheiaManagedFrameIdMap *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__mapTwxAuiToolBar_p_int_std__lessTwxAuiToolBar_p_t_std__allocatorTstd__pairTwxAuiToolBar_pconst_int_t_t_t = {"_p_std__mapTwxAuiToolBar_p_int_std__lessTwxAuiToolBar_p_t_std__allocatorTstd__pairTwxAuiToolBar_pconst_int_t_t_t", "std::map<wxAuiToolBar *,int,std::less<wxAuiToolBar * >,std::allocator<std::pair<wxAuiToolBar *const,int > > > *|RheiaAuiToolMenuIdMap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t = {"_p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t", "std::map<wxString,RheiaConfigurationPageInfo,std::less<wxString >,std::allocator<std::pair<wxString const,RheiaConfigurationPageInfo > > > *|RheiaConfigurationPageInfoMap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t = {"_p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t", "std::map<wxString,RheiaConfigurationPanel *,std::less<wxString >,std::allocator<std::pair<wxString const,RheiaConfigurationPanel * > > > *|RheiaProjectElementConfigurationPanelMap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t = {"_p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t", "std::map<wxString,RheiaDynamicLibrary,std::less<wxString >,std::allocator<std::pair<wxString const,RheiaDynamicLibrary > > > *|RheiaDynamicLibraryMap *", 0, 0, (void*)0, 0};
@@ -12386,6 +12386,7 @@ static swig_type_info _swigt__p_std__mapTwxString_RheiaTreeItem_p_std__lessTwxSt
 static swig_type_info _swigt__p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t = {"_p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t", "std::map<wxString,RheiaWorkspace *,std::less<wxString >,std::allocator<std::pair<wxString const,RheiaWorkspace * > > > *|RheiaWorkspaceTable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t = {"_p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t", "std::map<wxString,bool,std::less<wxString >,std::allocator<std::pair<wxString const,bool > > > *|RheiaWorkspaceSavingTable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t = {"_p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t", "std::map<wxString,int,std::less<wxString >,std::allocator<std::pair<wxString const,int > > > *|RheiaPageMenuIdMap *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__mapTwxString_wxAuiToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxAuiToolBar_p_t_t_t = {"_p_std__mapTwxString_wxAuiToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxAuiToolBar_p_t_t_t", "std::map<wxString,wxAuiToolBar *,std::less<wxString >,std::allocator<std::pair<wxString const,wxAuiToolBar * > > > *|wxAuiToolBarArray *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t = {"_p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t", "std::map<wxString,wxString,std::less<wxString >,std::allocator<std::pair<wxString const,wxString > > > *|RheiaStringStringMap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t = {"_p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t", "std::map<wxString,wxToolBar *,std::less<wxString >,std::allocator<std::pair<wxString const,wxToolBar * > > > *|wxToolBarArray *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t = {"_p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t", "std::map<wxString,wxTreeItemId,std::less<wxString >,std::allocator<std::pair<wxString const,wxTreeItemId > > > *|TreeItemIdMap *", 0, 0, (void*)0, 0};
@@ -12395,6 +12396,7 @@ static swig_type_info _swigt__p_swig__PySwigIterator = {"_p_swig__PySwigIterator
 static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *|byte *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "unsigned int *|time_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long = {"_p_unsigned_long", "unsigned long *|wxUIntPtr *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_wxAuiToolBar = {"_p_wxAuiToolBar", "wxAuiToolBar *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxBitmap = {"_p_wxBitmap", "wxBitmap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxCommandEvent = {"_p_wxCommandEvent", "wxCommandEvent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxSashEvent = {"_p_wxSashEvent", 0, 0, 0, 0, 0};
@@ -12687,6 +12689,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_int,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__mapTRheiaManagedFrame_p_int_std__lessTRheiaManagedFrame_p_t_std__allocatorTstd__pairTRheiaManagedFrame_pconst_int_t_t_t,
+  &_swigt__p_std__mapTwxAuiToolBar_p_int_std__lessTwxAuiToolBar_p_t_std__allocatorTstd__pairTwxAuiToolBar_pconst_int_t_t_t,
   &_swigt__p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t,
   &_swigt__p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t,
   &_swigt__p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t,
@@ -12705,6 +12708,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t,
   &_swigt__p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t,
   &_swigt__p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t,
+  &_swigt__p_std__mapTwxString_wxAuiToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxAuiToolBar_p_t_t_t,
   &_swigt__p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t,
   &_swigt__p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t,
   &_swigt__p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t,
@@ -12717,6 +12721,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxANIHandler,
   &_swigt__p_wxAcceleratorTable,
   &_swigt__p_wxActivateEvent,
+  &_swigt__p_wxAuiToolBar,
   &_swigt__p_wxBMPHandler,
   &_swigt__p_wxBitmap,
   &_swigt__p_wxBoxSizer,
@@ -12982,6 +12987,7 @@ static swig_cast_info _swigc__p_f_p_RheiaProject__void[] = {  {&_swigt__p_f_p_Rh
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTRheiaManagedFrame_p_int_std__lessTRheiaManagedFrame_p_t_std__allocatorTstd__pairTRheiaManagedFrame_pconst_int_t_t_t[] = {  {&_swigt__p_std__mapTRheiaManagedFrame_p_int_std__lessTRheiaManagedFrame_p_t_std__allocatorTstd__pairTRheiaManagedFrame_pconst_int_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__mapTwxAuiToolBar_p_int_std__lessTwxAuiToolBar_p_t_std__allocatorTstd__pairTwxAuiToolBar_pconst_int_t_t_t[] = {  {&_swigt__p_std__mapTwxAuiToolBar_p_int_std__lessTwxAuiToolBar_p_t_std__allocatorTstd__pairTwxAuiToolBar_pconst_int_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t[] = {  {&_swigt__p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t[] = {  {&_swigt__p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t[] = {  {&_swigt__p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -13000,6 +13006,7 @@ static swig_cast_info _swigc__p_std__mapTwxString_RheiaTreeItem_p_std__lessTwxSt
 static swig_cast_info _swigc__p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t[] = {  {&_swigt__p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t[] = {  {&_swigt__p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t[] = {  {&_swigt__p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__mapTwxString_wxAuiToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxAuiToolBar_p_t_t_t[] = {  {&_swigt__p_std__mapTwxString_wxAuiToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxAuiToolBar_p_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t[] = {  {&_swigt__p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t[] = {  {&_swigt__p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t[] = {  {&_swigt__p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -13009,6 +13016,7 @@ static swig_cast_info _swigc__p_swig__PySwigIterator[] = {  {&_swigt__p_swig__Py
 static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_long[] = {  {&_swigt__p_unsigned_long, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxAuiToolBar[] = {  {&_swigt__p_wxAuiToolBar, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxBitmap[] = {  {&_swigt__p_wxBitmap, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSashEvent[] = {{&_swigt__p_wxSashEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxWindowDestroyEvent[] = {{&_swigt__p_wxWindowDestroyEvent, 0, 0, 0},{0, 0, 0, 0}};
@@ -13301,6 +13309,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_int,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__mapTRheiaManagedFrame_p_int_std__lessTRheiaManagedFrame_p_t_std__allocatorTstd__pairTRheiaManagedFrame_pconst_int_t_t_t,
+  _swigc__p_std__mapTwxAuiToolBar_p_int_std__lessTwxAuiToolBar_p_t_std__allocatorTstd__pairTwxAuiToolBar_pconst_int_t_t_t,
   _swigc__p_std__mapTwxString_RheiaConfigurationPageInfo_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPageInfo_t_t_t,
   _swigc__p_std__mapTwxString_RheiaConfigurationPanel_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaConfigurationPanel_p_t_t_t,
   _swigc__p_std__mapTwxString_RheiaDynamicLibrary_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaDynamicLibrary_t_t_t,
@@ -13319,6 +13328,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__mapTwxString_RheiaWorkspace_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_RheiaWorkspace_p_t_t_t,
   _swigc__p_std__mapTwxString_bool_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_bool_t_t_t,
   _swigc__p_std__mapTwxString_int_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_int_t_t_t,
+  _swigc__p_std__mapTwxString_wxAuiToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxAuiToolBar_p_t_t_t,
   _swigc__p_std__mapTwxString_wxString_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxString_t_t_t,
   _swigc__p_std__mapTwxString_wxToolBar_p_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxToolBar_p_t_t_t,
   _swigc__p_std__mapTwxString_wxTreeItemId_std__lessTwxString_t_std__allocatorTstd__pairTwxString_const_wxTreeItemId_t_t_t,
@@ -13331,6 +13341,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_wxANIHandler,
   _swigc__p_wxAcceleratorTable,
   _swigc__p_wxActivateEvent,
+  _swigc__p_wxAuiToolBar,
   _swigc__p_wxBMPHandler,
   _swigc__p_wxBitmap,
   _swigc__p_wxBoxSizer,

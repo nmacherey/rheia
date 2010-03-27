@@ -59,6 +59,9 @@ public :
 	void AddToolBar( const wxString& name , wxToolBar* toolbar );
 
     /** Add Tool Bar */
+#ifdef SWIG
+	%rename( AddAuiToolBar ) AddToolBar( const wxString& name , wxAuiToolBar* toolbar );
+#endif
 	void AddToolBar( const wxString& name , wxAuiToolBar* toolbar );
 
 	/** Remove ToolBar */

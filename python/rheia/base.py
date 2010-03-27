@@ -1507,6 +1507,8 @@ class RheiaLeftPaneManager(RheiaBookManager,RheiaMgrRheiaLeftPaneManager):
 
 _base.RheiaLeftPaneManager_swigregister(RheiaLeftPaneManager)
 
+idFileExit = _base.idFileExit
+idFileFrameKill = _base.idFileFrameKill
 class RheiaManagedFrame(wx._windows.Frame):
     """Proxy of C++ RheiaManagedFrame class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
@@ -1970,12 +1972,16 @@ class RheiaToolBarManager(wx._core.EvtHandler,RheiaMgrRheiaToolBarManager):
     __swig_destroy__ = _base.delete_RheiaToolBarManager
     __del__ = lambda self : None;
     def GetToolBar(*args, **kwargs):
-        """GetToolBar(self) -> ToolBar"""
+        """GetToolBar(self) -> AuiToolBar"""
         return _base.RheiaToolBarManager_GetToolBar(*args, **kwargs)
 
     def AddToolBar(*args, **kwargs):
         """AddToolBar(self, String name, ToolBar toolbar)"""
         return _base.RheiaToolBarManager_AddToolBar(*args, **kwargs)
+
+    def AddAuiToolBar(*args, **kwargs):
+        """AddAuiToolBar(self, String name, AuiToolBar toolbar)"""
+        return _base.RheiaToolBarManager_AddAuiToolBar(*args, **kwargs)
 
     def RemoveToolBar(*args, **kwargs):
         """RemoveToolBar(self, String name)"""
@@ -1984,6 +1990,10 @@ class RheiaToolBarManager(wx._core.EvtHandler,RheiaMgrRheiaToolBarManager):
     def GetToolBars(*args, **kwargs):
         """GetToolBars(self) -> ToolBarArray"""
         return _base.RheiaToolBarManager_GetToolBars(*args, **kwargs)
+
+    def GetAuiToolBars(*args, **kwargs):
+        """GetAuiToolBars(self) -> AuiToolBarArray"""
+        return _base.RheiaToolBarManager_GetAuiToolBars(*args, **kwargs)
 
     def OnCloseParent(*args, **kwargs):
         """OnCloseParent(self, RheiaFrameEvent event)"""

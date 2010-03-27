@@ -850,11 +850,11 @@ class RheiaWorkspaceManager(wx._core.EvtHandler,base.RheiaPageContainer,RheiaMgr
         return _workspacemgt.RheiaWorkspaceManager_OnFileProjectClose(*args, **kwargs)
 
     def BuildToolBar(*args, **kwargs):
-        """BuildToolBar(self, Window parent) -> ToolBar"""
+        """BuildToolBar(self, Window parent) -> AuiToolBar"""
         return _workspacemgt.RheiaWorkspaceManager_BuildToolBar(*args, **kwargs)
 
     def BuildProjectsToolBar(*args, **kwargs):
-        """BuildProjectsToolBar(self, Window parent) -> ToolBar"""
+        """BuildProjectsToolBar(self, Window parent) -> AuiToolBar"""
         return _workspacemgt.RheiaWorkspaceManager_BuildProjectsToolBar(*args, **kwargs)
 
     def SaveAll(*args, **kwargs):

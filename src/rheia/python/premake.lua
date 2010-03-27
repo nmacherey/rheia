@@ -68,7 +68,7 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../../include/rheia/python" , "../../../include/rheia/editor" , "$(WXPYTHON)/include" , "../../../include/rheia/loggers" , "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
+package.includepaths = { "../../../include/rheia/python" , "../../../include/rheia/packagemgt" , "../../../include/rheia/editor" , "$(WXPYTHON)/include" , "../../../include/rheia/loggers" , "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
 
 if( not windows ) then
 	table.insert( package.includepaths , "/usr/include/python" .. python_ver )
