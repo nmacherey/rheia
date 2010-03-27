@@ -197,11 +197,10 @@ void RheiaPythonConsole::Reload()
 
     //indentation settings
     m_control->SetTabIndents(true);
-    m_control->SetBackSpaceUnIndents (true);
-    m_control->SetUseTabs(true);
+    m_control->SetBackSpaceUnIndents (false);
+    m_control->SetUseTabs(false);
     m_control->SetTabWidth(4);
-    m_control->SetIndent(4);
-    m_control->SetIndentationGuides( 3 );
+    m_control->SetIndent(0);
     m_control->SetLayoutCache(m_context->GetLayoutCache());
 
     m_control->StyleClearAll();
@@ -219,6 +218,7 @@ void RheiaPythonConsole::Registerevents()
     Connect(idDelete,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
     Connect(idSelectAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
     m_control->Connect(m_ID,wxEVT_KEY_DOWN,wxKeyEventHandler(RheiaPythonConsole::OnStcKey),NULL,this);
+    m_control->Connect(m_ID,wxEVT_CHAR,wxKeyEventHandler(RheiaPythonConsole::OnStcChar),NULL,this);
 }
 
 void RheiaPythonConsole::OnRequestContextMenu( wxContextMenuEvent& event )
@@ -399,9 +399,9 @@ void RheiaPythonConsole::RegisterSTCEvents()
     Connect( m_ID, wxEVT_STC_CHANGE,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
              &RheiaPythonConsole::OnChange );
-    Connect( m_ID, wxEVT_STC_CHARADDED,
+    /*Connect( m_ID, wxEVT_STC_CHARADDED,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &RheiaPythonConsole::OnCharAdded );
+             &RheiaPythonConsole::OnCharAdded );*/
     Connect( m_ID, wxEVT_STC_DWELLSTART,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
              &RheiaPythonConsole::OnDwellStart );
@@ -411,9 +411,6 @@ void RheiaPythonConsole::RegisterSTCEvents()
     Connect( m_ID, wxEVT_STC_MODIFIED,
              (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
              &RheiaPythonConsole::OnModified );
-    Connect( m_ID, wxEVT_STC_KEY,
-             (wxObjectEventFunction) (wxEventFunction) (wxStyledTextEventFunction)
-             &RheiaPythonConsole::OnStcKey );
 
 
     int scintilla_events[] =
@@ -448,6 +445,23 @@ void RheiaPythonConsole::RegisterSTCEvents()
     }
 }
 
+void RheiaPythonConsole::OnStcChar(wxKeyEvent& event)
+{
+    //int key = event.GetKeyCode();
+    int key = event.GetKeyCode();
+    int eof = m_control->GetLength();
+    int pos = m_control->GetCurrentPos();
+
+    int posAtLine;
+    int line = m_control->GetCurrentLine();
+    wxString lineContent = m_control->GetCurLine(&posAtLine);
+
+    if( key == WXK_RETURN || key == WXK_NUMPAD_ENTER )
+        return;
+    else
+        event.Skip();
+}
+
 void RheiaPythonConsole::OnCharAdded (wxStyledTextEvent &event)
 {
     char chr = (char)event.GetKey();
@@ -465,17 +479,16 @@ void RheiaPythonConsole::OnCharAdded (wxStyledTextEvent &event)
         if (currentLine > 0 )
         {
             wxString command = m_control->GetLine(currentLine-1);
-			/*fputs(rcU2C(command),m_file);
-			fflush(m_file);*/
             wxString prompt;
 
             if( command.Contains(wxT(">>> ")) || command.Contains(wxT("... ")) )
             {
                 wxString res;
-                command.Replace(wxT(">>> "),wxT(""),true);
-                command.Replace(wxT("... "),wxT(""),true);
-
-                if( m_nolines == 0 && (command.IsEmpty() || command == wxT("\n") ) )
+                command.Remove(0,4);
+#ifdef WIN32
+                command.RemoveLast();
+#endif
+                if( command.IsEmpty() || command.IsSameAs(wxT("\n")) || command.IsSameAs(wxT("\r")) )
                 {
                     int eof = m_control->GetLength();
                     m_control->GotoPos(eof);
@@ -500,6 +513,7 @@ void RheiaPythonConsole::OnCharAdded (wxStyledTextEvent &event)
                 m_nolines++;
 				
 				wxString err;
+                std::cout << RheiaU2C(command) << std::endl;
 				
                 int shalExec = RheiaPythonUtils::Get()->ShallExecuteCommand( m_commandBuffer , err , m_nolines );
 
@@ -511,7 +525,6 @@ void RheiaPythonConsole::OnCharAdded (wxStyledTextEvent &event)
                         m_control->AppendText(res + wxT("\n"));
                     else if( !res.IsEmpty() )
                     {
-                        //res = wxT("Command returned : \n") + res;
                         m_control->AppendText(res + wxT("\n"));
                     }
 
@@ -584,29 +597,168 @@ void RheiaPythonConsole::OnZoom(wxStyledTextEvent& event)
 
 }
 
-void RheiaPythonConsole::OnStcKey(wxKeyEvent& event)
+void RheiaPythonConsole::DoClearLastLine()
 {
-    //int key = event.GetKeyCode();
-    int key = event.GetKeyCode();
     int eof = m_control->GetLength();
-    int pos = m_control->GetCurrentPos();
 
-    int posAtLine;
-    int line = m_control->GetCurrentLine();
-    wxString lineContent = m_control->GetCurLine(&posAtLine);
 #if wxCHECK_VERSION(2,9,0)
     int no_lines = m_control->GetNumberOfLines()-1;
 #else
 	int no_lines = m_control->GetLineCount()-1;
 #endif
 
-    if( key == WXK_RETURN )
+    /** shall add here stuff for history browsing */
+    m_control->GotoPos(eof);
+    m_control->GotoLine(no_lines);
+    int pfl = m_control->GetCurrentPos();
+#if wxCHECK_VERSION(2,9,0)
+    m_control->Remove(pfl+4,eof);
+#else
+	m_control->SetSelection(pfl+4,eof);
+	m_control->ReplaceSelection(wxT(""));
+#endif
+    eof = m_control->GetLength();
+    m_control->GotoPos(eof);
+}
+
+void RheiaPythonConsole::DoProcessLine()
+{
+    int eof = m_control->GetLength();
+    int pos = m_control->GetCurrentPos();
+    bool selecting = m_control->GetSelectionStart() != m_control->GetSelectionEnd();
+
+    int posAtLine;
+    int line = m_control->GetCurrentLine();
+    int currentLine = m_control->GetCurrentLine();
+    wxString lineContent = m_control->GetCurLine(&posAtLine);
+
+#if wxCHECK_VERSION(2,9,0)
+    int no_lines = m_control->GetNumberOfLines()-1;
+#else
+	int no_lines = m_control->GetLineCount()-1;
+#endif
+
+    wxString command = m_control->GetLine(currentLine);
+    wxString prompt;
+
+    if( command.Contains(wxT(">>> ")) || command.Contains(wxT("... ")) )
+    {
+        wxString res;
+        command.Remove(0,4);
+
+        if( m_nolines == 0 && (command.IsEmpty() || command.IsSameAs(wxT("\n")) || command.IsSameAs(wxT("\r"))) )
+        {
+            eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+            m_control->AppendText(wxT("\n>>> "));
+            eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+            return;
+        }
+
+        wxString temp = command;
+        if( !temp.IsEmpty() )
+        {
+            m_history.Insert(temp,0);
+
+            if( m_history.GetCount() >= 300 )
+                m_history.RemoveAt( m_history.GetCount()-1 );
+        }
+
+        m_currentHistoryPos = 0;
+
+        m_commandBuffer += command + wxT("\n");
+        m_nolines++;
+			
+		wxString err;
+        int shalExec = RheiaPythonUtils::Get()->ShallExecuteCommand( m_commandBuffer , err , m_nolines );
+
+        if(shalExec == 1)
+        {
+            int flag = RheiaPythonUtils::Get()->PythonGetFlagFromString( m_commandBuffer );
+            if( !RheiaPythonUtils::Get()->PythonEvalString(m_commandBuffer,res,flag) )
+                m_control->AppendText(wxT("\n") + res);
+            else if( !res.IsEmpty() )
+            {
+                m_control->AppendText(wxT("\n") + res);
+            }
+
+
+            m_commandBuffer.Clear();
+            m_nolines = 0;
+            int eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+            m_control->AppendText(wxT("\n>>> "));
+            eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+        }
+        else if(shalExec == 0)
+        {
+            eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+            m_control->AppendText(wxT("\n... "));
+            eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+        }
+		else
+		{	
+			m_commandBuffer.Clear();
+            m_nolines = 0;
+			m_control->AppendText(wxT("\n") + err );
+			eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+            m_control->AppendText(wxT("\n>>> "));
+            eof = m_control->GetLength();
+            m_control->GotoPos(eof);
+		}
+    }
+	else
+	{
+		eof = m_control->GetLength();
+		m_control->GotoPos(eof);
+		m_control->AppendText(wxT("\n>>> "));
+        eof = m_control->GetLength();
+        m_control->GotoPos(eof);
+	}
+}
+
+void RheiaPythonConsole::OnStcKey(wxKeyEvent& event)
+{
+    //int key = event.GetKeyCode();
+    int key = event.GetKeyCode();
+    bool controlDown = event.ControlDown();
+    bool altDown = event.AltDown();
+    bool shiftDown = event.ShiftDown();
+
+    int eof = m_control->GetLength();
+    int pos = m_control->GetCurrentPos();
+    bool selecting = m_control->GetSelectionStart() != m_control->GetSelectionEnd();
+
+    int posAtLine;
+    int line = m_control->GetCurrentLine();
+    int currentLine = m_control->GetCurrentLine();
+    wxString lineContent = m_control->GetCurLine(&posAtLine);
+
+#if wxCHECK_VERSION(2,9,0)
+    int no_lines = m_control->GetNumberOfLines()-1;
+#else
+	int no_lines = m_control->GetLineCount()-1;
+#endif
+
+    if( (!controlDown && !shiftDown && !altDown) && (key == WXK_RETURN || key == WXK_NUMPAD_ENTER) )
     {
         if( pos != eof )
+        {
             m_control->GotoPos(eof);
+            return;
+        }
 
         if( line != no_lines )
             return;
+
+        DoProcessLine();
+
+        return;
     }
     else if( key == WXK_UP )
     {
@@ -645,32 +797,13 @@ void RheiaPythonConsole::OnStcKey(wxKeyEvent& event)
 
         if(m_history.GetCount() == 0 || m_currentHistoryPos <= 0 )
 		{
-			m_control->GotoLine(line);
-            int pfl = m_control->GetCurrentPos();
-#if wxCHECK_VERSION(2,9,0)
-            m_control->Remove(pfl+4,eof);
-#else
-			m_control->SetSelection(pfl+4,eof);
-			m_control->ReplaceSelection(wxT(""));
-#endif
-			eof = m_control->GetLength();
-			m_control->GotoPos(eof);
-			
+			DoClearLastLine();
             return;
 		}
 
         if( posAtLine > 4 )
         {
-            m_control->GotoLine(line);
-            int pfl = m_control->GetCurrentPos();
-#if wxCHECK_VERSION(2,9,0)
-            m_control->Remove(pfl+4,eof);
-#else
-			m_control->SetSelection(pfl+4,eof);
-			m_control->ReplaceSelection(wxT(""));
-#endif
-            eof = m_control->GetLength();
-            m_control->GotoPos(eof);
+            DoClearLastLine();
         }
 
         m_currentHistoryPos--;
@@ -684,25 +817,19 @@ void RheiaPythonConsole::OnStcKey(wxKeyEvent& event)
     {
 
         if( line != no_lines )
-        {
-            m_control->GotoPos(eof);
             return;
-        }
 
-        if( posAtLine <= 4 && m_control->GetSelectedText().IsEmpty() )
+        if( (posAtLine <= 4 && m_control->GetSelectedText().IsEmpty()) )
             return;
 			
 		if( posAtLine < 4 )
 			return;
 		
     }
-	else if( key == WXK_HOME )
+    else if( key == WXK_HOME || key == WXK_NUMPAD_HOME )
 	{
 		if( line != no_lines )
-        {
-            m_control->GotoPos(eof);
             return;
-        }
 		
 		m_control->GotoLine(line);
 		int pfl = m_control->GetCurrentPos();
@@ -710,19 +837,50 @@ void RheiaPythonConsole::OnStcKey(wxKeyEvent& event)
 		m_control->GotoPos(pfl+4);
 		return;
 	}
-	else
+    else if( controlDown && altDown )
+    {
+        event.Skip();
+        return;
+    }
+    else if( key == WXK_ESCAPE )
 	{
-		if( line != no_lines )
-        {
-            m_control->GotoPos(eof);
+        DoClearLastLine();
+    }
+    else if( key == WXK_BACK && controlDown && shiftDown )
+	{
+        DoClearLastLine();
+    }
+    else if( key == WXK_LEFT && shiftDown && controlDown )
+	{
+        if( line != no_lines )
             return;
-        }
+        
+        if( posAtLine <= 4 )
+			return;
+    }
+    else if( key == WXK_LEFT )
+	{
+        if( line != no_lines )
+            return;
+        
+        if( posAtLine <= 4 )
+			return;
+    }
+    else if( key == WXK_RIGHT )
+	{
+        if( line != no_lines )
+            return;
+        
+        if( posAtLine < 4 )
+			return;
+    }
+    else
+    {
+		if( line != no_lines )
+            return;
 		
-		if( posAtLine <= 4 )
-		{
-			eof = m_control->GetLength();
-			m_control->GotoPos(eof);
-		}
+		if( posAtLine < 4 )
+			return;
 	}
 
     event.Skip();

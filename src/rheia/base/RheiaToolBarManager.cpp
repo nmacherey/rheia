@@ -10,6 +10,7 @@
 #include <RheiaEventFrame.h>
 
 #include <wx/toolbar.h>
+#include <wx/aui/auibar.h>
 #include <wx/msgdlg.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/frame.h>
@@ -42,11 +43,30 @@ RheiaToolBarManager::RheiaToolBarManager(RheiaManagedFrame* parent):
 	/*! @todo :	Here the toolbar size is not managed accordingly to the different systems
 	*			this is to do
 	*/
+    wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") );
 	wxSize size = wxSize(24,24);
-	m_toolbar = new wxToolBar(m_parent, -1, wxDefaultPosition, wxSize(24,24), wxTB_FLAT | wxTB_NODIVIDER);
-
+	m_toolbar = new wxAuiToolBar(m_parent, -1, wxDefaultPosition, wxSize(24,24), wxAUI_TB_GRIPPER|wxAUI_TB_HORZ_LAYOUT );
     m_toolbar->SetToolBitmapSize(size);
-    RheiaManager::Get()->AddonToolBar(m_toolbar,xrcToolbarName);
+
+    m_toolbar->AddTool( 
+        idFileExit , 
+        _("Exit") , 
+        RheiaLoadBitmap( path + wxT("#zip:close_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Exit from the application"), 
+        wxEmptyString,
+        NULL ); 
+
+    m_toolbar->AddTool( 
+        idFileFrameKill , 
+        _("Close") , 
+        RheiaLoadBitmap( path + wxT("#zip:close_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Close the current frame"), 
+        wxEmptyString,
+        NULL ); 
 
     m_toolbar->Realize();
     m_toolbar->SetInitialSize();
@@ -60,8 +80,8 @@ RheiaToolBarManager::RheiaToolBarManager(RheiaManagedFrame* parent):
                            Name(wxT("MainToolbar")).
                            ToolbarPane().Top().Layer(1));
 
-    m_toolbars[wxT("main")] = m_toolbar;
-    m_toolIds[m_toolbar] = idViewToolMain;
+    m_auiToolbars[wxT("main")] = m_toolbar;
+    m_auiToolIds[m_toolbar] = idViewToolMain;
 	
 	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaToolBarManager::OnCloseParent) , NULL , this );
     m_index = 0;
@@ -114,12 +134,24 @@ void RheiaToolBarManager::AddToolBar( const wxString& name , wxToolBar* toolbar 
     m_layout->Update();
 }
 
-void RheiaToolBarManager::RemoveToolBar( const wxString& name )
+void RheiaToolBarManager::AddToolBar( const wxString& name , wxAuiToolBar* toolbar )
 {
-    wxToolBarArray::iterator it = m_toolbars.find(name);
-    if( it == m_toolbars.end() )
+    wxAuiToolBarArray::iterator it = m_auiToolbars.find(name);
+    if( it != m_auiToolbars.end() )
         return;
-    wxToolBar* toolbar = it->second;
+
+    m_auiToolbars[name] = toolbar;
+    m_index++;
+
+    int layer = m_index / 3 + 1;
+    int pos = (m_index % 3);
+
+    wxAuiManager* m_layout = m_parent->GetLayoutManager();
+    m_layout->AddPane( toolbar, wxAuiPaneInfo().
+                           Name(name).
+                           ToolbarPane().Top().Layer(layer).
+						   Position(pos) );
+						   
     wxMenuBar* menuBar = m_parent->GetMenuBar();
     int idx = menuBar->FindMenu(wxT("View"));
     if( idx != wxNOT_FOUND )
@@ -128,17 +160,67 @@ void RheiaToolBarManager::RemoveToolBar( const wxString& name )
         wxMenuItem* item = mnEdit->FindItem(XRCID("idViewToolbars"));
         wxMenu* tbmenu = item->GetSubMenu();
 
-        RheiaToolMenuIdMap::iterator tit = m_toolIds.find(toolbar);
-        tbmenu->Delete(m_toolIds[toolbar]);
-        m_toolIds.erase(tit);
+        m_auiToolIds[toolbar] = wxNewId();
+        tbmenu->AppendCheckItem(m_auiToolIds[toolbar],name,wxT("View toolbar ") + name )->Check(true);
+        Connect( m_auiToolIds[toolbar] , wxEVT_COMMAND_MENU_SELECTED , wxCommandEventHandler(RheiaToolBarManager::OnSelectToolbarMenu) );
+        Connect( m_auiToolIds[toolbar] , wxEVT_UPDATE_UI , wxUpdateUIEventHandler(RheiaToolBarManager::OnToolsUpdateUI) );
+
     }
 
-    wxAuiManager* m_layout = m_parent->GetLayoutManager();
-    m_layout->DetachPane( toolbar );
-    toolbar->Destroy();
-    m_toolbars.erase(it);
-
     m_layout->Update();
+}
+
+void RheiaToolBarManager::RemoveToolBar( const wxString& name )
+{
+    wxToolBarArray::iterator it = m_toolbars.find(name);
+    if( it != m_toolbars.end() )
+    {
+        wxToolBar* toolbar = it->second;
+        wxMenuBar* menuBar = m_parent->GetMenuBar();
+        int idx = menuBar->FindMenu(wxT("View"));
+        if( idx != wxNOT_FOUND )
+        {
+            wxMenu* mnEdit = menuBar->GetMenu( idx );
+            wxMenuItem* item = mnEdit->FindItem(XRCID("idViewToolbars"));
+            wxMenu* tbmenu = item->GetSubMenu();
+
+            RheiaToolMenuIdMap::iterator tit = m_toolIds.find(toolbar);
+            tbmenu->Delete(m_toolIds[toolbar]);
+            m_toolIds.erase(tit);
+        }
+
+        wxAuiManager* m_layout = m_parent->GetLayoutManager();
+        m_layout->DetachPane( toolbar );
+        toolbar->Destroy();
+        m_toolbars.erase(it);
+
+        m_layout->Update();
+    }
+
+    wxAuiToolBarArray::iterator ait = m_auiToolbars.find(name);
+    if( ait != m_auiToolbars.end() )
+    {
+        wxAuiToolBar* toolbar = ait->second;
+        wxMenuBar* menuBar = m_parent->GetMenuBar();
+        int idx = menuBar->FindMenu(wxT("View"));
+        if( idx != wxNOT_FOUND )
+        {
+            wxMenu* mnEdit = menuBar->GetMenu( idx );
+            wxMenuItem* item = mnEdit->FindItem(XRCID("idViewToolbars"));
+            wxMenu* tbmenu = item->GetSubMenu();
+
+            RheiaAuiToolMenuIdMap::iterator tit = m_auiToolIds.find(toolbar);
+            tbmenu->Delete(m_auiToolIds[toolbar]);
+            m_auiToolIds.erase(tit);
+        }
+
+        wxAuiManager* m_layout = m_parent->GetLayoutManager();
+        m_layout->DetachPane( toolbar );
+        toolbar->Destroy();
+        m_toolbars.erase(it);
+
+        m_layout->Update();
+    }
 }
 
 void RheiaToolBarManager::OnSelectToolbarMenu(wxCommandEvent& event)
@@ -172,6 +254,27 @@ void RheiaToolBarManager::OnSelectToolbarMenu(wxCommandEvent& event)
                 return;
              }
         }
+
+        RheiaAuiToolMenuIdMap::iterator atit = m_auiToolIds.begin();
+        for( ; atit != m_auiToolIds.end() ; ++atit )
+        {
+             if( event.GetId() == atit->second )
+             {
+                if( tbmenu->FindItem(atit->second)->IsChecked() )
+                {
+                    tbmenu->FindItem(atit->second)->Check(true);
+                    m_layout->GetPane(atit->first).Show(true);
+                }
+                else
+                {
+                    tbmenu->FindItem(atit->second)->Check(false);
+                    m_layout->GetPane(atit->first).Show(false);
+                }
+                m_layout->Update();
+                event.Skip();
+                return;
+             }
+        }
     }
 
     m_layout->Update();
@@ -186,6 +289,10 @@ void RheiaToolBarManager::OnToolsUpdateUI( wxUpdateUIEvent& WXUNUSED(event) )
     mbar->Check(idViewToolMain, m_layout->GetPane(m_toolbar).IsShown() );
     RheiaToolMenuIdMap::iterator tit = m_toolIds.begin();
     for( ; tit != m_toolIds.end() ; ++tit )
+        mbar->Check(tit->second, m_layout->GetPane(tit->first).IsShown() );
+
+    RheiaAuiToolMenuIdMap::iterator atit = m_auiToolIds.begin();
+    for( ; atit != m_auiToolIds.end() ; ++atit )
         mbar->Check(tit->second, m_layout->GetPane(tit->first).IsShown() );
 }
 

@@ -22,6 +22,7 @@
 #include <map>
 
 class wxAuiNotebook;
+class wxAuiToolBar;
 class wxTreeCtrl;
 class wxTreeItemId;
 class wxImageList;
@@ -209,10 +210,10 @@ public :
 	void OnFileProjectClose( wxCommandEvent &event );
 
 	/** Build the workspace manager toolbar */
-	wxToolBar* BuildToolBar(wxWindow* parent);
+	wxAuiToolBar* BuildToolBar(wxWindow* parent);
 
 	/** Build the projects toolbar */
-	wxToolBar* BuildProjectsToolBar(wxWindow* parent);
+	wxAuiToolBar* BuildProjectsToolBar(wxWindow* parent);
 
 	/** Close all workspaces method */
 	bool SaveAll();

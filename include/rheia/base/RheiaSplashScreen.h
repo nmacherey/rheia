@@ -12,6 +12,9 @@
 #include <wx/frame.h>
 #include <wx/splash.h>
 
+#include "RheiaGlobals.h"
+#include "RheiaBaseSettings.h"
+
 /**
 *   @class RheiaSplashScreen
 *   @brief This is the main class for displaying a splash screen in the application
@@ -19,7 +22,7 @@
 *	@date 21-Nov-2008
 *	@version 0.0.1
 */
-class RheiaSplashScreen : public wxSplashScreen
+class BASE_DLLEXPORT RheiaSplashScreen : public wxSplashScreen
 {
   public:
     // A value of -1 for timeout makes it stay forever (you need to close it manually)

@@ -120,7 +120,7 @@ public :
 	}
 	
 	/** method when the panel is destroyed */
-	virtual bool OnPageClosed() {m_panel == NULL;}
+	virtual bool OnPageClosed() {m_panel = NULL;return true;}
 	
 	/** update method */
 	void Update(SearchResultArray& search);

@@ -34,6 +34,7 @@
 #include <RheiaWkspMgrSettingsPanel.h>
 
 #include <wx/aui/aui.h>
+#include <wx/aui/auibar.h>
 #include <wx/image.h>
 #include <wx/imaglist.h>
 #include <wx/msgdlg.h>
@@ -93,23 +94,23 @@ int idLastPrj[] = {
 namespace
 {
     /*! id comming from the main menu bar ressource for creating a new project*/
-    int idFileWorkspaceNew = XRCID("idFileWorkspaceNew");
+    int idFileWorkspaceNew = wxNewId();
     /*! id comming from the main menu bar ressource for opening an existing workspace */
-    int idFileWorkspaceOpen = XRCID("idFileWorkspaceOpen");
+    int idFileWorkspaceOpen = wxNewId();
     /*! id comming from the main menu bar ressource for opening an existing workspace */
-    int idFileWorkspaceSave = XRCID("idFileWorkspaceSave");
+    int idFileWorkspaceSave = wxNewId();
     int idFileWorkspaceSaveAs = wxNewId();
     /*! id comming from the main menu bar ressource for opening an existing workspace */
-    int idFileSaveAllWorkspaces = XRCID("idFileSaveAllWorkspaces");
+    int idFileSaveAllWorkspaces = wxNewId();
     /*! id for closing the current workspace from the menu */
     int idFileWorkspaceClose = wxNewId();
 
     /*! id for creating a new project from the menu */
-    int idFileNewProject = XRCID("idFileNewProject");
+    int idFileNewProject = wxNewId();
     /*! id for opening project from the menu */
-    int idFileOpenProject = XRCID("idFileOpenProject");
+    int idFileOpenProject = wxNewId();
     /*! id for saving a project from the menu */
-    int idFileProjectSave = XRCID("idFileProjectSave");
+    int idFileProjectSave = wxNewId();
     /*! id for saving a project in a new name from the menu */
     int idFileProjectSaveAs = wxNewId();
     /*! id for closing project from the menu */
@@ -1653,9 +1654,9 @@ void RheiaWorkspaceManager::OnCloseParent( RheiaFrameEvent& event )
     event.Skip();
 }
 
-wxToolBar* RheiaWorkspaceManager::BuildToolBar(wxWindow* parent)
+wxAuiToolBar* RheiaWorkspaceManager::BuildToolBar(wxWindow* parent)
 {
-    wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") , rspfDataGlobal );
+    /*wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") , rspfDataGlobal );
     wxString resname = wxT("wksp_toolbar");
 
     wxXmlResource *myres = wxXmlResource::Get();
@@ -1668,14 +1669,62 @@ wxToolBar* RheiaWorkspaceManager::BuildToolBar(wxWindow* parent)
     RheiaManager::Get()->AddonToolBar(tbworkspace,resname);
 
     tbworkspace->Realize();
-    tbworkspace->SetInitialSize();
+    tbworkspace->SetInitialSize();*/
+    
+    wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") );
+    wxSize size = wxSize( 24 , 24 );
+
+    wxAuiToolBar* tbworkspace = new wxAuiToolBar(parent, -1, wxDefaultPosition, size, wxAUI_TB_GRIPPER|wxAUI_TB_HORZ_LAYOUT);
+    tbworkspace->SetToolBitmapSize(size);
+    
+    tbworkspace->AddTool( 
+        idFileWorkspaceNew , 
+        _("New Workspace") , 
+        RheiaLoadBitmap( path + wxT("#zip:workspace_new_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Create a new workspace"), 
+        wxEmptyString,
+        NULL ); 
+
+    tbworkspace->AddTool( 
+        idFileWorkspaceOpen , 
+        _("Open Workspace") , 
+        RheiaLoadBitmap( path + wxT("#zip:workspace_open_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Open an existing workspace"), 
+        wxEmptyString,
+        NULL ); 
+
+    tbworkspace->AddTool( 
+        idFileWorkspaceSave , 
+        _("Save Workspace") , 
+        RheiaLoadBitmap( path + wxT("#zip:workspace_save_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Save current workspace"), 
+        wxEmptyString, 
+        NULL );
+
+    tbworkspace->AddTool( 
+        idFileSaveAllWorkspaces , 
+        _("Save All") , 
+        RheiaLoadBitmap( path + wxT("#zip:save_all_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Save all"), 
+        wxEmptyString, 
+        NULL );
+
+    tbworkspace->Realize();
 
     return tbworkspace;
 }
 
-wxToolBar* RheiaWorkspaceManager::BuildProjectsToolBar(wxWindow* parent)
+wxAuiToolBar* RheiaWorkspaceManager::BuildProjectsToolBar(wxWindow* parent)
 {
-    wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") , rspfDataGlobal );
+    /*wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") , rspfDataGlobal );
     wxString resname = wxT("prj_toolbar");
 
     wxXmlResource *myres = wxXmlResource::Get();
@@ -1688,7 +1737,44 @@ wxToolBar* RheiaWorkspaceManager::BuildProjectsToolBar(wxWindow* parent)
     RheiaManager::Get()->AddonToolBar(tbproject,resname);
 
     tbproject->Realize();
-    tbproject->SetInitialSize();
+    tbproject->SetInitialSize();*/
+    
+    wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") );
+    wxSize size = wxSize( 24 , 24 );
 
+    wxAuiToolBar* tbproject = new wxAuiToolBar(parent,-1,wxDefaultPosition,size,wxAUI_TB_GRIPPER|wxAUI_TB_HORZ_LAYOUT);
+    tbproject->SetToolBitmapSize( size );
+
+    tbproject->AddTool( 
+        idFileNewProject , 
+        _("New Project") , 
+        RheiaLoadBitmap( path + wxT("#zip:project_new_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Create a new project"), 
+        wxEmptyString,
+        NULL ); 
+
+    tbproject->AddTool( 
+        idFileOpenProject , 
+        _("Open Project") , 
+        RheiaLoadBitmap( path + wxT("#zip:project_open_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Open an existing project"), 
+        wxEmptyString,
+        NULL ); 
+
+    tbproject->AddTool( 
+        idFileProjectSave , 
+        _("Save Project") , 
+        RheiaLoadBitmap( path + wxT("#zip:project_save_24.png") ), 
+        wxNullBitmap, 
+        wxITEM_NORMAL, 
+        _("Save current project"), 
+        wxEmptyString, 
+        NULL ); 
+
+    tbproject->Realize();
     return tbproject;
 }

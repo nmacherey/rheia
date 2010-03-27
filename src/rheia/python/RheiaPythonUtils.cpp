@@ -10,24 +10,6 @@
 *	@date	27-January-2010
 *	@version 0.0.2
 */
-#include <RheiaPythonUtils.h>
-#include <iostream>
-
-#include <Python.h>
-#include <node.h>
-#include <errcode.h>
-#include <grammar.h>
-#include <parsetok.h>
-#include <compile.h>
-#include <object.h>
-#include <compile.h>
-#include <eval.h>
-
-#include <Python.h>
-#include <wx/wxPython/wxPython.h>
-
-#include "RheiaPython.h"
-
 #include <wx/xrc/xmlres.h>
 #include <wx/fs_zip.h>
 #include <wx/menu.h>
@@ -53,6 +35,23 @@
 #include <RheiaProfileManager.h>
 #include <RheiaXmlManager.h>
 #include <RheiaEventsManager.h>
+
+#include <RheiaPythonUtils.h>
+
+#include <Python.h>
+#include <node.h>
+#include <errcode.h>
+#include <grammar.h>
+#include <parsetok.h>
+#include <compile.h>
+#include <object.h>
+#include <compile.h>
+#include <eval.h>
+
+#include <Python.h>
+#include <wx/wxPython/wxPython.h>
+
+#include "RheiaPython.h"
 
 extern grammar _PyParser_Grammar; /* From graminit.c */
 

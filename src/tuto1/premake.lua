@@ -55,7 +55,7 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../include/rheia/python" , "../../include/tuto1" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" }
+package.includepaths = { "../../include/rheia/python" , "../../include/tuto1" , "../../include/rheia" , "../../include/rheia/packagemgt" , "../../include/rheia/workspacemgt" , "$(WXPYTHON)/include" , "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "../../include/irrlicht" , "../../src/irrlicht" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
 package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiapython" , "rheia" }
@@ -135,7 +135,6 @@ table.insert( package.config["Debug"].links , "libgmwxplplot-dbg" )
 table.insert( package.config["Debug"].links , "librheiautils-dbg" )
 table.insert( package.config["Debug"].links , "librheiabase-dbg" )
 table.insert( package.config["Debug"].links , "librheialoggers-dbg" )
-table.insert( package.config["Debug"].links , "python" .. python_ver )
 table.insert( package.config["Debug"].links , "librheiapython-dbg" )
 table.insert( package.config["Debug"].links , "librheiapackagemgt-dbg" )
 table.insert( package.config["Debug"].links , "librheiaworkspacemgt-dbg" )
@@ -148,7 +147,6 @@ table.insert( package.config["Release"].links , "libgmwxplplot" )
 table.insert( package.config["Release"].links , "librheiautils" )
 table.insert( package.config["Release"].links , "librheiabase" )
 table.insert( package.config["Release"].links , "librheialoggers" )
-table.insert( package.config["Release"].links , "python" .. python_ver )
 table.insert( package.config["Release"].links , "librheiapython" )
 table.insert( package.config["Release"].links , "librheiapackagemgt" )
 table.insert( package.config["Release"].links , "librheiaworkspacemgt" )

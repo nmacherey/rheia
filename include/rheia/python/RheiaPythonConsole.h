@@ -79,7 +79,7 @@ private:
     wxSTD streambuf *m_sbufOld;
 };
 
-class RheiaPythonConsole : public RheiaBookPage
+class PYTHON_DLLEXPORT RheiaPythonConsole : public RheiaBookPage
 {
 public :
 
@@ -270,6 +270,15 @@ protected :
 
     /** called when the user press a key */
     void OnStcKey(wxKeyEvent& event);
+
+    /** called when the user press a key */
+    void OnStcChar(wxKeyEvent& event);
+
+    /** used when we need to process the line in the console */
+    void DoProcessLine();
+
+    /** used to clear the last line */
+    void DoClearLastLine();
 
     /** Register events */
     void RegisterSTCEvents();

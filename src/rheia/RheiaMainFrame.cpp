@@ -16,6 +16,7 @@
 #include <wx/dirdlg.h>
 #include <wx/image.h>
 #include <wx/log.h>
+#include <wx/aui/auibar.h>
 #include <wx/imaglist.h>
 
 #include <iostream>
@@ -83,7 +84,8 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
 
     m_layout->AddPane( book , wxAuiPaneInfo().
                             Name(wxT("InfoPane")).Caption(_("Information")).
-                            BestSize(600,300).MinSize(wxSize(100,100)).//PinButton(true).Floatable(false).
+                            BestSize(600,300).MinSize(wxSize(100,100)).MaximizeButton(true).
+                            MinimizeButton(true).
                             Bottom().Layer(0));
 
     /* now create the info window */
@@ -92,7 +94,8 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
 
     m_layout->AddPane( book , wxAuiPaneInfo().
                             Name(wxT("ManagementPane")).Caption(_("Management")).
-                            BestSize(300,600).MinSize(wxSize(100,100)).//PinButton(true).Floatable(false).
+                            BestSize(300,600).MinSize(wxSize(100,100)).MaximizeButton(true).
+                            MinimizeButton(true).
                             Left().Layer(1));
 
     /*** Now add the workspace manager to the left pane's manager */
@@ -115,10 +118,10 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
                             Right().Layer(1));*/
 	
 	/*** Build toolbars */
-	wxToolBar* prjtb = RheiaWorkspaceManager::Get(this)->BuildProjectsToolBar(this);
+	wxAuiToolBar* prjtb = RheiaWorkspaceManager::Get(this)->BuildProjectsToolBar(this);
     RheiaToolBarManager::Get(this)->AddToolBar(wxT("Projects"),prjtb);
 	
-	wxToolBar* wksptb = RheiaWorkspaceManager::Get(this)->BuildToolBar(this);
+	wxAuiToolBar* wksptb = RheiaWorkspaceManager::Get(this)->BuildToolBar(this);
     RheiaToolBarManager::Get(this)->AddToolBar(wxT("Workspaces"),wksptb);
 
 	RheiaEditorManager::Get(this)->BuildToolBar( this );

@@ -11,6 +11,7 @@
 #ifndef RheiaPythonConsole_MANAGER_H
 #define RheiaPythonConsole_MANAGER_H
 
+#include <RheiaPythonSettings.h>
 #include <RheiaPythonUtils.h>
 #include <RheiaPageContainer.h>
 
@@ -20,7 +21,7 @@
 *   @class RheiaPythonConsoleManager
 *   @brief this is the basic class for handling styled text control informations
 */
-class RheiaPythonConsoleManager : public wxEvtHandler, public RheiaPageContainer , public RheiaMgr<RheiaManagedFrame,RheiaPythonConsoleManager>
+class PYTHON_DLLEXPORT RheiaPythonConsoleManager : public wxEvtHandler, public RheiaPageContainer , public RheiaMgr<RheiaManagedFrame,RheiaPythonConsoleManager>
 {
     friend class RheiaMgr<RheiaManagedFrame,RheiaPythonConsoleManager>;
 

@@ -68,7 +68,17 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../../include/rheia/python" , "../../../include/rheia/editor" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../../include/rheia/loggers" , "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
+package.includepaths = { "../../../include/rheia/python" , "../../../include/rheia/editor" , "$(WXPYTHON)/include" , "../../../include/rheia/loggers" , "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
+
+if( not windows ) then
+	table.insert( package.includepaths , "/usr/include/python" .. python_ver )
+	table.insert( package.config["Debug"].links , "python" .. python_ver )
+else
+	table.insert( package.config["Debug"].includepaths , "../../../pybinaries/Debug/Include" )
+	table.insert( package.config["Release"].includepaths , "../../../pybinaries/Release/Include" )
+	table.insert( package.config["Debug"].links , "python" .. python_ver .. "_d" )
+	table.insert( package.config["Debug"].links , "python" .. python_ver )
+end
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
 package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiaeditor" }
@@ -88,7 +98,7 @@ table.insert( package.config["Debug"].links , "libgmwxplplot-dbg" )
 table.insert( package.config["Debug"].links , "librheiautils-dbg" )
 table.insert( package.config["Debug"].links , "librheiabase-dbg" )
 table.insert( package.config["Debug"].links , "librheialoggers-dbg" )
-table.insert( package.config["Debug"].links , "python" .. python_ver )
+table.insert( package.config["Debug"].links , "librheiaeditor-dbg" )
 table.insert( package.config["Debug"].links , "libwebconnect-dbg" )
 
 table.insert( package.config["Release"].links , "libgmcsirocsa" )
@@ -98,6 +108,7 @@ table.insert( package.config["Release"].links , "libgmwxplplot" )
 table.insert( package.config["Release"].links , "librheiautils" )
 table.insert( package.config["Release"].links , "librheiabase" )
 table.insert( package.config["Release"].links , "librheialoggers" )
+table.insert( package.config["Release"].links , "librheiaeditor" )
 table.insert( package.config["Release"].links , "python" .. python_ver )
 table.insert( package.config["Release"].links , "libwebconnect" )
 
@@ -189,6 +200,10 @@ if ( OS == "windows" ) then
 		
 		package.config["Release"].postbuildcommands = { "gmkdir -p ../../../devel/Release/include/rheia" , "cp -ru .../../../include/rheia/python ../../../devel/Release/include/rheia" }
 		package.config["Debug"].postbuildcommands = { "gmkdir -p ../../../devel/Debug/include/rheia" , "cp -ru ../../../include/rheia/python ../../../devel/Debug/include/rheia" }
+		
+		table.insert( package.config["Release"].postbuildcommands, "cp -ru ../../../pybinaries/Release/* ../../../devel/Release/bin" )
+		table.insert( package.config["Debug"].postbuildcommands, "cp -ru ../../../pybinaries/Debug/* ../../../devel/Debug/bin" )
+	
 	else
 		table.insert( package.config["Release"].buildoptions, "/Zi" )
 		table.insert( package.config["Release"].buildoptions, "/Zc:wchar_t" )
@@ -227,6 +242,9 @@ if ( OS == "windows" ) then
 		
 		package.config["Release"].postbuildcommands = { "gmkdir -p ../../../devel/Release/include/rheia" , "cp -ru ../../../include/rheia/python ../../../devel/Release/include/rheia" }
 		package.config["Debug"].postbuildcommands = { "gmkdir -p ../../../devel/Debug/include/rheia" , "cp -ru ../../../include/rheia/python ../../../devel/Debug/include/rheia" }
+		
+		table.insert( package.config["Release"].postbuildcommands, "cp -ru ../../../pybinaries/Release/* ../../../devel/Release/bin" )
+		table.insert( package.config["Debug"].postbuildcommands, "cp -ru ../../../pybinaries/Debug/* ../../../devel/Debug/bin" )
 		
 		package.links = { "user32" , "gdi32" , "winspool" , "kernel32" , "comdlg32" , "advapi32" , "shell32" , "ole32" , "oleaut32" , "uuid" , "opengl32" , "winmm" }
 	end
@@ -284,8 +302,8 @@ if ( OS == "windows" ) then
 		table.insert( package.libpaths, "$(WXWIN)/lib/vc_dll" )
 	end
 	
-	table.insert( package.libpaths, "$(PYTHON)/libs" )
-	table.insert( package.includepaths, "$(PYTHON)/include" )
+	table.insert( package.config["Release"].libpaths, "../../../pybinaries/Release/libs" )
+	table.insert( package.config["Debug"].libpaths, "../../../pybinaries/Debug/libs" )
 
 	-- Set wxWidgets libraries to link.
 	if ( options["unicode"] ) then
@@ -298,6 +316,8 @@ if ( OS == "windows" ) then
 		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "uh_adv" )
 		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "uh_html" )
 		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "uh_core" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "uh_propgrid" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "uh_stc" )
 		table.insert( package.config["Release"].links, "wxbase".. wx_ver .. "uh" )
 		table.insert( package.config["Release"].links, "wxpngh" )
 		table.insert( package.config["Release"].links, "wxjpegh" )
@@ -315,6 +335,8 @@ if ( OS == "windows" ) then
 		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_adv" )
 		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_html" )
 		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_core" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_propgrid" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "ud_stc" )
 		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "ud" )
 		table.insert( package.config["Debug"].links, "wxpngd" )
 		table.insert( package.config["Debug"].links, "wxjpegd" )
@@ -332,6 +354,8 @@ if ( OS == "windows" ) then
 		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "h_adv" )
 		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "h_html" )
 		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "h_core" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "h_propgrid" )
+		table.insert( package.config["Release"].links, "wxmsw".. wx_ver .. "h_stc" )
 		table.insert( package.config["Release"].links, "wxbase".. wx_ver .."h" )
 		table.insert( package.config["Release"].links, "wxpngh" )
 		table.insert( package.config["Release"].links, "wxjpegh" )
@@ -349,6 +373,8 @@ if ( OS == "windows" ) then
 		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_adv" )
 		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_html" )
 		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_core" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_propgrid" )
+		table.insert( package.config["Debug"].links, "wxmsw".. wx_ver .. "d_stc" )
 		table.insert( package.config["Debug"].links, "wxbase".. wx_ver .. "d" )
 		table.insert( package.config["Debug"].links, "wxpngd" )
 		table.insert( package.config["Debug"].links, "wxjpegd" )

@@ -62,7 +62,7 @@ end
 package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" , "*.c" ), matchfiles( "*.h" ) }
 
 -- Set the include paths.
-package.includepaths = { "../../include/rheia/utils" , "../../include/rheia/python" , "$(WXPYTHON)/include" , "../../include/irrlicht" , "../../src/irrlicht", "/usr/include/python" .. python_ver }
+package.includepaths = { "../../include/rheia/utils" , "../../include/rheia/python" , "$(WXPYTHON)/include" , "../../include/irrlicht" , "../../src/irrlicht" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
 package.depends = { "rheiautils" }
@@ -113,6 +113,16 @@ end
 table.insert( package.defines, "__WX__" )
 table.insert( package.config["Debug"].defines, debug_macro )
 table.insert( package.config["Release"].defines, "NDEBUG" )
+
+if( not windows ) then
+	table.insert( package.includepaths , "/usr/include/python" .. python_ver )
+	table.insert( package.config["Debug"].links , "python" .. python_ver )
+else
+	table.insert( package.config["Debug"].includepaths , "../../../pybinaries/Debug/Include" )
+	table.insert( package.config["Release"].includepaths , "../../../pybinaries/Release/Include" )
+	table.insert( package.config["Debug"].links , "python" .. python_ver .. "_d" )
+	table.insert( package.config["Debug"].links , "python" .. python_ver )
+end
 
 if( OS == "windows" ) then
 	table.insert( package.config["Debug"].links , "libxml2-dbg" )
@@ -259,9 +269,6 @@ if ( OS == "windows" ) then
 			table.insert( package.config["Release"].includepaths, "$(WXWIN)/lib/vc_dll/mswh" )
 		end
 	end
-	
-	table.insert( package.libpaths, "$(PYTHON)/libs" )
-	table.insert( package.includepaths, "$(PYTHON)/include" )
 
 	if ( target == "cb-gcc" ) then
 		table.insert( package.libpaths, "$(#WX.lib)/gcc_dll" )
