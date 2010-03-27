@@ -30,7 +30,7 @@ class RheiaEditorFile;
 class RheiaEditorLayout;
 class RheiaEditorBase;
 class wxMenuBar;
-class wxToolbar;
+class wxAuiToolbar;
 class wxStaticText;
 class wxTextCtrl;
 class RheiaSearchResults;
@@ -316,8 +316,8 @@ private :
     RheiaEditorBase* m_currentEditor;
     wxString m_lastFind;
 	
-	wxToolBar* m_tbEdition;
-	wxToolBar* m_tbPythonTools;
+	wxAuiToolBar* m_tbEdition;
+	wxAuiToolBar* m_tbPythonTools;
 	
 	wxStaticText* m_txtGoto;
 	wxTextCtrl* m_txtGotoLine;

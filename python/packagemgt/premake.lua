@@ -143,6 +143,16 @@ if( not options["no-irrlicht"] ) then
 	table.insert( package.config["Release"].links , "libgmirrlicht" )
 end
 
+if( not windows ) then
+	table.insert( package.includepaths , "/usr/include/python" .. python_ver )
+	table.insert( package.config["Debug"].links , "python" .. python_ver )
+else
+	table.insert( package.config["Debug"].includepaths , "../../../pybinaries/Debug/Include" )
+	table.insert( package.config["Release"].includepaths , "../../../pybinaries/Release/Include" )
+	table.insert( package.config["Debug"].links , "python" .. python_ver .. "_d" )
+	table.insert( package.config["Debug"].links , "python" .. python_ver )
+end
+
 package.config["Release"].postbuildcommands = { CP .. "packagemgt.py ../rheia" }
 package.config["Debug"].postbuildcommands = { CP .. "packagemgt.py ../rheia_d" }
 
@@ -265,9 +275,6 @@ if ( OS == "windows" ) then
 			table.insert( package.config["Release"].includepaths, "$(WXWIN)/lib/vc_dll/mswh" )
 		end
 	end
-	
-	table.insert( package.libpaths, "$(PYTHON)/libs" )
-	table.insert( package.includepaths, "$(PYTHON)/include" )
 
 	if ( target == "cb-gcc" ) then
 		table.insert( package.libpaths, "$(#WX.lib)/gcc_dll" )

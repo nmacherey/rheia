@@ -43,7 +43,7 @@ class RheiaHtmlLoggerPage;
 *	@date	15-April-2009
 *	@version 0.0.1
 */
-struct RheiaHtmlHeader
+struct LOGGERS_DLLEXPORT RheiaHtmlHeader
 {
     wxString message;
     wxString warning;

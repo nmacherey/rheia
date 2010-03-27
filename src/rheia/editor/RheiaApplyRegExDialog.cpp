@@ -26,7 +26,7 @@ RheiaApplyRegExDialog::RheiaApplyRegExDialog( wxWindow* parent, wxWindowID id, c
 	wxBoxSizer* bSizer18;
 	bSizer18 = new wxBoxSizer( wxVERTICAL );
 
-	cbRegEx = new wxComboBox( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, NULL, wxCB_DROPDOWN|wxCB_SIMPLE|wxTE_PROCESS_ENTER );
+	cbRegEx = new wxComboBox( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, NULL, wxTE_PROCESS_ENTER );
 	bSizer18->Add( cbRegEx, 0, wxALL|wxEXPAND, 5 );
 
 	cbReplacement = new wxComboBox( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, NULL, wxTE_PROCESS_ENTER );

@@ -969,5 +969,15 @@ int RheiaEditorBase::FindNext( const wxString& expr , int flag )
 
 void RheiaEditorBase::Goto( int line )
 {
+  #if wxCHECK_VERSION(2,9,0)
+    int no_lines = m_control->GetNumberOfLines()-1;
+#else
+	int no_lines = m_control->GetLineCount()-1;
+#endif
+
+    if( no_lines < line )
+        line = no_lines;
+
 	m_control->GotoLine(line);
+    m_control->SetFocus();
 }

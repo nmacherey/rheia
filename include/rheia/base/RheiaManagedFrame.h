@@ -23,6 +23,9 @@
 
 #include <map>
 
+#define idFileExit 14527272
+#define idFileFrameKill 14527272
+
 /**
 *   @class RheiaManagedFrame
 *

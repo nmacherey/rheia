@@ -14,9 +14,13 @@
 #include <wx/dynarray.h>
 
 class wxToolBar;
+class wxAuiToolBar;
 
 typedef std::map<wxString,wxToolBar*> wxToolBarArray;
+typedef std::map<wxString,wxAuiToolBar*> wxAuiToolBarArray;
+
 typedef std::map<wxToolBar*,int> RheiaToolMenuIdMap;
+typedef std::map<wxAuiToolBar*,int> RheiaAuiToolMenuIdMap;
 
 /**
 *	@class RheiaToolBarManager
@@ -49,16 +53,22 @@ public :
 	* METHODS
 	**********************************************************************************************************/
 	/*! Get the leftPane Manager Book */
-	wxToolBar *GetToolBar(){return m_toolbar;};
+	wxAuiToolBar *GetToolBar(){return m_toolbar;};
 
 	/** Add Tool Bar */
 	void AddToolBar( const wxString& name , wxToolBar* toolbar );
+
+    /** Add Tool Bar */
+	void AddToolBar( const wxString& name , wxAuiToolBar* toolbar );
 
 	/** Remove ToolBar */
 	void RemoveToolBar( const wxString& name );
 
 	/** Get the toolbars */
 	wxToolBarArray& GetToolBars() {return m_toolbars;}
+
+    /** Get the toolbars */
+	wxAuiToolBarArray& GetAuiToolBars() {return m_auiToolbars;}
 
 	/** on close parent event */
 	void OnCloseParent(RheiaFrameEvent& event);
@@ -74,10 +84,14 @@ private :
 	/**********************************************************************************************************
 												PRIVATE VARIABLES
 	**********************************************************************************************************/
-	wxToolBar *m_toolbar;						/*!< pointer to the main tool bar */
+	wxAuiToolBar *m_toolbar;						/*!< pointer to the main tool bar */
 	RheiaManagedFrame* m_parent;
 	wxToolBarArray m_toolbars;
 	RheiaToolMenuIdMap m_toolIds;
+
+    wxAuiToolBarArray m_auiToolbars;
+	RheiaAuiToolMenuIdMap m_auiToolIds;
+
 	int m_index;
 #ifndef SWIG
 	DECLARE_EVENT_TABLE()

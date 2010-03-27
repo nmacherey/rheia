@@ -53,7 +53,7 @@
 IMPLEMENT_DYNAMIC_CLASS(RheiaManagedFrame,wxFrame)
 
 /*! id comming from the main menu bar ressource for exiting the application*/
-int idFileExit = XRCID("idFileExit");
+//int idFileExit = XRCID("idFileExit");
 /*! id comming from the main menu bar ressource for exiting the application*/
 int idFileClose = XRCID("idFileClose");
 /*! id comming from the main menu bar ressource for viewing the status bar*/
@@ -145,7 +145,7 @@ void RheiaManagedFrame::BuildAui(void)
 
     m_layout->AddPane( RheiaCenterPaneManager::Get(this)->GetNoteBook() , wxAuiPaneInfo().
                             Name(wxT("MainPane")).Caption(_("MainBook")).
-                            BestSize(wxSize(600, 600)).//MinSize(wxSize(100,100)).
+                            BestSize(wxSize(600, 600)).
                             CenterPane());
 
     RheiaCenterPaneManager::Get(this)->BuildMenu( m_menuBar );
