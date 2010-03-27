@@ -68,7 +68,7 @@ else
 end
 
 -- Set the include paths.
-package.includepaths = { "../../../include/rheia/python" , "../../../include/rheia/editor" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../../include/rheia/loggers" , "../../../include/rheia/base" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
+package.includepaths = { "../../../include/rheia/python" , "../../../include/rheia/editor" , "$(WXPYTHON)/include" , "/usr/include/python" .. python_ver , "../../../include/rheia/loggers" , "../../../include/rheia/base" , "../../../include/rheia/packagemgt" , "../../../include/rheia/utils" , "../../../include/irrlicht" , "../../../src/irrlicht" }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
 package.depends = { "csirocsa", "qsastime" , "plplot" , "irrlicht" , "rheiautils" , "rheiabase" , "rheialoggers" , "rheiaeditor" }

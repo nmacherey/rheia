@@ -110,7 +110,7 @@ class RheiaPlugin(wx._core.EvtHandler):
         return _packagemgt.RheiaPlugin_GetGroupIdentifier(*args, **kwargs)
 
     def GetConfigurationPanel(*args, **kwargs):
-        """GetConfigurationPanel(self, Window parent) -> RheiaConfigurationPanel"""
+        """GetConfigurationPanel(self, Window ?) -> RheiaConfigurationPanel"""
         return _packagemgt.RheiaPlugin_GetConfigurationPanel(*args, **kwargs)
 
     def IsPlugged(*args, **kwargs):
@@ -122,11 +122,11 @@ class RheiaPlugin(wx._core.EvtHandler):
         return _packagemgt.RheiaPlugin_CanUnplug(*args, **kwargs)
 
     def BuildToolBar(*args, **kwargs):
-        """BuildToolBar(self, Window parent) -> ToolBar"""
+        """BuildToolBar(self, Window ?) -> ToolBar"""
         return _packagemgt.RheiaPlugin_BuildToolBar(*args, **kwargs)
 
     def BuildMenu(*args, **kwargs):
-        """BuildMenu(self, MenuBar menuBar)"""
+        """BuildMenu(self, MenuBar ?)"""
         return _packagemgt.RheiaPlugin_BuildMenu(*args, **kwargs)
 
 _packagemgt.RheiaPlugin_swigregister(RheiaPlugin)
@@ -134,6 +134,21 @@ cvar = _packagemgt.cvar
 RhCore = cvar.RhCore
 RhContrib = cvar.RhContrib
 RhUnknown = cvar.RhUnknown
+
+class RheiaPyPlugin(RheiaPlugin):
+    """Proxy of C++ RheiaPyPlugin class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self): raise AttributeError, "No constructor defined"
+    __repr__ = _swig_repr
+    def OnPyPlug(*args, **kwargs):
+        """OnPyPlug(self)"""
+        return _packagemgt.RheiaPyPlugin_OnPyPlug(*args, **kwargs)
+
+    def OnPyUnplug(*args, **kwargs):
+        """OnPyUnplug(self, bool ?)"""
+        return _packagemgt.RheiaPyPlugin_OnPyUnplug(*args, **kwargs)
+
+_packagemgt.RheiaPyPlugin_swigregister(RheiaPyPlugin)
 
 RheiaEVT_PLUGIN_ATTACHED = _packagemgt.RheiaEVT_PLUGIN_ATTACHED
 RheiaEVT_PLUGIN_RELEASED = _packagemgt.RheiaEVT_PLUGIN_RELEASED

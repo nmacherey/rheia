@@ -13,6 +13,7 @@
 #include "wx/wxPython/pytree.h"
 
 #include "RheiaAppGlobals.h"
+#include "RheiaPython.h"
 #include "RheiaGlobals.h"
 #include "RheiaInfoWindow.h"
 #include "RheiaPlatform.h"
@@ -100,10 +101,10 @@
 
 #include "RheiaPluginManager.h"
 #include "RheiaPluginManifest.h"
+
 %}
 
-// Globally turn on the autodoc feature
-%feature("autodoc", "1");  // 0 == no param types, 1 == show param types
+// Globally turn on the autodoc feature == show param types
 
 // Turn on kwargs by default
 %feature("kwargs", "1");
@@ -139,6 +140,33 @@ rheia = _sys.modules[__name__]
 
 %include packagemgt_api.i
 %include "RheiaPlugin.h"
+
+class RheiaPyPlugin : public RheiaPlugin
+{
+public :
+	/**
+	* If you want to write a plugin all your building and construction tasks shall be done
+	* in this method. It is called by the RheiaPlugin::Plug() method in RheiaPluginManager
+	* and allow you to perform you initalization tasks. Then the plugin shall be usable and
+	* all it's informations too. In the application.
+	* Here do what you need simply overload the method... 
+	*/
+	virtual void OnPyPlug() = 0;
+
+	/*! Any descendent plugin should override this virtual method and
+	* perform any necessary de-initialization. This method is called by
+	* Rheia (RheiaPluginManager actually) when the plugin has been
+	* loaded, attached and should de-attach from Rheia.\n
+	* Think of this method as the actual destructor...
+	* @param appShutDown If true, the application is shutting down. In this
+	*         case *don't* use RheiaManager::Get()->Get...() functions or the
+	*         behaviour is undefined...
+	*/
+	virtual void OnPyUnplug(bool) = 0;
+protected :
+	virtual void OnPlug() {OnPyPlug();};
+	virtual void OnUnplug(bool val) {OnPyUnplug(val);};
+};
 
 %include pluginevent.i
 

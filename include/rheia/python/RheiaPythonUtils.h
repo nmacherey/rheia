@@ -38,7 +38,7 @@ public :
 	bool ImportWxPythonAPI();
 	
 	/** import the Rheia python API */
-	bool ImportRheiaPytonhAPI();
+	bool ImportRheiaPythonAPI();
 	
     /**********************************************************************************************************
 	*	METHODS
@@ -131,7 +131,13 @@ public :
 	
 	/** Get the main module */
 	PyObject* GetMainModule() {return m_mainModule;};
-
+	
+	/** Get get plugins count from the plugin manager */
+	int GetPluginsCount();
+	
+	/** Get all plugin names */
+	wxArrayString GetPluginsNames();
+	
 private :
     /**********************************************************************************************************
 	*	CONSTRUCTORS

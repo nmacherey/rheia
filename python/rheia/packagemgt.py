@@ -135,6 +135,21 @@ RhCore = cvar.RhCore
 RhContrib = cvar.RhContrib
 RhUnknown = cvar.RhUnknown
 
+class RheiaPyPlugin(RheiaPlugin):
+    """Proxy of C++ RheiaPyPlugin class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self): raise AttributeError, "No constructor defined"
+    __repr__ = _swig_repr
+    def OnPyPlug(*args, **kwargs):
+        """OnPyPlug(self)"""
+        return _packagemgt.RheiaPyPlugin_OnPyPlug(*args, **kwargs)
+
+    def OnPyUnplug(*args, **kwargs):
+        """OnPyUnplug(self, bool ?)"""
+        return _packagemgt.RheiaPyPlugin_OnPyUnplug(*args, **kwargs)
+
+_packagemgt.RheiaPyPlugin_swigregister(RheiaPyPlugin)
+
 RheiaEVT_PLUGIN_ATTACHED = _packagemgt.RheiaEVT_PLUGIN_ATTACHED
 RheiaEVT_PLUGIN_RELEASED = _packagemgt.RheiaEVT_PLUGIN_RELEASED
 RheiaEVT_ENVPLUGIN_REQUEST_DETACH = _packagemgt.RheiaEVT_ENVPLUGIN_REQUEST_DETACH

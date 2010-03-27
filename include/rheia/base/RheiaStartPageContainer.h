@@ -74,7 +74,7 @@ public :
 	void SetHtmlFile( const wxString& file) {m_htmlfile = file;};
 	
 	/** Get the page bitmap */
-	virtual const wxBitmap& GetBitmap( const int& size ) {return m_bmp;}
+	virtual const wxBitmap& GetBitmap( const int& /*size*/ ) {return m_bmp;}
 	
 	/** Rheia Frame Event */
 	void OnCloseParent(RheiaFrameEvent& event);
