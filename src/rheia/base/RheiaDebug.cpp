@@ -15,13 +15,13 @@
 
 #include <wx/frame.h>
 
-//#ifdef RHEIA_DEBUG
+#ifdef RHEIA_DEBUG
 wxLogWindow* RheiaDebug::m_debugLogTarget = NULL;
-//#endif
+#endif
 
 void RheiaDebug::Log( const wxChar* format, ... )
 {
-//#ifdef RHEIA_DEBUG
+#ifdef RHEIA_DEBUG
 	if( m_debugLogTarget == NULL )
 	{
 		wxLog* log = wxLog::SetActiveTarget( NULL );
@@ -39,17 +39,17 @@ void RheiaDebug::Log( const wxChar* format, ... )
 
 	va_end(argptr);
 	wxLog::SetActiveTarget( oldTarget );
-//#endif
+#endif
 }
 
 void RheiaDebug::Free()
 {
-//#ifdef RHEIA_DEBUG
+#ifdef RHEIA_DEBUG
 	if( m_debugLogTarget != NULL )
 	{
 		delete m_debugLogTarget;
 	}
 	
 	m_debugLogTarget = NULL;
-//#endif
+#endif
 }
