@@ -20088,6 +20088,131 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RheiaTreeItem_SetCurrentlySelected(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  RheiaTreeItem *arg1 = (RheiaTreeItem *) 0 ;
+  wxString *arg2 = 0 ;
+  wxTreeItemId *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool temp2 = false ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "name",(char *) "id", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:RheiaTreeItem_SetCurrentlySelected",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaTreeItem, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaTreeItem_SetCurrentlySelected" "', expected argument " "1"" of type '" "RheiaTreeItem *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaTreeItem * >(argp1);
+  {
+    arg2 = wxString_in_helper(obj1);
+    if (arg2 == NULL) SWIG_fail;
+    temp2 = true;
+  }
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_wxTreeItemId,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RheiaTreeItem_SetCurrentlySelected" "', expected argument " "3"" of type '" "wxTreeItemId const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RheiaTreeItem_SetCurrentlySelected" "', expected argument " "3"" of type '" "wxTreeItemId const &""'"); 
+  }
+  arg3 = reinterpret_cast< wxTreeItemId * >(argp3);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetCurrentlySelected((wxString const &)*arg2,(wxTreeItemId const &)*arg3);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaTreeItem_GetCurrentlySelectedName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RheiaTreeItem *arg1 = (RheiaTreeItem *) 0 ;
+  wxString *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RheiaTreeItem, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaTreeItem_GetCurrentlySelectedName" "', expected argument " "1"" of type '" "RheiaTreeItem *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaTreeItem * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    {
+      wxString const &_result_ref = (arg1)->GetCurrentlySelectedName();
+      result = (wxString *) &_result_ref;
+    }
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+#if wxUSE_UNICODE
+    resultobj = PyUnicode_FromWideChar(result->c_str(), result->Len());
+#else
+    resultobj = PyString_FromStringAndSize(result->c_str(), result->Len());
+#endif
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RheiaTreeItem_GetCurrentlySelectedId(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RheiaTreeItem *arg1 = (RheiaTreeItem *) 0 ;
+  wxTreeItemId *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RheiaTreeItem, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaTreeItem_GetCurrentlySelectedId" "', expected argument " "1"" of type '" "RheiaTreeItem *""'"); 
+  }
+  arg1 = reinterpret_cast< RheiaTreeItem * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    {
+      wxTreeItemId const &_result_ref = (arg1)->GetCurrentlySelectedId();
+      result = (wxTreeItemId *) &_result_ref;
+    }
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxTreeItemId, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RheiaTreeItem_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
@@ -20933,6 +21058,9 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"RheiaTreeItem_Find", (PyCFunction) _wrap_RheiaTreeItem_Find, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaTreeItem_GetItemName", (PyCFunction) _wrap_RheiaTreeItem_GetItemName, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"RheiaTreeItem_GetItems", (PyCFunction)_wrap_RheiaTreeItem_GetItems, METH_O, NULL},
+	 { (char *)"RheiaTreeItem_SetCurrentlySelected", (PyCFunction) _wrap_RheiaTreeItem_SetCurrentlySelected, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"RheiaTreeItem_GetCurrentlySelectedName", (PyCFunction)_wrap_RheiaTreeItem_GetCurrentlySelectedName, METH_O, NULL},
+	 { (char *)"RheiaTreeItem_GetCurrentlySelectedId", (PyCFunction)_wrap_RheiaTreeItem_GetCurrentlySelectedId, METH_O, NULL},
 	 { (char *)"RheiaTreeItem_swigregister", RheiaTreeItem_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_RheiaTreeItemData", (PyCFunction) _wrap_new_RheiaTreeItemData, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"delete_RheiaTreeItemData", (PyCFunction)_wrap_delete_RheiaTreeItemData, METH_O, NULL},

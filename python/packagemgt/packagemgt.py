@@ -122,11 +122,11 @@ class RheiaPlugin(wx._core.EvtHandler):
         return _packagemgt.RheiaPlugin_CanUnplug(*args, **kwargs)
 
     def BuildToolBar(*args, **kwargs):
-        """BuildToolBar(self, Window ?) -> ToolBar"""
+        """BuildToolBar(self, RheiaManagedFrame ?)"""
         return _packagemgt.RheiaPlugin_BuildToolBar(*args, **kwargs)
 
     def BuildMenu(*args, **kwargs):
-        """BuildMenu(self, MenuBar ?)"""
+        """BuildMenu(self, RheiaManagedFrame ?, MenuBar ?)"""
         return _packagemgt.RheiaPlugin_BuildMenu(*args, **kwargs)
 
 _packagemgt.RheiaPlugin_swigregister(RheiaPlugin)

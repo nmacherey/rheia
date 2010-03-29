@@ -26,7 +26,6 @@ void RheiaPlugin::Plug()
     m_plugged = true;
 	OnPlug();
 	SetEvtHandlerEnabled(true);
-
 	RheiaPluginEvent event(RheiaEVT_PLUGIN_ATTACHED);
 	event.SetPlugin(this);
 	// post event in the host's event queue
@@ -37,7 +36,7 @@ void RheiaPlugin::Unplug(bool appShutDown)
 {
 	if (!m_plugged)
 		return;
-		
+	
 	m_plugged = false;
 	SetEvtHandlerEnabled(false);
 	OnUnplug(appShutDown);
@@ -45,4 +44,5 @@ void RheiaPlugin::Unplug(bool appShutDown)
 	event.SetPlugin(this);
 
 	RheiaEventsManager::Get()->ProcessEvent(event);
+	
 }

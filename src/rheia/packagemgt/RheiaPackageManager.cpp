@@ -1244,7 +1244,7 @@ bool RheiaPackageManager::CheckSdkVersionFor( RheiaPackageControl* ctrl , wxStri
 
     bool valid = true;
 
-    if ( CompareVersions( major , minor , dmajor , dminor ) == -1 )
+    if ( CompareVersions( dmajor , dminor , major , minor ) < 0 )
     {
         error += wxT("Package ") + package +
                  wxT(" depends on sdk ") +

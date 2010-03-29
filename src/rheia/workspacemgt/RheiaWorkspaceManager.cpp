@@ -268,7 +268,24 @@ void RheiaWorkspaceManager::ReloadConfig()
 
 void RheiaWorkspaceManager::ReloadWorkspaceTree()
 {
+	RheiaWorkspaceTable::iterator it = m_workspaces.begin( );
+	for( ; it != m_workspaces.end() ; ++it )
+	{
+		wxBitmap bmp = it->second->GetBitmap(16 );
 
+        int idx = m_treeImages->Add( bmp );
+        RheiaTreeItemData* item = new RheiaTreeItemData( it->second );
+
+        wxTreeItemId wkspId = m_tree->AppendItem( m_treeRoot , it->first , idx , idx , item );
+        /* @todo, here we have to manage the creation of the workspace in the
+        *	main frame. CreateMenu, CreateTreeConfig and result...
+        *	We might have to do this in different functions.
+        */
+        it->second->CreateTree( m_tree ,
+                            wkspId , 16 );
+
+        GetManagementTree()->SelectItem( it->second->GetRoot() );
+	}
 }
 
 const wxBitmap& RheiaWorkspaceManager::GetBitmap( const int& size )
@@ -322,52 +339,15 @@ void RheiaWorkspaceManager::OnManagementTreeSelection(wxTreeEvent& event)
     if ( !ItemData )
         return;
 
-//    ItemWksp = ItemData->GetWorkspace();
-//
-//    if ( !ItemWksp )
-//        return;
-
     RheiaTreeItem* item = ItemData->GetOwner();
     item->OnItemSelected();
-
-//    long type = ItemData->GetType();
-//
-//    RheiaWorkspace *LastWksp = FindWorkspace( m_currentWorkspace );
-//    /* First managing the workspace part which is not optional */
-//    m_currentWorkspace = ItemWksp->GetName();
-//
-//    /* Once the workspace */
-//    if ( type == ItemData->tdkProject )
-//    {
-//        RheiaProjectTreeItemData* ItemData2 = (RheiaProjectTreeItemData*) ItemData;
-//        RheiaProject *SelectedProject = ItemData2->GetProject();
-//        if ( SelectedProject )
-//        {
-//            ItemWksp->SetCurrentProject( SelectedProject->GetName() );
-//            //RheiaNameSpaceViewManager::Get()->Activate( SelectedProject->GetProjectNameSpace() );
-//            RheiaCenterPaneManager::Get(m_parent)->ActivatePage( SelectedProject->GetName() );
-//
-//            RheiaProjectEvent evt(RheiaEVT_PROJECT_SELECTED,
-//                            0,
-//                            SelectedProject,
-//                            SelectedProject->GetName()
-//                            );
-//
-//            m_parent->GetEventHandler()->ProcessEvent(evt);
-//        }
-//    }
-//    else if ( type == ItemData->tdkProjectElement )
-//    {
-//        RheiaProjectElementTreeItemData* ItemData3 = (RheiaProjectElementTreeItemData*) ItemData;
-//        RheiaProject *SelectedProject = ItemData3->GetProject();
-//        if ( SelectedProject )
-//        {
-//            ItemWksp->SetCurrentProject( SelectedProject->GetName() );
-//            //RheiaNameSpaceViewManager::Get()->Activate( SelectedProject->GetProjectNameSpace() );
-//            RheiaCenterPaneManager::Get(m_parent)->ActivatePage( SelectedProject->GetName() );
-//            RheiaProjectElement *Element = ItemData3->GetProjectElement();
-//        }
-//    }
+	
+	ItemData = (RheiaTreeItemData *) m_tree->GetItemData( m_tree->GetItemParent(SelectedItem) );
+	if ( !ItemData )
+        return;
+		
+	item = ItemData->GetOwner();
+	item->SetCurrentlySelected(m_tree->GetItemText(SelectedItem),SelectedItem);
 }
 
 void RheiaWorkspaceManager::OnManagementTreeDClick(wxTreeEvent& event)
@@ -382,44 +362,15 @@ void RheiaWorkspaceManager::OnManagementTreeDClick(wxTreeEvent& event)
     if ( !ItemData )
         return;
 
-//    ItemWksp = ItemData->GetWorkspace();
-//
-//    if ( !ItemWksp )
-//        return;
-
     RheiaTreeItem* item = ItemData->GetOwner();
     item->OnItemSelected();
-
-//    long type = ItemData->GetType();
-//
-//    RheiaWorkspace *LastWksp = FindWorkspace( m_currentWorkspace );
-//    /* First managing the workspace part which is not optional */
-//    m_currentWorkspace = ItemWksp->GetName();
-//
-//    /* Once the workspace */
-//    if ( type == ItemData->tdkProject )
-//    {
-//        RheiaProjectTreeItemData* ItemData2 = (RheiaProjectTreeItemData*) ItemData;
-//        RheiaProject *SelectedProject = ItemData2->GetProject();
-//        if ( !SelectedProject )
-//        {
-//            return;
-//        }
-//        else
-//        {
-//            RheiaProjectConfigurationDlg dlg( m_parent , SelectedProject );
-//            dlg.ShowModal();
-//
-//
-//            RheiaProjectEvent evt(RheiaEVT_PROJECT_ACTIVATED,
-//                            0,
-//                            SelectedProject,
-//                            SelectedProject->GetName()
-//                            );
-//
-//            m_parent->GetEventHandler()->ProcessEvent(evt);
-//        }
-//    }
+	
+	ItemData = (RheiaTreeItemData *) m_tree->GetItemData( m_tree->GetItemParent(SelectedItem) );
+	if ( !ItemData )
+        return;
+		
+	item = ItemData->GetOwner();
+	item->SetCurrentlySelected(m_tree->GetItemText(SelectedItem),SelectedItem);
 }
 
 /* Add a new RheiaWorkspace to the workspace table */

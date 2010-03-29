@@ -2104,6 +2104,18 @@ class RheiaTreeItem(wx._core.EvtHandler,utils.RheiaObjectWithBitmap):
         """GetItems(self) -> RheiaTreeItemMap"""
         return _base.RheiaTreeItem_GetItems(*args, **kwargs)
 
+    def SetCurrentlySelected(*args, **kwargs):
+        """SetCurrentlySelected(self, String name, TreeItemId id)"""
+        return _base.RheiaTreeItem_SetCurrentlySelected(*args, **kwargs)
+
+    def GetCurrentlySelectedName(*args, **kwargs):
+        """GetCurrentlySelectedName(self) -> String"""
+        return _base.RheiaTreeItem_GetCurrentlySelectedName(*args, **kwargs)
+
+    def GetCurrentlySelectedId(*args, **kwargs):
+        """GetCurrentlySelectedId(self) -> TreeItemId"""
+        return _base.RheiaTreeItem_GetCurrentlySelectedId(*args, **kwargs)
+
 _base.RheiaTreeItem_swigregister(RheiaTreeItem)
 cvar = _base.cvar
 rhTREE_DELETE_ON_DESTROY = cvar.rhTREE_DELETE_ON_DESTROY

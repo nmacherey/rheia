@@ -4545,8 +4545,7 @@ fail:
 SWIGINTERN PyObject *_wrap_RheiaPlugin_BuildToolBar(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   RheiaPlugin *arg1 = (RheiaPlugin *) 0 ;
-  wxWindow *arg2 = (wxWindow *) 0 ;
-  wxToolBar *result = 0 ;
+  RheiaManagedFrame *arg2 = (RheiaManagedFrame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -4564,30 +4563,25 @@ SWIGINTERN PyObject *_wrap_RheiaPlugin_BuildToolBar(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaPlugin_BuildToolBar" "', expected argument " "1"" of type '" "RheiaPlugin *""'"); 
   }
   arg1 = reinterpret_cast< RheiaPlugin * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxWindow, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_RheiaManagedFrame, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RheiaPlugin_BuildToolBar" "', expected argument " "2"" of type '" "wxWindow *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RheiaPlugin_BuildToolBar" "', expected argument " "2"" of type '" "RheiaManagedFrame *""'"); 
   }
-  arg2 = reinterpret_cast< wxWindow * >(argp2);
+  arg2 = reinterpret_cast< RheiaManagedFrame * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   if (director && (director->swig_get_self()==obj0)) director->swig_set_up();
   try {
     Swig::UnknownExceptionHandler dh;
     {
       PyThreadState* __tstate = wxPyBeginAllowThreads();
-      result = (wxToolBar *)(arg1)->BuildToolBar(arg2);
+      (arg1)->BuildToolBar(arg2);
       wxPyEndAllowThreads(__tstate);
       if (PyErr_Occurred()) SWIG_fail;
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
   }
-  {
-    resultobj = wxPyMake_wxObject(result, (bool)0); 
-  }
-  if (director) {
-    SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
-  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -4597,36 +4591,45 @@ fail:
 SWIGINTERN PyObject *_wrap_RheiaPlugin_BuildMenu(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   RheiaPlugin *arg1 = (RheiaPlugin *) 0 ;
-  wxMenuBar *arg2 = (wxMenuBar *) 0 ;
+  RheiaManagedFrame *arg2 = (RheiaManagedFrame *) 0 ;
+  wxMenuBar *arg3 = (wxMenuBar *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
   char *  kwnames[] = {
-    (char *) "self",(char *)"arg2", NULL 
+    (char *) "self",(char *)"arg2",(char *)"arg3", NULL 
   };
   Swig::Director *director = 0;
   
-  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:RheiaPlugin_BuildMenu",kwnames,&obj0,&obj1)) SWIG_fail;
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:RheiaPlugin_BuildMenu",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RheiaPlugin, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RheiaPlugin_BuildMenu" "', expected argument " "1"" of type '" "RheiaPlugin *""'"); 
   }
   arg1 = reinterpret_cast< RheiaPlugin * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxMenuBar, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_RheiaManagedFrame, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RheiaPlugin_BuildMenu" "', expected argument " "2"" of type '" "wxMenuBar *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RheiaPlugin_BuildMenu" "', expected argument " "2"" of type '" "RheiaManagedFrame *""'"); 
   }
-  arg2 = reinterpret_cast< wxMenuBar * >(argp2);
+  arg2 = reinterpret_cast< RheiaManagedFrame * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_wxMenuBar, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "RheiaPlugin_BuildMenu" "', expected argument " "3"" of type '" "wxMenuBar *""'"); 
+  }
+  arg3 = reinterpret_cast< wxMenuBar * >(argp3);
   director = SWIG_DIRECTOR_CAST(arg1);
   if (director && (director->swig_get_self()==obj0)) director->swig_set_up();
   try {
     Swig::UnknownExceptionHandler dh;
     {
       PyThreadState* __tstate = wxPyBeginAllowThreads();
-      (arg1)->BuildMenu(arg2);
+      (arg1)->BuildMenu(arg2,arg3);
       wxPyEndAllowThreads(__tstate);
       if (PyErr_Occurred()) SWIG_fail;
     }

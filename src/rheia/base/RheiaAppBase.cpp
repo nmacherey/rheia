@@ -43,10 +43,11 @@
 
 bool RheiaAppBase::DoBasicInitializations()
 {
+	RheiaDebug::Log(wxT("LogInitialized"));
     /* Enables wxLogging for the application */
-#ifndef RHEIA_DEBUG
+//#ifndef RHEIA_DEBUG
     wxLog::EnableLogging(true);
-#endif
+//#endif
 
 #ifdef LINUX
     setlocale(LC_ALL,"C");

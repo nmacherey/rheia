@@ -40,6 +40,9 @@ RheiaTreeItem::RheiaTreeItem(const RheiaTreeItem& rhs):
 
     for( ; it != rhs.m_items.end() ; ++it )
         m_items[it->first] = it->second->Clone();
+		
+	m_currentChild = rhs.m_currentChild;
+	m_currentChildId = rhs.m_currentChildId;
 }
 
 void RheiaTreeItem::RemoveAll()
@@ -54,7 +57,8 @@ void RheiaTreeItem::RemoveAll()
             delete it->second;
         }
     }
-
+	
+	m_currentChild = wxEmptyString;
     m_items.clear();
 }
 
@@ -66,7 +70,9 @@ bool RheiaTreeItem::Add( const wxString& name , RheiaTreeItem* item )
         return false;
 
     m_items[name] = item;
-
+	m_currentChild = name;
+	m_currentChildId = item->m_root;
+	
     return true;
 }
 

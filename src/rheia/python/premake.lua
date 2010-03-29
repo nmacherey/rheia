@@ -72,12 +72,12 @@ package.includepaths = { "../../../include/rheia/python" , "../../../include/rhe
 
 if( not windows ) then
 	table.insert( package.includepaths , "/usr/include/python" .. python_ver )
-	table.insert( package.config["Debug"].links , "python" .. python_ver )
+	table.insert( package.links , "python" .. python_ver )
 else
 	table.insert( package.config["Debug"].includepaths , "../../../pybinaries/Debug/Include" )
 	table.insert( package.config["Release"].includepaths , "../../../pybinaries/Release/Include" )
 	table.insert( package.config["Debug"].links , "python" .. python_ver .. "_d" )
-	table.insert( package.config["Debug"].links , "python" .. python_ver )
+	table.insert( package.config["Release"].links , "python" .. python_ver )
 end
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
@@ -109,7 +109,6 @@ table.insert( package.config["Release"].links , "librheiautils" )
 table.insert( package.config["Release"].links , "librheiabase" )
 table.insert( package.config["Release"].links , "librheialoggers" )
 table.insert( package.config["Release"].links , "librheiaeditor" )
-table.insert( package.config["Release"].links , "python" .. python_ver )
 table.insert( package.config["Release"].links , "libwebconnect" )
 
 if( not options["no-irrlicht"] ) then

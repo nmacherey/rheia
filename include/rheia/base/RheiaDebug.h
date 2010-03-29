@@ -56,9 +56,9 @@ public :
 	
 private :
 
-#ifdef RHEIA_DEBUG
+//#ifdef RHEIA_DEBUG
 	static wxLogWindow* m_debugLogTarget;
-#endif
+//#endif
 };
 
 #endif

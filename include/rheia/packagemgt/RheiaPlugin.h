@@ -19,6 +19,7 @@
 
 #include <RheiaGlobals.h>
 #include <RheiaManager.h>
+#include <RheiaManagedFrame.h>
 #include <RheiaPluginManager.h>
 #include <RheiaConfigurationManager.h>
 #include <RheiaPMgtSettings.h>
@@ -107,7 +108,7 @@ public:
 	* @return the toolbar if the plugin is creating a toolbar else
 	* return nothing.
 	*/
-	virtual wxToolBar* BuildToolBar(wxWindow*) {return 0L;};
+	virtual void BuildToolBar(RheiaManagedFrame*) {};
 
 	/** 
 	* Create the plugin menu in the menubar... This shall be called by your
@@ -116,7 +117,7 @@ public:
 	* for example, when the menu is recreated from the wxMenuManager
 	* @param menuBar the wxMenuBar to create items in
 	*/
-	virtual void BuildMenu(wxMenuBar*){};
+	virtual void BuildMenu(RheiaManagedFrame*,wxMenuBar*){};
 
 protected:
 	/**
