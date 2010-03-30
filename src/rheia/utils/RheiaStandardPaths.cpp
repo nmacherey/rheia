@@ -89,7 +89,7 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
             RheiaStandardPaths::package_dir_global = data_dir_global + _T("/packages");
     }
 
-    libs_dir_global = package_dir_global + wxT("/libs");
+    libs_dir_global = plugin_dir_global + wxT("/libs");
 
     if (cache_dir_global.IsEmpty())
     {
@@ -111,6 +111,7 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
 
     RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/plugins/"));
     RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/packages/"));
+    RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/packages/libs"));
     RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/cache/"));
 
     if (plugin_dir_user.IsEmpty())
@@ -122,7 +123,7 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
     {
         RheiaStandardPaths::package_dir_user = data_dir_user + wxT("/packages");
     }
-
+    libs_dir_user = plugin_dir_user + wxT("/libs");
     if (cache_dir_user.IsEmpty())
     {
         RheiaStandardPaths::cache_dir_user = data_dir_user + wxT("/packages");
@@ -146,7 +147,7 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
         RheiaStandardPaths::package_dir_user = data_dir_user + wxT("/packages");
     }
 
-    libs_dir_user = package_dir_user + wxT("/libs");
+    libs_dir_user = plugin_dir_user + wxT("/libs");
 
     if (cache_dir_user.IsEmpty())
     {

@@ -16,6 +16,7 @@
 #include <wx/snglinst.h>
 #include <wx/stdpaths.h>  
 #include <wx/dir.h>
+#include <wx/filefn.h>
 
 #include <RheiaXtraRes.h> 
 #include <RheiaException.h>

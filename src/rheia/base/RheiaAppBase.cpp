@@ -32,6 +32,7 @@
 #include <wx/toolbar.h>
 #include <wx/fs_mem.h>
 #include <wx/file.h>
+#include <wx/filefn.h>
 #include <wx/clipbrd.h>
 #include <wx/image.h>
 #include <wx/log.h>
@@ -69,6 +70,7 @@ bool RheiaAppBase::DoBasicInitializations()
 	
 	RheiaManager::Get();
 	RheiaStandardPaths::InitPaths(m_appName);
+    wxSetWorkingDirectory(RheiaStandardPaths::AppDirectory());
 
 	m_singleInstanceChecker = 0;
 	return true;
