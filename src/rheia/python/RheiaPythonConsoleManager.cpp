@@ -81,7 +81,10 @@ void RheiaPythonConsoleManager::OnSendFile(wxCommandEvent& event)
 	
 	wxString res;
 	wxString pyPath = wxFileName(path).GetPath(true);
+#ifdef WIN32
 	pyPath.Replace(wxT("\\"),wxT("\\\\"));
+    pyPath = wxFileName(path).GetVolume() + wxFileName(path).GetVolumeSeparator() + pyPath;
+#endif
 	wxString command = wxT("sys.path = ['") + pyPath + wxT("'] + sys.path");
 	RheiaPythonUtils::Get()->PythonEvalString(command,res,0);
 	
