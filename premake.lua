@@ -38,8 +38,6 @@ dopackage( "src/rheia/workspacemgt" )
 dopackage( "src/rheia/editor" )
 dopackage( "src/rheia/python" )
 dopackage( "src/rheia" )
-dopackage( "src/tuto1" )
-dopackage( "webconnect/testapp" )
 
 -- Generate python bindings libraries
 dopackage("python/utils")
