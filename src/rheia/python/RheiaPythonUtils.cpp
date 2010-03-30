@@ -135,7 +135,15 @@ void RheiaPythonUtils::PythonInit()
     PythonExecuteCommand( wxT("import traceback") ); // for formatting stack traces
     PythonExecuteCommand( wxT("import __main__") ); // to access explicitly global variables
     PythonExecuteCommand( command );
-
+	
+	ImportWxPythonAPI();
+	if( !ImportRheiaPythonAPI() )
+		wxMessageBox(wxT("damn") );
+	
+	PythonExecuteCommand( wxT("import rheia") ); // import sys module (for display / exception hooks)
+	PythonExecuteCommand( wxT("pluginmgr = rheia.pyPluginMgr.RheiaPythonPluginManager()") ); // import sys module (for display / exception hooks)
+	PythonExecuteCommand( wxT("rheia.pyPluginMgr.s_plugins['toto'] = 'maman'") );
+	
     PythonExecuteCommand(
         _("def rheia_exception_msg(type, value, tb, msg):\n"
             "  lst = traceback.format_exception(type, value, tb)\n"
@@ -157,7 +165,6 @@ void RheiaPythonUtils::PythonInit()
     command += wxT("   __main__.__result = obj\n");
 
     PythonExecuteCommand( command );
-    PythonExecuteCommand( wxT("plugins = {}") );
 }
 
 void RheiaPythonUtils::PythonExit()
@@ -714,7 +721,7 @@ bool RheiaPythonUtils::ImportWxPythonAPI()
 	return true;
 }
 	
-bool RheiaPythonUtils::ImportRheiaPytonhAPI()
+bool RheiaPythonUtils::ImportRheiaPythonAPI()
 {
 	if( !RheiaPythonCoreAPI_IMPORT() )
 	{
@@ -723,5 +730,47 @@ bool RheiaPythonUtils::ImportRheiaPytonhAPI()
     }
 	
 	return true;
+}
+
+int RheiaPythonUtils::GetPluginsCount()
+{
+	PyObject* pmgr = PyDict_GetItemString(m_mainDict, "pluginmgr");
+	PyObject* meth = PyString_FromString("GetPluginsCount");
+    PyObject* res = PyObject_CallMethodObjArgs(pmgr, meth );
+	
+	int ret = -1;
+	if(res)
+	{
+		ret = PyLong_AsLong(res);
+	};
+	
+	return ret;
+}
+
+wxArrayString RheiaPythonUtils::GetPluginsNames()
+{
+	int count = GetPluginsCount();
+	wxArrayString ret;
+	
+	if( count <= 0 )
+		return ret;
+	
+	PyObject* pmgr = PyDict_GetItemString(m_mainDict, "pluginmgr");
+	PyObject* meth = PyString_FromString("GetPluginNameAt");
+	
+	for( unsigned int i = 0; i < (unsigned int) count ; ++i )
+	{
+		PyObject* arg = PyLong_FromLong( (long) i );
+		PyObject* res = PyObject_CallMethodObjArgs(pmgr, meth , arg ,NULL);
+		if(res)
+		{
+			char* str = PyString_AsString(res);
+			wxString result = RheiaC2U(str);
+			ret.Add( result );
+			Py_DECREF(res);
+		}
+		Py_DECREF(arg);
+	}
+	return ret;
 }
 	

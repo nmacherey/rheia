@@ -137,7 +137,7 @@ class RheiaLogger(wx._core.EvtHandler,base.RheiaPageContainer):
         return _loggers.RheiaLogger_HelpOnSelection(*args, **kwargs)
 
     def BuildMenu(*args, **kwargs):
-        """BuildMenu(self, Menu menu)"""
+        """BuildMenu(self, Menu ?)"""
         return _loggers.RheiaLogger_BuildMenu(*args, **kwargs)
 
     def UpdateSettings(*args, **kwargs):

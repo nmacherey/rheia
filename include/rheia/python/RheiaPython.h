@@ -270,5 +270,34 @@ inline RheiaPythonCoreAPI* RheiaPythonGetWorkspaceAPIPtr()
 #define rheiaPythonWorkspaceConvertSwigPtr(a,b,c)          (RheiaPythonGetWorkspaceAPIPtr()->p_RheiaPythonConvertSwigPtr(a,b,c))
 #define rheiaPythonWorkspaceMakeSwigPtr(a,b)               (RheiaPythonGetWorkspaceAPIPtr()->p_RheiaPythonMakeSwigPtr(a,b))
 
+#include "RheiaPlugin.h"
+
+class RheiaPyPlugin : public RheiaPlugin
+{
+public :
+	/**
+	* If you want to write a plugin all your building and construction tasks shall be done
+	* in this method. It is called by the RheiaPlugin::Plug() method in RheiaPluginManager
+	* and allow you to perform you initalization tasks. Then the plugin shall be usable and
+	* all it's informations too. In the application.
+	* Here do what you need simply overload the method... 
+	*/
+	virtual void OnPyPlug() = 0;
+
+	/*! Any descendent plugin should override this virtual method and
+	* perform any necessary de-initialization. This method is called by
+	* Rheia (RheiaPluginManager actually) when the plugin has been
+	* loaded, attached and should de-attach from Rheia.\n
+	* Think of this method as the actual destructor...
+	* @param appShutDown If true, the application is shutting down. In this
+	*         case *don't* use RheiaManager::Get()->Get...() functions or the
+	*         behaviour is undefined...
+	*/
+	virtual void OnPyUnplug(bool) = 0;
+	
+protected :
+	virtual void OnPlug() {OnPyPlug();};
+	virtual void OnUnplug(bool val) {OnPyUnplug(val);};
+};
 
 #endif

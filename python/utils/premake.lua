@@ -62,7 +62,7 @@ end
 package.files = { matchfiles( "*.cpp", "*.hpp", "*.cxx", "*.h", "*.cc", "*.hh" , "*.c" ), matchfiles( "*.h" ) }
 
 -- Set the include paths.
-package.includepaths = { "../../include/rheia/utils" , "../../include/rheia/python" , "$(WXPYTHON)/include" , "../../include/irrlicht" , "../../src/irrlicht" }
+package.includepaths = { "../../include/rheia/workspacemgt" , "../../include/rheia/python" , "../../include/rheia/packagemgt" ,  "../../include/rheia/loggers" , "../../include/rheia/base" , "../../include/rheia/utils" , "$(WXPYTHON)/include" , "../../include/irrlicht" , "../../src/irrlicht", "/usr/include/python" .. python_ver }
 
 -- Set the packages dependancies. NOT implimented in the official Premake build for Code::Blocks
 package.depends = { "rheiautils" }

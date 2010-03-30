@@ -9,12 +9,13 @@ You shall register all python plugins for Rheia usgin this class
 
 import wx
 import rheia.packagemgt
+import rheia.pyRheiaVars
+
+""" define a short alias for simplicity """
+vars = rheia.pyRheiaVars
 
 ## define alias so it will be simpler to call rheia.packagemanagement
 rheia = rheia.packagemgt
-
-""" Global variable for plugins """
-s_plugins = {}
 
 class RheiaPythonPluginManager:
     """ @class RheiaPythonPluginManager
@@ -25,13 +26,13 @@ class RheiaPythonPluginManager:
             """
     def __init__(self):
         """Constructor"""
-        s_plugins={}
+        vars.s_plugins={}
         return 
         
     def __del__(self):
         """destructor will destroy all plugins in the globals s_plugin variable"""
-        for i in s_plugins.keys():
-            del s_plugins[i]
+        for i in vars.s_plugins.keys():
+            del vars.s_plugins[i]
         return
         
     def RegisterPlugin( self , name , plugin ):
@@ -40,7 +41,7 @@ class RheiaPythonPluginManager:
                     name : Plugin name for registration
                     plugin : Plugin instance
               """
-        s_plugins[name] = plugin
+        vars.s_plugins[name] = plugin
         return
         
     def GetPlugin( self , name ):
@@ -53,11 +54,11 @@ class RheiaPythonPluginManager:
                     name : plugin name 
                     """
         try:
-            plugin = s_plugins[name]
+            plugin = vars.s_plugins[name]
         except KeyError:
             return None
     
-        return s_plugins[name]
+        return vars.s_plugins[name]
         
     def RemovePlugin(self,name):
         """ This function will remove the plugin from the global plugins array
@@ -69,28 +70,28 @@ class RheiaPythonPluginManager:
                     name : plugin name to remove
                     """
         try:
-            plugin = s_plugins[name]
+            plugin = vars.s_plugins[name]
         except KeyError:
             return
         
-        del s_plugins[name]
+        del vars.s_plugins[name]
         return
         
     def GetPluginsCount(self):
-        """ return the total number of registered plugins in the global s_plugins dict"""
-        return len(s_plugins)
+        """ return the total number of registered plugins in the global vars.s_plugins dict"""
+        return len(vars.s_plugins)
         
     def GetPluginNameAt(self,index):
         """return the name of the plugin at the given index"""
-        k = s_plugins.keys()
+        k = vars.s_plugins.keys()
         return k[index]
         
     def GetPluginAt(self,index):
         """return the name of the plugin at the given index"""
-        k = s_plugins.keys()
-        return s_plugins[k[index]]
+        k = vars.s_plugins.keys()
+        return vars.s_plugins[k[index]]
     
     def GetPluginNames( self ):
         """ Get a list of all plugin names """
-        return s_plugins.keys()
-    
+        return vars.s_plugins.keys()
+		

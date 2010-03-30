@@ -80,7 +80,9 @@ void RheiaPythonConsoleManager::OnSendFile(wxCommandEvent& event)
     RheiaManager::Get()->GetConfigurationManager( wxT("pyconsole") )->Write( wxT("/last_file") , wxFileName(path).GetPath(true) );
 	
 	wxString res;
-	wxString command = wxT("sys.path = ['") + wxFileName(path).GetPath(true) + wxT("'] + sys.path");
+	wxString pyPath = wxFileName(path).GetPath(true);
+	pyPath.Replace(wxT("\\"),wxT("\\\\"));
+	wxString command = wxT("sys.path = ['") + pyPath + wxT("'] + sys.path");
 	RheiaPythonUtils::Get()->PythonEvalString(command,res,0);
 	
 	if( !res.IsEmpty() )

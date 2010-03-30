@@ -72,16 +72,11 @@ END_EVENT_TABLE()
 // class constructor
 RheiaPluginManager::RheiaPluginManager()
 {
-//    if( RheiaManager::Get()->GetAppWindow() )
-//        RheiaManager::Get()->GetAppWindow()->PushEventHandler(this);
 }
 
 // class destructor
 RheiaPluginManager::~RheiaPluginManager()
 {
-//    if( RheiaManager::Get()->GetAppWindow() )
-//        RheiaManager::Get()->GetAppWindow()->RemoveEventHandler(this);
-
     UnloadAllPlugins();
 }
 
@@ -154,11 +149,17 @@ bool RheiaPluginManager::RegisterPlugin(const wxString& name,
 {
     // sanity checks
     if ( name.IsEmpty() || !createProc || !freeProc )
-        return false;
+	{
+		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::RegisterPlugin wrong plugin : ") + name + wxT(" ...") , RheiaLogging::error );
+		return false;
+	}
 
     // first check to see it's not already loaded
     if (FindPlugin(name))
-        return false; // yes, already loaded
+	{
+		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::RegisterPlugin plugin exists : ") + name + wxT(" ...") , RheiaLogging::error );
+		return false;
+	}
 
     // read manifest file for plugin
 
@@ -189,6 +190,7 @@ bool RheiaPluginManager::RegisterPlugin(const wxString& name,
 
     if( CompareVersions( dmajor , dminor , major , minor ) < 0 ) //package is made for a newer version than the current one
     {
+		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::RegisterPlugin version problem : ") + name + wxT(" ...") , RheiaLogging::error );
         delete manifest;
         return false;
     }
@@ -435,7 +437,7 @@ void RheiaPluginManager::LoadAllPlugins()
             {
                 wxString msg;
                 msg.Printf(_("Library \"%s\" failed to load...\n"
-                            "Do you want to disable this plugin from loading next time?"), filename.c_str());
+                            "Do you want to disable this library from loading next time?"), filename.c_str());
 
                 int retCode = wxMessageBox( msg , wxT("Warning") , wxICON_QUESTION|wxYES_NO );
 

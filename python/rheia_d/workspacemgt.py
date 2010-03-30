@@ -631,7 +631,7 @@ class RheiaWorkspace(base.RheiaTreeItem):
         return _workspacemgt.RheiaWorkspace_GetPath(*args, **kwargs)
 
     def Rename(*args, **kwargs):
-        """Rename(self, String name, bool confirm=False) -> bool"""
+        """Rename(self, String ?, bool ?) -> bool"""
         return _workspacemgt.RheiaWorkspace_Rename(*args, **kwargs)
 
     def SetName(*args, **kwargs):

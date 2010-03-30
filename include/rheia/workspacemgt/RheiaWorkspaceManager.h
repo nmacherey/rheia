@@ -164,7 +164,7 @@ public :
     *   You must overload this method in order to save information/content
     *   of the page when the user is closing it.
     */
-    virtual bool OnPageClosed(){return true;};
+    virtual bool OnPageClosed(){m_tree = NULL;return true;};
 
 public :
     /**********************************************************************************************************

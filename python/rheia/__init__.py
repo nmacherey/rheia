@@ -6,6 +6,7 @@ __all__ = [
     'loggers',
     'packagemgt',
     'workspacemgt',
+    'pyPluginMgr',
     # Sub-packages
     '_utils',
     '_base',

@@ -260,11 +260,11 @@ class RheiaBookManager(wx._core.EvtHandler):
     def __init__(self): raise AttributeError, "No constructor defined"
     __repr__ = _swig_repr
     def BuildMenu(*args, **kwargs):
-        """BuildMenu(self, MenuBar menuBar)"""
+        """BuildMenu(self, MenuBar ?)"""
         return _base.RheiaBookManager_BuildMenu(*args, **kwargs)
 
     def ReleaseMenu(*args, **kwargs):
-        """ReleaseMenu(self, MenuBar menuBar)"""
+        """ReleaseMenu(self, MenuBar ?)"""
         return _base.RheiaBookManager_ReleaseMenu(*args, **kwargs)
 
     def GetNoteBook(*args, **kwargs):
@@ -298,6 +298,10 @@ class RheiaBookManager(wx._core.EvtHandler):
     def RemovePage(*args, **kwargs):
         """RemovePage(self, String name) -> bool"""
         return _base.RheiaBookManager_RemovePage(*args, **kwargs)
+
+    def RenamePage(*args, **kwargs):
+        """RenamePage(self, String oldName, String newName)"""
+        return _base.RheiaBookManager_RenamePage(*args, **kwargs)
 
     def ClosePage(*args, **kwargs):
         """ClosePage(self, String name) -> bool"""
@@ -2035,7 +2039,7 @@ class RheiaTreeItem(wx._core.EvtHandler,utils.RheiaObjectWithBitmap):
         return _base.RheiaTreeItem_OnItemRightClick(*args, **kwargs)
 
     def OnRequestContextMenu(*args, **kwargs):
-        """OnRequestContextMenu(self, Menu menu)"""
+        """OnRequestContextMenu(self, Menu ?)"""
         return _base.RheiaTreeItem_OnRequestContextMenu(*args, **kwargs)
 
     def OnPreDelete(*args, **kwargs):
@@ -2161,6 +2165,14 @@ class RheiaXulManager(MgrRheiaXulManager):
     def AddPluginPath(*args, **kwargs):
         """AddPluginPath(self, String path)"""
         return _base.RheiaXulManager_AddPluginPath(*args, **kwargs)
+
+    def FindXulRunner(*args, **kwargs):
+        """FindXulRunner(self, String xulrunner_dirname) -> String"""
+        return _base.RheiaXulManager_FindXulRunner(*args, **kwargs)
+
+    def IsRunning(*args, **kwargs):
+        """IsRunning(self) -> bool"""
+        return _base.RheiaXulManager_IsRunning(*args, **kwargs)
 
 _base.RheiaXulManager_swigregister(RheiaXulManager)
 

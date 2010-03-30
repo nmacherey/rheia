@@ -185,6 +185,22 @@ public :
 
     /** get item table */
     RheiaTreeItemMap& GetItems() {return m_items;}
+	
+	/** Set the current selected child 
+	 * @param name child text
+	 * @param id child tree item id 
+	 */
+	void SetCurrentlySelected( const wxString& name , const wxTreeItemId& id )
+	{
+		m_currentChild = name;
+		m_currentChildId = id;
+	}
+	
+	/** Get currently selected child name */
+	const wxString& GetCurrentlySelectedName() {return m_currentChild;};
+	
+	/** Get currently selected child id */
+	const wxTreeItemId& GetCurrentlySelectedId() {return m_currentChildId;};
 
 protected :
 
@@ -192,6 +208,9 @@ protected :
     wxTreeItemId m_root;
     int m_flags;
     bool m_modified;
+	
+	wxString m_currentChild;
+	wxTreeItemId m_currentChildId;
 };
 
 #endif

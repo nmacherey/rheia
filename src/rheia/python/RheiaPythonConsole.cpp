@@ -77,6 +77,15 @@ RheiaPythonConsole::RheiaPythonConsole( RheiaManagedFrame* toplevel , wxWindow* 
     sizer->Add( m_control, 1, wxEXPAND | wxALL, 5 );
     this->SetSizer( sizer );
     this->Layout();
+	
+	if( RheiaPythonGetBaseAPIPtr() )
+	{
+		PyObject* arg = rheiaPythonBaseConstructObject((void*) m_parent, wxT("RheiaManagedFrame") , true);
+		PyModule_AddObject(RheiaPythonUtils::Get()->GetMainModule(), "rhFrame", arg);
+	}
+	
+	RheiaPythonUtils::Get()->GetPluginsCount();
+	RheiaPythonUtils::Get()->GetPluginsNames();
 }
 
 RheiaPythonConsole::~RheiaPythonConsole()
