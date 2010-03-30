@@ -129,9 +129,9 @@ void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )
 
         mnFile->InsertSeparator(i++);
 
-        mnFile->Insert( i++, idSaveCurrent , wxT("Save\tCtrl-S") , wxT("Save the current file") );
-        mnFile->Insert( i++, idSaveAs , wxT("Save as\tCtrl-Shift-S") , wxT("Save the current file in a new file") );
-        mnFile->Insert( i++, idSaveAll , wxT("Save all\tAlt-Shift-S") , wxT("Save all modified files") );
+        mnFile->Insert( i++, idSaveCurrent , wxT("Save\tCtrl-E") , wxT("Save the current file") );
+        mnFile->Insert( i++, idSaveAs , wxT("Save as\tCtrl-Shift-E") , wxT("Save the current file in a new file") );
+        mnFile->Insert( i++, idSaveAll , wxT("Save all\tAlt-Shift-E") , wxT("Save all modified files") );
     }
 
     idx = menuBar->FindMenu(wxT("Edit"));

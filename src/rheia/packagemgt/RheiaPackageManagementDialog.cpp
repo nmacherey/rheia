@@ -89,8 +89,11 @@ RheiaPackageManagementDialog::RheiaPackageManagementDialog( wxWindow* parent )
     DoBuilLibsPage();
 
     RegiserEvents();
+
+    wxButton* btnRem = XRCCTRL(*this,"bntRemovePackage",wxButton);
+    btnRem->Enable(false);
     
-    //SetSize(800,600);
+    SetSize(800,600);
     //GetSizer()->SetSizeHints(this);
     CentreOnParent();
 }

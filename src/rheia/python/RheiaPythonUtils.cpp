@@ -136,35 +136,35 @@ void RheiaPythonUtils::PythonInit()
     PythonExecuteCommand( wxT("import __main__") ); // to access explicitly global variables
     PythonExecuteCommand( command );
 	
-	ImportWxPythonAPI();
-	if( !ImportRheiaPythonAPI() )
-		wxMessageBox(wxT("damn") );
-	
-	PythonExecuteCommand( wxT("import rheia") ); // import sys module (for display / exception hooks)
-	PythonExecuteCommand( wxT("pluginmgr = rheia.pyPluginMgr.RheiaPythonPluginManager()") ); // import sys module (for display / exception hooks)
-	PythonExecuteCommand( wxT("rheia.pyPluginMgr.s_plugins['toto'] = 'maman'") );
-	
-    PythonExecuteCommand(
-        _("def rheia_exception_msg(type, value, tb, msg):\n"
-            "  lst = traceback.format_exception(type, value, tb)\n"
-            "  if msg == None: msg = 'An error has occured while executing Python code'\n"
-            "  txt = ''\n"
-            "  for s in lst:\n"
-            "    txt += s\n"
-            "  txt += 'Python version: ' + sys.version + '\\n\\n' \n"
-            "  txt += 'Python path: ' + str(sys.path) + '\\n\\n' \n"
-            "  \n"
-            "  wx.MessageBox( txt , 'ERROR' )" ) );
-    PythonExecuteCommand(
-        _("def rheia_exception(type, value, tb):\n"
-            "  rheia_exception_msg(type, value, tb, None)\n" ) );
+	//ImportWxPythonAPI();
+	//if( !ImportRheiaPythonAPI() )
+	//	wxMessageBox(wxT("damn") );
+	//
+	//PythonExecuteCommand( wxT("import rheia") ); // import sys module (for display / exception hooks)
+	//PythonExecuteCommand( wxT("pluginmgr = rheia.pyPluginMgr.RheiaPythonPluginManager()") ); // import sys module (for display / exception hooks)
+	//PythonExecuteCommand( wxT("rheia.pyPluginMgr.s_plugins['toto'] = 'maman'") );
+	//
+ //   PythonExecuteCommand(
+ //       _("def rheia_exception_msg(type, value, tb, msg):\n"
+ //           "  lst = traceback.format_exception(type, value, tb)\n"
+ //           "  if msg == None: msg = 'An error has occured while executing Python code'\n"
+ //           "  txt = ''\n"
+ //           "  for s in lst:\n"
+ //           "    txt += s\n"
+ //           "  txt += 'Python version: ' + sys.version + '\\n\\n' \n"
+ //           "  txt += 'Python path: ' + str(sys.path) + '\\n\\n' \n"
+ //           "  \n"
+ //           "  wx.MessageBox( txt , 'ERROR' )" ) );
+ //   PythonExecuteCommand(
+ //       _("def rheia_exception(type, value, tb):\n"
+ //           "  rheia_exception_msg(type, value, tb, None)\n" ) );
 
-    // hook for python console so all output will be redirected
-    // and then shown in console
-    command =  wxT("def console_display_hook(obj):\n");
-    command += wxT("   __main__.__result = obj\n");
+ //   // hook for python console so all output will be redirected
+ //   // and then shown in console
+ //   command =  wxT("def console_display_hook(obj):\n");
+ //   command += wxT("   __main__.__result = obj\n");
 
-    PythonExecuteCommand( command );
+ //   PythonExecuteCommand( command );
 }
 
 void RheiaPythonUtils::PythonExit()
@@ -182,12 +182,12 @@ void RheiaPythonUtils::PythonExit()
 
 void RheiaPythonUtils::SetException()
 {
-    PythonExecuteCommand( wxT("sys.excepthook = rheia_exception") );
+    //PythonExecuteCommand( wxT("sys.excepthook = rheia_exception") );
 }
 
 void RheiaPythonUtils::UnsetException()
 {
-    PythonExecuteCommand( wxT("sys.excepthook = sys.__excepthook__") );
+    //PythonExecuteCommand( wxT("sys.excepthook = sys.__excepthook__") );
 }
 
 bool RheiaPythonUtils::PythonExecuteCommandSafe( const wxString& command , bool file )

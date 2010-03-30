@@ -5,7 +5,7 @@
 #include <wx/menu.h>
 #include <wx/app.h> 
 #include <wx/toolbar.h>
-#include <wx/fs_mem.h>
+#include <wx/fs_mem.h> 
 #include <wx/file.h>
 #include <wx/clipbrd.h>
 #include <wx/image.h>

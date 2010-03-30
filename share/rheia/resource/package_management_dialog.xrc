@@ -219,7 +219,7 @@
                         </object>
                         <label>Installed Softwares</label>
                     </object>
-                    <object class="notebookpage">
+                    <!-- <object class="notebookpage">
                         <object class="wxPanel">
                             <object class="wxBoxSizer">
                                 <orient>wxHORIZONTAL</orient>
@@ -433,7 +433,7 @@
                            </object>
                         </object>
                         <label>Libraries</label>
-                    </object>
+                    </object> -->
 				</object>
 				<flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
 				<border>8</border>

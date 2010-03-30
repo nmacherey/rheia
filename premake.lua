@@ -40,11 +40,11 @@ dopackage( "src/rheia/python" )
 dopackage( "src/rheia" )
 
 -- Generate python bindings libraries
-dopackage("python/utils")
-dopackage("python/base")
-dopackage("python/loggers")
-dopackage("python/packagemgt")
-dopackage("python/workspacemgt")
+--dopackage("python/utils")
+--dopackage("python/base")
+--dopackage("python/loggers")
+--dopackage("python/packagemgt")
+--dopackage("python/workspacemgt")
 
 function CreateSymlink( pathToLink, symLink )
 	os.execute( "ln -s -f -n " .. pathToLink .. " " .. symLink  )
