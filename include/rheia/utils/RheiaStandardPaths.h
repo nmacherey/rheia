@@ -28,12 +28,14 @@ enum RheiaStandardPathsFlags
     rspfPluginsUser     			            = 0x0010, 								/*!< Plugins dir in user's dir   */
     rspfDataUser        				        = 0x0020, 								/*!< Data dir in user's dir      */
     rspfPackageUser                             = 0x0040,
-    rspfCacheUser                               = 0x0080,
+    rspfLibsUser                                = 0x0080,
+    rspfCacheUser                               = 0x00a0,
     rspfAllUser         					    = 0x00f0,								/*!< All users directories */
     rspfPluginsGlobal   			            = 0x0100, 								/*!< Plugins dir in rheia installation directory     */
     rspfDataGlobal      				        = 0x0200, 								/*!< Data dir in rheia installation directory        */
     rspfPackageGlobal                           = 0x0400,
-    rspfCacheGlobal                             = 0x0800,
+    rspfLibsGlobal                              = 0x0800,
+    rspfCacheGlobal                             = 0x0a00,
     rspfAllGlobal       					    = 0x0f00, 								/*!< All dirs in rheia installation directories */
     rspfAllKnown        					    = 0xffff, 								/*!< All dirs above           */
 };
@@ -127,6 +129,12 @@ public :
     /** Get the user packages directory */
     static const wxString& PackageDirectoryUser() {   return package_dir_user; };
 
+    /** Get the libs global directory */
+    static const wxString& LibsDirectoryGlobal() {   return libs_dir_global; };
+
+    /** Get the user libs directory */
+    static const wxString& LibsDirectoryUser() {   return libs_dir_user; };
+
     /** Get the cache global directory */
     static const wxString& CacheDirectoryGlobal() {   return cache_dir_global; };
 
@@ -150,6 +158,9 @@ public :
 
     /** Get the packages directory either global or user */
     static wxString PackageDirectory(bool global = true) {   return Directory(global ? rspfPackageGlobal : rspfPackageUser); };
+
+    /** Get the libs directory either global or user */
+    static wxString LibsDirectory(bool global = true) {   return Directory(global ? rspfLibsGlobal : rspfLibsUser); };
 
     /** Get the cache directory either global or user */
     static wxString CacheDirectory(bool global = true) {   return Directory(global ? rspfCacheGlobal : rspfCacheUser); };
@@ -185,9 +196,11 @@ private :
     static wxString data_dir_global;
     static wxString plugin_dir_global;
     static wxString package_dir_global;
+    static wxString libs_dir_global;
     static wxString cache_dir_global;
     static wxString plugin_dir_user;
     static wxString package_dir_user;
+    static wxString libs_dir_user;
     static wxString cache_dir_user;
     static wxString app_dir;
     static wxString temp_dir;

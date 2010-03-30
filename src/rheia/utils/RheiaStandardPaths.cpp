@@ -36,6 +36,8 @@ wxString RheiaStandardPaths::data_dir_user;
 wxString RheiaStandardPaths::data_dir_global;
 wxString RheiaStandardPaths::plugin_dir_global;
 wxString RheiaStandardPaths::plugin_dir_user;
+wxString RheiaStandardPaths::libs_dir_global;
+wxString RheiaStandardPaths::libs_dir_user;
 wxString RheiaStandardPaths::package_dir_global;
 wxString RheiaStandardPaths::package_dir_user;
 wxString RheiaStandardPaths::cache_dir_global;
@@ -87,6 +89,8 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
             RheiaStandardPaths::package_dir_global = data_dir_global + _T("/packages");
     }
 
+    libs_dir_global = package_dir_global + wxT("/libs");
+
     if (cache_dir_global.IsEmpty())
     {
         if (platform::windows || platform::macosx)
@@ -96,6 +100,7 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
     }
 
     RheiaMakeDirRecursively(RheiaStandardPaths::plugin_dir_global);
+    RheiaMakeDirRecursively(RheiaStandardPaths::libs_dir_global);
     RheiaMakeDirRecursively(RheiaStandardPaths::package_dir_global);
     RheiaMakeDirRecursively(RheiaStandardPaths::cache_dir_global);
 
@@ -127,6 +132,7 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
 
     RheiaMakeDirRecursively(RheiaStandardPaths::config_dir);
     RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/plugins/"));
+    RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/plugins/libs"));
     RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/packages/"));
     RheiaMakeDirRecursively(RheiaStandardPaths::data_dir_user   + _T("/cache/"));
 
@@ -139,6 +145,8 @@ void RheiaStandardPaths::InitPaths(const wxString& appname)
     {
         RheiaStandardPaths::package_dir_user = data_dir_user + wxT("/packages");
     }
+
+    libs_dir_user = package_dir_user + wxT("/libs");
 
     if (cache_dir_user.IsEmpty())
     {
@@ -168,6 +176,12 @@ wxString RheiaStandardPaths::Directory(RheiaStandardPathsFlags flag)
 
     case rspfPluginsUser:
         return RheiaStandardPaths::plugin_dir_user;
+
+    case rspfLibsGlobal:
+        return RheiaStandardPaths::libs_dir_global;
+
+    case rspfLibsUser:
+        return RheiaStandardPaths::libs_dir_user;
 
     case rspfPackageGlobal:
         return RheiaStandardPaths::package_dir_global;
@@ -201,6 +215,8 @@ namespace RheiaFileFinder
         /*** test user paths */
         if (rspf & rspfPluginsUser)
             pathsList.Add(RheiaStandardPaths::PluginsDirectory(false));
+        if (rspf & rspfLibsUser)
+            pathsList.Add(RheiaStandardPaths::LibsDirectory(false));
         if (rspf & rspfPackageUser)
             pathsList.Add(RheiaStandardPaths::PackageDirectory(false));
         if (rspf & rspfCacheUser)
@@ -211,6 +227,8 @@ namespace RheiaFileFinder
         /*** then test for global paths */
         if (rspf & rspfPluginsGlobal)
             pathsList.Add(RheiaStandardPaths::PluginsDirectory(true));
+        if (rspf & rspfLibsGlobal)
+            pathsList.Add(RheiaStandardPaths::LibsDirectory(true));
         if (rspf & rspfPackageGlobal)
             pathsList.Add(RheiaStandardPaths::PackageDirectory(true));
         if (rspf & rspfCacheGlobal)

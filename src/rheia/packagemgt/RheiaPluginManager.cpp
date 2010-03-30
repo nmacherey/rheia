@@ -416,6 +416,13 @@ void RheiaPluginManager::LoadAllPlugins()
         wxString filepath = (*pit)->GetPath();
         wxString filename = (*pit)->GetName();
 
+        wxFileName fname(filepath);
+        filepath = fname.GetName() + wxT(".") + fname.GetExt();
+        filepath = RheiaFileFinder::FindFile( filepath );
+
+        if( filepath.IsEmpty() )
+            continue;
+
         wxString version;
         if (filename.Contains(wxT('-')))
         {
