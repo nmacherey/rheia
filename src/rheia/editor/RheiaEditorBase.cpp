@@ -18,7 +18,7 @@ namespace
 }
 
 BEGIN_EVENT_TABLE(RheiaEditorBase,RheiaBookPage)
-    EVT_CONTEXT_MENU(RheiaEditorBase::OnRequestContextMenu)
+    //EVT_CONTEXT_MENU(RheiaEditorBase::OnRequestContextMenu)
 END_EVENT_TABLE()
 
 RheiaEditorBase::RheiaEditorBase( RheiaManagedFrame* toplevel, wxWindow* parent , RheiaEditorFile* container , RheiaEditorLayout* context ):
@@ -335,6 +335,8 @@ void RheiaEditorBase::Registerevents()
 
     Connect(idConfigure,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorBase::OnConfigureEditor));
     Connect(idProperties,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorBase::OnFileProperties));
+	m_control->Connect(wxEVT_CONTEXT_MENU,wxContextMenuEventHandler(RheiaEditorBase::OnRequestContextMenu),NULL,this);
+
 }
 
 void RheiaEditorBase::OnRequestContextMenu( wxContextMenuEvent& event )

@@ -30,7 +30,7 @@ namespace
 
 
 BEGIN_EVENT_TABLE(RheiaPythonConsole,RheiaBookPage)
-    EVT_CONTEXT_MENU(RheiaPythonConsole::OnRequestContextMenu)
+    //EVT_CONTEXT_MENU(RheiaPythonConsole::OnRequestContextMenu)
     //EVT_STC_KEY_PROCESS(wxID_ANY , RheiaPythonConsole::OnStcKey)
 END_EVENT_TABLE()
 
@@ -230,6 +230,7 @@ void RheiaPythonConsole::Registerevents()
     Connect(idSelectAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaPythonConsole::OnContextMenu));
     m_control->Connect(m_ID,wxEVT_KEY_DOWN,wxKeyEventHandler(RheiaPythonConsole::OnStcKey),NULL,this);
     m_control->Connect(m_ID,wxEVT_CHAR,wxKeyEventHandler(RheiaPythonConsole::OnStcChar),NULL,this);
+	m_control->Connect(wxEVT_CONTEXT_MENU,wxContextMenuEventHandler(RheiaPythonConsole::OnRequestContextMenu),NULL,this);
 }
 
 void RheiaPythonConsole::OnRequestContextMenu( wxContextMenuEvent& event )
