@@ -84,7 +84,7 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
 
     m_layout->AddPane( book , wxAuiPaneInfo().
                             Name(wxT("InfoPane")).Caption(_("Information")).
-                            BestSize(600,300).MinSize(wxSize(100,100)).MaximizeButton(true).
+                            BestSize(600,500).MinSize(wxSize(100,100)).MaximizeButton(true).
                             MinimizeButton(true).
                             Bottom().Layer(0));
 

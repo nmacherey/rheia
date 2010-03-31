@@ -16,6 +16,7 @@
 #include "RheiaStandardPaths.h"
 #include "RheiaManager.h"
 
+#include <iostream>
 #include <wx/filedlg.h>
 
 namespace
@@ -89,13 +90,13 @@ void RheiaPythonConsoleManager::OnSendFile(wxCommandEvent& event)
 	RheiaPythonUtils::Get()->PythonEvalString(command,res,0);
 	
 	if( !res.IsEmpty() )
-		wxMessageBox( res , wxT("Error") , wxICON_ERROR );
+		std::cout << RheiaU2C(res) << std::endl << ">>> ";
 		
 	command = wxT("import ") + wxFileName(path).GetName();
 	RheiaPythonUtils::Get()->PythonEvalString(command,res,0);
 	
 	if( !res.IsEmpty() )
-		wxMessageBox( res , wxT("Error") , wxICON_ERROR );
+		std::cout << RheiaU2C(res) << std::endl << ">>> ";
 	
 }
 void RheiaPythonConsoleManager::ReleaseMenu( wxMenuBar* menuBar )

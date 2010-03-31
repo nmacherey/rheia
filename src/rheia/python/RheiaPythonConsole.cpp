@@ -20,6 +20,8 @@
 #include <RheiaConfigurationManager.h>
 #include <RheiaManager.h>
 
+#include <wx/clipbrd.h>
+
 namespace
 {
     const wxString& defText = _("Rheia Python Console version 0.1.1 \n"
@@ -345,7 +347,7 @@ void RheiaPythonConsole::DoPaste()
 
     int posAtLine;
     int line = m_control->GetCurrentLine();
-    wxString lineContent = m_control->GetCurLine(&posAtLine);
+    
 #if wxCHECK_VERSION(2,9,0)
     int no_lines = m_control->GetNumberOfLines()-1;
 #else
@@ -356,14 +358,60 @@ void RheiaPythonConsole::DoPaste()
 	{
 		eof = m_control->GetLength();
         m_control->GotoPos(eof);
-		m_control->Paste();
-		return;
 	}
+	
+	wxString lineContent = m_control->GetCurLine(&posAtLine);
 	
 	if( posAtLine < 4 )
 		return;
 		
-	m_control->Paste();
+	if( !wxTheClipboard->Open() )
+			return;
+			
+	if( !wxTheClipboard->IsSupported( wxDF_TEXT ) )
+	{		
+		wxTheClipboard->Close();
+		return;
+	}
+	
+	wxTextDataObject data;
+	wxTheClipboard->GetData( data );
+	wxString copyText = data.GetText();
+	wxTheClipboard->Close();
+	
+	// now split the text to copy
+	wxArrayString commands;
+	
+	while( copyText.Contains(wxT("\n")) || copyText.Contains(wxT("\r")) )
+	{
+		for( unsigned int  j = 0; j < copyText.Length(); ++j )
+		{
+			if( copyText[j] == wxT('\n') || copyText[j] == wxT('\r') )
+			{
+				commands.Add( copyText.BeforeFirst(copyText[j]) );
+				copyText = copyText.AfterFirst(copyText[j]);
+			}
+		}
+	}
+	
+	/*
+	size_t i = 0;
+	while ((i = copyText.find_first_of(endMark, i)) != wxString::npos)
+	{
+		commands.Add( copyText.BeforeFirst(copyText[i]) );
+		copyText = copyText.AfterFirst(copyText[i]);		
+	}*/
+	
+	if( !copyText.IsEmpty() )
+		commands.Add(copyText);
+		
+	// Now add each command to the command line and process the line
+	for( unsigned int i = 0; i < commands.GetCount() ; ++i )
+	{
+		wxString com = commands[i];
+		m_control->AppendText(com);
+		DoProcessLine();
+	}
 }
 
 void RheiaPythonConsole::DoDelete()
