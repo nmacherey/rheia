@@ -383,25 +383,28 @@ void RheiaPythonConsole::DoPaste()
 	// now split the text to copy
 	wxArrayString commands;
 	
-	while( copyText.Contains(wxT("\n")) || copyText.Contains(wxT("\r")) )
+    unsigned int  j = 0;
+    while( copyText.Length() > 0 )
 	{
-		for( unsigned int  j = 0; j < copyText.Length(); ++j )
+		if( ((int) copyText[j]) == 13 && ((int) copyText[j+1]) == 10 && j < copyText.Length()-1 ) //case CRLR
 		{
-			if( copyText[j] == wxT('\n') || copyText[j] == wxT('\r') )
-			{
-				commands.Add( copyText.BeforeFirst(copyText[j]) );
-				copyText = copyText.AfterFirst(copyText[j]);
-			}
+            wxString str = copyText.BeforeFirst(copyText[j]);
+            if( !str.IsEmpty() )
+			    commands.Add( str );
+			copyText = copyText.AfterFirst(copyText[j+1]);
+            j = 0;
 		}
+        else if( ((int) copyText[j]) == 10 || ((int) copyText[j]) == 13 ) //CR or LR
+		{
+            wxString str = copyText.BeforeFirst(copyText[j]);
+			if( !str.IsEmpty() )
+			    commands.Add( str );
+			copyText = copyText.AfterFirst(copyText[j]);
+            j = 0;
+		}
+        else
+            j++;
 	}
-	
-	/*
-	size_t i = 0;
-	while ((i = copyText.find_first_of(endMark, i)) != wxString::npos)
-	{
-		commands.Add( copyText.BeforeFirst(copyText[i]) );
-		copyText = copyText.AfterFirst(copyText[i]);		
-	}*/
 	
 	if( !copyText.IsEmpty() )
 		commands.Add(copyText);
