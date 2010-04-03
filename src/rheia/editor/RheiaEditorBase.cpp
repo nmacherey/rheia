@@ -69,15 +69,15 @@ RheiaEditorBase::RheiaEditorBase( RheiaManagedFrame* toplevel, wxWindow* parent 
     idCommentSel            = wxNewId();
     idUncommentSel          = wxNewId();
 
-    Registerevents();
-    RegisterSTCEvents();
-
     wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     m_control = new wxStyledTextCtrl( this, m_ID, wxPoint(10,10), wxSize(200,200), 0, wxEmptyString );
     Reload();
     sizer->Add( m_control, 1, wxEXPAND | wxALL, 5 );
     this->SetSizer( sizer );
     this->Layout();
+
+    Registerevents();
+    RegisterSTCEvents();
 }
 
 RheiaEditorBase::~RheiaEditorBase()
