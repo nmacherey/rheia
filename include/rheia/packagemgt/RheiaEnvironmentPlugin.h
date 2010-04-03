@@ -103,10 +103,10 @@ public :
     /**
     *   Default constructor
     *   As RheiaEnvironmentPlugin object is a model for developers
-    *   who want to intgrate a full environment in Rheia, there is
+    *   who want to integrate a full environment in Rheia, there is
     *   really nothing to do here.s
     */
-    RheiaEnvironmentPlugin();
+    RheiaEnvironmentPlugin(RheiaManagedFrame* parent);
 
     /*******************************************************************************************************
     *	METHODS

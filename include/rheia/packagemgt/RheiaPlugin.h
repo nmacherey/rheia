@@ -57,7 +57,7 @@ public:
 	*	CONSTRUCTORS
 	*******************************************************************************************/
 	/*! Default constructor */
-	RheiaPlugin();
+	RheiaPlugin(RheiaManagedFrame* parent);
 
 	/*! Default destructor. */
 	virtual ~RheiaPlugin();
@@ -162,6 +162,9 @@ private:
 	* shall be somwhere in the application after a call to this methos.
 	*/
 	void Unplug(bool appShutDown);
+	
+	/** attribute to the plugin's parent */
+	RheiaManagedFrame* m_parent;
 };
 
 #endif

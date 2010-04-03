@@ -155,7 +155,7 @@ bool RheiaPluginManager::RegisterPlugin(const wxString& name,
 	}
 
     // first check to see it's not already loaded
-    if (FindPlugin(name))
+    if (FindElement(name))
 	{
 		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::RegisterPlugin plugin exists : ") + name + wxT(" ...") , RheiaLogging::error );
 		return false;
@@ -334,25 +334,25 @@ bool RheiaPluginManager::LoadPlugin( const wxString& pluginName )
     if ( !FileExt::DYNAMIC_LIBRARY_PREFIX.IsEmpty() && !platform::windows && filename.StartsWith(FileExt::DYNAMIC_LIBRARY_PREFIX) )
         filename = filename.Remove(0,FileExt::DYNAMIC_LIBRARY_PREFIX.Length());
 
-    // by now, the library has loaded and its global variables are initialized.
-    // this means it has already called RegisterPlugin()
-    // now we can actually create the plugin(s) instance(s) :)
-    // try to load the plugin(s)
-    std::vector<RheiaPluginRegistration>::iterator it;
-    for (it = RegisteredPlugins.begin(); it != RegisteredPlugins.end(); it++)
-    {
-        RheiaPluginRegistration& registrant = *it;
-
-        if( registrant.name.IsSameAs( filename ) )
-        {
-            if( registrant.plugin == NULL )
-                registrant.plugin = registrant.createProcess();
-
-            registrant.dylib = plugin;
-
-            break;
-        }
-    }
+//    // by now, the library has loaded and its global variables are initialized.
+//    // this means it has already called RegisterPlugin()
+//    // now we can actually create the plugin(s) instance(s) :)
+//    // try to load the plugin(s)
+//    std::vector<RheiaPluginRegistration>::iterator it;
+//    for (it = RegisteredPlugins.begin(); it != RegisteredPlugins.end(); it++)
+//    {
+//        RheiaPluginRegistration& registrant = *it;
+//
+//        if( registrant.name.IsSameAs( filename ) )
+//        {
+//            if( registrant.plugin == NULL )
+//                registrant.plugin = registrant.createProcess();
+//
+//            registrant.dylib = plugin;
+//
+//            break;
+//        }
+//    }
 
     if (RegisteredPlugins.empty())
     {
@@ -514,8 +514,8 @@ void RheiaPluginManager::LoadAllPlugins()
                     continue;
                 }
 
-                if( !registrant->plugin->IsPlugged() )
-                    registrant->plugin->Plug();
+                /*if( !registrant->plugin->IsPlugged() )
+                    registrant->plugin->Plug();*/
             }
         }
     }
@@ -528,45 +528,171 @@ void RheiaPluginManager::UnloadAllPlugins()
 {
     RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Unloading all registered plugins in RheiaPackageDBManager ...") , RheiaLogging::info );
 
-    while( RegisteredPlugins.size() > 0 )
-        UnloadPlugin(&RegisteredPlugins[0]);
+    RheiaPluginRegistrationTable::iterator it = RegisteredPlugins.begin();
+	
+	for( ; it != RegisteredPlugins.end() ; ++it )
+    {
+		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Remove plugin library : ") + (*it).name + wxT("...") , RheiaLogging::info );
+		if( it->dylib )
+			RheiaLibLoader::Get()->RemoveLibrary( it->dylib );
+
+		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Unregistering plugin : ") + (*it).name + wxT("...") , RheiaLogging::info );
+    }
 
     RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Cleaning memory ...") , RheiaLogging::info );
     RegisteredPlugins.clear();
     RheiaLibLoader::Get()->Cleanup();
 }
 
-void RheiaPluginManager::UnloadPlugin(RheiaPluginRegistration* plugin)
+RheiaFramePluginManager::RheiaFramePluginManager(RheiaManagedFrame* parent):
+	m_parent(parent)
 {
+	
+}
 
-    if (!plugin || !plugin->plugin)
-        return;
+RheiaFramePluginManager::~RheiaFramePluginManager()
+{
+	UnloadAllPlugins();
+}
 
-    // detach plugin if needed
-    DetachPlugin(plugin->plugin);
+bool RheiaFramePluginManager::LoadPlugin(const wxString& name)
+{
+	wxString filename = name;
+    wxString version;
+    if (filename.Contains(wxT('-')))
+    {
+        version = filename.AfterFirst(wxT('-'));
+        filename = filename.BeforeFirst(wxT('-'));
+    }
+	
+	if ( !FileExt::DYNAMIC_LIBRARY_PREFIX.IsEmpty() && !platform::windows && filename.StartsWith(FileExt::DYNAMIC_LIBRARY_PREFIX) )
+        filename = filename.Remove(0,FileExt::DYNAMIC_LIBRARY_PREFIX.Length());
+		
+	RheiaPluginRegistration* info = RheiaPluginManager::Get()->FindElement(name);
+	if( info == NULL )
+		return false;
+		
+	RheiaPluginMap::iterator it = m_plugins.find(filename);
+	if( it != m_plugins.end() ) // here return true because the plugin is already loaded
+		return true;
+		
+	m_plugins[filename] = info->createProcess(m_parent);
+	return true;
+}
+
+bool RheiaFramePluginManager::UnloadPlugin( const wxString& name )
+{
+	wxString filename = name;
+    wxString version;
+    if (filename.Contains(wxT('-')))
+    {
+        version = filename.AfterFirst(wxT('-'));
+        filename = filename.BeforeFirst(wxT('-'));
+    }
+	
+	if ( !FileExt::DYNAMIC_LIBRARY_PREFIX.IsEmpty() && !platform::windows && filename.StartsWith(FileExt::DYNAMIC_LIBRARY_PREFIX) )
+        filename = filename.Remove(0,FileExt::DYNAMIC_LIBRARY_PREFIX.Length());
+		
+	RheiaPluginRegistration* info = RheiaPluginManager::Get()->FindElement(name);
+	if( info == NULL )
+		return false;
+		
+	RheiaPluginMap::iterator it = m_plugins.find(filename);
+	if( it == m_plugins.end() ) // here return true because the plugin is already loaded
+		return false;
+		
+	RheiaPluginManager::Get()->DetachPlugin(it->second);
+	delete it->second;
+	m_plugins.erase(it);
+	return true;
+}
+
+void RheiaFramePluginManager::LoadAllPlugins()
+{
+	RheiaPluginRegistrationTable& RegisteredPlugins = RheiaPluginManager::Get()->RegisteredPlugins;
+
+    RheiaPluginRegistrationTable::iterator it = RegisteredPlugins.begin();
+    for( ; it != RegisteredPlugins.end() ; ++it )
+        LoadPlugin((*it).name);
+}
+
+void RheiaFramePluginManager::UnloadAllPlugins()
+{
+	RheiaPluginMap::iterator it = m_plugins.begin();
+	
+	for( ; it != m_plugins.end() ; ++it )
+	{
+		RheiaPluginManager::Get()->DetachPlugin(it->second);
+		delete it->second;
+	}
+	
+	m_plugins.clear();
+}
+
+RheiaPlugin* RheiaFramePluginManager::FindPlugin(const wxString& pluginName)
+{
+    wxString filename = pluginName;
+    wxString version;
+    if (filename.Contains(wxT('-')))
+    {
+        version = filename.AfterFirst(wxT('-'));
+        filename = filename.BeforeFirst(wxT('-'));
+    }
+
+    if ( !FileExt::DYNAMIC_LIBRARY_PREFIX.IsEmpty() && !platform::windows && filename.StartsWith(FileExt::DYNAMIC_LIBRARY_PREFIX) )
+        filename = filename.Remove(0,FileExt::DYNAMIC_LIBRARY_PREFIX.Length());
+
+    RheiaPluginMap::iterator it = m_plugins.find(filename);
+    if( it != m_plugins.end() )
+		return it->second;
+
+    return 0;
+}
+
+void RheiaFramePluginManager::NotifyPlugins(RheiaEvent& event)
+{
+    RheiaEventsManager::Get()->ProcessEvent(event);
+}
+
+RheiaPluginsArray RheiaFramePluginManager::GetOffersFor( RheiaPluginType type )
+{
+    RheiaPluginsArray ret;
+
+    RheiaPluginMap::iterator it = m_plugins.begin();
+    for( ; it != m_plugins.end() ; ++it )
+    {
+        RheiaPlugin* plugin = it->second;
+        if (plugin && plugin->IsPlugged() && plugin->GetType() == type)
+            ret.Add( plugin );
+    }
+
+    return ret;
+
+}
+
+RheiaPluginRegistration* RheiaFramePluginManager::FindElement(const wxString& pluginName)
+{
+    wxString filename = pluginName;
+    wxString version;
+    if (filename.Contains(wxT('-')))
+    {
+        version = filename.AfterFirst(wxT('-'));
+        filename = filename.BeforeFirst(wxT('-'));
+    }
+
+    if ( !FileExt::DYNAMIC_LIBRARY_PREFIX.IsEmpty() && !platform::windows && filename.StartsWith(FileExt::DYNAMIC_LIBRARY_PREFIX) )
+        filename = filename.Remove(0,FileExt::DYNAMIC_LIBRARY_PREFIX.Length());
+		
+	RheiaPluginRegistrationTable& RegisteredPlugins = RheiaPluginManager::Get()->RegisteredPlugins;
 
     RheiaPluginRegistrationTable::iterator it = RegisteredPlugins.begin();
     for( ; it != RegisteredPlugins.end() ; ++it )
     {
-        if( (*it).plugin == plugin->plugin )
-        {
-
-            RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Unloading plugin : ") + (*it).name + wxT("...") , RheiaLogging::info );
-
-            if (plugin->freeProcess)
-                plugin->freeProcess(plugin->plugin);
-            else
-                delete plugin; // try to delete it ourselves...
-
-            RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Remove plugin library : ") + (*it).name + wxT("...") , RheiaLogging::info );
-            if( plugin->dylib )
-                RheiaLibLoader::Get()->RemoveLibrary( plugin->dylib );
-
-            RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Unregistering plugin : ") + (*it).name + wxT("...") , RheiaLogging::info );
-            RegisteredPlugins.erase( it );
-            return;
-        }
+        if ((*it).name == filename)
+            return &(*it);
     }
+
+    return NULL;
 }
 
 RheiaPluginRegistration* RheiaPluginManager::FindElement(const wxString& pluginName)
@@ -591,59 +717,32 @@ RheiaPluginRegistration* RheiaPluginManager::FindElement(const wxString& pluginN
 
     return NULL;
 }
-
-RheiaPluginRegistration* RheiaPluginManager::FindElement(RheiaPlugin* plugin)
+ 
+RheiaPluginRegistration* RheiaFramePluginManager::FindElement(RheiaPlugin* plugin)
 {
+	RheiaPluginRegistrationTable& RegisteredPlugins = RheiaPluginManager::Get()->RegisteredPlugins;
+	
+	RheiaPluginMap::iterator pit = m_plugins.begin();
+	wxString name;
+	
+	for( ; pit != m_plugins.end() ; pit++ )
+	{
+		if( pit->second == plugin )
+		{
+			name = pit->first;
+			break;
+		}
+	}
+	
+	if( name.IsEmpty() )
+		return NULL;
+	
     RheiaPluginRegistrationTable::iterator it = RegisteredPlugins.begin();
     for( ; it != RegisteredPlugins.end() ; ++it )
     {
-        if ((*it).plugin == plugin)
+        if ((*it).name == name)
             return &(*it);
     }
 
     return NULL;
-}
-
-RheiaPlugin* RheiaPluginManager::FindPlugin(const wxString& pluginName)
-{
-    wxString filename = pluginName;
-    wxString version;
-    if (filename.Contains(wxT('-')))
-    {
-        version = filename.AfterFirst(wxT('-'));
-        filename = filename.BeforeFirst(wxT('-'));
-    }
-
-    if ( !FileExt::DYNAMIC_LIBRARY_PREFIX.IsEmpty() && !platform::windows && filename.StartsWith(FileExt::DYNAMIC_LIBRARY_PREFIX) )
-        filename = filename.Remove(0,FileExt::DYNAMIC_LIBRARY_PREFIX.Length());
-
-    RheiaPluginRegistrationTable::iterator it = RegisteredPlugins.begin();
-    for( ; it != RegisteredPlugins.end() ; ++it )
-    {
-        if ((*it).name == filename)
-            return (*it).plugin;
-    }
-
-    return 0;
-}
-
-void RheiaPluginManager::NotifyPlugins(RheiaEvent& event)
-{
-    RheiaEventsManager::Get()->ProcessEvent(event);
-}
-
-RheiaPluginsArray RheiaPluginManager::GetOffersFor( RheiaPluginType type )
-{
-    RheiaPluginsArray ret;
-
-    RheiaPluginRegistrationTable::iterator it = RegisteredPlugins.begin();
-    for( ; it != RegisteredPlugins.end() ; ++it )
-    {
-        RheiaPlugin* plugin = (*it).plugin;
-        if (plugin && plugin->IsPlugged() && plugin->GetType() == type)
-            ret.Add( plugin );
-    }
-
-    return ret;
-
 }

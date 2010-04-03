@@ -10,9 +10,10 @@
 
 #include <wx/frame.h>
 
-RheiaPlugin::RheiaPlugin()
+RheiaPlugin::RheiaPlugin(RheiaManagedFrame* parent)
     : Type(ptNone),
-    m_plugged(false)
+    m_plugged(false),
+	m_parent(parent)
 {
 	SetEvtHandlerEnabled(false);
 }
@@ -29,7 +30,9 @@ void RheiaPlugin::Plug()
 	RheiaPluginEvent event(RheiaEVT_PLUGIN_ATTACHED);
 	event.SetPlugin(this);
 	// post event in the host's event queue
-	RheiaEventsManager::Get()->ProcessEvent(event);
+	//RheiaEventsManager::Get()->ProcessEvent(event);
+	m_parent->GetEventHandler()->ProcessEvent(event);
+	m_parent->PushEventHandler(this);
 }
 
 void RheiaPlugin::Unplug(bool appShutDown)
@@ -38,11 +41,13 @@ void RheiaPlugin::Unplug(bool appShutDown)
 		return;
 	
 	m_plugged = false;
+	m_parent->RemoveEventHandler(this);
+	
 	SetEvtHandlerEnabled(false);
 	OnUnplug(appShutDown);
 	RheiaPluginEvent event(RheiaEVT_PLUGIN_RELEASED);
 	event.SetPlugin(this);
 
-	RheiaEventsManager::Get()->ProcessEvent(event);
-	
+	//RheiaEventsManager::Get()->ProcessEvent(event);
+	m_parent->GetEventHandler()->ProcessEvent(event);
 }

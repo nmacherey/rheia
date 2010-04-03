@@ -24,7 +24,8 @@
 #include <libxml/xpath.h>
 
 /* Default constructor */
-RheiaEnvironmentPlugin::RheiaEnvironmentPlugin()
+RheiaEnvironmentPlugin::RheiaEnvironmentPlugin(RheiaManagedFrame* parent):
+	RheiaPlugin(parent)
 {
     Type = ptEnvironment;
 }

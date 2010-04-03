@@ -23,6 +23,7 @@
 #include <RheiaManager.h>
 
 #include <vector>
+#include <map>
 
 #include <wx/event.h>
 #include <wx/dynarray.h>
@@ -48,7 +49,7 @@ class wxMenuBar;
 * functions for getting the version, creating the thred and deleting the thread
 * This is used to manage plugins by the PluginManager
 */
-typedef RheiaPlugin*(*CreatePluginProcess)();
+typedef RheiaPlugin*(*CreatePluginProcess)(RheiaManagedFrame*);
 
 /*! A plugin is a dynamic library, that must provide the application with 3
 * functions for getting the version, creating the thred and deleting the thread
@@ -83,6 +84,9 @@ typedef std::vector< RheiaPluginRegistration > RheiaPluginRegistrationTable;
 /** define a plugin array using wxWidgets macros */
 WX_DEFINE_ARRAY(RheiaPlugin*, RheiaPluginsArray);
 
+/** define a map of plugins that will be used in a frame */
+typedef std::map < wxString , RheiaPlugin* > RheiaPluginMap;
+
 /**
 *	@class RheiaPluginManager
 *
@@ -102,6 +106,9 @@ class PMGT_DLLEXPORT RheiaPluginManager : public wxEvtHandler, public Singleton<
 
 	/** Give RheiaManager access to our private memebers */
 	friend class RheiaManager;
+	
+	/** Give RheiaFramePluginManager access to our private members */
+	friend class RheiaFramePluginManager;
 
 public :
 
@@ -140,9 +147,6 @@ public :
 	/*! This will unload all the available plugins */
 	void UnloadAllPlugins();
 
-	/*! This will unload a specific plugin acordingly to its name */
-	void UnloadPlugin(RheiaPluginRegistration* plugin);
-
 	/*! Attach the given plugin to the plugin manager
 	*	@param plugin the plugin to attach
 	*/
@@ -170,37 +174,12 @@ public :
 	RheiaPluginManifest* ReadManifestFile(
         const wxString& pluginFilename
 		);
-
+	
 	/*! Gets the RheiaPluginInfo structure for a plugin by its pointer
 	*	@param plugin The plugin's pointer to get the info
 	*/
-	RheiaPluginRegistration* FindElement(RheiaPlugin* plugin);
-
-#ifdef SWIG
-	%rename(FindElementByName) FindElement(const wxString& pluginName);
-#endif
-	/*! Get a plugin element by its name
-	*	@param pluginName Plugin's name to get the elements
-	*/
-	RheiaPluginRegistration* FindElement(const wxString& pluginName);
-
-	/*! Find a plugin by its name
-	*	@param pluginName Plugin's name to find
-	*/
-	RheiaPlugin* FindPlugin(const wxString& pluginName);
-
-	void NotifyPlugins(RheiaEvent& event);
-
-#ifndef SWIG
-	/*!	Get the array of plugin elements available in the plugin manager for a specific configuration group */
-	RheiaPluginRegistrationTable& GetPlugins(int ConfigGroup);
-#endif
-
-	/**
-	*   Get offered plugins for the given configuration group
-	*/
-	RheiaPluginsArray GetOffersFor( RheiaPluginType type );
-
+	RheiaPluginRegistration* FindElement(const wxString& name);
+	
 private :
 	/****************************************************************************************************
 	*	CONSTRUCTOR
@@ -219,6 +198,113 @@ private :
 #ifndef SWIG
 	DECLARE_EVENT_TABLE()
 #endif
+};
+
+/**
+ * @class RheiaFramePluginManager
+ * @brief Main class for handling plugins in a Rheia Managed Frame
+ * This class is the one that must be used in order to associate plugins 
+ * in a Rheia Managed Frame
+ */
+class PMGT_DLLEXPORT RheiaFramePluginManager : public wxEvtHandler , public RheiaMgr< RheiaManagedFrame , RheiaFramePluginManager >
+{
+	/** give RheiaMgr< RheiaManagedFrame , RheiaFramePluginManager > our private member access */
+	friend class RheiaMgr< RheiaManagedFrame , RheiaFramePluginManager >;
+	
+	/** give RheiaPluginManager our private members access */
+	friend class RheiaPluginManager;
+
+public :
+
+	/** 
+	 * This will load all the available plugins 
+	 * Plugins must have been previously registered in RheiaPluginManager
+	 * This method is a helper method to help you in associating registered
+	 * plugins to a RheiaManagedFrame.
+	 */
+	void LoadAllPlugins();
+
+	/** 
+	 * This will unload all the available plugins 
+	 * This will simply free all plugin instances registered in
+	 * this manager instance and return.
+	 */
+	void UnloadAllPlugins();
+	
+	/**
+	 * Load a specific plugin accordingly to it's name 
+	 * @param name plugin name to load
+	 * @return false if the plugin was not loaded properly
+	 */
+	bool LoadPlugin(const wxString& name);
+	
+	/**
+	 * Unload a the given plugin
+	 * @param name plugin to unload
+	 * @return false if the was not unloaded properly
+	 */
+	bool UnloadPlugin( const wxString& name );
+	
+#ifndef SWIG
+	/*!	Get the array of plugin elements available in the plugin manager for a specific configuration group */
+	RheiaPluginsArray& GetPlugins(int ConfigGroup);
+#endif
+
+	/**
+	*   Get offered plugins for the given configuration group
+	*/
+	RheiaPluginsArray GetOffersFor( RheiaPluginType type );
+	
+	/*! Find a plugin by its name
+	*	@param pluginName Plugin's name to find
+	*/
+	RheiaPlugin* FindPlugin(const wxString& pluginName);
+
+	/** Process the given event in the parented frame */
+	void NotifyPlugins(RheiaEvent& event);
+	
+	/*! Gets the RheiaPluginInfo structure for a plugin by its pointer
+	*	@param plugin The plugin's pointer to get the info
+	*/
+	RheiaPluginRegistration* FindElement(RheiaPlugin* plugin);
+
+#ifdef SWIG
+	%rename(FindElementByName) FindElement(const wxString& pluginName);
+#endif
+	/*! Get a plugin element by its name
+	*	@param pluginName Plugin's name to get the elements
+	*/
+	RheiaPluginRegistration* FindElement(const wxString& pluginName);
+
+private:
+
+	/****************************************************************************************************
+	*	CONSTRUCTOR
+	****************************************************************************************************/
+	/** Default constructor,
+	 * As many other managers in Rheia, you cannot build directly this
+	 * manager you have to use the RheiaFramePluginManager::Get(frame) passing
+	 * your RheiaManagedFrame instance to get the global instance of this manager
+	 * associated to the frame instance you need to interact with.
+	 */
+	RheiaFramePluginManager(RheiaManagedFrame* parent);
+
+	/** Destructor 
+	 * You cannot directly destroy an instance of this class,
+	 * you have to use RheiaFramePluginManager::Free(frame) passing
+	 * your RheiaManagedFrame instance to destroy the global instance of this manager
+	 * associated to the frame instance you want. After a call to RheiaFramePluginmanager::Free
+	 * all plugins associated to the frame will removed from the frame.
+	 * usually unless you are a Rheia core developer you might never have 
+	 * to deal with the RheiaFramePluginManager::Free() method.
+	 */
+    ~RheiaFramePluginManager();
+
+	/** attribute that store all plugins associated to the frame */
+	RheiaPluginMap m_plugins;
+	
+	/** managed parent associated to this instance */
+	RheiaManagedFrame* m_parent;
 };
 
 #ifndef SWIG
@@ -249,9 +335,9 @@ public:
 	}
 
 	/*! Function for creating the plugin */
-	static RheiaPlugin* CreatePlugin()
+	static RheiaPlugin* CreatePlugin(RheiaManagedFrame* parent)
 	{
-		return new T;
+		return new T(parent);
 	}
 
 	/*! Function for freeing the plugin
