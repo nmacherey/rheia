@@ -146,6 +146,9 @@ protected:
 	/** Holds the "attached" state. */
 	bool m_plugged;
 
+    /** attribute to the plugin's parent */
+	RheiaManagedFrame* m_parent;
+
 private:
 	friend class RheiaPluginManager; // only the plugin manager has access here
 
@@ -162,9 +165,6 @@ private:
 	* shall be somwhere in the application after a call to this methos.
 	*/
 	void Unplug(bool appShutDown);
-	
-	/** attribute to the plugin's parent */
-	RheiaManagedFrame* m_parent;
 };
 
 #endif

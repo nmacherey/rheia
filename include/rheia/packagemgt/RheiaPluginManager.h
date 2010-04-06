@@ -21,6 +21,7 @@
 #include <RheiaGlobals.h>
 
 #include <RheiaManager.h>
+#include <RheiaEventFrame.h>
 
 #include <vector>
 #include <map>
@@ -277,6 +278,15 @@ public :
 	RheiaPluginRegistration* FindElement(const wxString& pluginName);
 
 private:
+
+    /****************************************************************************************************
+	*	EVENTS CALLBACKS
+	****************************************************************************************************/
+    
+    /** The next event is used when the parented frame of this manager is 
+    * going to be closed, we need to detach all plugins... 
+    */
+    void OnCloseParent( RheiaFrameEvent& event );
 
 	/****************************************************************************************************
 	*	CONSTRUCTOR

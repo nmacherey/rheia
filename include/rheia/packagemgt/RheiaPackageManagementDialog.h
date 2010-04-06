@@ -16,6 +16,7 @@
 #include <RheiaPMgtSettings.h>
 #include <RheiaGlobals.h>
 #include <RheiaEvents.h>
+#include <RheiaManagedFrame.h>
 #include <treelistctrl.h>
 
 #include <map>
@@ -42,7 +43,7 @@ public :
 	*	CONSTRUCTORS
 	*******************************************************************************************/
 	/** basic constructor taking the parent window in input */
-	RheiaPackageManagementDialog( wxWindow* parent );
+	RheiaPackageManagementDialog( RheiaManagedFrame* parent );
 
 	/** default destructor */
 	~RheiaPackageManagementDialog();
@@ -98,6 +99,7 @@ private :
     wxTreeListCtrl *m_treelist;
     TreeItemIdMap m_packageIds;
     wxTreeItemId m_root;
+    RheiaManagedFrame* m_parent;
 
     /*******************************************************************************************
 	*	EVENTS TABLE

@@ -71,7 +71,8 @@ BEGIN_EVENT_TABLE( RheiaPackageManagementDialog , wxDialog )
     EVT_BUTTON( btnRemove , RheiaPackageManagementDialog::OnRemovePackage )
 END_EVENT_TABLE()
 
-RheiaPackageManagementDialog::RheiaPackageManagementDialog( wxWindow* parent )
+RheiaPackageManagementDialog::RheiaPackageManagementDialog( RheiaManagedFrame* parent ):
+    m_parent(parent)
 {
     wxString resPath = RheiaStandardPaths::DataDirectoryGlobal();
     wxString xrcDialogName = _T("dlgPackageManagement");
@@ -381,6 +382,7 @@ void RheiaPackageManagementDialog::OnInstallPackage( wxCommandEvent& WXUNUSED(ev
 
     RheiaPackageDBManager::Get()->Save();
     RheiaPluginManager::Get()->LoadAllPlugins();
+    RheiaFramePluginManager::Get(m_parent)->LoadAllPlugins();
 
     DoUpdatePackageTree();
 }

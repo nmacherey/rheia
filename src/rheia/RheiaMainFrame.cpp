@@ -164,6 +164,7 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
     RheiaPackageManager::Get()->InstallPendingPackages( true );
     log->Log( wxT("RheiaMainFrame::Loading installed plugins..."), RheiaLogging::info);
     RheiaPluginManager::Get()->LoadAllPlugins();
+    RheiaFramePluginManager::Get(this)->LoadAllPlugins();
 
 	RheiaStartPageContainer* m_startpage = new RheiaStartPageContainer( this, wxT("nm_test_page.html") );
 	RheiaCenterPaneManager::Get(this)->AddPage( wxT("Start here") , m_startpage );

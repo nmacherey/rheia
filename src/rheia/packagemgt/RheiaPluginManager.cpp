@@ -65,6 +65,14 @@
 template<> RheiaPluginManager* Singleton<RheiaPluginManager>::instance = 0;
 template<> bool  Singleton<RheiaPluginManager>::isShutdown = false;
 
+namespace
+{
+    RheiaMgr<RheiaManagedFrame,RheiaFramePluginManager>::MgrNsMap locmap;
+}
+
+/*! Global instance for the RheiaWorkspaceManager */
+template<> RheiaMgr<RheiaManagedFrame,RheiaFramePluginManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaFramePluginManager>::m_ns = locmap;
+
 BEGIN_EVENT_TABLE(RheiaPluginManager, wxEvtHandler)
     //
 END_EVENT_TABLE()
@@ -500,7 +508,7 @@ void RheiaPluginManager::LoadAllPlugins()
                 RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Loading plugin : ") + filename + wxT(" ...") , RheiaLogging::info );
                 registrant = FindElement( filename );
 
-                if( registrant == NULL || registrant->plugin == NULL )
+                if( registrant == NULL )
                 {
                     wxString msg;
                     msg.Printf(_("Plugin \"%s\" failed to load...\n"
@@ -547,7 +555,7 @@ void RheiaPluginManager::UnloadAllPlugins()
 RheiaFramePluginManager::RheiaFramePluginManager(RheiaManagedFrame* parent):
 	m_parent(parent)
 {
-	
+    m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler( RheiaFramePluginManager::OnCloseParent ) , NULL , this );
 }
 
 RheiaFramePluginManager::~RheiaFramePluginManager()
@@ -570,13 +578,22 @@ bool RheiaFramePluginManager::LoadPlugin(const wxString& name)
 		
 	RheiaPluginRegistration* info = RheiaPluginManager::Get()->FindElement(name);
 	if( info == NULL )
+    {
+        RheiaLoggerManager::sdLog( wxT("RheiaFramePluginManager::LoadPlugin ") + name + wxT(" info not found ...") , RheiaLogging::warning );
 		return false;
+    }
 		
 	RheiaPluginMap::iterator it = m_plugins.find(filename);
 	if( it != m_plugins.end() ) // here return true because the plugin is already loaded
+	{
+        RheiaLoggerManager::sdLog( wxT("RheiaFramePluginManager::LoadPlugin ") + name + wxT(" plugin already in frame ...") , RheiaLogging::warning );
 		return true;
-		
-	m_plugins[filename] = info->createProcess(m_parent);
+    }
+	
+    RheiaPlugin* plugin = info->createProcess(m_parent);
+    RheiaPluginManager::Get()->AttachPlugin(plugin);
+	m_plugins[filename] = plugin;
+    RheiaLoggerManager::sdLog( wxT("RheiaFramePluginManager::LoadPlugin ") + name + wxT(" plugin attached to frame ...") , RheiaLogging::warning );
 	return true;
 }
 
@@ -595,16 +612,25 @@ bool RheiaFramePluginManager::UnloadPlugin( const wxString& name )
 		
 	RheiaPluginRegistration* info = RheiaPluginManager::Get()->FindElement(name);
 	if( info == NULL )
+    {
+        RheiaLoggerManager::sdLog( wxT("RheiaFramePluginManager::UnloadingPlugin ") + name + wxT(" info not found ...") , RheiaLogging::warning );
 		return false;
+    }
 		
 	RheiaPluginMap::iterator it = m_plugins.find(filename);
 	if( it == m_plugins.end() ) // here return true because the plugin is already loaded
+    {
+        RheiaLoggerManager::sdLog( wxT("RheiaFramePluginManager::UnloadingPlugin ") + name + wxT(" plugin not attached to the frame ...") , RheiaLogging::warning );
 		return false;
+    }
 		
 	RheiaPluginManager::Get()->DetachPlugin(it->second);
 	delete it->second;
 	m_plugins.erase(it);
-	return true;
+    
+    RheiaLoggerManager::sdLog( wxT("RheiaFramePluginManager::UnloadingPlugin ") + name + wxT(" unloaded ...") , RheiaLogging::info );
+	
+    return true;
 }
 
 void RheiaFramePluginManager::LoadAllPlugins()
@@ -745,4 +771,9 @@ RheiaPluginRegistration* RheiaFramePluginManager::FindElement(RheiaPlugin* plugi
     }
 
     return NULL;
+}
+
+void RheiaFramePluginManager::OnCloseParent( RheiaFrameEvent& event )
+{
+    event.Skip();
 }
