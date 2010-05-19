@@ -50,9 +50,9 @@ bool RheiaAppBase::DoBasicInitializations()
     wxLog::EnableLogging(true);
 //#endif
 
-#ifdef LINUX
+//#ifdef LINUX
     setlocale(LC_ALL,"C");
-#endif
+//#endif
 
 	/* Fushing the clip board */
 	wxTheClipboard->Flush();
@@ -134,6 +134,10 @@ int RheiaAppBase::OnRun()
     {
         int retval = wxApp::OnRun();
         return retval;
+    }
+    catch(RheiaException& e)
+    {
+        e.ShowErrorMessage(false);
     }
     catch (...)
     {
