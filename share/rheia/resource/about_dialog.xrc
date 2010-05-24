@@ -36,7 +36,7 @@
 						<face>Arial</face>
 					</font>
 				</object>
-				<flag>wxEXPAND|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+				<flag>wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
 			</object>
 			<object class="sizeritem">
 				<object class="wxNotebook" name="nbMain">
