@@ -117,21 +117,25 @@ RheiaEditorManager::~RheiaEditorManager()
 void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )
 {
     int idx = menuBar->FindMenu(wxT("File"));
+	if( idx == wxNOT_FOUND )
+		idx = 0;
+		
     if( idx != wxNOT_FOUND )
     {
 		int i = 0;
-        wxMenu* mnFile = menuBar->GetMenu( idx );
-		mnFile->Insert( i++, idNew , wxT("&New File\tCtrl-N") , wxT("Create a new file from the manager") );
-        mnFile->Insert( i++, idOpen , wxT("&Open File\tCtrl-O") , wxT("Open a new file from the manager") );
-        mnFile->Insert( i++, idCloseCurrent , wxT("&Close the current file\tCtrl-W") , wxT("Close the current file") );
-        mnFile->Insert( i++, idCloseAll , wxT("Close all opened files\tCtrl-Alt-W") , wxT("Close the current file") );
-        mnFile->Insert( i++, idCloseAllOthers , wxT("Close all opened files except the active one\tCtrl-Shift-W") , wxT("Close the current file") );
+		wxMenu* mnEditor = new wxMenu();
+		mnEditor->Insert( i++, idNew , wxT("&New File\tCtrl-Shift-N") , wxT("Create a new file from the manager") );
+        mnEditor->Insert( i++, idOpen , wxT("&Open File\tCtrl-Shift-O") , wxT("Open a new file from the manager") );
+        mnEditor->Insert( i++, idCloseCurrent , wxT("&Close the current file\tCtrl-W") , wxT("Close the current file") );
+        mnEditor->Insert( i++, idCloseAll , wxT("Close all opened files\tCtrl-Alt-W") , wxT("Close the current file") );
+        mnEditor->Insert( i++, idCloseAllOthers , wxT("Close all opened files except the active one\tCtrl-Shift-W") , wxT("Close the current file") );
 
-        mnFile->InsertSeparator(i++);
+        mnEditor->InsertSeparator(i++);
 
-        mnFile->Insert( i++, idSaveCurrent , wxT("Save\tCtrl-E") , wxT("Save the current file") );
-        mnFile->Insert( i++, idSaveAs , wxT("Save as\tCtrl-Shift-E") , wxT("Save the current file in a new file") );
-        mnFile->Insert( i++, idSaveAll , wxT("Save all\tAlt-Shift-E") , wxT("Save all modified files") );
+        mnEditor->Insert( i++, idSaveCurrent , wxT("Save\tCtrl-E") , wxT("Save the current file") );
+        mnEditor->Insert( i++, idSaveAs , wxT("Save as\tCtrl-Shift-E") , wxT("Save the current file in a new file") );
+        mnEditor->Insert( i++, idSaveAll , wxT("Save all\tAlt-Shift-E") , wxT("Save all modified files") );
+		menuBar->Insert(idx+1,mnEditor,wxT("Editor"));
     }
 
     idx = menuBar->FindMenu(wxT("Edit"));

@@ -217,7 +217,7 @@ void RheiaToolBarManager::RemoveToolBar( const wxString& name )
         wxAuiManager* m_layout = m_parent->GetLayoutManager();
         m_layout->DetachPane( toolbar );
         toolbar->Destroy();
-        m_toolbars.erase(it);
+        m_auiToolbars.erase(ait);
 
         m_layout->Update();
     }

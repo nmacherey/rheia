@@ -55,6 +55,12 @@ RheiaBookManager::~RheiaBookManager()
 		// remove ourself from the application's event handling chain...
 		m_parent->RemoveEventHandler(this);
     }*/
+	
+	RheiaPageInfoMap::iterator it = m_pages.begin();
+	for(  ; it != m_pages.end() ; ++it ) {
+		DeletePage(it->second.name);
+		delete it->second.container;
+	}
 }
 
 wxAuiNotebook* RheiaBookManager::CreateWindow( wxWindow* parent )
