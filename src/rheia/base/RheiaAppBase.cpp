@@ -152,9 +152,10 @@ int RheiaAppBase::OnExit()
 	OnPreManagerDestroy();
 	/* Freeing global manager instance at the totally end of the application */
 	RheiaDebug::Log(wxT("Freeing Rheia Manager") );
+	OnExitApp();
 	RheiaManager::Get()->Close();
     RheiaManager::Free();
-    return 0;
+    return wxApp::OnExit();
 }
 
 void RheiaAppBase::StartUpFinalStep()

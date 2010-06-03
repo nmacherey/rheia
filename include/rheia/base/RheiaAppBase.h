@@ -99,6 +99,9 @@ public :
 	/** Callback OnExit() overloads for destrying the application and its content */
 	virtual int OnExit();
 	
+	/** Callback OnExit() overloads for destrying the application and its content */
+	virtual void OnExitApp() {};
+	
 	/** When exiting the application you will need to destroy different objects 
 	 * this method is called before calling RheiaManager::Get()->Close() in order
 	 * to allow you freeing global variables before exiting the application

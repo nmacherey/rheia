@@ -48,9 +48,11 @@ void RheiaConfigurationDialog::EndModal(int retCode)
         wxDialog::EndModal(retCode);
 
     if( retCode == wxOK || retCode == wxID_OK )
-        m_panel->OnApply();
+        if(!m_panel->OnApply())
+			return;
     else
-        m_panel->OnCancel();
+        if(!m_panel->OnCancel())
+			return;
 
     wxDialog::EndModal(retCode);
 }

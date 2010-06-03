@@ -23,6 +23,7 @@
 #include <RheiaStatusBarManager.h>
 #include <RheiaProfileManager.h>
 #include <RheiaConfigurationManager.h>
+#include <RheiaConfigurationToolsManager.h>
 #include <RheiaStandardPaths.h>
 #include <RheiaEnvironementManager.h>
 #include <RheiaPersonalityManager.h>
@@ -56,6 +57,7 @@ void RheiaManager::Close()
 {
     appShuttingDown = true;
 
+	RheiaConfigurationToolsManager::Free();
     RheiaEventsManager::Get()->RemoveAllEventMethods();
 	
 	RheiaDebug::Log( wxT("Before deleting..." ) );
