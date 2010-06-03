@@ -169,7 +169,6 @@ end
 -- of your configuration in order to make it work properly !
 --*****************************************************************************
 function CreateCompilerFlags( package , release_name , debug_name )
-    if ( OS == "windows" ) then
     --******* WINDOWS SETUP ***********
     --*	Settings that are Windows specific.
     --*********************************
@@ -184,7 +183,6 @@ function CreateCompilerFlags( package , release_name , debug_name )
 	table.insert( package.config[debug_name].defines, "DEBUG" )
     	table.insert( package.config[debug_name].defines, "_DEBUG" )
     	table.insert( package.config[debug_name].defines, "RHEIA_DEBUG" )
-    else
     --******* LINUX SETUP *************
     --*	Settings that are Linux specific.
     --*********************************
@@ -230,7 +228,6 @@ function CreateCompilerFlags( package , release_name , debug_name )
     		table.insert( package.config[release_name].buildoptions, "-O3" )
     		table.insert( package.config[release_name].buildoptions, "-fexpensive-optimizations" )
     	end
-    end
 end
 
 --*****************************************************************************
