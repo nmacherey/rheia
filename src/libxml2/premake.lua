@@ -56,7 +56,7 @@ if ( OS == "windows" ) then
 	end
 
 	package.config["Release"].target = targetName
-	package.config["Debug"].target = targetName.."-dbg"
+	package.config["Debug"].target = targetName
 
 	if ( (not options["cb-msvc8"]) and (string.find( target or "", ".*-gcc" ) or target == "gnu") ) then
 		-- Set the build options.
@@ -134,7 +134,7 @@ if ( OS == "windows" ) then
 	package.config["Release"].libdir = "../../devel/Release/lib"
 	package.config["Release"].bindir = "../../devel/Release/bin"
 
-	package.config["Debug"].target = targetName .. "-dbg"
+	package.config["Debug"].target = targetName
 	package.config["Debug"].targetprefix = ""
 	package.config["Debug"].targetextension = "dll"
 	package.config["Debug"].libdir = "../../devel/Debug/lib"

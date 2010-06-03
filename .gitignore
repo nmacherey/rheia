@@ -2,11 +2,12 @@
 *.[oa]
 *.so
 *.layout
-*.suo
-*.sln
+*.suo*
+*.sln*
 *.ncb
 *.obj*
 *.vcproj*
+*.vcxproj*
 devel
 *.svn*
 *.obj*
@@ -25,3 +26,4 @@ Makefile
 *.ncb*
 *.pdb*
 *.cache*
+*Upgrade*

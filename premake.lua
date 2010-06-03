@@ -21,23 +21,23 @@ if ( windows ) then
 end
 
 if( not options["no-irrlicht"] ) then
-	dopackage( "src/irrlicht" )
+	dopackage( "scripts/irrlicht" )
 end
 
-dopackage( "src/csirocsa" )
-dopackage( "src/qsastime" )
+dopackage( "scripts/csirocsa" )
+dopackage( "scripts/qsastime" )
 --dopackage( "src/wxwidgets" )
-dopackage( "src/plplot" )
-dopackage( "src/wxplplot" )
+dopackage( "scripts/plplot" )
+dopackage( "scripts/wxplplot" )
 dopackage( "webconnect/src" )
-dopackage( "src/rheia/utils" )
-dopackage( "src/rheia/base" )
-dopackage( "src/rheia/loggers" )
-dopackage( "src/rheia/packagemgt" )
-dopackage( "src/rheia/workspacemgt" )
-dopackage( "src/rheia/editor" )
-dopackage( "src/rheia/python" )
-dopackage( "src/rheia" )
+dopackage( "scripts/utils" )
+dopackage( "scripts/base" )
+dopackage( "scripts/loggers" )
+dopackage( "scripts/packagemgt" )
+dopackage( "scripts/workspacemgt" )
+dopackage( "scripts/editor" )
+dopackage( "scripts/python" )
+dopackage( "scripts/rheia" )
 
 -- Generate python bindings libraries
 --dopackage("python/utils")

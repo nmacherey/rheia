@@ -93,8 +93,8 @@ bool RheiaApp::OnInit(){
 	RheiaConfigurationManager* cmgr = RheiaProfileManager::Get()->GetActiveProfileManager();
 	bool showSplash = cmgr->ReadBool( wxT("show_splash") , true ) && (!m_noSplash);
 	
-	if( showSplash )
-		ShowSplashScreen(RheiaStandardPaths::DataDirectoryGlobal() + wxT("/resource.zip#zip:splash_screen.png") );
+	//if( showSplash )
+		//ShowSplashScreen(RheiaStandardPaths::DataDirectoryGlobal() + wxT("/resource.zip#zip:splash_screen.png") );
 
 	if(!LoadConfig())
 		return false;
@@ -121,7 +121,7 @@ bool RheiaApp::OnInit(){
     {
 
     }
-    HideSplashScreen();
+    //HideSplashScreen();
 	
     StartUpFinalStep();
     return true;
