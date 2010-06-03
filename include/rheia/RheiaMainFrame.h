@@ -11,6 +11,8 @@
 
 #include <map>
 
+class RheiaStartPageContainer;
+
 /**
 *   @class RheiaMainFrame
 *
@@ -47,6 +49,10 @@ public :
 
 	/*! Destructor */
 	~RheiaMainFrame();
+	
+private :
+
+	RheiaStartPageContainer* m_startpage;
 
 };
 

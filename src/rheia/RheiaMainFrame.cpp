@@ -63,6 +63,7 @@
 #include <RheiaEditorManager.h>
 #include <RheiaEditorPropertyPanel.h>
 #include <RheiaPythonConsoleManager.h>
+#include <RheiaXulManager.h>
 
 RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
        wxWindowID id,
@@ -166,11 +167,18 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
     RheiaPluginManager::Get()->LoadAllPlugins();
     RheiaFramePluginManager::Get(this)->LoadAllPlugins();
 
-	RheiaStartPageContainer* m_startpage = new RheiaStartPageContainer( this, wxT("nm_test_page.html") );
+	m_startpage = new RheiaStartPageContainer( this, wxT("nm_test_page.html") );
 	RheiaCenterPaneManager::Get(this)->AddPage( wxT("Start here") , m_startpage );
 }
 
 RheiaMainFrame::~RheiaMainFrame()
 {
-
+	delete m_startpage;
+	
+	RheiaXulManager::Free();
+	RheiaPackageDBManager::Free();
+	RheiaPluginManager::Free();
+	RheiaPackageDBManager::Free();
+	RheiaPluginManager::Free();
+	RheiaFramePluginManager::Free();
 }
