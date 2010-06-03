@@ -73,6 +73,8 @@ function CreateCommonBuildOptions( package , options , additional_flags )
 	table.insert( package.defines, { "UNICODE", "_UNICODE" } )
     end
 
+    table.insert( package.defines, "HAVE_CONFIG_H")
+    
     if ( OS == "windows" ) then
     --******* WINDOWS SETUP ***********
     --*	Settings that are Windows specific.
@@ -91,7 +93,6 @@ function CreateCommonBuildOptions( package , options , additional_flags )
     	table.insert( package.defines, "_CRT_SECURE_DEPRECATE")
     	table.insert( package.defines, "_CRT_SECURE_NO_WARNINGS")
     	table.insert( package.defines, "_CRT_NONSTDC_NO_DEPRECATE")
-	table.insert( package.defines, "HAVE_CONFIG_H")
     else
     --******* LINUX SETUP *************
     --*	Settings that are Linux specific.
@@ -465,6 +466,13 @@ function InsertWxWidegtsLibs( package , release_name , debug_name , options )
 			table.insert( package.config[release_name].linkoptions, "`wx-config --debug=no --libs`" )
 			table.insert( package.config[release_name].linkoptions, "`xml2-config --libs`" )
 		end
+
+
+		if( not macosx ) then
+			table.insert( package.config["Debug"].buildoptions, "`pkg-config --cflags gtk+-2.0`" )
+			table.insert( package.config["Release"].buildoptions, "`pkg-config --cflags gtk+-2.0`" )
+		end
+	
 	end
 
 end
@@ -511,8 +519,8 @@ function CreateXml2Defines( pakage , release_name , debug_name )
 	if ( OS == "windows" ) then
 		table.insert( package.includepaths , "../../include" )
 	else
-		table.insert( package.config[debug_name].linkoptions, "`xml2-config --cflags`" )
-		table.insert( package.config[release_name].linkoptions, "`xml2-config --cflags`" )
+		table.insert( package.config[debug_name].buildoptions, "`xml2-config --cflags`" )
+		table.insert( package.config[release_name].buildoptions, "`xml2-config --cflags`" )
 	end
 end
 
