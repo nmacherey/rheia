@@ -27,6 +27,18 @@ namespace
 /*! Global instance for the RheiaPythonConsoleManager */
 template<> RheiaMgr<RheiaManagedFrame,RheiaPythonConsoleManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaPythonConsoleManager>::m_ns = locmap;
 
+namespace {
+	class PythonCleaner : public RheiaComponentCleaner
+	{
+	public :
+		virtual void DoCleanUp(){
+			RheiaPythonConsoleManager::Free();
+			RheiaPythonUtils::Free();
+		}
+	};
+	
+	REGISTER_COMPONENT_CLEANER(PythonCleaner);
+}
 
 RheiaPythonConsoleManager::RheiaPythonConsoleManager(RheiaManagedFrame* parent):
     wxEvtHandler(),
@@ -34,13 +46,12 @@ RheiaPythonConsoleManager::RheiaPythonConsoleManager(RheiaManagedFrame* parent):
 {
 	idSendFile = wxNewId();
 	
-    m_parent->PushEventHandler(this);
     RegisterEvents();
 }
 
 RheiaPythonConsoleManager::~RheiaPythonConsoleManager()
 {
-    m_parent->RemoveEventHandler(this);
+
 }
 
 void RheiaPythonConsoleManager::BuildMenu( wxMenuBar* menuBar )

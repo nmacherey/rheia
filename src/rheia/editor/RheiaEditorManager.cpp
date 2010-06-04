@@ -47,13 +47,25 @@ template<> RheiaEditorFactory* Singleton<RheiaEditorFactory>::instance = 0;
 /** global instance for RheiaEditorFactory */
 template<> bool  Singleton<RheiaEditorFactory>::isShutdown = false;
 
+namespace {
+	class EditorCleaner : public RheiaComponentCleaner
+	{
+	public :
+		virtual void DoCleanUp(){
+			RheiaEditorManager::Free();
+			RheiaEditorFactory::Free();
+		}
+	};
+	
+	REGISTER_COMPONENT_CLEANER(EditorCleaner);
+}
+
 RheiaEditorManager::RheiaEditorManager( RheiaManagedFrame* parent ):
     wxEvtHandler(),
     m_parent(parent),
     m_currentFile(NULL),
     m_currentEditor(NULL)
 {
-    m_parent->PushEventHandler(this);
 
     idCloseCurrent = wxNewId();
     idCloseAll = wxNewId();
@@ -111,7 +123,7 @@ RheiaEditorManager::RheiaEditorManager( RheiaManagedFrame* parent ):
 
 RheiaEditorManager::~RheiaEditorManager()
 {
-    m_parent->RemoveEventHandler(this);
+
 }
 
 void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )

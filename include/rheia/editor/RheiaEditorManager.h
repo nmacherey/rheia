@@ -448,7 +448,8 @@ public:
 	/** default destructor */
 	~RheiaEditorHandlerRegistrant()
 	{
-	    RheiaEditorFactory::Get()->RemoveHandler( m_instance );
+		if( !RheiaEditorFactory::IsDown() )
+			RheiaEditorFactory::Get()->RemoveHandler( m_instance );
 	}
 	
 private :
