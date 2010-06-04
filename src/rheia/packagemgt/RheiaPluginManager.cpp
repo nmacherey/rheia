@@ -73,6 +73,22 @@ namespace
 /*! Global instance for the RheiaWorkspaceManager */
 template<> RheiaMgr<RheiaManagedFrame,RheiaFramePluginManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaFramePluginManager>::m_ns = locmap;
 
+namespace {
+	class PluginCleaner : public RheiaComponentCleaner
+	{
+	public :
+		virtual void DoCleanUp(){
+			RheiaPluginManager::Free();
+			RheiaFramePluginManager::Free();
+			RheiaPackageDBManager::Free();
+			RheiaPackageManager::Free();
+			RheiaLibLoader::Free();
+		}
+	};
+	
+	REGISTER_COMPONENT_CLEANER(PluginCleaner);
+}
+
 BEGIN_EVENT_TABLE(RheiaPluginManager, wxEvtHandler)
     //
 END_EVENT_TABLE()
@@ -543,6 +559,9 @@ void RheiaPluginManager::UnloadAllPlugins()
 		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Remove plugin library : ") + (*it).name + wxT("...") , RheiaLogging::info );
 		if( it->dylib )
 			RheiaLibLoader::Get()->RemoveLibrary( it->dylib );
+			
+		if( it->info )
+			delete it->info;
 
 		RheiaLoggerManager::sdLog( wxT("RheiaPluginManager::Unregistering plugin : ") + (*it).name + wxT("...") , RheiaLogging::info );
     }

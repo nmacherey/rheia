@@ -30,6 +30,9 @@
 #include <wx/menu.h>
 #include <wxStreamedTextCtrl.h>
 
+#include <RheiaManager.h>
+#include <RheiaComponentCleaner.h>
+
 #include <iostream>
 
 /*! declare global instance for RheiaLoggerManager */
@@ -46,6 +49,19 @@ namespace
 
 /*! Global instance for the RheiaLoggerManager */
 template<> RheiaMgr<RheiaManagedFrame,RheiaLoggerManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaLoggerManager>::m_ns = locmap;
+
+namespace {
+	class LoggerCleaner : public RheiaComponentCleaner
+	{
+	public :
+		virtual void DoCleanUp(){
+			RheiaLoggerManager::Free();
+			RheiaLoggerFactory::Free();
+		}
+	};
+	
+	REGISTER_COMPONENT_CLEANER(LoggerCleaner);
+}
 
 BEGIN_EVENT_TABLE( RheiaLoggerManager, wxEvtHandler )
     EVT_MENU( menuId , RheiaLoggerManager::OnConfigure )
@@ -71,9 +87,6 @@ RheiaLoggerManager::~RheiaLoggerManager()
 
     if( m_nullloger != NULL )
         delete m_nullloger;
-
-    if( m_parent )
-        m_parent->RemoveEventHandler(this);
 }
 
 RheiaLoggerFactory::RheiaLoggerFactory()

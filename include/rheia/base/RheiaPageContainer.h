@@ -39,6 +39,12 @@ public :
     *   of the page when the user is closing it.
     */
     virtual bool OnPageClosed() {return true;};
+	
+	/**
+	 * Method that you shall overload if you want to destroy the container 
+	 * when the book manager is shutting down
+	 */
+	virtual bool DestroyOnClose() {return false;};
 };
 
 #endif

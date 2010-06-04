@@ -174,11 +174,4 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
 RheiaMainFrame::~RheiaMainFrame()
 {
 	delete m_startpage;
-	
-	RheiaXulManager::Free();
-	RheiaPackageDBManager::Free();
-	RheiaPluginManager::Free();
-	RheiaPackageDBManager::Free();
-	RheiaPluginManager::Free();
-	RheiaFramePluginManager::Free();
 }

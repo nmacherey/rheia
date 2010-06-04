@@ -92,6 +92,7 @@ RheiaManagedFrame::RheiaManagedFrame(wxWindow* parent,
 RheiaManagedFrame::~RheiaManagedFrame()
 {
     m_layout->UnInit();
+	delete m_layout;
 }
 
 void RheiaManagedFrame::LoadLayout()

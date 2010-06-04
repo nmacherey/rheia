@@ -20,6 +20,18 @@ template<> RheiaProjectFactory* Singleton<RheiaProjectFactory>::instance = 0;
 /*! Global isShutdown for the Menu manager */
 template<> bool  Singleton<RheiaProjectFactory>::isShutdown = false;
 
+namespace {
+	class ProjectCleaner : public RheiaComponentCleaner
+	{
+	public :
+		virtual void DoCleanUp(){
+			RheiaProjectFactory::Free();
+		}
+	};
+	
+	REGISTER_COMPONENT_CLEANER(ProjectCleaner);
+}
+
 RheiaProjectFactory::RheiaProjectFactory()
 {
 

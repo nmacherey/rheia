@@ -29,10 +29,16 @@
 #include <RheiaPersonalityManager.h>
 #include <RheiaProfileManager.h>
 #include <RheiaXmlManager.h>
+#include <RheiaInfoPaneManager.h>
+#include <RheiaLeftPaneManager.h>
+#include <RheiaXulManager.h>
 #include <RheiaEventsManager.h>
 
 /*! Global instance of the manager */
-static RheiaManager *instance = 0;
+/*! declare global instance for RheiaManager */
+template<> RheiaManager* Singleton<RheiaManager>::instance = 0;
+/*! declare global isShutdown variable for RheiaManager */
+template<> bool  Singleton<RheiaManager>::isShutdown = false;
 
 /***********************************************************************************************
 										CONSTRUCTORS
@@ -56,13 +62,24 @@ RheiaManager::~RheiaManager()
 void RheiaManager::Close()
 {
     appShuttingDown = true;
-
-	RheiaConfigurationToolsManager::Free();
-    RheiaEventsManager::Get()->RemoveAllEventMethods();
 	
-	RheiaDebug::Log( wxT("Before deleting..." ) );
+    RheiaEventsManager::Get()->RemoveAllEventMethods();
+	RheiaEventsManager::Free();
+	
+	/** free components */
+	for( unsigned int i = 0; i < m_components.size() ; ++i ) {
+		m_components[i]->DoCleanUp();
+		delete m_components[i];
+	}
+	
+	m_components.clear();
+	
     /** Finally Free all Rheia Managers */
+	RheiaConfigurationToolsManager::Free();
+	RheiaXulManager::Free();
     RheiaCenterPaneManager::Free();
+	RheiaInfoPaneManager::Free();
+	RheiaLeftPaneManager::Free();
     RheiaMenuManager::Free();
     RheiaMenuFunctorManager::Free();
     RheiaToolBarManager::Free();
@@ -72,31 +89,12 @@ void RheiaManager::Close()
     RheiaEnvironementManager::Free();
     RheiaConfigurationPattern::Free(); // only terminate config at the very last moment
     RheiaXmlManager::Free();
-	RheiaDebug::Log( wxT("Before deleting..." ) );
 	RheiaDebug::Free();
 }
 
 /***********************************************************************************************
 										STATIC METHODS
 ***********************************************************************************************/
-
-/* Get Method, use GmManger::Get() instead
-*	This method returns the global object instanciated in the RheiaManager.cpp
-*	The aim is to provide the same object to all users
-*/
-RheiaManager* RheiaManager::Get( void )
-{
-    if( instance == 0 )
-        instance = new RheiaManager;
-    return instance;
-}
-
-/* Never, EVER, call this function! It is the last function called on shutdown.... */
-void RheiaManager::Free()
-{
-    if( instance != 0 )
-        delete instance;
-}
 
 bool RheiaManager::LoadResource(const wxString& file)
 {

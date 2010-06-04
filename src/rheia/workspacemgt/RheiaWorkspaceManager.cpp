@@ -60,6 +60,18 @@ namespace
 /*! Global instance for the RheiaWorkspaceManager */
 template<> RheiaMgr<RheiaManagedFrame,RheiaWorkspaceManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaWorkspaceManager>::m_ns = locmap;
 
+namespace {
+	class WorkspaceCleaner : public RheiaComponentCleaner
+	{
+	public :
+		virtual void DoCleanUp(){
+			RheiaWorkspaceManager::Free();
+		}
+	};
+	
+	REGISTER_COMPONENT_CLEANER(WorkspaceCleaner);
+}
+
 /*! Id of the management tree */
 int m_treeId = wxNewId();
 

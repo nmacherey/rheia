@@ -55,6 +55,11 @@ RheiaBookManager::~RheiaBookManager()
 		// remove ourself from the application's event handling chain...
 		m_parent->RemoveEventHandler(this);
     }*/
+	
+	RheiaPageInfoMap::iterator it = m_pages.begin();
+	for( ; it != m_pages.end() ; ++it )
+		if( it->second.container->DestroyOnClose() )
+			delete it->second.container;
 }
 
 wxAuiNotebook* RheiaBookManager::CreateWindow( wxWindow* parent )
@@ -191,7 +196,10 @@ bool RheiaBookManager::DeletePage( const wxString& name )
 
     if( !it->second.container->OnPageClosed() )
         return false;
-
+	
+	if( it->second.container->DestroyOnClose() )
+		delete it->second.container;
+		
     m_book->DeletePage( idx );
     m_pages.erase( it );
 

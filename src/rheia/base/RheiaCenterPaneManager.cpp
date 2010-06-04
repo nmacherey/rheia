@@ -101,6 +101,5 @@ void RheiaCenterPaneManager::OnConfigure(wxCommandEvent& WXUNUSED(event))
     RheiaConfigurationDialog dialog( m_parent );
     RheiaCenterMgrSettingsPanel* m_panel = new RheiaCenterMgrSettingsPanel(&dialog);
     dialog.SetConfigurationTool( m_panel );
-
     dialog.ShowModal();
 }

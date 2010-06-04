@@ -314,7 +314,7 @@ public:
 	/** default destructor */
 	~RheiaConfigurationToolRegistrant()
 	{
-		if( RheiaConfigurationToolsManager::Valid() )
+		if( !RheiaConfigurationToolsManager::IsDown() )
 			RheiaConfigurationToolsManager::Get()->UnregisterTool( t_name );
 	}
 

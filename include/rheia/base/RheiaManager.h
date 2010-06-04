@@ -20,6 +20,8 @@
 #include <vector>
 #include <map>
 
+#include "RheiaComponentCleaner.h"
+
 /* Define used Rheia classes from sdk */
 class RheiaWorkspaceManager;
 class RheiaCenterPaneManager;
@@ -36,99 +38,6 @@ class RheiaManagedFrame;
 
 /** define a map for associating a frame to an event id */
 typedef std::map<RheiaManagedFrame*,int> RheiaManagedFrameIdMap;
-
-/* wxWidget imports */
-class wxWindow;
-class wxFrame;
-class wxString;
-class wxAuiManager;
-class wxToolBar;
-
-/**
-*	@class RheiaManager
-*	@brief RheiaManager is the manager class available for managing the main application
-*
-*	RheiaManager ist the most central class of Rheia Standard Development Kit. It contains
-*	all information about an instance of the main application. Rheia Standard Development Kit allows
-*	users to develop specific plugins for using the Rheia's Framework.
-*	The manager is a global instance and most methods are static. In the Rheia's SDK anyone can access
-*	to the main frame components and info via the manager. However other manager includes must be done
-*	to use them.
-*
-*	Please, if you have to use the manager donc instanciate it use instead RheiaManager::Get().
-*
-*	@note : if you are a developer for Rheia's SDK, all managers must be used in this class.
-*	@note : the principle for this file has been taken from the Code::Blocks IDE
-*
-*	@author Nicolas Macherey (nm@graymat.fr)
-*	@date 21-Nov-2008
-*	@version 0.0.1
-*/
-class BASE_DLLEXPORT RheiaManager
-{
-public :
-	/***********************************************************************************************
-	*	CONSTRUCTORS
-	***********************************************************************************************/
-	/*! Default constructor...
-	*	Please do not derive this class by using an other constructor,
-	*	as a lot of its members are static !
-	*
-	*/
-	RheiaManager();
-
-	/*! Destructor, freeing memory */
-	~RheiaManager();
-
-	/***********************************************************************************************
-	*	STATIC METHODS
-	***********************************************************************************************/
-
-	/*! Get Method, use GmManger::Get() instead
-	*	This method returns the global object instanciated in the RheiaManager.cpp
-	*	The aim is to provide the same object to all users
-	*/
-	static RheiaManager *Get( void );
-
-	/*! Never, EVER, call this function! It is the last function called on shutdown.... */
-    static void Free();
-
-    /*! Close method for finishing all manager tasks */
-    void Close();
-
-	/*! This function is for loading resource to make them available */
-	static bool LoadResource( const wxString& file );
-
-	/*! Returns the center pane manager */
-	RheiaCenterPaneManager *GetCenterPaneManager(RheiaManagedFrame* parent);
-
-	/*! Returns the menu manager */
-	RheiaMenuManager *GetMenuManager(RheiaManagedFrame* parent);
-
-	/*! Returns the toolbar manager */
-	RheiaToolBarManager *GetToolBarManager(RheiaManagedFrame* parent);
-
-	/*! Returns the statusbar manager */
-	RheiaStatusBarManager *GetStatusBarManager(RheiaManagedFrame* parent);
-
-	/*! Returns the ProfileManager */
-	RheiaProfileManager * GetProfileManager(void);
-
-	/*! Returns the ConfigurationManager */
-	RheiaConfigurationManager * GetConfigurationManager(const wxString &name_space);
-
-	static bool IsAppShuttingDown(){return appShuttingDown;};
-    static bool isappShuttingDown(){return RheiaManager::IsAppShuttingDown();};
-
-	static void AddonToolBar(wxToolBar* toolBar,wxString resid);
-
-private :
-	/***********************************************************************************************
-										  PRIVATE VARIABLES
-	***********************************************************************************************/
-	static bool appShuttingDown;						/*!< specifies if the application is shutting down or not */
-};
-
 
 /*! @class Singleton
 *
@@ -162,6 +71,9 @@ public:
 
 	/*! Specifies is the manager is valid or not */
 	static inline bool Valid(){return (instance!=0) ? true : false;}
+	
+	/*! Check if the manager is down or not */
+	static inline bool IsDown(){return isShutdown;};
 
 	/*! Use this function to have access to the managers global instance */
     static inline MgrT* Get()
@@ -181,6 +93,97 @@ public:
     }
 };
 
+/* wxWidget imports */
+class wxWindow;
+class wxFrame;
+class wxString;
+class wxAuiManager;
+class wxToolBar;
+
+/**
+*	@class RheiaManager
+*	@brief RheiaManager is the manager class available for managing the main application
+*
+*	RheiaManager ist the most central class of Rheia Standard Development Kit. It contains
+*	all information about an instance of the main application. Rheia Standard Development Kit allows
+*	users to develop specific plugins for using the Rheia's Framework.
+*	The manager is a global instance and most methods are static. In the Rheia's SDK anyone can access
+*	to the main frame components and info via the manager. However other manager includes must be done
+*	to use them.
+*
+*	Please, if you have to use the manager donc instanciate it use instead RheiaManager::Get().
+*
+*	@note : if you are a developer for Rheia's SDK, all managers must be used in this class.
+*	@note : the principle for this file has been taken from the Code::Blocks IDE
+*
+*	@author Nicolas Macherey (nm@graymat.fr)
+*	@date 21-Nov-2008
+*	@version 0.0.1
+*/
+class BASE_DLLEXPORT RheiaManager : public Singleton<RheiaManager>
+{
+	friend class Singleton<RheiaManager>;
+	
+public :
+	/***********************************************************************************************
+	*	CONSTRUCTORS
+	***********************************************************************************************/
+	/*! Default constructor...
+	*	Please do not derive this class by using an other constructor,
+	*	as a lot of its members are static !
+	*
+	*/
+	RheiaManager();
+
+	/*! Destructor, freeing memory */
+	~RheiaManager();
+
+	/***********************************************************************************************
+	*	STATIC METHODS
+	***********************************************************************************************/
+
+    /*! Close method for finishing all manager tasks */
+    void Close();
+
+	/*! This function is for loading resource to make them available */
+	static bool LoadResource( const wxString& file );
+
+	/*! Returns the center pane manager */
+	RheiaCenterPaneManager *GetCenterPaneManager(RheiaManagedFrame* parent);
+
+	/*! Returns the menu manager */
+	RheiaMenuManager *GetMenuManager(RheiaManagedFrame* parent);
+
+	/*! Returns the toolbar manager */
+	RheiaToolBarManager *GetToolBarManager(RheiaManagedFrame* parent);
+
+	/*! Returns the statusbar manager */
+	RheiaStatusBarManager *GetStatusBarManager(RheiaManagedFrame* parent);
+
+	/*! Returns the ProfileManager */
+	RheiaProfileManager * GetProfileManager(void);
+
+	/*! Returns the ConfigurationManager */
+	RheiaConfigurationManager * GetConfigurationManager(const wxString &name_space);
+	
+	/** Register a component cleaner in this manager */
+	void RegisterComponentCleaner(RheiaComponentCleaner* component) { m_components.push_back(component); };
+	
+	/** Check if the application is shutting down or not */
+	static bool IsAppShuttingDown(){return appShuttingDown;};
+	/** Check if the application is shutting down or not */
+    static bool isappShuttingDown(){return RheiaManager::IsAppShuttingDown();};
+	
+	/** Create a tool bar from resource */
+	static void AddonToolBar(wxToolBar* toolBar,wxString resid);
+
+private :
+	/***********************************************************************************************
+	* PRIVATE VARIABLES
+	***********************************************************************************************/
+	static bool appShuttingDown;						/*!< specifies if the application is shutting down or not */
+	RheiaComponentCleanerArray m_components;
+};
 
 /**
 *   @class RheiaMgr
@@ -337,5 +340,23 @@ public :
         m_ns.clear();
     }
 };
+
+/** @class RheiaComponentCleanerRegistrant
+ * @brief main template class for registering a component cleaner in RheiaManager
+ */
+template<class T> class RheiaComponentCleanerRegistrant
+{
+public :
+	/** Constructor */
+	RheiaComponentCleanerRegistrant( const wxString& WXUNUSED(name) ) {
+		RheiaManager::Get()->RegisterComponentCleaner(new T());
+	}
+};
+
+/** define a macro for registering a component cleaner */
+#define REGISTER_COMPONENT_CLEANER( object ) \
+	namespace ns##object { \
+		RheiaComponentCleanerRegistrant<object> registrant( wxT(#object) ); \
+	};
 
 #endif

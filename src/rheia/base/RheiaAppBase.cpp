@@ -154,10 +154,11 @@ int RheiaAppBase::OnExit()
     wxTheClipboard->Flush();
 	
 	OnPreManagerDestroy();
+	
 	/* Freeing global manager instance at the totally end of the application */
-	RheiaDebug::Log(wxT("Freeing Rheia Manager") );
 	RheiaManager::Get()->Close();
     RheiaManager::Free();
+	
 	OnExitApp();
     return wxApp::OnExit();
 }

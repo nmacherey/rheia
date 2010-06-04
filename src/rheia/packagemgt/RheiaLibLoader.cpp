@@ -24,7 +24,7 @@ RheiaLibLoader::RheiaLibLoader()
 
 RheiaLibLoader::~RheiaLibLoader()
 {
-    if (!RheiaManager::IsAppShuttingDown())
+    //if (!RheiaManager::IsAppShuttingDown())
         Cleanup();
 }
 
@@ -60,7 +60,7 @@ bool RheiaLibLoader::RemoveLibrary(wxDynamicLibrary* lib)
         RheiaDynamicLibrary& library = it->second;
         if (library.lib == lib)
         {
-            if (!RheiaManager::IsAppShuttingDown())
+            //if (!RheiaManager::IsAppShuttingDown())
                 delete library.lib;
 
             m_libraries.erase(it);
@@ -80,7 +80,7 @@ bool RheiaLibLoader::RemoveLibrary(RheiaDynamicLibrary* lib)
         RheiaDynamicLibrary& library = it->second;
         if (library.lib == lib->lib)
         {
-            if (!RheiaManager::IsAppShuttingDown())
+            //if (!RheiaManager::IsAppShuttingDown())
                 delete library.lib;
 
             m_libraries.erase(it);
@@ -100,7 +100,7 @@ bool RheiaLibLoader::RemoveLibrary(const wxString& name)
 
     RheiaDynamicLibrary& library = it->second;
 
-    if (!RheiaManager::IsAppShuttingDown())
+    //if (!RheiaManager::IsAppShuttingDown())
         delete library.lib;
 
     m_libraries.erase(it);
@@ -177,7 +177,7 @@ void RheiaLibLoader::Cleanup()
     {
         RheiaDynamicLibrary& library = it->second;
 
-        if (!RheiaManager::IsAppShuttingDown())
+        //if (!RheiaManager::IsAppShuttingDown())
             delete library.lib;
     }
 
