@@ -209,12 +209,12 @@ void RheiaFindFilesDialog::EndModal( int retCode )
 	wxDialog::EndModal(retCode);
 }
 
-void RheiaFindFilesDialog::OnScopeChange(wxCommandEvent& event)
+void RheiaFindFilesDialog::OnScopeChange(wxCommandEvent& WXUNUSED(event))
 {
 	EnableSearchPaths( rbScope->GetSelection() == 2 );
 }
 
-void RheiaFindFilesDialog::OnBtnSearchPath(wxCommandEvent& event)
+void RheiaFindFilesDialog::OnBtnSearchPath(wxCommandEvent& WXUNUSED(event))
 {
 	wxString LastOpenPath = RheiaManager::Get()->GetConfigurationManager( wxT("search_paths") )->Read( wxT("/last_path") , RheiaStandardPaths::HomeDirectory() );
 

@@ -256,7 +256,7 @@ void RheiaEditorManager::BuildToolBar(wxWindow* parent)
 	RheiaToolBarManager::Get(m_parent)->AddToolBar(wxT("Editor toolbar"),m_tbEdition);
 }
 
-void RheiaEditorManager::OnGotoTextEnter(wxCommandEvent& event)
+void RheiaEditorManager::OnGotoTextEnter(wxCommandEvent& WXUNUSED(event))
 {
 	m_currentEditor = GetCurrentEditor();
 	if( !m_currentEditor )
@@ -270,7 +270,7 @@ void RheiaEditorManager::OnGotoTextEnter(wxCommandEvent& event)
     m_currentEditor = NULL;
 }
 
-void RheiaEditorManager::ReleaseMenu( wxMenuBar* menuBar )
+void RheiaEditorManager::ReleaseMenu( wxMenuBar* WXUNUSED(menuBar) )
 {
 
 }
@@ -381,13 +381,13 @@ void RheiaEditorManager::RegisterEvents()
     Connect(idReplaceNext,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
 }
 
-void RheiaEditorManager::OnOpenFileUI( wxUpdateUIEvent& event )
+void RheiaEditorManager::OnOpenFileUI( wxUpdateUIEvent& WXUNUSED(event) )
 {
     wxMenuBar* menuBar = m_parent->GetMenuBar();
     menuBar->Enable(idOpen, (RheiaEditorFactory::Get()->m_handlers.GetCount() > 0) );
 }
 
-void RheiaEditorManager::OnSaveFileUI( wxUpdateUIEvent& event )
+void RheiaEditorManager::OnSaveFileUI( wxUpdateUIEvent& WXUNUSED(event) )
 {
     wxMenuBar* menuBar = m_parent->GetMenuBar();
     menuBar->Enable(idCloseCurrent, (m_files.size() > 0) );
@@ -398,7 +398,7 @@ void RheiaEditorManager::OnSaveFileUI( wxUpdateUIEvent& event )
     menuBar->Enable(idSaveAll, (m_files.size() > 0) );
 }
 
-void RheiaEditorManager::OnEditUI( wxUpdateUIEvent& event )
+void RheiaEditorManager::OnEditUI( wxUpdateUIEvent& WXUNUSED(event) )
 {
     wxMenuBar* menuBar = m_parent->GetMenuBar();
     m_currentEditor = GetCurrentEditor();
@@ -432,7 +432,7 @@ void RheiaEditorManager::OnEditUI( wxUpdateUIEvent& event )
     menuBar->Enable(idUncommentSel, (hasFiles && m_currentEditor->CanComment() ) );
 }
 
-void RheiaEditorManager::OnFileOpen( wxCommandEvent& event )
+void RheiaEditorManager::OnFileOpen( wxCommandEvent& WXUNUSED(event) )
 {
     wxString f_exts;
 
@@ -469,7 +469,7 @@ void RheiaEditorManager::OnFileOpen( wxCommandEvent& event )
         Open(filepaths[i]);
 }
 
-void RheiaEditorManager::OnFileNew( wxCommandEvent& event )
+void RheiaEditorManager::OnFileNew( wxCommandEvent& WXUNUSED(event) )
 {
 	static int count = 1;
 	wxString Name = wxString::Format(wxT("Untitled#%d"),count++);
@@ -509,7 +509,7 @@ bool RheiaEditorManager::Open(const wxString& filename)
     return false;
 }
 
-void RheiaEditorManager::OnFileSave( wxCommandEvent& event )
+void RheiaEditorManager::OnFileSave( wxCommandEvent& WXUNUSED(event) )
 {
     m_currentEditor = GetCurrentEditor();
     if( !m_currentEditor )
@@ -543,7 +543,7 @@ void RheiaEditorManager::OnFileSave( wxCommandEvent& event )
     m_currentFile = NULL;
 }
 
-void RheiaEditorManager::OnFileSaveAs( wxCommandEvent& event )
+void RheiaEditorManager::OnFileSaveAs( wxCommandEvent& WXUNUSED(event) )
 {
     m_currentEditor = GetCurrentEditor();
     if( !m_currentEditor )
@@ -573,7 +573,7 @@ void RheiaEditorManager::OnFileSaveAs( wxCommandEvent& event )
     m_currentFile = NULL;
 }
 
-void RheiaEditorManager::OnFileSaveAll( wxCommandEvent& event )
+void RheiaEditorManager::OnFileSaveAll( wxCommandEvent& WXUNUSED(event) )
 {
     RheiaEditorMap::iterator it = m_files.begin();
     for( ; it != m_files.end() ; ++it )
@@ -584,7 +584,7 @@ void RheiaEditorManager::OnFileSaveAll( wxCommandEvent& event )
     }
 }
 
-void RheiaEditorManager::OnFileClose( wxCommandEvent& event )
+void RheiaEditorManager::OnFileClose( wxCommandEvent& WXUNUSED(event) )
 {
     m_currentEditor = GetCurrentEditor();
     if( !m_currentEditor )
@@ -596,7 +596,7 @@ void RheiaEditorManager::OnFileClose( wxCommandEvent& event )
     m_currentFile = NULL;
 }
 
-void RheiaEditorManager::OnFileCloseAll( wxCommandEvent& event )
+void RheiaEditorManager::OnFileCloseAll( wxCommandEvent& WXUNUSED(event) )
 {
     RheiaEditorMap::iterator it = m_files.begin();
     for( ; it != m_files.end() ; ++it )
@@ -606,7 +606,7 @@ void RheiaEditorManager::OnFileCloseAll( wxCommandEvent& event )
     }
 }
 
-void RheiaEditorManager::OnFileCloseAllExceptCurrent( wxCommandEvent& event )
+void RheiaEditorManager::OnFileCloseAllExceptCurrent( wxCommandEvent& WXUNUSED(event) )
 {
     m_currentEditor = GetCurrentEditor();
     if( !m_currentEditor )
@@ -878,7 +878,7 @@ void RheiaEditorManager::OnMenuEdit( wxCommandEvent& event )
     m_currentFile = NULL;
 }
 
-void RheiaEditorManager::OnApplyRegEx( wxCommandEvent& event )
+void RheiaEditorManager::OnApplyRegEx( wxCommandEvent& WXUNUSED(event) )
 {
     RheiaApplyRegExDialog dialog(m_parent);
     if(dialog.ShowModal() != wxID_OK)
@@ -1058,7 +1058,7 @@ int RheiaEditorManager::FindIn( RheiaEditorBase* editor , const wxString& expr ,
 	return editor->m_findData.pos;
 }
 
-int RheiaEditorManager::FindReIn( RheiaEditorBase* editor , const wxString& expr  , wxRegEx& re , bool advanced , bool selOnly )
+int RheiaEditorManager::FindReIn( RheiaEditorBase* editor , const wxString& expr  , wxRegEx& re , bool WXUNUSED(advanced) , bool selOnly )
 {
 	if( expr.IsEmpty() || editor == NULL )
 		return -1;
@@ -1183,7 +1183,7 @@ int RheiaEditorManager::FindReIn( RheiaEditorBase* editor , const wxString& expr
 	return editor->m_findData.pos;
 }
 
-int RheiaEditorManager::ReplaceReIn( RheiaEditorBase* editor , const wxString& expr , const wxString& rep , wxRegEx& re , bool advanced , bool selOnly, bool confirm )
+int RheiaEditorManager::ReplaceReIn( RheiaEditorBase* editor , const wxString& expr , const wxString& rep , wxRegEx& re , bool WXUNUSED(advanced) , bool selOnly, bool confirm )
 {
 	if( expr.IsEmpty() || editor == NULL )
 		return -1;
@@ -1351,9 +1351,8 @@ int RheiaEditorManager::ReplaceReIn( RheiaEditorBase* editor , const wxString& e
 	return editor->m_findData.pos;
 }
 
-int RheiaEditorManager::FindAllIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , int flag , bool selOnly )
+int RheiaEditorManager::FindAllIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , int flag , bool WXUNUSED(selOnly) )
 {
-	int count;
 	
 	if( expr.IsEmpty() || editor == NULL )
 		return -1;
@@ -1395,9 +1394,8 @@ int RheiaEditorManager::FindAllIn( SearchResultArray& search , RheiaEditorBase* 
 	return editor->m_findData.pos;
 }
 
-int RheiaEditorManager::FindAllReIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , wxRegEx& re , bool advanced , bool selOnly )
+int RheiaEditorManager::FindAllReIn( SearchResultArray& search , RheiaEditorBase* editor , const wxString& expr , wxRegEx& re , bool WXUNUSED(advanced) , bool WXUNUSED(selOnly) )
 {
-	int count;
 	
 	if( expr.IsEmpty() || editor == NULL )
 		return -1;
@@ -1496,7 +1494,7 @@ int RheiaEditorManager::FindNextIn( RheiaEditorBase* editor )
 	return FindIn( m_currentEditor , m_lastExpr , editor->m_findData.flag , editor->m_findData.selOnly );
 }
 
-void RheiaEditorManager::OnFindTextEnter(wxCommandEvent& event)
+void RheiaEditorManager::OnFindTextEnter(wxCommandEvent& WXUNUSED(event))
 {
 	m_currentEditor = GetCurrentEditor();
     if( !m_currentEditor )

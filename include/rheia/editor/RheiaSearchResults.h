@@ -129,7 +129,7 @@ public :
 	*   Get the project bitmap to the given size,
 	*   size could be 16x16, 32x32, 48x48, 80x80 or 128x128
 	*/
-	virtual const wxBitmap& GetBitmap( const int& size ){return m_bmp;};
+	virtual const wxBitmap& GetBitmap( const int& WXUNUSED(size) ){return m_bmp;};
 	
 	/**
 	*   Any project will have a window in the center pane, which will be called

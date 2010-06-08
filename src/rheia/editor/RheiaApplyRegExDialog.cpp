@@ -17,8 +17,8 @@
 
 RheiaApplyRegExDialog::RheiaApplyRegExDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) :
     wxDialog( parent, id, title, pos, size, style ),
-    m_currentFile(false),
     m_selOnly(false),
+	m_currentFile(false),
     m_allFiles(false)
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );

@@ -87,12 +87,12 @@ void RheiaTextReplaceDialog::EndModal( int retCode )
 	wxDialog::EndModal(retCode);
 }
 
-void RheiaTextReplaceDialog::OnBtnClick( wxCommandEvent& event )
+void RheiaTextReplaceDialog::OnBtnClick( wxCommandEvent& WXUNUSED(event) )
 {
 	EndModal( wxYES );
 }
 
-void RheiaTextReplaceDialog::OnBtnNo( wxCommandEvent& event )
+void RheiaTextReplaceDialog::OnBtnNo( wxCommandEvent& WXUNUSED(event) )
 {
 	EndModal( wxNO );
 }

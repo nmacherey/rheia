@@ -339,7 +339,7 @@ void RheiaEditorBase::Registerevents()
 
 }
 
-void RheiaEditorBase::OnRequestContextMenu( wxContextMenuEvent& event )
+void RheiaEditorBase::OnRequestContextMenu( wxContextMenuEvent& WXUNUSED(event) )
 {
     wxMenu* m_menu = BuilContextMenu();
 
@@ -477,32 +477,32 @@ wxMenu* RheiaEditorBase::BuilContextMenu()
     return m_menu;
 }
 
-void RheiaEditorBase::OnCloseMe( wxCommandEvent& event )
+void RheiaEditorBase::OnCloseMe( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
 
-void RheiaEditorBase::OnCloseAll( wxCommandEvent& event )
+void RheiaEditorBase::OnCloseAll( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
 
-void RheiaEditorBase::OnCloseAllButMe( wxCommandEvent& event )
+void RheiaEditorBase::OnCloseAllButMe( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
 
-void RheiaEditorBase::OnSameMe( wxCommandEvent& event )
+void RheiaEditorBase::OnSameMe( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
 
-void RheiaEditorBase::OnSaveAll( wxCommandEvent& event )
+void RheiaEditorBase::OnSaveAll( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
 
-void RheiaEditorBase::OnSaveMeAs( wxCommandEvent& event )
+void RheiaEditorBase::OnSaveMeAs( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
@@ -571,12 +571,12 @@ void RheiaEditorBase::OnContextMenu(wxCommandEvent& event)
         DoUncomment();
 }
 
-void RheiaEditorBase::OnConfigureEditor(wxCommandEvent& event)
+void RheiaEditorBase::OnConfigureEditor(wxCommandEvent& WXUNUSED(event))
 {
 
 }
 
-void RheiaEditorBase::OnFileProperties( wxCommandEvent& event )
+void RheiaEditorBase::OnFileProperties( wxCommandEvent& WXUNUSED(event) )
 {
 
 }
@@ -677,32 +677,32 @@ void RheiaEditorBase::OnMarginClick (wxStyledTextEvent &event)
     }
 }
 
-void RheiaEditorBase::OnUpdateUI(wxStyledTextEvent& event)
+void RheiaEditorBase::OnUpdateUI(wxStyledTextEvent& WXUNUSED(event))
 {
 
 }
 
-void RheiaEditorBase::OnChange(wxStyledTextEvent& event)
+void RheiaEditorBase::OnChange(wxStyledTextEvent& WXUNUSED(event))
 {
 
 }
 
-void RheiaEditorBase::OnDwellStart(wxStyledTextEvent& event)
+void RheiaEditorBase::OnDwellStart(wxStyledTextEvent& WXUNUSED(event))
 {
 
 }
 
-void RheiaEditorBase::OnDwellEnd(wxStyledTextEvent& event)
+void RheiaEditorBase::OnDwellEnd(wxStyledTextEvent& WXUNUSED(event))
 {
 
 }
 
-void RheiaEditorBase::OnModified(wxStyledTextEvent& event)
+void RheiaEditorBase::OnModified(wxStyledTextEvent& WXUNUSED(event))
 {
 
 }
 
-void RheiaEditorBase::OnZoom(wxStyledTextEvent& event)
+void RheiaEditorBase::OnZoom(wxStyledTextEvent& WXUNUSED(event))
 {
 
 }
@@ -911,7 +911,7 @@ void RheiaEditorBase::GotoPreviousBookmark()
     MarkerPrevious(BOOKMARK_MARKER);
 }
 
-void RheiaEditorBase::DoApplyRegex( const wxRegEx& expression , const wxString& repStr , bool selOnly , bool confirm )
+void RheiaEditorBase::DoApplyRegex( const wxRegEx& WXUNUSED(expression) , const wxString& WXUNUSED(repStr) , bool selOnly , bool WXUNUSED(confirm) )
 {
     wxString text;
 
@@ -920,7 +920,7 @@ void RheiaEditorBase::DoApplyRegex( const wxRegEx& expression , const wxString& 
     else
         text = m_control->GetText();
 
-    int count = expression.ReplaceAll(&text,repStr);
+    //int count = expression.ReplaceAll(&text,repStr);
 
     if( selOnly )
         m_control->ReplaceSelection(text);
@@ -964,7 +964,7 @@ int RheiaEditorBase::Find( const wxString& expr , int flag )
 	return ret;
 }
 
-int RheiaEditorBase::FindNext( const wxString& expr , int flag )
+int RheiaEditorBase::FindNext( const wxString& WXUNUSED(expr) , int WXUNUSED(flag) )
 {
 	return 0;
 }

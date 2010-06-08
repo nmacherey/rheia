@@ -245,7 +245,7 @@ public :
     virtual void DoApplyRegex( const wxRegEx& expression , const wxString& repStr , bool selOnly = false , bool confirm = true );
 
     /** Higlight all occurences of the given expression */
-    virtual void HighlightRegexMatch( const wxRegEx& expression ){};
+    virtual void HighlightRegexMatch( const wxRegEx& WXUNUSED(expression) ){};
 
     /** Higlight all occurences of the given expression */
     virtual void HighlightOccurrences( const wxString& expr , int flag = matchAll );
@@ -259,10 +259,10 @@ public :
     virtual int FindNext( const wxString& expr , int flag = matchAll );
 
     /** Find all occurences of the given expression */
-    virtual void Replace( const wxString& expr , int flag = matchAll ){};
+    virtual void Replace( const wxString& WXUNUSED(expr) , int WXUNUSED(flag) = matchAll ){};
 
     /** Find next occurence of the given expression */
-    virtual void ReplaceNext( const wxString& expr , int flag = matchAll ){};
+    virtual void ReplaceNext( const wxString& WXUNUSED(expr) , int WXUNUSED(flag) = matchAll ){};
 
     /** Goto the given line */
     virtual void Goto( int line );
@@ -295,7 +295,7 @@ public :
     * @param line The line to check for bookmark existence.
     * @return True if there is a bookmark on this line, false if not.
     */
-    virtual bool HasBookmark(int line) const { return false; };
+    virtual bool HasBookmark(int WXUNUSED(line)) const { return false; };
 
     /** Go to next bookmark. */
     virtual void GotoNextBookmark();
@@ -307,7 +307,7 @@ public :
     virtual bool CanSplit(){return false;};
 
     /** Split the window */
-    virtual void Split( SplitWindow type ) {};
+    virtual void Split( SplitWindow WXUNUSED(type) ) {};
 
     /** Check if the window is already splitted */
     virtual bool IsSplitted() {return false;};
@@ -369,7 +369,7 @@ public :
     /** Add the context menu in the given context menu stuff
     *   @param menu the menu in which you should append your editor's specific options
     */
-    virtual void AddContextMenuStuff( wxMenu* menu ) {};
+    virtual void AddContextMenuStuff( wxMenu* WXUNUSED(menu) ) {};
 
     virtual bool GetModified();
 	

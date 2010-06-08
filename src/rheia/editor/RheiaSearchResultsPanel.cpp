@@ -43,7 +43,7 @@ RheiaSearchResultsPanel::~RheiaSearchResultsPanel()
 	
 }
 
-void RheiaSearchResultsPanel::OnSearchResultActivated( wxListEvent& event )
+void RheiaSearchResultsPanel::OnSearchResultActivated( wxListEvent& WXUNUSED(event) )
 {
 	SearchResultArray results = m_container->GetSearchResults();
 	long sel = -1;
