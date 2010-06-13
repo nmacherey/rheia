@@ -62,7 +62,7 @@ bool RheiaApp::OnInit(){
             return false;
         }
 #elif defined (__linux__)
-        xulrunner_path = wxT("/usr/lib/xulrunner-1.9.2");
+        xulrunner_path = wxT("/usr/lib/xulrunner-1.9.2.3");
 #else
 # error "TBD find xulrunner dir for this platform"
 #endif

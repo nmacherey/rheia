@@ -34,7 +34,7 @@ public :
     virtual ~RheiaDefaultLayout(){}
 
     /** get the lexer */
-    virtual int GetLexer(){return wxSTC_LEX_D;};
+    virtual int GetLexer(){return wxSTC_LEX_CPP;};
 
     /** get keywords sets */
     virtual wxArrayString GetKeywords();

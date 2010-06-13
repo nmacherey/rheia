@@ -40,8 +40,11 @@
 #include <RheiaProfileManager.h>
 
 namespace{
-
+#if wxCHECK_VERSION(2,9,0)
     int wxCALLBACK sortByTitle(long item1, long item2, wxIntPtr WXUNUSED(sortData) )
+#else
+	int wxCALLBACK sortByTitle(long item1, long item2, long WXUNUSED(sortData) )
+#endif
     {
         const wxString *elem1 = (const wxString*)item1;
         const wxString *elem2 = (const wxString*)item2;

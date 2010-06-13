@@ -35,7 +35,9 @@
 #include <wx/fs_mem.h>
 #include <wx/fs_zip.h>
 #include <wx/gbsizer.h>
+#if wxCHECK_VERSION(2,9,0)
 #include <wx/wrapsizer.h>
+#endif
 #include <wx/geometry.h>
 #include <wx/htmllbox.h>
 #include <wx/image.h>
@@ -77,8 +79,10 @@
 #include <wx/collpane.h>
 #include <wx/srchctrl.h>
 #include <wx/generic/datectrl.h>
+#if wxCHECK_VERSION(2,9,0)
 #include <wx/filectrl.h>
 #include <wx/notifmsg.h>
+#endif
 #include <wx/wizard.h>
 
 // C++ version of Python aware wxTreeCtrl
