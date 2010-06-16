@@ -44,6 +44,10 @@
 #define HAVE_CXX_STDINT_H
 #endif
 
+#ifdef unix
+#define HAVE_STDINT_H
+#endif
+
 /* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
    */
 /* #undef HAVE_DIRENT_H */

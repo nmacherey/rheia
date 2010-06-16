@@ -91,14 +91,16 @@ function CreateCommonBuildOptions( package , options , additional_flags )
     	table.insert( package.defines, "_CRT_SECURE_DEPRECATE")
     	table.insert( package.defines, "_CRT_SECURE_NO_WARNINGS")
     	table.insert( package.defines, "_CRT_NONSTDC_NO_DEPRECATE")
-	table.insert( package.defines, "HAVE_CONFIG_H")
     else
     --******* LINUX SETUP *************
     --*	Settings that are Linux specific.
     --*********************************
    	-- Set the build options.
     	package.buildflags = { "extra-warnings" }
-    
+    	
+	table.insert( package.defines, "HAVE_VSNPRINTF" )
+    	table.insert( package.defines, "HAVE_CONFIG_H" )
+
     	if ( options["unicode"] ) then
     		table.insert( package.buildflags, "unicode" )
     	end
@@ -320,6 +322,9 @@ function InsertWxWidegtsDefines( package , release_name , debug_name , options )
 		-- Set wxWidgets build options.
 		table.insert( package.config[debug_name].buildoptions, "`wx-config "..debug_option.." --cflags`" )
 		table.insert( package.config[release_name].buildoptions, "`wx-config --cflags`" )
+
+		table.insert( package.config[debug_name].buildoptions, "`pkg-config --cflags gtk+-2.0`" )
+		table.insert( package.config[release_name].buildoptions, "`pkg-config --cflags gtk+-2.0`" )
 	end
 
 	table.insert( package.config[debug_name].defines, { "__WXDEBUG__" } )
