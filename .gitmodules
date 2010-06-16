@@ -4,3 +4,6 @@
 [submodule "libxml2"]
 	path = libxml2
 	url = git://git.gnome.org/libxml2
+[submodule "irrlicht"]
+	path = irrlicht
+	url = git://forge.rheia-framework.com/irrlicht
