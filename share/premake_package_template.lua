@@ -685,8 +685,8 @@ function SetUpDefaultPaths( pakage , release_name , debug_name )
 	package.config[debug_name].libpaths = { "../../devel/".. debug_name .."/lib" }
 	
 	if( not windows ) then
-		table.insert( package.includepaths , "/usr/include/python" .. python_ver )
-		table.insert( package.links , "python" .. python_ver )
+		table.insert( package.buildoptions , "`python-config --includes`" )
+		table.insert( package.linkoptions , "`python-config --libs`" )
 	else
 		table.insert( package.config[debug_name].includepaths , "../../pybinaries/Debug/Include" )
 		table.insert( package.config[release_name].includepaths , "../../pybinaries/Release/Include" )

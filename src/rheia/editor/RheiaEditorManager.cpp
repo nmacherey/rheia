@@ -193,6 +193,7 @@ void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )
         mnSearch->Append( idApplyRegEx , wxT("Apply regular expression\tAlt-X") , wxT("Regular expression") );
         menuBar->Insert( idx +1 , mnSearch , wxT("&Search") );
     }
+
 }
 
 void RheiaEditorManager::BuildToolBar(wxWindow* parent)
