@@ -27,3 +27,4 @@ Makefile
 *.pdb*
 *.cache*
 *Upgrade*
+*.swp
