@@ -7,3 +7,6 @@
 [submodule "irrlicht"]
 	path = irrlicht
 	url = git://forge.rheia-framework.com/irrlicht
+[submodule "plplot"]
+	path = plplot
+	url = git://forge.rheia-framework.com/plplot
