@@ -16,6 +16,7 @@
 #include <RheiaBaseSettings.h>
 #include <RheiaGlobals.h>
 #include <RheiaManager.h>
+#include <RheiaManagedFrame.h>
 #include <RheiaFunctor.h>
 
 #include <wx/string.h>
@@ -88,6 +89,79 @@ private :
 
 protected :
 
+    /************************************************************************************
+    *   MEMBERS
+    ************************************************************************************/
+	typedef std::vector< RheiaEventFunctorBase* > EventMethodsArray;
+	typedef std::map< wxEventType, EventMethodsArray > EventMethodsMap;
+
+	EventMethodsMap EventMethods;
+};
+
+
+/**
+*   @class RheiaEventsManager
+*
+*   @brief This is the main class for generating events in Rheia, you can register and/or generate any
+*   events with this class.
+* 	
+* 	This class can handle any event derived from a wxEvent... To do this you have to register the event 
+* 	method using the RegisterEventMethod and the RheiaEventFunctor template. The method in your template 
+* 	shall be registered properly using a RheiaFooEventHandler ok wxCommandEventHandler macro
+*
+*	@author Nicolas Macherey (nm@graymat.fr)
+*	@date	04-January-2010
+*	@version 0.0.1
+*/
+class BASE_DLLEXPORT RheiaFrameEventsManager : public RheiaMgr<RheiaManagedFrame,RheiaFrameEventsManager>
+{
+    /************************************************************************************
+    *   FRIENDS
+    ************************************************************************************/
+    /** Give our private members access to the rheia manager */
+    friend class RheiaManager;
+    /** Give Singleton class access to our private members */
+    friend class RheiaMgr<RheiaManagedFrame,RheiaFrameEventsManager>;
+
+public :
+    /************************************************************************************
+    *   METHODS
+    ************************************************************************************/
+    /** Process to the given event */
+	bool ProcessEvent(wxEvent& event);
+
+	/** Register Event sink for a RheiaEvent */
+	void RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase* functor);
+
+	/** Removes all the processed event sinks for a specified owner */
+	void RemoveAllEventMethodsFor(void* owner);
+
+	/** Removes all the processed event sinks for a specified owner */
+	void RemoveAllEventMethods();
+
+private :
+
+    /************************************************************************************
+    *   CONSTRUCTORS AND DESTRUCTORS
+    ************************************************************************************/
+    /**
+    *   Basic constrcutor,
+    *   As any other singleton in Rheia, you have to use RheiaFrameEventsManager::Get()
+    *   to get the global instance for this class. However you should never have to
+    *   use this unless you are a Rheia core Developper.
+    */
+    RheiaFrameEventsManager(RheiaManagedFrame* parent);
+
+    /**
+    *   Default destructor,
+    *   As any other singleton in Rheia, you have to use RheiaFrameEventsManager::Free()
+    *   to free the global instance of this manager. However, you should never have to
+    *   use this unless you are a Rheie core Developper
+    */
+    ~RheiaFrameEventsManager();
+
+protected :
+	RheiaManagedFrame* m_parent;
     /************************************************************************************
     *   MEMBERS
     ************************************************************************************/

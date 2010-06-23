@@ -6,7 +6,7 @@
 #include <RheiaEvents.h>
 
 /* Implementing dynamic class for our events */
-IMPLEMENT_DYNAMIC_CLASS(RheiaEvent, wxNotifyEvent)
+IMPLEMENT_DYNAMIC_CLASS(RheiaEvent, wxCommandEvent)
 
 /**************************************************************************
 *   STARTUP EVENTS

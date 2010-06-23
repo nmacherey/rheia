@@ -36,7 +36,7 @@ RheiaEventsManager::RheiaEventsManager()
 
 RheiaEventsManager::~RheiaEventsManager()
 {
-
+	RemoveAllEventMethods();
 }
 
 bool RheiaEventsManager::ProcessEvent( wxEvent &event )
@@ -82,6 +82,82 @@ void RheiaEventsManager::RemoveAllEventMethodsFor(void* owner)
 }
 
 void RheiaEventsManager::RemoveAllEventMethods()
+{
+    /** First remove all events sinks from the manager */
+    for (EventMethodsMap::iterator mit = EventMethods.begin(); mit != EventMethods.end(); ++mit)
+    {
+        EventMethodsArray::iterator it = mit->second.begin();
+
+        for( ; it != mit->second.end() ; ++it )
+            if( (*it) )
+                delete (*it);
+    }
+
+    EventMethods.clear();
+}
+
+namespace
+{
+    RheiaMgr<RheiaManagedFrame,RheiaFrameEventsManager>::MgrNsMap locmap;
+}
+
+/*! Global instance for the RheiaFrameEventsManager */
+template<> RheiaMgr<RheiaManagedFrame,RheiaFrameEventsManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaFrameEventsManager>::m_ns = locmap;
+
+RheiaFrameEventsManager::RheiaFrameEventsManager(RheiaManagedFrame* parent):
+	m_parent(parent)
+{
+
+}
+
+RheiaFrameEventsManager::~RheiaFrameEventsManager()
+{
+	RemoveAllEventMethods();
+}
+
+bool RheiaFrameEventsManager::ProcessEvent( wxEvent &event )
+{
+    if (RheiaManager::IsAppShuttingDown())
+        return false;
+
+    EventMethodsMap::iterator mit = EventMethods.find(event.GetEventType());
+    if (mit != EventMethods.end())
+    {
+        for (EventMethodsArray::iterator it = mit->second.begin(); it != mit->second.end(); ++it)
+        {
+            (*it)->Call(event);
+        }
+    }
+    return true;
+}
+
+void RheiaFrameEventsManager::RegisterEventMethod(wxEventType eventType, RheiaEventFunctorBase* functor)
+{
+    EventMethods[eventType].push_back(functor);
+}
+
+void RheiaFrameEventsManager::RemoveAllEventMethodsFor(void* owner)
+{
+    for (EventMethodsMap::iterator mit = EventMethods.begin(); mit != EventMethods.end(); ++mit)
+    {
+        EventMethodsArray::iterator it = mit->second.begin();
+        bool endIsInvalid = false;
+        while (!endIsInvalid && it != mit->second.end())
+        {
+            if ((*it) && (*it)->GetThis() == owner)
+            {
+                EventMethodsArray::iterator it2 = it++;
+                endIsInvalid = it == mit->second.end();
+                delete (*it2);
+                mit->second.erase(it2);
+            }
+            else
+                ++it;
+        }
+    }
+}
+
+void RheiaFrameEventsManager::RemoveAllEventMethods()
 {
     /** First remove all events sinks from the manager */
     for (EventMethodsMap::iterator mit = EventMethods.begin(); mit != EventMethods.end(); ++mit)
