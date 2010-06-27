@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<!-- Author : Nicolas Macherey (nm@graymat.fr) http://www.rheia-framework.com -->
+
+
+<!-- Master bakefile for Rheia -->
+
+<makefile>
+
+    <set var="BUILDING_LIB">1</set>
+
+    <!-- common rules, names etc. for wx: -->
+    <include file="common.bkl"/>
+
+    <!-- wxWidgets variant where everything is in one library: -->
+    <include file="monolithic.bkl"/>
+    <!-- ...and when there are multiple libraries: -->
+    <include file="multilib.bkl"/>
+
+    <if cond="IS_MSVC_PRJ">
+        <set var="MSVC6PRJ_MERGED_TARGETS">
+            <if cond="MONOLITHIC=='0'">$(MSVC6PRJ_MERGED_TARGETS_MULTILIB)</if>
+            <if cond="MONOLITHIC=='1'">$(MSVC6PRJ_MERGED_TARGETS_MONOLIB)</if>
+        </set>
+    </if>
+
+    <if cond="FORMAT=='autoconf'">
+
+        <!-- "make install": -->
+
+        <data-files>
+            <files>rheia.m4</files>
+            <install-to>$(DATADIR)/aclocal</install-to>
+        </data-files>
+
+        <data-files>
+            <srcdir>$(SRCDIR)/build/bakefiles/rheiapresets/presets</srcdir>
+            <files>rheia.bkl rheia_unix.bkl rheia_win32.bkl rheia_xrc.bkl rheia_presets.py</files>
+            <install-to>$(DATADIR)/bakefile/presets</install-to>
+        </data-files>
+
+        <action id="install-rheiaconfig">
+            <dependency-of>install</dependency-of>
+            <command>
+                $(INSTALL_DIR) $(DESTDIR)$(BINDIR)
+                $(INSTALL_DIR) $(DESTDIR)$(LIBDIR)/rheia/config
+                $(INSTALL_PROGRAM) lib/rheia/config/$(TOOLCHAIN_FULLNAME) $(DESTDIR)$(LIBDIR)/rheia/config
+                (cd $(DESTDIR)$(BINDIR) &amp;&amp; rm -f rheia-config &amp;&amp; $(LN_S) $(LIBDIR)/rheia/config/$(TOOLCHAIN_FULLNAME) rheia-config)
+            </command>
+        </action>
+
+        <modify-target target="install">
+            <command>
+                $(DYLIB_RPATH_INSTALL)
+            </command>
+        </modify-target>
+
+        <!-- FIXME: Careull here might not respect the includes -->
+        <data-files-tree>
+            <srcdir>$(SRCDIR)</srcdir>
+            <files>$(SINGLELIB_RHEIA_HEADERS)</files>
+            <install-to>
+                $(INCLUDEDIR)/rheia-$(RHEIA_RELEASE)$(RHEIA_FLAVOUR)
+            </install-to>
+        </data-files-tree>
+
+    </if>
+
+    <if cond="FORMAT=='autoconf'">
+
+        <!-- Show this banner after installation: -->
+        <modify-target target="install">
+            <command>
+@echo " "
+@echo " ------------------------------------------------------"
+@echo " "
+@echo " The installation of Rheia is finished.  On certain"
+@echo " platforms (e.g. Linux) you'll now have to run ldconfig"
+@echo " if you installed a shared library and also modify the"
+@echo " LD_LIBRARY_PATH (or equivalent) environment variable."
+@echo " "
+@echo " Rheia comes with no guarantees and doesn't claim"
+@echo " to be suitable for any purpose."
+@echo " "
+@echo " Read the Rheia Licence on licencing conditions."
+@echo " "
+@echo " ------------------------------------------------------"
+@echo " "
+            </command>
+        </modify-target>
+
+        <!-- add "make dist" target to autoconf: 
+        <set var="VARS_DONT_ELIMINATE" append="1">
+            ALL_PORTS_BASE_HEADERS ALL_BASE_SOURCES WX_VERSION
+        </set>
+        <fragment format="autoconf" file="make_dist.mk"/>-->
+
+    </if>
+
+    <!--<include file="build_cfg.bkl"/>-->
+
+</makefile>

@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+<!-- Author : Nicolas Macherey (nm@graymat.fr) http://www.rheia-framework.com -->
+
+<makefile>
+
+    <define-rule name="rheiashortcut" extends="phony">
+        <template>
+            <set var="name">$(id.replace('rheia',''))</set>
+            <set var="namedll">
+                <if cond="SHARED=='1'">$(name)dll</if>
+            </set>
+            <depends>$(namedll)</depends>
+        </template>
+    </define-rule>
+
+    <!-- ================================================================= -->
+    <!--                            rheia utils library                         -->
+    <!-- ================================================================= -->
+
+    <dll id="utilsdll" template="rheia_base_dll"
+         cond="SHARED=='1' and MONOLITHIC=='0'">
+        <define>RHEIA_UTILS_MAKINGDLL</define>
+        <define>wxUSE_BASE=1</define>
+        <sources>$(RHEIA_UTILS_SRC)</sources>
+        <msvc-headers>$(RHEIA_UTILS_HDR)</msvc-headers>
+    </dll>
+
+    <rheiashortcut id="rheiautils" cond="MONOLITHIC=='0'"/>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">utils=utilsdll</set>
+
+    <!-- ================================================================= -->
+    <!--                            rheia base library                         -->
+    <!-- ================================================================= -->
+
+    <dll id="basedll" template="rheia_base_dll"
+         cond="SHARED=='1' and MONOLITHIC=='0'">
+        <define>RHEIA_BASE_MAKINGDLL</define>
+        <define>wxUSE_BASE=1</define>
+        <sources>$(RHEIA_BASE_SRC)</sources>
+        <msvc-headers>$(RHEIA_BASE_HDR)</msvc-headers>
+    </dll>
+
+    <rheiashortcut id="rheiabase" cond="MONOLITHIC=='0'"/>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">base=basedll</set>
+
+    <!-- ================================================================= -->
+    <!--                            rheia loggers library                         -->
+    <!-- ================================================================= -->
+
+    <dll id="loggersdll" template="rheia_base_dll"
+         cond="SHARED=='1' and MONOLITHIC=='0'">
+        <define>RHEIA_LOGGERS_MAKINGDLL</define>
+        <define>wxUSE_BASE=1</define>
+        <sources>$(RHEIA_LOGGERS_SRC)</sources>
+        <msvc-headers>$(RHEIA_LOGGERS_HDR)</msvc-headers>
+    </dll>
+
+    <rheiashortcut id="rheialoggers" cond="MONOLITHIC=='0'"/>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">loggers=loggersdll</set>
+
+    <!-- ================================================================= -->
+    <!--                            rheia package management library                         -->
+    <!-- ================================================================= -->
+
+    <dll id="packagemgtdll" template="rheia_base_dll"
+         cond="SHARED=='1' and MONOLITHIC=='0'">
+        <define>RHEIA_PMGT_MAKINGDLL</define>
+        <define>wxUSE_BASE=1</define>
+        <sources>$(RHEIA_PACKAGES_SRC)</sources>
+        <msvc-headers>$(RHEIA_PACKAGES_HDR)</msvc-headers>
+    </dll>
+
+    <rheiashortcut id="rheiapackagemgt" cond="MONOLITHIC=='0'"/>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">packagemgt=packagemgtdll</set>
+
+    <!-- ================================================================= -->
+    <!--                     rheia workspace management library            -->
+    <!-- ================================================================= -->
+
+    <dll id="workspacemgtdll" template="rheia_base_dll"
+         cond="SHARED=='1' and MONOLITHIC=='0'">
+        <define>RHEIA_WMGT_MAKINGDLL</define>
+        <define>wxUSE_BASE=1</define>
+        <sources>$(RHEIA_WORKSPACES_SRC)</sources>
+        <msvc-headers>$(RHEIA_WORKSPACES_HDR)</msvc-headers>
+    </dll>
+
+    <rheiashortcut id="rheiaworkspacemgt" cond="MONOLITHIC=='0'"/>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">workspacemgt=workspacemgtdll</set>
+
+    <!-- ================================================================= -->
+    <!--                     rheia editor library                          -->
+    <!-- ================================================================= -->
+
+    <dll id="editordll" template="rheia_base_dll"
+         cond="SHARED=='1' and MONOLITHIC=='0'">
+        <define>RHEIA_EDITOR_MAKINGDLL</define>
+        <define>wxUSE_BASE=1</define>
+        <sources>$(RHEIA_EDITOR_SRC)</sources>
+        <msvc-headers>$(RHEIA_EDITOR_HDR)</msvc-headers>
+    </dll>
+
+    <rheiashortcut id="rheiaeditor" cond="MONOLITHIC=='0'"/>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">editor=editordll</set>
+
+    <!-- ================================================================= -->
+    <!--                     rheia python library                          -->
+    <!-- ================================================================= -->
+
+    <dll id="pythondll" template="rheia_base_dll"
+         cond="SHARED=='1' and MONOLITHIC=='0'">
+        <define>RHEIA_PYTHON_MAKINGDLL</define>
+        <define>wxUSE_BASE=1</define>
+        <sources>$(RHEIA_PYTHON_SRC)</sources>
+        <msvc-headers>$(RHEIA_PYTHON_HDR)</msvc-headers>
+    </dll>
+
+    <rheiashortcut id="rheiapython" cond="MONOLITHIC=='0'"/>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">python=pythondll</set>
+
+</makefile>

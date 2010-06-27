@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<!-- Author : Nicolas Macherey (nm@graymat.fr) http://www.rheia-framework.com -->
+
+<bakefile-gen xmlns="http://www.bakefile.org/schema/bakefile-gen">
+
+    <disable-formats>dmars,dmars_smake,msevc4prj</disable-formats>
+
+    <!-- These wildcards match all .bkl files in rheia tree: -->
+    <input>
+        rheia.bkl
+    </input>
+
+    <!-- List of output formats to generate: -->
+    <add-formats>
+        autoconf,borland,dmars_smake,dmars,mingw,msvc,msvc6prj,msevc4prj,msvs2003prj,msvs2005prj,msvs2008prj,watcom
+    </add-formats>
+
+    <!-- Default flags (for all formats and bakefiles): -->
+    <add-flags>-Iformats</add-flags>
+
+
+    <!-- Directories where the files go: -->
+    <add-flags files="rheia.bkl" formats="autoconf">
+        -o../../Makefile.in
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="borland">
+        -o../msw/makefile.bcc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="dmars_smake">
+        -o../msw/makefile.dms
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="dmars">
+        -o../msw/makefile.dmc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="mingw">
+        -o../msw/makefile.gcc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="msvc">
+        -o../msw/makefile.vc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="watcom">
+        -o../msw/makefile.wat
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="msvc6prj">
+        -o../msw/rheia.dsw
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="msvs2003prj">
+        -o../msw/rheia_vc7.sln
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="msvs2005prj">
+        -o../msw/rheia_vc8.sln
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="msvs2008prj">
+        -o../msw/rheia_vc9.sln
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="msevc4prj">
+        -o../wince/rheia.vcw
+    </add-flags>
+
+
+
+    <!-- Format specific settings: -->
+    <add-flags formats="autoconf">
+        -DAUTOCONF_MACROS_FILE=../../autoconf_inc.m4
+    </add-flags>
+
+    <add-formats files="rheia.bkl">rpmspec</add-formats>
+
+    <!-- Makefile specific settings: -->
+    <add-flags formats="borland,dmars_smake,dmars,mingw,msvc,watcom">
+        -DWRITE_OPTIONS_FILE=0
+    </add-flags>
+    <del-flags formats="borland,dmars_smake,dmars,mingw,msvc,watcom"
+               files="rheia.bkl">
+        -DWRITE_OPTIONS_FILE=0
+    </del-flags>
+
+    <add-flags files="rheia.bkl" formats="borland">
+        -DOPTIONS_FILE=config.bcc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="dmars_smake">
+        -DOPTIONS_FILE=config.dms
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="dmars">
+        -DOPTIONS_FILE=config.dmc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="mingw">
+        -DOPTIONS_FILE=config.gcc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="msvc">
+        -DOPTIONS_FILE=config.vc
+    </add-flags>
+    <add-flags files="rheia.bkl" formats="watcom">
+        -DOPTIONS_FILE=config.wat
+    </add-flags>
+
+    <add-flags files="../../*/*">-DRHEIAOPDIR=../</add-flags>
+    <add-flags files="../../*/*/*">-DRHEIAOPDIR=../../</add-flags>
+    <add-flags files="../../*/*/*/*">-DRHEIAOPDIR=../../../</add-flags>
+    <add-flags files="../../*/*/*/*/*">-DRHEIAOPDIR=../../../../</add-flags>
+
+    <add-flags files="../../*/*" formats="borland">
+        -DOPTIONS_FILE=../build/msw/config.bcc
+    </add-flags>
+    <add-flags files="../../*/*" formats="dmars_smake">
+        -DOPTIONS_FILE=../build/msw/config.dms
+    </add-flags>
+    <add-flags files="../../*/*" formats="dmars">
+        -DOPTIONS_FILE=../build/msw/config.dmc
+    </add-flags>
+    <add-flags files="../../*/*" formats="mingw">
+        -DOPTIONS_FILE=../build/msw/config.gcc
+    </add-flags>
+    <add-flags files="../../*/*" formats="msvc">
+        -DOPTIONS_FILE=../build/msw/config.vc
+    </add-flags>
+    <add-flags files="../../*/*" formats="watcom">
+        -DOPTIONS_FILE=../build/msw/config.wat
+    </add-flags>
+    <add-flags files="../../*/*/*" formats="borland">
+        -DOPTIONS_FILE=../../build/msw/config.bcc
+    </add-flags>
+    <add-flags files="../../*/*/*" formats="dmars_smake">
+        -DOPTIONS_FILE=../../build/msw/config.dms
+    </add-flags>
+    <add-flags files="../../*/*/*" formats="dmars">
+        -DOPTIONS_FILE=../../build/msw/config.dmc
+    </add-flags>
+    <add-flags files="../../*/*/*" formats="mingw">
+        -DOPTIONS_FILE=../../build/msw/config.gcc
+    </add-flags>
+    <add-flags files="../../*/*/*" formats="msvc">
+        -DOPTIONS_FILE=../../build/msw/config.vc
+    </add-flags>
+    <add-flags files="../../*/*/*" formats="watcom">
+        -DOPTIONS_FILE=../../build/msw/config.wat
+    </add-flags>
+    <add-flags files="../../*/*/*/*" formats="borland">
+        -DOPTIONS_FILE=../../../build/msw/config.bcc
+    </add-flags>
+    <add-flags files="../../*/*/*/*" formats="dmars_smake">
+        -DOPTIONS_FILE=../../../build/msw/config.dms
+    </add-flags>
+    <add-flags files="../../*/*/*/*" formats="dmars">
+        -DOPTIONS_FILE=../../../build/msw/config.dmc
+    </add-flags>
+    <add-flags files="../../*/*/*/*" formats="mingw">
+        -DOPTIONS_FILE=../../../build/msw/config.gcc
+    </add-flags>
+    <add-flags files="../../*/*/*/*" formats="msvc">
+        -DOPTIONS_FILE=../../../build/msw/config.vc
+    </add-flags>
+    <add-flags files="../../*/*/*/*" formats="watcom">
+        -DOPTIONS_FILE=../../../build/msw/config.wat
+    </add-flags>
+    <add-flags files="../../*/*/*/*/*" formats="borland">
+        -DOPTIONS_FILE=../../../../build/msw/config.bcc
+    </add-flags>
+    <add-flags files="../../*/*/*/*/*" formats="dmars_smake">
+        -DOPTIONS_FILE=../../../../build/msw/config.dms
+    </add-flags>
+    <add-flags files="../../*/*/*/*/*" formats="dmars">
+        -DOPTIONS_FILE=../../../../build/msw/config.dmc
+    </add-flags>
+    <add-flags files="../../*/*/*/*/*" formats="mingw">
+        -DOPTIONS_FILE=../../../../build/msw/config.gcc
+    </add-flags>
+    <add-flags files="../../*/*/*/*/*" formats="msvc">
+        -DOPTIONS_FILE=../../../../build/msw/config.vc
+    </add-flags>
+    <add-flags files="../../*/*/*/*/*" formats="watcom">
+        -DOPTIONS_FILE=../../../../build/msw/config.wat
+    </add-flags>
+
+    <!-- Personal customizations (not in VCS): -->
+    <include file="Bakefiles.local.bkgen" ignore_missing="1"/>
+
+</bakefile-gen>

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!-- Author : Nicolas Macherey (nm@graymat.fr) http://www.rheia-framework.com -->
+<makefile>
+
+    <set var="MONOLIB_SRC">
+        $(SINGLELIB_RHEIA_SOURCES)
+    </set>
+
+    <dll id="monodll" template="rheia_dll"
+         cond="SHARED=='1' and MONOLITHIC=='1'">
+        <define>wxUSE_BASE=1</define>
+        <define>WXUSINGDLL</define>
+        <sources>$(MONOLIB_SRC)</sources>
+        <msvc-headers>$(SINGLELIB_RHEIA_HEADERS)</msvc-headers>
+
+        <!-- STC stuff, should this be conditionalized?
+        <include>$(TOP_SRCDIR)src/stc/scintilla/include</include>
+        <include>$(TOP_SRCDIR)src/stc/scintilla/src</include>
+        <define>__WX__</define>
+        <define>SCI_LEXER</define>
+        <define>LINK_LEXERS</define>
+        <library>$(wxscintilla_library_link)</library> -->
+
+    </dll>
+
+    <set var="MSVC6PRJ_MERGED_TARGETS_MONOLIB" append="1">mono=monodll</set>
+
+</makefile>

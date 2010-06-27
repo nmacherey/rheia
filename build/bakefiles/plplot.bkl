@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<!-- Author : Nicolas Macherey (nm@graymat.fr) http://www.rheia-framework.com -->
+
+<makefile>
+
+    <if cond="FORMAT=='autoconf'">
+        <set var="LIB_PLPLOT">
+            rheiaplplot$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)-$(RHEIA_RELEASE)$(HOST_SUFFIX)
+        </set>
+    </if>
+    <if cond="FORMAT!='autoconf'">
+        <set var="LIB_PLPLOT">
+            rheiaplplot$(RHEIADEBUGFLAG)$(HOST_SUFFIX)
+        </set>
+    </if>
+
+    <set var="INC_PLPLOT">
+        <if cond="USE_PLPLOT=='1'">$(TOP_SRCDIR)include/plplot</if>
+	<if cond="USE_PLPLOT=='1'">$(TOP_SRCDIR)include/wxwidgets</if>
+	<if cond="USE_PLPLOT=='1'">$(TOP_SRCDIR)include/csirocsa</if>
+	<if cond="USE_PLPLOT=='1'">$(TOP_SRCDIR)include/qsastime</if>
+    </set>
+
+    <dll id="rheiaplplot" template="3rdparty_lib"
+         cond="USE_PLPLOT=='1' and BUILDING_LIB=='1'">
+        <dirname>$(LIBDIRNAME)</dirname>
+        <include>$(PLPLOT_HEADERS)</include>
+        <cflags-borland>-w-8004 -w-8012 -w-8057 -w-8060 -w-8066</cflags-borland>
+        <cflags-dmars>-w2</cflags-dmars>
+        <cflags-watcom>-wcd=124</cflags-watcom>
+        <define cond="PLATFORM_OS2=='1' and FORMAT=='watcom'">OS2_32</define>
+        <define cond="PLATFORM_MSDOS=='1' and FORMAT=='watcom'">__MSDOS__</define>
+        <if cond="IS_MSVC">
+            <!--
+                define this to get rid of a warning about using POSIX lfind():
+                confusingly enough, we do define lfind as _lfind for MSVC but
+                doing this results in a just more confusing warning, see:
+                http://connect.microsoft.com/VisualStudio/feedback/ViewFeedback.aspx?FeedbackID=101278
+             -->
+            <define>_CRT_NONSTDC_NO_WARNINGS</define>
+        </if>
+
+        <sources>
+            $(PLPLOT_SOURCES)
+        </sources>
+    </dll>
+
+</makefile>

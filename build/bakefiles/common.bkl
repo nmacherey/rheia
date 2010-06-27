@@ -1,0 +1,587 @@
+<?xml version="1.0" ?>
+<!-- Author : Nicolas Macherey (nm@graymat.fr) http://www.rheia-framework.com -->
+
+<makefile>
+
+    <requires version="0.2.7"/>
+
+    <!-- bakefile modules we need: -->
+    <using module="datafiles"/>
+
+    <!-- load python module with rheia helpers: -->
+    <using module="rheia"/>
+
+    <!-- DFE: Add a platform meaning regular MacOS (not OS X) -->
+    <if cond="FORMAT=='autoconf'">
+        <option name="PLATFORM_MACOS"/>
+    </if>
+    <if cond="FORMAT!='autoconf'">
+        <set var="PLATFORM_MACOS">0</set>
+    </if>
+
+    <include file="config.bkl"/>
+
+    <!-- wxWidgets version numbers logic: -->
+    <include file="version.bkl"/>
+    
+    <!-- list of files sorted into categories: -->
+    <include file="files.bkl"/>
+
+    <!-- ================================================================== -->
+    <!--                     Names of libraries and DLLs:                   -->
+    <!-- ================================================================== -->
+
+    <set var="PORTNAME">
+        $(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)
+    </set>
+
+    <set var="RHEIABASEPORT">
+        <if cond="TOOLKIT=='MAC'">_carbon</if>
+    </set>
+
+    <set var="COMPILERORGCC">
+        <if cond="isdefined('COMPILER')">$(COMPILER)</if>
+        <if cond="not isdefined('COMPILER')">gcc</if>
+    </set>
+    <set var="RHEIACOMPILER">
+        <if cond="PLATFORM_WIN32=='1'">_$(COMPILERORGCC)</if>
+    </set>
+
+    <set var="VENDORTAG">
+        <if cond="PLATFORM_WIN32=='1' and OFFICIAL_BUILD=='1'"></if>
+        <if cond="PLATFORM_WIN32=='1' and OFFICIAL_BUILD=='0'">_$(VENDOR)</if>
+    </set>
+
+    <!-- debug suffix used for Windows libraries which use debug CRT -->
+    <set var="RHEIADEBUGFLAG">
+        <if cond="BUILD=='debug' and DEBUG_RUNTIME_LIBS=='default'">d</if>
+        <if cond="DEBUG_RUNTIME_LIBS=='1'">d</if>
+    </set>
+    <set var="RHEIAUNICODEFLAG">
+        <!-- WinCE is Unicode-only platform: -->
+        <if cond="UNICODE=='1' and FORMAT!='msevc4prj'">u</if>
+    </set>
+    <set var="RHEIA_U_D_SUFFIX">
+        $(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)
+    </set>
+    <set var="RHEIANAMESUFFIX">
+        $(RHEIA_U_D_SUFFIX)$(RHEIA_LIB_FLAVOUR)
+    </set>
+
+    <set var="RHEIAUNIVNAME">
+        <if cond="RHEIAUNIV=='1'">univ</if>
+    </set>
+    <set var="RHEIAUNIV_DEFINE">
+        <if cond="RHEIAUNIV=='1'">__RHEIAUNIVERSAL__</if>
+    </set>
+
+    <if cond="FORMAT=='autoconf'">
+        <set var="RHEIANAMEPREFIX">rheia_base$(RHEIABASEPORT)</set>
+        <set var="RHEIANAMEPREFIXGUI">rheia_$(PORTNAME)$(RHEIAUNIVNAME)</set>
+        <set var="RHEIAVERSIONTAG">-$(RHEIA_RELEASE)</set>
+    </if>
+    <if cond="FORMAT!='autoconf'">
+        <set var="RHEIANAMEPREFIX">
+            rheiabase$(RHEIABASEPORT)$(RHEIA_RELEASE_NODOT)
+        </set>
+        <set var="RHEIANAMEPREFIXGUI">
+            rheia$(PORTNAME)$(RHEIAUNIVNAME)$(RHEIA_RELEASE_NODOT)</set>
+        <set var="RHEIAVERSIONTAG"></set>
+    </if>
+    <set var="RHEIADLLNAMEPREFIX">
+        <if cond="PLATFORM_WIN32=='1'">
+            rheiabase$(RHEIABASEPORT)$(RHEIAWIN32DLLVERSION)
+        </if>
+        <if cond="PLATFORM_WIN32=='0'">$(RHEIANAMEPREFIX)</if>
+    </set>
+    <set var="RHEIADLLNAMEPREFIXGUI">
+        <if cond="PLATFORM_WIN32=='1'">
+            rheia$(PORTNAME)$(RHEIAUNIVNAME)$(RHEIAWIN32DLLVERSION)
+        </if>
+        <if cond="PLATFORM_WIN32=='0'">$(RHEIANAMEPREFIXGUI)</if>
+    </set>
+    <set var="RHEIADLLVERSIONTAG">
+        <if cond="PLATFORM_WIN32=='1'"></if>
+        <if cond="PLATFORM_WIN32=='0'">$(RHEIAVERSIONTAG)</if>
+    </set>
+
+
+    <!-- =============================================================== -->
+    <!--                    Names of component libraries:                -->
+    <!-- =============================================================== -->
+
+    <set var="RHEIALIB_IRRLICHT">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('irrlicht')))</if>
+    </set>
+    <set var="RHEIALIB_CSIROCSA">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('csirocsa')))</if>
+    </set>
+    <set var="RHEIALIB_QSASTIME">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('qsastime')))</if>
+    </set>
+    <set var="RHEIALIB_PLPLOT">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('plplot')))</if>
+    </set>
+    <set var="RHEIALIB_WXPLPLOT">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('wxplplot')))</if>
+    </set>
+    <set var="RHEIALIB_WEBCONNECT">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('webconnect')))</if>
+    </set>
+    <set var="RHEIALIB_UTILS">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('utils')))</if>
+    </set>
+    <set var="RHEIALIB_BASE">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('base')))</if>
+    </set>
+    <set var="RHEIALIB_LOGGERS">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('loggers')))</if>
+    </set>
+    <set var="RHEIALIB_PACKAGEMGT">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('packagemgt')))</if>
+    </set>
+    <set var="RHEIALIB_WORKSPACEMGT">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('workspacemgt')))</if>
+    </set>
+    <set var="RHEIALIB_EDITOR">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('editor')))</if>
+    </set>
+    <set var="RHEIALIB_PYTHON">
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('python')))</if>
+    </set>
+
+    <!-- =============================================================== -->
+    <!--             Where to store built libraries and objects:         -->
+    <!-- =============================================================== -->
+
+    <set var="DIR_SUFFIX_CPU">
+        <if cond="FORMAT=='msevc4prj'">_$(CPU)</if>
+        <if cond="TARGET_CPU=='amd64'">_amd64</if>
+        <if cond="TARGET_CPU=='AMD64'">_amd64</if>
+        <if cond="TARGET_CPU=='ia64'">_ia64</if>
+        <if cond="TARGET_CPU=='IA64'">_ia64</if>
+    </set>
+
+    <if cond="FORMAT!='autoconf'">
+        <set var="RHEIADLLFLAG">
+            <if cond="SHARED=='1'">dll</if>
+        </set>
+        <set var="CFG_NAME_PART">
+            $(PORTNAME)$(RHEIAUNIVNAME)$(RHEIA_U_D_SUFFIX)$(RHEIADLLFLAG)$(CFG)
+        </set>
+
+        <!-- NB: this is make_var so that it can be overriden on command line
+                 like this: nmake -f makefile.vc COMPILER_PREFIX=vc6 -->
+        <set var="COMPILER_PREFIX" make_var="1">$(COMPILER)</set>
+
+        <set var="OBJS" make_var="1">
+            $(COMPILER_PREFIX)_$(CFG_NAME_PART)$(DIR_SUFFIX_CPU)
+        </set>
+
+        <set var="BUILDDIR">$(OBJS)</set>
+    </if>
+
+    <set var="LIBTYPE_SUFFIX" make_var="1">
+        <if cond="FORMAT!='autoconf' and SHARED=='0' and PLATFORM_WIN32=='1'">lib</if>
+        <if cond="FORMAT!='autoconf' and SHARED=='1' and PLATFORM_WIN32=='1'">dll</if>
+        <if cond="FORMAT=='watcom' and SHARED=='0' and PLATFORM_WIN32=='0'">$(TOOLKIT_LOWERCASE)_lib</if>
+        <if cond="FORMAT=='watcom' and SHARED=='1' and PLATFORM_WIN32=='0'">$(TOOLKIT_LOWERCASE)_dll</if>
+    </set>
+
+    <set var="LIBDIRNAME" make_var="1">
+        <if cond="FORMAT=='autoconf'">$(rheia_top_builddir)/lib</if>
+        <if cond="FORMAT!='autoconf'">
+            $(nativePaths(TOP_SRCDIR))lib$(DIRSEP)$(COMPILER_PREFIX)$(DIR_SUFFIX_CPU)_$(LIBTYPE_SUFFIX)$(CFG)
+        </if>
+    </set>
+
+    <if cond="FORMAT!='autoconf'">
+        <set var="SETUPHDIR" make_var="1">
+            $(LIBDIRNAME)\$(PORTNAME)$(RHEIAUNIVNAME)$(RHEIA_U_D_SUFFIX)
+        </set>
+    </if>
+
+
+
+    <!-- =============================================================== -->
+    <!--                        Templates for libs:                      -->
+    <!-- =============================================================== -->
+
+    <set var="DEBUGINFO">
+        <if cond="BUILD=='debug' and DEBUG_INFO=='default'">on</if>
+        <if cond="DEBUG_INFO=='1'">on</if>
+        <if cond="BUILD=='release' and DEBUG_INFO=='default'">off</if>
+        <if cond="DEBUG_INFO=='0'">off</if>
+    </set>
+    <set var="DEBUGRUNTIME">
+        <if cond="DEBUG_RUNTIME_LIBS=='default' and BUILD=='debug'">on</if>
+        <if cond="DEBUG_RUNTIME_LIBS=='default' and BUILD=='release'">off</if>
+        <if cond="DEBUG_RUNTIME_LIBS=='0'">off</if>
+        <if cond="DEBUG_RUNTIME_LIBS=='1'">on</if>
+    </set>
+    <set var="OPTIMIZEFLAG">
+        <if cond="BUILD=='debug'">off</if>
+        <if cond="BUILD=='release'">speed</if>
+    </set>
+    <set var="EXCEPTIONSFLAG">
+        <if cond="USE_EXCEPTIONS=='1'">on</if>
+        <if cond="USE_EXCEPTIONS=='0'">off</if>
+    </set>
+    <set var="RTTIFLAG">
+        <if cond="USE_RTTI=='1'">on</if>
+        <if cond="USE_RTTI=='0'">off</if>
+    </set>
+    <set var="THREADSFLAG">
+        <if cond="USE_THREADS=='1'">multi</if>
+        <if cond="USE_THREADS=='0'">single</if>
+    </set>
+
+    <set var="EXCEPTIONS_DEFINE">
+        <if cond="USE_EXCEPTIONS=='0'">wxNO_EXCEPTIONS</if>
+    </set>
+    <set var="THREAD_DEFINE">
+        <if cond="USE_THREADS=='0'">wxNO_THREADS</if>
+    </set>
+
+    <set var="DEBUG_DEFINE">
+        <if cond="DEBUG_FLAG=='0'">wxDEBUG_LEVEL=0</if>
+    </set>
+    <set var="NDEBUG_DEFINE">
+        <if cond="FORMAT!='autoconf' and DEBUG_RUNTIME_LIBS=='default' and BUILD=='release'">NDEBUG</if>
+        <if cond="FORMAT!='autoconf' and DEBUG_RUNTIME_LIBS=='0'">NDEBUG</if>
+    </set>
+
+    <!-- does not cover all cases, but better than nothing -->
+    <set var="NO_VC_CRTDBG">
+        <if cond="FORMAT=='msvc' and BUILD=='debug' and DEBUG_RUNTIME_LIBS=='0'">__NO_VC_CRTDBG__</if>
+        <if cond="FORMAT=='msvc' and BUILD=='release' and DEBUG_FLAG=='1'">__NO_VC_CRTDBG__</if>
+    </set>
+    <set var="UNICODE_DEFINE">
+        <if cond="FORMAT!='autoconf' and UNICODE=='1'">_UNICODE</if>
+        <if cond="FORMAT!='autoconf' and UNICODE=='0'">wxUSE_UNICODE=0</if>
+    </set>
+    <set var="MSLU_DEFINE">
+        <if cond="FORMAT!='autoconf' and MSLU=='1'">wxUSE_UNICODE_MSLU=1</if>
+    </set>
+
+    <!-- fill for the specific case of the format/compiler -->
+    <set var="WIN32_WINNT">
+        <if cond="FORMAT=='dmars' or FORMAT=='dmars_smake'">_WIN32_WINNT=0x0400</if>
+    </set>
+
+    <set var="LINK_TARGET_CPU">
+        <if cond="TARGET_CPU=='amd64'">/MACHINE:X64</if>
+        <if cond="TARGET_CPU=='AMD64'">/MACHINE:X64</if>
+        <if cond="TARGET_CPU=='ia64'">/MACHINE:IA64</if>
+        <if cond="TARGET_CPU=='IA64'">/MACHINE:IA64</if>
+    </set>
+
+    <template id="common_settings">
+        <debug-info>$(DEBUGINFO)</debug-info>
+        <debug-runtime-libs>$(DEBUGRUNTIME)</debug-runtime-libs>
+        <optimize>$(OPTIMIZEFLAG)</optimize>
+        <threading>$(THREADSFLAG)</threading>
+        <runtime-libs>$(RUNTIME_LIBS)</runtime-libs>
+        <cxx-rtti>$(RTTIFLAG)</cxx-rtti>
+        <cxx-exceptions>$(EXCEPTIONSFLAG)</cxx-exceptions>
+        <if cond="FORMAT!='autoconf'">
+            <cppflags>$(EXTRACFLAGS)</cppflags>
+        </if>
+        <define>$(NO_VC_CRTDBG)</define>
+        <define>$(WIN32_WINNT)</define>
+        <if cond="FORMAT=='msvc'">
+            <ldflags>$(LINK_TARGET_CPU)</ldflags>
+        </if>
+        <include cond="FORMAT=='msevc4prj'">$(TOP_SRCDIR)build/wince/missing</include>
+    </template>
+
+    <template id="anylib">
+        <dirname>$(LIBDIRNAME)</dirname>
+        <install-to>$(LIBDIR)</install-to>
+    </template>
+
+    <template id="3rdparty_lib" template="common_settings,anylib">
+        <if cond="FORMAT=='autoconf'">
+            <libname>$(id)$(RHEIA_LIB_FLAVOUR)-$(RHEIA_RELEASE)$(HOST_SUFFIX)</libname>
+        </if>
+        <if cond="FORMAT!='autoconf'">
+            <libname>$(id)$(RHEIADEBUGFLAG)$(HOST_SUFFIX)</libname>
+        </if>
+        <!--
+        we want to install 3rd party libs system-wide only with static
+        version of wxWidgets; otherwise they are embedded in shared libs:
+        -->
+        <install-if>SHARED=='0'</install-if>
+        <pic>$(substituteFromDict(SHARED, {'0':'off', '1':'on'}))</pic>
+
+        <!--
+            we don't want to have asserts in the 3rd party libraries code,
+            neither we nor wx users are interested in debugging them anyhow
+         -->
+        <define>NDEBUG</define>
+
+        <if cond="IS_MSVC">
+            <!--
+                we're not interested in deprecation warnings about the use of
+                standard C functions in the 3rd party libraries (these warnings
+                are only given by VC8+ but it's simpler to just always define
+                this symbol which disables them, even for previous VC versions)
+             -->
+            <define>_CRT_SECURE_NO_WARNINGS</define>
+        </if>
+    </template>
+
+    <define-tag name="msvc-headers" rules="dll,lib">
+        <if cond="IS_MSVC_PRJ">
+            <msvc-project-files>
+                $(addPrefixToList('include\\', rheia.headersOnly(value)))
+            </msvc-project-files>
+        </if>
+    </define-tag>
+
+    <!-- =============================================================== -->
+    <!--                         3rd party libs:                         -->
+    <!-- =============================================================== -->
+
+    <!-- 3rd party libraries: -->
+    <include file="irrlicht.bkl"/>
+    <include file="plplot.bkl"/>
+    <include file="wxplplot.bkl"/>
+    <include file="webconnect.bkl"/>
+    <!-- <include file="csirocsa.bkl"/>
+    <include file="qsastime.bkl"/>
+    <include file="plplot.bkl"/>
+    <include file="wxplplot.bkl"/>
+    <include file="webconnect.bkl"/> -->
+
+    <!-- =============================================================== -->
+    <!--                  Templates for Rheia libs:                  -->
+    <!-- =============================================================== -->
+
+    <set var="EXTRALIBS_FOR_BASE">
+        <if cond="MONOLITHIC=='1'">$(EXTRALIBS) $(EXTRALIBS_GUI)</if>
+        <if cond="MONOLITHIC=='0'">$(EXTRALIBS)</if>
+    </set>
+    <set var="EXTRALIBS_FOR_GUI">
+        <if cond="MONOLITHIC=='1'"></if>
+        <if cond="MONOLITHIC=='0'">$(EXTRALIBS_GUI)</if>
+    </set>
+
+    <if cond="TOOLKIT=='MGL' and FORMAT=='watcom'">
+        <set var="MGLLIBPATH">$(DOLLAR)(%SCITECH)/lib/$(BUILD)/dos32/ow10</set>
+        <set var="MGLPMLIBPATH">
+            <if cond="DOS32=='DOS4GW'">dos4gw</if>
+        </set>
+    </if>
+
+    <template id="rheia" template="common_settings">
+        <set var="rheiaid">$(rheia.mk_rheiaid(id))</set>
+        <define>__RHEIA$(TOOLKIT)__</define>
+        <define>$(RHEIAUNIV_DEFINE)</define>
+        <define>$(DEBUG_DEFINE)</define>
+        <define>$(NDEBUG_DEFINE)</define>
+        <define>$(EXCEPTIONS_DEFINE)</define>
+        <!--<define>$(RTTI_DEFINE)</define>-->
+        <define>$(THREAD_DEFINE)</define>
+        <define>$(UNICODE_DEFINE)</define>
+        <define>$(MSLU_DEFINE)</define>
+        <include cond="FORMAT!='autoconf'">$(TOP_SRCDIR)include</include>
+        <lib-path>$(LIBDIRNAME)</lib-path>
+        <if cond="TOOLKIT=='MGL' and FORMAT=='watcom'">
+            <lib-path>$(MGLLIBPATH)</lib-path>
+            <lib-path>$(MGLLIBPATH)/$(MGLPMLIBPATH)</lib-path>
+        </if>
+
+        <warnings>max</warnings>
+        <cxxflags cond="FORMAT=='autoconf'">$(CXXWARNINGS)</cxxflags>
+        <cppflags-watcom>
+            -wcd=549 <!-- 'sizeof' operand contains compiler generated information -->
+            -wcd=656 <!-- define this function inside its class definition (may improve code quality) -->
+            -wcd=657 <!-- define this function inside its class definition (could have improved code quality) -->
+            -wcd=667 <!-- 'va_start' macro will not work without an argument before '...' -->
+        </cppflags-watcom>
+        <cxxflags-mingw>
+            -Wno-ctor-dtor-privacy <!-- only defines a private destructor and has no friends -->
+        </cxxflags-mingw>
+    </template>
+	
+    <template id="rheia_append_base_nomono_irr" cond="USE_IRRLICHT='1'">
+	<sys-lib>$(LIB_IRRLICHT)</sys-lib>
+    </template>
+
+    <template id="rheia_append_base_nomono_plplot" cond="USE_PLPLOT='1'">
+	<sys-lib>$(LIB_PLPLOT)</sys-lib>
+	<sys-lib>$(LIB_WXPLPLOT)</sys-lib>
+    </template>
+
+    <template id="rheia_append_base_nomono" template_append="rheia_append_base_nomono_irr,rheia_append_base_nomono_plplot">
+        <!-- link against builtin 3rd party libs, if needed: -->
+        <sys-lib>$(LIB_WEBCONNECT)</sys-lib>
+        <ldlibs>$(EXTRALIBS_FOR_BASE)</ldlibs>
+
+        <!-- system libraries on os2: -->
+        <if cond="FORMAT!='autoconf' and PLATFORM_OS2=='1'">
+            <if cond="FORMAT=='watcom'">
+                <sys-lib>upm32</sys-lib>
+            </if>
+        </if>
+
+        <!-- system libraries on mgl: -->
+        <if cond="FORMAT=='watcom' and TOOLKIT=='MGL'">
+            <sys-lib>mgl</sys-lib>
+            <sys-lib>mglcpp</sys-lib>
+            <sys-lib>pm</sys-lib>
+        </if>
+
+        <!-- system libraries on windows: -->
+        <if cond="FORMAT!='autoconf' and PLATFORM_WIN32=='1'">
+            <sys-lib>$(UNICOWS_LIB)</sys-lib>
+            <if cond="FORMAT=='borland'">
+                <sys-lib>ole2w32</sys-lib>
+            </if>
+            <if cond="FORMAT=='msevc4prj'">
+                <sys-lib>ole32</sys-lib>
+                <sys-lib>oleaut32</sys-lib>
+                <sys-lib>uuid</sys-lib>
+                <sys-lib>commctrl</sys-lib>
+                <sys-lib>winsock</sys-lib>
+                <sys-lib>wininet</sys-lib>
+            </if>
+            <if cond="FORMAT!='borland' and FORMAT!='msevc4prj'">
+                <sys-lib>kernel32</sys-lib>
+                <sys-lib>user32</sys-lib>
+                <sys-lib>gdi32</sys-lib>
+                <sys-lib>comdlg32</sys-lib>
+                <sys-lib>winspool</sys-lib>
+                <sys-lib>winmm</sys-lib>
+                <sys-lib>shell32</sys-lib>
+                <sys-lib>comctl32</sys-lib>
+                <sys-lib>ole32</sys-lib>
+                <sys-lib>oleaut32</sys-lib>
+                <sys-lib>uuid</sys-lib>
+                <sys-lib>rpcrt4</sys-lib>
+                <sys-lib>advapi32</sys-lib>
+                <sys-lib>wsock32</sys-lib>
+                <!-- this one is only used if wxUSE_URL_NATIVE==1 but we don't
+                     know if it is here so just add it unconditionally -->
+                <sys-lib>wininet</sys-lib>
+            </if>
+            <if cond="FORMAT=='borland'">
+                <sys-lib>oleacc</sys-lib>
+            </if>
+        </if>
+    </template>
+
+
+    <!-- for GUI libs/samples: -->
+    <template id="rheia_append_nomono" template_append="rheia_append_base_nomono">
+        <ldlibs>$(EXTRALIBS_FOR_GUI)</ldlibs>
+    </template>
+
+
+    <template id="rheia_append_base" template_append="rheia_append_base_nomono">
+        <!-- Always link against the rheia library in monolithic build: -->
+        <sys-lib>$(RHEIALIB_MONO)</sys-lib>
+    </template>
+    <template id="rheia_append" template_append="rheia_append_nomono">
+        <!-- Always link against the wxWin library in monolithic build: -->
+        <sys-lib>$(RHEIALIB_MONO)</sys-lib>
+    </template>
+
+    <template id="rheia_lib_b" template="rheia,anylib">
+        <set var="RHEIALIBNAME">$(rheia.mkLibName(rheiaid))</set>
+        <libname>$(RHEIALIBNAME)</libname>
+
+        <define>RHEIABUILDING</define>
+
+        <!--<if cond="IS_MSVC_PRJ=='1' and BUILDING_LIB=='1'">
+            <msvc-file-group>Common Sources:src/common/*</msvc-file-group>
+            <msvc-file-group>MSW Sources:src/msw/*</msvc-file-group>
+            <msvc-file-group>Generic Sources:src/generic/*</msvc-file-group>
+            <msvc-file-group>wxUniv Sources:src/univ/*</msvc-file-group>
+            <msvc-file-group>wxHTML Sources:src/html/*</msvc-file-group>
+            <msvc-file-group>Setup Headers:*/setup.h</msvc-file-group>
+            <msvc-file-group>MSW Headers:*wx/msw/*.h</msvc-file-group>
+            <msvc-file-group>Generic Headers:*wx/generic/*.h</msvc-file-group>
+            <msvc-file-group>wxUniv Headers:*wx/univ/*.h</msvc-file-group>
+            <msvc-file-group>wxHTML Headers:*wx/html/*.h</msvc-file-group>
+            <msvc-file-group>Common Headers:*wx/*.h</msvc-file-group>
+        </if>-->
+    </template>
+
+    <template id="rheia_dll_b" template="rheia_lib_b">
+        <set var="RHEIADLLNAME">$(rheia.mkDllName(rheia))</set>
+        <dllname>$(RHEIADLLNAME)</dllname>
+        <version>$(RHEIA_VERSION)</version>
+        <so_version>$(RHEIASOVERSION)</so_version>
+
+        <!-- FIXME: until libtool scheme is implemented in bakefile -->
+        <ldflags cond="FORMAT=='autoconf'">$(RHEIAMACVERSION_CMD)</ldflags>
+
+        <!-- version info resources: -->
+        <res-define>RHEIADLLNAME=$(RHEIADLLNAME)</res-define>
+        <if cond="FORMAT=='autoconf'">
+            <res-include>$(TOP_SRCDIR)include</res-include>
+            <postlink-command>$(DYLIB_RPATH_POSTLINK)</postlink-command>
+        </if>
+        <win32-res>$(RHEIATOPDIR)src/msw/version.rc</win32-res>
+        
+    </template>
+    
+    <template id="rheia_irrlicht_dependencies" cond="USE_IRRLICHT=='1'">
+        <depends>rheiairrlicht</depends>
+    </template>
+
+    <template id="rheia_plplot_dependencies" cond="USE_PLPLOT=='1'">
+        <depends>rheiaplplot</depends>
+        <depends>rheiawxplplot</depends>
+    </template>
+
+    <template id="rheia_3rdparty_dependencies" template="rheia_irrlicht_dependencies,rheia_plplot_dependencies">
+	<depends>rheiawebconnect</depends>
+    </template>
+
+    <template id="rheia_irrlicht_includes" cond="USE_IRRLICHT=='1'">
+        <include>$(INC_IRRLICHT)</include>
+    </template>
+
+    <template id="rheia_plplot_includes" cond="USE_PLPLOT=='1'">
+        <include>$(INC_PLPLOT)</include>
+        <include>$(INC_WXPLPLOT)</include>
+    </template>
+
+    <template id="rheia_3rdparty_includes" template="rheia_irrlicht_includes,rheia_plplot_includes">
+        <include>$(INC_WEBCONNECT)</include>
+    </template>
+
+    <template id="rheia_dll"
+              template="rheia_dll_b,rheia_3rdparty_dependencies,rheia_3rdparty_includes"
+              template_append="rheia_append_nomono"/>
+    <template id="rheia_base_dll"
+              template="rheia_dll_b,rheia_3rdparty_dependencies,rheia_3rdparty_includes"
+              template_append="rheia_append_base_nomono">
+        <define>wxUSE_GUI=0</define>
+    </template>
+
+    <!-- =============================================================== -->
+    <!--               Support for wxWidgets samples:                    -->
+    <!-- =============================================================== -->
+
+    <!-- Link against one wxWin library. Value must be literal! -->
+    <define-tag name="rheia-lib" rules="exe,dll,module">
+        <sys-lib>$(rheia.libToLink(value))</sys-lib>
+        <ldlibs>$(rheia.extraLdflags(value))</ldlibs>
+        <!-- msvs200?prj formats don't support external dependencies yet: -->
+        <if cond="FORMAT in ['msvc6prj','msevc4prj'] and MONOLITHIC=='0'">
+            <depends-on-dsp>$(rheia.makeDspDependency(value))</depends-on-dsp>
+        </if>
+    </define-tag>
+
+
+    <!-- A hack to keep autoconf happy (we pass CPPFLAGS that contain
+         {top_srcdir} from configure, poor bakefile can't know that
+         and won't output top_srcdir = @top_srcdir@ line): -->
+    <set var="VARS_DONT_ELIMINATE" append="1">top_srcdir</set>
+
+
+</makefile>
