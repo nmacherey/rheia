@@ -8,6 +8,7 @@
 *   @author Nicolas Macherey (nm@graymat.fr)
 *   @date 27-June-2010
 *   @version 0.0.1
+* 	@todo IMPLEMENT A REAL SMART PTR WITH REFERENCE COUNTING FOR THIS HERE (DON'T USE BOOST ONE TO AVOID DEPENDENCIES)
 */
 #ifndef RHEIA_UNDOREDO_MANAGER_H
 #define RHEIA_UNDOREDO_MANAGER_H
@@ -67,6 +68,12 @@ public :
 
 	/** Check if there is some commands in the redo stack */
 	bool CanRedo();
+	
+	/** Check if I am undoing some actions or not */
+	bool IsUndoing() {return m_undoing;};
+	
+	/** Check if I am redoing some actions or not */
+	bool IsRedoing() {return m_redoing;};
 
 private :
 
@@ -84,6 +91,8 @@ private :
 	RheiaCommandStack m_undoStack;
 	RheiaCommandStack m_redoStack;
 	unsigned int m_savePoint;
+	bool m_undoing;
+	bool m_redoing;
 };
 
 /**

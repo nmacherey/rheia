@@ -12,108 +12,98 @@
 
 #include "RheiaUndoRedoManager.h"
 
-namespace
-{
-    RheiaMgr<RheiaManagedFrame,RheiaUndoRedoManager>::MgrNsMap locmap;
+namespace {
+RheiaMgr<RheiaManagedFrame,RheiaUndoRedoManager>::MgrNsMap locmap;
 }
 
 /*! Global instance for the RheiaUndoRedoManager */
 template<> RheiaMgr<RheiaManagedFrame,RheiaUndoRedoManager>::MgrNsMap RheiaMgr<RheiaManagedFrame,RheiaUndoRedoManager>::m_ns = locmap;
 
 RheiaUndoRedoManager::RheiaUndoRedoManager(RheiaManagedFrame* parent):
-m_parent(parent),
-m_savePoint( 0 )
-{
+	m_parent(parent),
+	m_savePoint( 0 ),
+	m_undoing(false),
+	m_redoing(false) {
 }
 
 RheiaUndoRedoManager::~RheiaUndoRedoManager() {
-	
+
 }
 
-void RheiaUndoRedoManager::Execute(RheiaCommand* command)
-{
-  command->Execute();
-  m_undoStack.push(command);
+void RheiaUndoRedoManager::Execute(RheiaCommand* command) {
+	command->Execute();
+	m_undoStack.push(command);
 
-  while (!m_redoStack.empty())
-    m_redoStack.pop();
+	while (!m_redoStack.empty()) {
+		m_redoStack.pop();
+	}
 }
 
-void RheiaUndoRedoManager::Undo()
-{
-  if (!m_undoStack.empty())
-  {
-    RheiaCommand* command = m_undoStack.top();
-    m_undoStack.pop();
+void RheiaUndoRedoManager::Undo() {
+	m_undoing = true;
+	if (!m_undoStack.empty()) {
+		RheiaCommand* command = m_undoStack.top();
+		m_undoStack.pop();
 
-    command->Restore();
-    m_redoStack.push(command);
-  }
+		command->Restore();
+		m_redoStack.push(command);
+	}
+	m_undoing = false;
 }
 
-void RheiaUndoRedoManager::Redo()
-{
-  if (!m_redoStack.empty())
-  {
-    RheiaCommand* command = m_redoStack.top();
-    m_redoStack.pop();
+void RheiaUndoRedoManager::Redo() {
+	m_redoing = true;
+	if (!m_redoStack.empty()) {
+		RheiaCommand* command = m_redoStack.top();
+		m_redoStack.pop();
 
-    command->Execute();
-    m_undoStack.push(command);
-  }
+		command->Execute();
+		m_undoStack.push(command);
+	}
+	m_redoing = false;
 }
 
-void RheiaUndoRedoManager::ClearHistory()
-{
-  while (!m_redoStack.empty())
-    m_redoStack.pop();
+void RheiaUndoRedoManager::ClearHistory() {
+	while (!m_redoStack.empty())
+		m_redoStack.pop();
 
-  while (!m_undoStack.empty())
-    m_undoStack.pop();
+	while (!m_undoStack.empty())
+		m_undoStack.pop();
 
-  m_savePoint = 0;
+	m_savePoint = 0;
 }
 
-bool RheiaUndoRedoManager::CanUndo()
-{
-  return (!m_undoStack.empty());
+bool RheiaUndoRedoManager::CanUndo() {
+	return (!m_undoStack.empty());
 }
-bool RheiaUndoRedoManager::CanRedo()
-{
-  return (!m_redoStack.empty());
+bool RheiaUndoRedoManager::CanRedo() {
+	return (!m_redoStack.empty());
 }
 
-void RheiaUndoRedoManager::SetSavePoint()
-{
+void RheiaUndoRedoManager::SetSavePoint() {
 	m_savePoint = m_undoStack.size();
 }
 
-bool RheiaUndoRedoManager::IsAtSavePoint()
-{
+bool RheiaUndoRedoManager::IsAtSavePoint() {
 	return m_undoStack.size() == m_savePoint;
 }
 
 /****** RHEIA COMMAND **********/
 
-RheiaCommand::RheiaCommand()
-{
-  m_executed = false;
+RheiaCommand::RheiaCommand() {
+	m_executed = false;
 }
 
-void RheiaCommand::Execute()
-{
-  if (!m_executed)
-  {
-    DoExecute();
-    m_executed = true;
-  }
+void RheiaCommand::Execute() {
+	if (!m_executed) {
+		DoExecute();
+		m_executed = true;
+	}
 }
 
-void RheiaCommand::Restore()
-{
-  if (m_executed)
-  {
-    DoRestore();
-    m_executed = false;
-  }
+void RheiaCommand::Restore() {
+	if (m_executed) {
+		DoRestore();
+		m_executed = false;
+	}
 }
