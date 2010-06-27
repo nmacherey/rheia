@@ -23,20 +23,56 @@ RheiaUndoRedoManager::RheiaUndoRedoManager(RheiaManagedFrame* parent):
 	m_parent(parent),
 	m_savePoint( 0 ),
 	m_undoing(false),
-	m_redoing(false) {
+	m_redoing(false),
+	m_chaining(false) {
 }
 
 RheiaUndoRedoManager::~RheiaUndoRedoManager() {
 
 }
 
+bool RheiaUndoRedoManager::IsChainer( RheiaCommand* command ) {
+	return (m_chaining && m_undoStack.top() == command );
+}
+
 void RheiaUndoRedoManager::Execute(RheiaCommand* command) {
 	command->Execute();
+	
+	if( m_chaining ) {
+		ChainTop(command);
+		return;
+	}
+	
 	m_undoStack.push(command);
 
 	while (!m_redoStack.empty()) {
 		m_redoStack.pop();
 	}
+}
+
+void RheiaUndoRedoManager::Push(RheiaCommand* command) {
+	command->SetExecuted(true);
+	
+	if( m_chaining ) {
+		ChainTop(command);
+		return;
+	}
+	
+	m_undoStack.push(command);
+
+	while (!m_redoStack.empty()) {
+		m_redoStack.pop();
+	}
+}
+
+void RheiaUndoRedoManager::ChainTop( RheiaCommand* command ) {
+	
+	if( m_undoStack.empty() )
+		return;
+		
+	RheiaCommand* top_command = m_undoStack.top();
+	command->SetExecuted(true);
+	top_command->Chain(command);
 }
 
 void RheiaUndoRedoManager::Undo() {
@@ -96,14 +132,34 @@ RheiaCommand::RheiaCommand() {
 
 void RheiaCommand::Execute() {
 	if (!m_executed) {
+		
 		DoExecute();
+		
+		// Whe we restore the command, we will have to chain all actions from the list in the normal sense
+		RheiaCommandList::iterator it = m_chain.begin();
+		for( ; it != m_chain.end() ; ++it )  {
+			(*it)->Execute();
+		}
+		
 		m_executed = true;
 	}
 }
 
 void RheiaCommand::Restore() {
 	if (m_executed) {
+		
+		// Whe we restore the command, we will have to chain all actions from the list in the reverse sense
+		RheiaCommandList::reverse_iterator it = m_chain.rbegin();
+		for( ; it != m_chain.rend() ; ++it )  {
+			(*it)->Restore();
+		}
+		
 		DoRestore();
+		
 		m_executed = false;
 	}
+}
+
+void RheiaCommand::Chain( RheiaCommand* command ) {
+	m_chain.push_back(command);
 }

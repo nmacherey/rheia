@@ -14,6 +14,7 @@
 #define RHEIA_UNDOREDO_MANAGER_H
 
 #include <stack>
+#include <list>
 
 #include "RheiaBaseSettings.h"
 
@@ -25,6 +26,7 @@ class RheiaCommand;
 
 /** define a command stack */
 typedef std::stack< RheiaCommand* > RheiaCommandStack;
+typedef std::list< RheiaCommand* > RheiaCommandList;
 
 /**
  * @class RheiaUndoRedoManager
@@ -47,6 +49,15 @@ public :
 	 * @param command RheiaCommand to execute
 	 */
 	void Execute(RheiaCommand* command);
+	
+	/** Execute the given RheiaCommand, mainly it will push
+	 * the given command on the undoStack and pop the redoStack
+	 * @param command RheiaCommand to execute
+	 */
+	void Push(RheiaCommand* command);
+	
+	/** Add an action to the top undo action */
+	void ChainTop( RheiaCommand* command );
 
 	/** Undo the first command on the undostack and pop it */
 	void Undo();
@@ -74,6 +85,15 @@ public :
 	
 	/** Check if I am redoing some actions or not */
 	bool IsRedoing() {return m_redoing;};
+	
+	/** Check if I am chaining or not */
+	bool IsChaining( ) {return m_chaining;};
+	
+	/** Set Chaining */
+	void SetChainingMode( bool value = true ){m_chaining = value;};
+	
+	/** Check if the given command is the chainer or not */
+	bool IsChainer( RheiaCommand* command );
 
 private :
 
@@ -93,6 +113,7 @@ private :
 	unsigned int m_savePoint;
 	bool m_undoing;
 	bool m_redoing;
+	bool m_chaining;
 };
 
 /**
@@ -108,6 +129,9 @@ class RheiaCommand {
 private:
 	/** Check if the command has been executed or not */
 	bool m_executed;
+	
+	/** Command list in order to reproduce the chain */
+	RheiaCommandList m_chain;
 
 protected:
 	/**
@@ -135,6 +159,12 @@ public:
 	
 	/** Restore the command */
 	void Restore();
+	
+	/** Set executed */
+	void SetExecuted( bool value ) { m_executed = value;};
+	
+	/** Add to chain */
+	void Chain( RheiaCommand* command );
 };
 
 #endif
