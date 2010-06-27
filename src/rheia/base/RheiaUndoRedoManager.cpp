@@ -36,13 +36,14 @@ bool RheiaUndoRedoManager::IsChainer( RheiaCommand* command ) {
 }
 
 void RheiaUndoRedoManager::Execute(RheiaCommand* command) {
-	command->Execute();
 	
 	if( m_chaining ) {
 		ChainTop(command);
+		command->Execute();
 		return;
 	}
 	
+	command->Execute();
 	m_undoStack.push(command);
 
 	while (!m_redoStack.empty()) {
