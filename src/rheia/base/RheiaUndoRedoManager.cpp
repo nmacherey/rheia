@@ -133,6 +133,8 @@ RheiaCommand::RheiaCommand() {
 void RheiaCommand::Execute() {
 	if (!m_executed) {
 		
+		OnBeginExecute();
+		
 		DoExecute();
 		
 		// Whe we restore the command, we will have to chain all actions from the list in the normal sense
@@ -142,11 +144,15 @@ void RheiaCommand::Execute() {
 		}
 		
 		m_executed = true;
+		
+		OnEndExecute();
 	}
 }
 
 void RheiaCommand::Restore() {
 	if (m_executed) {
+		
+		OnBeginRestore();
 		
 		// Whe we restore the command, we will have to chain all actions from the list in the reverse sense
 		RheiaCommandList::reverse_iterator it = m_chain.rbegin();
@@ -157,6 +163,8 @@ void RheiaCommand::Restore() {
 		DoRestore();
 		
 		m_executed = false;
+		
+		OnEndRestore();
 	}
 }
 

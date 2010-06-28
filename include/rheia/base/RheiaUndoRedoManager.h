@@ -145,6 +145,30 @@ protected:
 	 * for any Undo/Redo action
 	 */
 	virtual void DoRestore() = 0;
+	
+	/** This method is called when the restore is starting
+	 * You can overload it if you need to do specific actions like event generation
+	 * before the Command restor is starting
+	 */
+	virtual void OnBeginRestore() {};
+	
+	/** This method is called whent the restoring task is ending
+	 * You can overload it if you need to perform specific actions
+	 * when the command has been restored
+	 */
+	virtual void OnEndRestore() {};
+	
+	/** This method is called when the restore is starting
+	 * You can overload it if you need to do specific actions like event generation
+	 * before the Command restor is starting
+	 */
+	virtual void OnBeginExecute() {};
+	
+	/** This method is called whent the restoring task is ending
+	 * You can overload it if you need to perform specific actions
+	 * when the command has been restored
+	 */
+	virtual void OnEndExecute() {};
 
 public:
 
