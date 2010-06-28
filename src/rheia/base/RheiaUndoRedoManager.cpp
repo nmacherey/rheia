@@ -32,19 +32,19 @@ RheiaUndoRedoManager::~RheiaUndoRedoManager() {
 }
 
 bool RheiaUndoRedoManager::IsChainer( RheiaCommand* command ) {
-	return (m_chaining && m_undoStack.top() == command );
+	return (m_chaining && !m_undoStack.empty() && m_undoStack.top() == command );
 }
 
 void RheiaUndoRedoManager::Execute(RheiaCommand* command) {
 	
 	if( m_chaining ) {
-		ChainTop(command);
 		command->Execute();
+		ChainTop(command);
 		return;
 	}
 	
-	command->Execute();
 	m_undoStack.push(command);
+	command->Execute();
 
 	while (!m_redoStack.empty()) {
 		m_redoStack.pop();
@@ -72,7 +72,6 @@ void RheiaUndoRedoManager::ChainTop( RheiaCommand* command ) {
 		return;
 		
 	RheiaCommand* top_command = m_undoStack.top();
-	command->SetExecuted(true);
 	top_command->Chain(command);
 }
 
