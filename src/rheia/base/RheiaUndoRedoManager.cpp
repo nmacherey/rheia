@@ -154,13 +154,13 @@ void RheiaCommand::Restore() {
 		
 		OnBeginRestore();
 		
+		DoRestore();
+		
 		// Whe we restore the command, we will have to chain all actions from the list in the reverse sense
 		RheiaCommandList::reverse_iterator it = m_chain.rbegin();
 		for( ; it != m_chain.rend() ; ++it )  {
 			(*it)->Restore();
 		}
-		
-		DoRestore();
 		
 		m_executed = false;
 		
