@@ -206,6 +206,7 @@ void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
     GetEventHandler()->ProcessEvent( evt2 );
 	RheiaDebug::Log(wxT("Sending frame's RheiaEVT_FRAME_CLOSING") );
     RheiaEventsManager::Get()->ProcessEvent( evt2 );
+	RheiaFrameEventsManager::Get(this)->ProcessEvent( evt2 );
 
     if( !m_canClose )
     {
