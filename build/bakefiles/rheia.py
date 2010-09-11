@@ -52,6 +52,7 @@ def mkLibName(rheiaid):
         return '$(RHEIANAMEPREFIXGUI)$(RHEIANAMESUFFIX)$(RHEIAVERSIONTAG)$(HOST_SUFFIX)'
     if rheiaid in MAIN_LIBS:
         return '$(RHEIANAMEPREFIXGUI)$(RHEIANAMESUFFIX)_%s$(RHEIAVERSIONTAG)$(HOST_SUFFIX)' % rheiaid
+
     return '$(RHEIANAMEPREFIXGUI)$(RHEIANAMESUFFIX)_%s$(RHEIAVERSIONTAG)$(HOST_SUFFIX)' % rheiaid
 
 def mkDllName(rheiaid):

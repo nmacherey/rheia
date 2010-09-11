@@ -11,7 +11,7 @@ FILE=files.bkl
 CURRENT_DIR=`pwd`
 
 # Store the main rheia directory
-RHEIA_DIR="$CURRENT_DIR/../"
+RHEIA_DIR="$CURRENT_DIR/../../"
 
 #utils directory stuff
 UTILS_SRC_PREFIX="src/rheia/utils/"
@@ -100,8 +100,8 @@ CSIROCSA_HDR_DIR=$RHEIA_DIR$CSIROCSA_HDR_PREFIX
 #qsastime stuff
 QSASTIME_SRC_PREFIX="src/qsastime/"
 QSASTIME_HDR_PREFIX="include/qsastime/"
-QSASTIME_SRC_DIR=$RHEIA_DIR$CSIROCSA_SRC_PREFIX
-QSASTIME_HDR_DIR=$RHEIA_DIR$CSIROCSA_HDR_PREFIX
+QSASTIME_SRC_DIR=$RHEIA_DIR$QSASTIME_SRC_PREFIX
+QSASTIME_HDR_DIR=$RHEIA_DIR$QSASTIME_HDR_PREFIX
 
 #wxwidgets plplot stuff
 WXWIDGETS_SRC_PREFIX="src/wxwidgets/"
@@ -120,6 +120,12 @@ WXPLPLOT_SRC_PREFIX="src/wxplplot/"
 WXPLPLOT_HDR_PREFIX="include/wxplplot/"
 WXPLPLOT_SRC_DIR=$RHEIA_DIR$WXPLPLOT_SRC_PREFIX
 WXPLPLOT_HDR_DIR=$RHEIA_DIR$WXPLPLOT_HDR_PREFIX
+
+#wxplplot stuff
+WEBCONNECT_SRC_PREFIX="webconnect/src/"
+WEBCONNECT_HDR_PREFIX="webconnect/include/"
+WEBCONNECT_SRC_DIR=$RHEIA_DIR$WEBCONNECT_SRC_PREFIX
+WEBCONNECT_HDR_DIR=$RHEIA_DIR$WEBCONNECT_HDR_PREFIX
 
 
 function ListAndSetFiles()
@@ -417,6 +423,11 @@ ListAndSetFiles $WXPLPLOT_SRC_DIR "*.cpp *.cc" $WXPLPLOT_SRC_PREFIX "RHEIA_WXPLP
 
 ListAndSetFiles $WXPLPLOT_HDR_DIR "*.h" $WXPLPLOT_HDR_PREFIX "RHEIA_WXPLPLOT_HDR"
 
+######### PLPLOT HDR #############
+
+ListAndSetFiles $WEBCONNECT_SRC_DIR "*.cpp" $WEBCONNECT_SRC_PREFIX "RHEIA_WEBCONNECT_SRC"
+ListAndSetFiles $WEBCONNECT_HDR_DIR "*.h" $WEBCONNECT_HDR_PREFIX "RHEIA_WEBCONNECT_HDR"
+
 ###########################################################################################
 # END OF FILE LIST MANAGEMENT
 ###########################################################################################
@@ -426,28 +437,65 @@ ListAndSetFiles $WXPLPLOT_HDR_DIR "*.h" $WXPLPLOT_HDR_PREFIX "RHEIA_WXPLPLOT_HDR
 ###########################################################################################
 
 ######### IRRLICHT INCLUDES ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"ALL_IRRLICHT_HEADERS\" hints=\"files\"> \n
+STR=" <set var=\"RHEIA_IRRLICHT_HEADERS_WIN32\" hints=\"files\"> \n
 \t<if cond= \"PLATFORM_WIN32=='1'\">\n\t\t\$(RHEIA_IRRJPG_HDR)\n\t\t\$(RHEIA_IRRPNG_HDR)\n\t\t\$(RHEIA_IRRZLIB_HDR)\n\t</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"RHEIA_IRRLICHT_HEADERS_MACOSX\" hints=\"files\"> \n
 \t<if cond= \"PLATFORM_MACOSX=='1'\">\n\t\t\$(RHEIA_IRRJPG_HDR)\n\t\t\$(RHEIA_IRRPNG_HDR)\n\t\t\$(RHEIA_IRRZLIB_HDR)\n\t\t\$(RHEIA_IRRMACOS_HDR)\n\t</if>\n
-\t<if cond= \"PLATFORM_OS2=='1'\">\n\t\t\$(RHEIA_IRRJPG_HDR)\n\t\t\$(RHEIA_IRRPNG_HDR)\n\t\t\$(RHEIA_IRRZLIB_HDR)\n\t\t\$(RHEIA_IRRMACOS_HDR)\n\t</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"RHEIA_IRRLICHT_HEADERS_OS2\" hints=\"files\"> \n
+\t<if cond= \"PLATFORM_MACOSX=='1'\">\n\t\t\$(RHEIA_IRRJPG_HDR)\n\t\t\$(RHEIA_IRRPNG_HDR)\n\t\t\$(RHEIA_IRRZLIB_HDR)\n\t\t\$(RHEIA_IRRMACOS_HDR)\n\t</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"ALL_IRRLICHT_HEADERS\" hints=\"files\"> \n
 \t\$(RHEIA_IRRLICHT_HDR)\n
+\t\$(RHEIA_IRRLICHT_HEADERS_WIN32)\n
+\t\$(RHEIA_IRRLICHT_HEADERS_MACOSX)\n
+\t\$(RHEIA_IRRLICHT_HEADERS_OS2)\n
  </set>\n\n"
 
 echo -e $STR >> $FILE
 
 ######### IRRLICHT SRC ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"ALL_IRRLICHT_SOURCES\" hints=\"files\"> \n
+
+STR=" <set var=\"RHEIA_IRRLICHT_SOURCES_WIN32\" hints=\"files\"> \n
 \t<if cond= \"PLATFORM_WIN32=='1'\">\n\t\t\$(RHEIA_IRRJPG_SRC)\n\t\t\$(RHEIA_IRRPNG_SRC)\n\t\t\$(RHEIA_IRRZLIB_SRC)\n\t</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"RHEIA_IRRLICHT_SOURCES_MACOSX\" hints=\"files\"> \n
 \t<if cond= \"PLATFORM_MACOSX=='1'\">\n\t\t\$(RHEIA_IRRJPG_SRC)\n\t\t\$(RHEIA_IRRPNG_SRC)\n\t\t\$(RHEIA_IRRZLIB_SRC)\n\t\t\$(RHEIA_IRRMACOS_SRC)\n\t</if>\n
-\t<if cond= \"PLATFORM_OS2=='1'\">\n\t\t\$(RHEIA_IRRJPG_SRC)\n\t\t\$(RHEIA_IRRPNG_SRC)\n\t\t\$(RHEIA_IRRZLIB_SRC)\n\t\t\$(RHEIA_IRRMACOS_SRC)\n\t</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"RHEIA_IRRLICHT_SOURCES_OS2\" hints=\"files\"> \n
+\t<if cond= \"PLATFORM_MACOSX=='1'\">\n\t\t\$(RHEIA_IRRJPG_SRC)\n\t\t\$(RHEIA_IRRPNG_SRC)\n\t\t\$(RHEIA_IRRZLIB_SRC)\n\t\t\$(RHEIA_IRRMACOS_SRC)\n\t</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"ALL_IRRLICHT_SOURCES\" hints=\"files\"> \n
 \t\$(RHEIA_IRRLICHT_SRC)\n
+\t\$(RHEIA_IRRLICHT_SOURCES_WIN32)\n
+\t\$(RHEIA_IRRLICHT_SOURCES_MACOSX)\n
+\t\$(RHEIA_IRRLICHT_SOURCES_OS2)\n
  </set>\n\n"
 
 echo -e $STR >> $FILE
 
 
 ######### PLPLOT INCLUDES ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"PLPLOT_HEADERS\" make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"PLPLOT_HEADERS\" hints=\"files\"> \n
 \t\$(RHEIA_CSIROCSA_HDR)\n
 \t\$(RHEIA_QSASTIME_HDR)\n
 \t\$(RHEIA_PLPLOT_HDR)\n
@@ -457,7 +505,7 @@ STR=" <set var=\"PLPLOT_HEADERS\" make_var=\"1\" hints=\"files\"> \n
 echo -e $STR >> $FILE
 
 ######### PLPLOT SRC ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"PLPLOT_SOURCES\"  make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"PLPLOT_SOURCES\"  hints=\"files\"> \n
 \t\$(RHEIA_CSIROCSA_SRC)\n
 \t\$(RHEIA_QSASTIME_SRC)\n
 \t\$(RHEIA_PLPLOT_SRC)\n
@@ -467,21 +515,21 @@ STR=" <set var=\"PLPLOT_SOURCES\"  make_var=\"1\" hints=\"files\"> \n
 echo -e $STR >> $FILE
 
 ######### WXPLPLOT INCLUDES ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"WXPLPLOT_HEADERS\" make_var=\"1\"  hints=\"files\"> \n
+STR=" <set var=\"WXPLPLOT_HEADERS\"  hints=\"files\"> \n
 \t\$(RHEIA_WXPLPLOT_HDR)\n
  </set>\n\n"
 
 echo -e $STR >> $FILE
 
 ######### WXPLPLOT SRC ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"WXPLPLOT_SOURCES\"  make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"WXPLPLOT_SOURCES\"  hints=\"files\"> \n
 \t\$(RHEIA_WXPLPLOT_SRC)\n
  </set>\n\n"
 
 echo -e $STR >> $FILE
 
 ######### ALL PLPLOT AND WXPLPLOT INCLUDES ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"ALL_PLPLOT_HEADERS\"  make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"ALL_PLPLOT_HEADERS\"  hints=\"files\"> \n
 \t\$(PLPLOT_HEADERS)\n
 \t\$(WXPLPLOT_HEADERS)\n
  </set>\n\n"
@@ -489,9 +537,23 @@ STR=" <set var=\"ALL_PLPLOT_HEADERS\"  make_var=\"1\" hints=\"files\"> \n
 echo -e $STR >> $FILE
 
 ######### ALL PLPLOT AND WXPLPLOT SRC ACCORDINGLY TO PLATFORMS ############
-STR=" <set var=\"ALL_PLPLOT_SOURCES\"  make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"ALL_PLPLOT_SOURCES\"  hints=\"files\"> \n
 \t\$(PLPLOT_SOURCES)\n
 \t\$(WXPLPLOT_SOURCES)\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+######### WEBCONNECT INCLUDES ACCORDINGLY TO PLATFORMS ############
+STR=" <set var=\"WEBCONNECT_HEADERS\"  hints=\"files\"> \n
+\t\$(RHEIA_WEBCONNECT_HDR)\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+######### WEBCONNECT SRC ACCORDINGLY TO PLATFORMS ############
+STR=" <set var=\"WEBCONNECT_SOURCES\"  hints=\"files\"> \n
+\t\$(RHEIA_WEBCONNECT_SRC)\n
  </set>\n\n"
 
 echo -e $STR >> $FILE
@@ -499,13 +561,13 @@ echo -e $STR >> $FILE
 
 ######### ADDITIONAL VARIABLES #############
 
-STR=" <set var=\"ALL_RHEIA_HEADERS\" make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"ALL_RHEIA_HEADERS\" hints=\"files\"> \n
 \t\$(RHEIA_UTILS_HDR)\n\t\$(RHEIA_BASE_HDR)\n\t\$(RHEIA_LOGGERS_HDR)\n\t\$(RHEIA_PACKAGES_HDR)\n\t\$(RHEIA_WORKSPACES_HDR)\n\t\$(RHEIA_EDITOR_HDR)\n\t\$(RHEIA_PYTHON_HDR)\n
  </set>\n\n"
 
 echo -e $STR >> $FILE
 
-STR=" <set var=\"ALL_RHEIA_SOURCES\" make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"ALL_RHEIA_SOURCES\" hints=\"files\"> \n
 \t\$(RHEIA_UTILS_SRC)\n\t\$(RHEIA_BASE_SRC)\n\t\$(RHEIA_LOGGERS_SRC)\n\t\$(RHEIA_PACKAGES_SRC)\n\t\$(RHEIA_WORKSPACES_SRC)\n\t\$(RHEIA_EDITOR_SRC)\n\t\$(RHEIA_PYTHON_SRC)\n
  </set>\n\n"
 
@@ -513,18 +575,42 @@ echo -e $STR >> $FILE
 
 ######### SINGLE LIB RHEIA HEADERS #############
 
-STR=" <set var=\"SINGLELIB_RHEIA_HEADERS\" make_var=\"1\" hints=\"files\"> \n
-\t<if cond=\"USE_IRRLICHT=='1'\">\$(ALL_IRRLICHT_HEADERS)</if>\n
-\t<if cond=\"USE_PLPLOT='1'\">\$(ALL_PLPLOT_HEADERS)</if>\n
-\t\$(ALL_RHEIA_HEADERS)\n
+STR=" <set var=\"SINGLELIB_RHEIA_HEADERS_PLPLOT\" hints=\"files\"> \n
+\t<if cond=\"USE_PLPLOT=='1'\">\$(ALL_PLPLOT_HEADERS)</if>\n
  </set>\n\n"
 
 echo -e $STR >> $FILE
 
-STR=" <set var=\"SINGLELIB_RHEIA_SOURCES\" make_var=\"1\" hints=\"files\"> \n
+STR=" <set var=\"SINGLELIB_RHEIA_HEADERS_IRRLICHT\" hints=\"files\"> \n
+\t<if cond=\"USE_IRRLICHT=='1'\">\$(ALL_IRRLICHT_HEADERS)</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"SINGLELIB_RHEIA_HEADERS\" hints=\"files\"> \n
+\t\$(SINGLELIB_RHEIA_HEADERS_IRRLICHT)\n
+\t\$(SINGLELIB_RHEIA_HEADERS_PLPLOT)\n
+\t\$(ALL_RHEIA_HEADERS)
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"SINGLELIB_RHEIA_SOURCES_PLPLOT\" hints=\"files\"> \n
+\t<if cond=\"USE_PLPLOT=='1'\">\$(ALL_PLPLOT_SOURCES)</if>\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"SINGLELIB_RHEIA_SOURCES_IRRLICHT\" hints=\"files\"> \n
 \t<if cond=\"USE_IRRLICHT=='1'\">\$(ALL_IRRLICHT_SOURCES)</if>\n
-\t<if cond=\"USE_PLPLOT='1'\">\$(ALL_PLPLOT_SOURCES)</if>\n
-\t\$(ALL_RHEIA_SOURCES)\n
+ </set>\n\n"
+
+echo -e $STR >> $FILE
+
+STR=" <set var=\"SINGLELIB_RHEIA_SOURCES\" hints=\"files\"> \n
+\t\$(SINGLELIB_RHEIA_SOURCES_IRRLICHT)\n
+\t\$(SINGLELIB_RHEIA_SOURCES_PLPLOT)\n
+\t\$(ALL_RHEIA_SOURCES)
  </set>\n\n"
 
 echo -e $STR >> $FILE

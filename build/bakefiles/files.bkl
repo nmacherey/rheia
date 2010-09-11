@@ -100,6 +100,7 @@
 	 src/rheia/base/RheiaToolBarManager.cpp
 	 src/rheia/base/RheiaTreeItem.cpp
 	 src/rheia/base/RheiaTreeItemData.cpp
+	 src/rheia/base/RheiaUndoRedoManager.cpp
 	 src/rheia/base/RheiaXmlManager.cpp
 	 src/rheia/base/RheiaXulManager.cpp
 </set>
@@ -149,6 +150,7 @@
 	 include/rheia/base/RheiaToolBarManager.h
 	 include/rheia/base/RheiaTreeItemData.h
 	 include/rheia/base/RheiaTreeItem.h
+	 include/rheia/base/RheiaUndoRedoManager.h
 	 include/rheia/base/RheiaXmlManager.h
 	 include/rheia/base/RheiaXulManager.h
 </set>
@@ -355,6 +357,7 @@
 <set var="RHEIA_HDR" hints="files">
 	 include/rheia/RheiaApp.h
 	 include/rheia/RheiaMainFrame.h
+	 include/rheia/version.h
 </set>
 
 <!-- ====================================================================== -->
@@ -1143,14 +1146,15 @@
  <!-- ====================================================================== -->
 
 <set var="RHEIA_QSASTIME_SRC" hints="files">
-	 src/qsastime/csa.c
+	 src/qsastime/qsastime.c
 </set>
 
 <set var="RHEIA_QSASTIME_HDR" hints="files">
-	 include/qsastime/csadll.h
-	 include/qsastime/csa.h
-	 include/qsastime/nan.h
-	 include/qsastime/version.h
+	 include/qsastime/qsastimedll.h
+	 include/qsastime/qsastime_extra.h
+	 include/qsastime/qsastime.h
+	 include/qsastime/qsastimeP.h
+	 include/qsastime/tai-utc.h
 </set>
 
 <!-- ====================================================================== -->
@@ -1251,53 +1255,104 @@
 	 include/wxplplot/wxPLplotwindow.h
 </set>
 
-<set var="ALL_IRRLICHT_HEADERS_PF" hints="files"> 
- 	<if cond= "PLATFORM_WIN32=='1'">
-		$(RHEIA_IRRJPG_HDR)
-		$(RHEIA_IRRPNG_HDR)
-		$(RHEIA_IRRZLIB_HDR)
-	</if>
- 	<if cond= "PLATFORM_MACOSX=='1'">
-		$(RHEIA_IRRJPG_HDR)
-		$(RHEIA_IRRPNG_HDR)
-		$(RHEIA_IRRZLIB_HDR)
-		$(RHEIA_IRRMACOS_HDR)
-	</if>
- 	<if cond= "PLATFORM_OS2=='1'">
-		$(RHEIA_IRRJPG_HDR)
-		$(RHEIA_IRRPNG_HDR)
-		$(RHEIA_IRRZLIB_HDR)
-		$(RHEIA_IRRMACOS_HDR)
-	</if>
- </set>
-<set var="ALL_IRRLICHT_HEADERS" hints="files"> 
-	$(ALL_IRRLICHT_HEADERS_PF)
-	$(RHEIA_IRRLICHT_HDR)
+<set var="RHEIA_WEBCONNECT_SRC" hints="files">
+	 webconnect/src/dom.cpp
+	 webconnect/src/nsimpl.cpp
+	 webconnect/src/promptservice.cpp
+	 webconnect/src/webcontrol.cpp
+	 webconnect/src/webframe.cpp
+	 webconnect/src/webprefs.cpp
 </set>
 
-<set var="ALL_IRRLICHT_SOURCES_PF" hints="files"> 
+<set var="RHEIA_WEBCONNECT_HDR" hints="files">
+	 webconnect/include/dom.h
+	 webconnect/include/domprivate.h
+	 webconnect/include/exports.h
+	 webconnect/include/nsall.h
+	 webconnect/include/nsbase.h
+	 webconnect/include/nsinclude.h
+	 webconnect/include/nsptr.h
+	 webconnect/include/nsstr.h
+	 webconnect/include/nsutils.h
+	 webconnect/include/nsweak.h
+	 webconnect/include/promptservice.h
+	 webconnect/include/webcontrol.h
+	 webconnect/include/webframe.h
+</set>
+
+<set var="RHEIA_IRRLICHT_HEADERS_WIN32" hintspythonlibs="files"> 
+ 	<if cond= "PLATFORM_WIN32=='1'">
+		$(RHEIA_IRRJPG_HDR)
+		$(RHEIA_IRRPNG_HDR)
+		$(RHEIA_IRRZLIB_HDR)
+	</if>
+ </set>
+
+
+<set var="RHEIA_IRRLICHT_HEADERS_MACOSX" hints="files"> 
+ 	<if cond= "PLATFORM_MACOSX=='1'">
+		$(RHEIA_IRRJPG_HDR)
+		$(RHEIA_IRRPNG_HDR)
+		$(RHEIA_IRRZLIB_HDR)
+		$(RHEIA_IRRMACOS_HDR)
+	</if>
+ </set>
+
+
+<set var="RHEIA_IRRLICHT_HEADERS_OS2" hints="files"> 
+ 	<if cond= "PLATFORM_MACOSX=='1'">
+		$(RHEIA_IRRJPG_HDR)
+		$(RHEIA_IRRPNG_HDR)
+		$(RHEIA_IRRZLIB_HDR)
+		$(RHEIA_IRRMACOS_HDR)
+	</if>
+ </set>
+
+
+<set var="ALL_IRRLICHT_HEADERS" hints="files"> 
+ 	$(RHEIA_IRRLICHT_HDR)
+ 	$(RHEIA_IRRLICHT_HEADERS_WIN32)
+ 	$(RHEIA_IRRLICHT_HEADERS_MACOSX)
+ 	$(RHEIA_IRRLICHT_HEADERS_OS2)
+ </set>
+
+
+<set var="RHEIA_IRRLICHT_SOURCES_WIN32" hints="files"> 
  	<if cond= "PLATFORM_WIN32=='1'">
 		$(RHEIA_IRRJPG_SRC)
 		$(RHEIA_IRRPNG_SRC)
 		$(RHEIA_IRRZLIB_SRC)
 	</if>
+ </set>
+
+
+<set var="RHEIA_IRRLICHT_SOURCES_MACOSX" hints="files"> 
  	<if cond= "PLATFORM_MACOSX=='1'">
 		$(RHEIA_IRRJPG_SRC)
 		$(RHEIA_IRRPNG_SRC)
 		$(RHEIA_IRRZLIB_SRC)
 		$(RHEIA_IRRMACOS_SRC)
 	</if>
- 	<if cond= "PLATFORM_OS2=='1'">
+ </set>
+
+
+<set var="RHEIA_IRRLICHT_SOURCES_OS2" hints="files"> 
+ 	<if cond= "PLATFORM_MACOSX=='1'">
 		$(RHEIA_IRRJPG_SRC)
 		$(RHEIA_IRRPNG_SRC)
 		$(RHEIA_IRRZLIB_SRC)
 		$(RHEIA_IRRMACOS_SRC)
 	</if>
  </set>
+
+
 <set var="ALL_IRRLICHT_SOURCES" hints="files"> 
- 	$(ALL_IRRLICHT_SOURCES_PF)
  	$(RHEIA_IRRLICHT_SRC)
+ 	$(RHEIA_IRRLICHT_SOURCES_WIN32)
+ 	$(RHEIA_IRRLICHT_SOURCES_MACOSX)
+ 	$(RHEIA_IRRLICHT_SOURCES_OS2)
  </set>
+
 
 <set var="PLPLOT_HEADERS" hints="files"> 
  	$(RHEIA_CSIROCSA_HDR)
@@ -1337,6 +1392,16 @@
  </set>
 
 
+<set var="WEBCONNECT_HEADERS" hints="files"> 
+ 	$(RHEIA_WEBCONNECT_HDR)
+ </set>
+
+
+<set var="WEBCONNECT_SOURCES" hints="files"> 
+ 	$(RHEIA_WEBCONNECT_SRC)
+ </set>
+
+
 <set var="ALL_RHEIA_HEADERS" hints="files"> 
  	$(RHEIA_UTILS_HDR)
 	$(RHEIA_BASE_HDR)
@@ -1359,25 +1424,36 @@
  </set>
 
 
-<set var="SINGLELIB_RHEIA_HEADERS_OPT" hints="files"> 
- 	<if cond="USE_IRRLICHT=='1'">$(ALL_IRRLICHT_HEADERS)</if>
+<set var="SINGLELIB_RHEIA_HEADERS_PLPLOT" hints="files"> 
  	<if cond="USE_PLPLOT=='1'">$(ALL_PLPLOT_HEADERS)</if>
  </set>
 
-<set var="SINGLELIB_RHEIA_HEADERS" hints="files"> 
-	$(SINGLELIB_RHEIA_HEADERS_OPT)
- 	$(ALL_RHEIA_HEADERS)
+
+<set var="SINGLELIB_RHEIA_HEADERS_IRRLICHT" hints="files"> 
+ 	<if cond="USE_IRRLICHT=='1'">$(ALL_IRRLICHT_HEADERS)</if>
  </set>
 
-<set var="SINGLELIB_RHEIA_SOURCES_OPT" hints="files"> 
- 	<if cond="USE_IRRLICHT=='1'">$(ALL_IRRLICHT_SOURCES)</if>
+
+<set var="SINGLELIB_RHEIA_HEADERS" hints="files"> 
+ 	$(SINGLELIB_RHEIA_HEADERS_IRRLICHT)
+ 	$(SINGLELIB_RHEIA_HEADERS_PLPLOT)
+ 	$(ALL_RHEIA_HEADERS) </set>
+
+
+<set var="SINGLELIB_RHEIA_SOURCES_PLPLOT" hints="files"> 
  	<if cond="USE_PLPLOT=='1'">$(ALL_PLPLOT_SOURCES)</if>
  </set>
 
-<set var="SINGLELIB_RHEIA_SOURCES" hints="files"> 
-	$(SINGLELIB_RHEIA_SOURCES_OPT)
- 	$(ALL_RHEIA_SOURCES)
+
+<set var="SINGLELIB_RHEIA_SOURCES_IRRLICHT" hints="files"> 
+ 	<if cond="USE_IRRLICHT=='1'">$(ALL_IRRLICHT_SOURCES)</if>
  </set>
+
+
+<set var="SINGLELIB_RHEIA_SOURCES" hints="files"> 
+ 	$(SINGLELIB_RHEIA_SOURCES_IRRLICHT)
+ 	$(SINGLELIB_RHEIA_SOURCES_PLPLOT)
+ 	$(ALL_RHEIA_SOURCES) </set>
 
 
 </makefile>

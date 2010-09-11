@@ -124,7 +124,7 @@ Accepted values: AMD64, IA64.
 
     <option name="DEBUG_INFO">
         <values>0,1,default</values>
-        <default-value>$(DEBUG_INFO_DEFAULT)</default-value>
+        <default-value>0</default-value>
         <description>
 Should debugging info be included in the executables? The default value
 "default" means that debug info will be included if BUILD=debug
@@ -134,12 +134,18 @@ and not included if BUILD=release.
 
     <option name="DEBUG_FLAG">
         <values>0,1,default</values>
+        <default-value>0</default-value>
+        <description>
+Use RHEIA_DEBUG version.        
+	</description>
+    </option>
+
+    <option name="USE_WX29">
+        <values>0,1,default</values>
         <default-value>1</default-value>
         <description>
-Value of wxDEBUG_LEVEL. The default value is the same as 1 and means that all
-but expensive assert checks are enabled, use 0 to completely remove debugging
-code.
-        </description>
+Use this option if you want to link against wxWidgets libraries version 2.9.x        
+	</description>
     </option>
 
     <if cond="FORMAT=='msvc'">
@@ -166,15 +172,6 @@ Default is to use debug CRT if and only if BUILD==debug.
         <default-value>$(MONOLITHIC_DEFAULT)</default-value>
         <description>
             Multiple libraries or single huge monolithic one?
-        </description>
-    </option>
-
-    <option name="USE_GUI">
-        <values>0,1</values>
-        <values-description>Base,GUI</values-description>
-        <default-value>1</default-value>
-        <description>
-            Build GUI libraries?
         </description>
     </option>
 
@@ -371,7 +368,6 @@ Set the version of your Mingw installation here.
         <set var="USE_IRRLICHT">1</set>
         <set var="USE_PLPLOT">1</set>
         <set var="MONOLITHIC">0</set>
-        <set var="USE_GUI">1</set>
         <set var="USE_EXCEPTIONS">1</set>
         <set var="USE_RTTI">1</set>
         <set var="USE_THREADS">1</set>

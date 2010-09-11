@@ -28,3 +28,4 @@ Makefile
 *.cache*
 *Upgrade*
 *.swp
+testbuild

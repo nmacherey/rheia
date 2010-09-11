@@ -36,6 +36,12 @@ dnl ### begin block 20_COND_DEBUG_FLAG_0[rheia.bkl] ###
         COND_DEBUG_FLAG_0=""
     fi
     AC_SUBST(COND_DEBUG_FLAG_0)
+dnl ### begin block 20_COND_DEBUG_FLAG_1[rheia.bkl] ###
+    COND_DEBUG_FLAG_1="#"
+    if test "x$DEBUG_FLAG" = "x1" ; then
+        COND_DEBUG_FLAG_1=""
+    fi
+    AC_SUBST(COND_DEBUG_FLAG_1)
 dnl ### begin block 20_COND_DEBUG_INFO_0[rheia.bkl] ###
     COND_DEBUG_INFO_0="#"
     if test "x$DEBUG_INFO" = "x0" ; then
@@ -72,6 +78,18 @@ dnl ### begin block 20_COND_MONOLITHIC_0_SHARED_1[rheia.bkl] ###
         COND_MONOLITHIC_0_SHARED_1=""
     fi
     AC_SUBST(COND_MONOLITHIC_0_SHARED_1)
+dnl ### begin block 20_COND_MONOLITHIC_0_USE_IRRLICHT_1[rheia.bkl] ###
+    COND_MONOLITHIC_0_USE_IRRLICHT_1="#"
+    if test "x$MONOLITHIC" = "x0" -a "x$USE_IRRLICHT" = "x1" ; then
+        COND_MONOLITHIC_0_USE_IRRLICHT_1=""
+    fi
+    AC_SUBST(COND_MONOLITHIC_0_USE_IRRLICHT_1)
+dnl ### begin block 20_COND_MONOLITHIC_0_USE_PLPLOT_1[rheia.bkl] ###
+    COND_MONOLITHIC_0_USE_PLPLOT_1="#"
+    if test "x$MONOLITHIC" = "x0" -a "x$USE_PLPLOT" = "x1" ; then
+        COND_MONOLITHIC_0_USE_PLPLOT_1=""
+    fi
+    AC_SUBST(COND_MONOLITHIC_0_USE_PLPLOT_1)
 dnl ### begin block 20_COND_MONOLITHIC_1[rheia.bkl] ###
     COND_MONOLITHIC_1="#"
     if test "x$MONOLITHIC" = "x1" ; then
@@ -126,18 +144,24 @@ dnl ### begin block 20_COND_PLATFORM_MACOSX_1_USE_SOVERSION_1[rheia.bkl] ###
         COND_PLATFORM_MACOSX_1_USE_SOVERSION_1=""
     fi
     AC_SUBST(COND_PLATFORM_MACOSX_1_USE_SOVERSION_1)
+dnl ### begin block 20_COND_PLATFORM_MAC_0[rheia.bkl] ###
+    COND_PLATFORM_MAC_0="#"
+    if test "x$PLATFORM_MAC" = "x0" ; then
+        COND_PLATFORM_MAC_0=""
+    fi
+    AC_SUBST(COND_PLATFORM_MAC_0)
+dnl ### begin block 20_COND_PLATFORM_MAC_1[rheia.bkl] ###
+    COND_PLATFORM_MAC_1="#"
+    if test "x$PLATFORM_MAC" = "x1" ; then
+        COND_PLATFORM_MAC_1=""
+    fi
+    AC_SUBST(COND_PLATFORM_MAC_1)
 dnl ### begin block 20_COND_PLATFORM_OS2_1[rheia.bkl] ###
     COND_PLATFORM_OS2_1="#"
     if test "x$PLATFORM_OS2" = "x1" ; then
         COND_PLATFORM_OS2_1=""
     fi
     AC_SUBST(COND_PLATFORM_OS2_1)
-dnl ### begin block 20_COND_PLATFORM_OS2_1_USE_IRRLICHT_1[rheia.bkl] ###
-    COND_PLATFORM_OS2_1_USE_IRRLICHT_1="#"
-    if test "x$PLATFORM_OS2" = "x1" -a "x$USE_IRRLICHT" = "x1" ; then
-        COND_PLATFORM_OS2_1_USE_IRRLICHT_1=""
-    fi
-    AC_SUBST(COND_PLATFORM_OS2_1_USE_IRRLICHT_1)
 dnl ### begin block 20_COND_PLATFORM_WIN32_0[rheia.bkl] ###
     COND_PLATFORM_WIN32_0="#"
     if test "x$PLATFORM_WIN32" = "x0" ; then
@@ -162,24 +186,6 @@ dnl ### begin block 20_COND_RHEIAUNIV_1[rheia.bkl] ###
         COND_RHEIAUNIV_1=""
     fi
     AC_SUBST(COND_RHEIAUNIV_1)
-dnl ### begin block 20_COND_SHARED_0[rheia.bkl] ###
-    COND_SHARED_0="#"
-    if test "x$SHARED" = "x0" ; then
-        COND_SHARED_0=""
-    fi
-    AC_SUBST(COND_SHARED_0)
-dnl ### begin block 20_COND_SHARED_0_USE_IRRLICHT_1[rheia.bkl] ###
-    COND_SHARED_0_USE_IRRLICHT_1="#"
-    if test "x$SHARED" = "x0" -a "x$USE_IRRLICHT" = "x1" ; then
-        COND_SHARED_0_USE_IRRLICHT_1=""
-    fi
-    AC_SUBST(COND_SHARED_0_USE_IRRLICHT_1)
-dnl ### begin block 20_COND_SHARED_0_USE_PLPLOT_1[rheia.bkl] ###
-    COND_SHARED_0_USE_PLPLOT_1="#"
-    if test "x$SHARED" = "x0" -a "x$USE_PLPLOT" = "x1" ; then
-        COND_SHARED_0_USE_PLPLOT_1=""
-    fi
-    AC_SUBST(COND_SHARED_0_USE_PLPLOT_1)
 dnl ### begin block 20_COND_SHARED_1[rheia.bkl] ###
     COND_SHARED_1="#"
     if test "x$SHARED" = "x1" ; then
@@ -282,6 +288,18 @@ dnl ### begin block 20_COND_USE_THREADS_1[rheia.bkl] ###
         COND_USE_THREADS_1=""
     fi
     AC_SUBST(COND_USE_THREADS_1)
+dnl ### begin block 20_COND_USE_WX29_0[rheia.bkl] ###
+    COND_USE_WX29_0="#"
+    if test "x$USE_WX29" = "x0" ; then
+        COND_USE_WX29_0=""
+    fi
+    AC_SUBST(COND_USE_WX29_0)
+dnl ### begin block 20_COND_USE_WX29_1[rheia.bkl] ###
+    COND_USE_WX29_1="#"
+    if test "x$USE_WX29" = "x1" ; then
+        COND_USE_WX29_1=""
+    fi
+    AC_SUBST(COND_USE_WX29_1)
 dnl ### begin block 20_COND_WINDOWS_IMPLIB_1[rheia.bkl] ###
     COND_WINDOWS_IMPLIB_1="#"
     if test "x$WINDOWS_IMPLIB" = "x1" ; then
