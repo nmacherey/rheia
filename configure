@@ -557,6 +557,7 @@ PACKAGE_STRING='Rheia Framework 2.0.0'
 PACKAGE_BUGREPORT='info@rheia-framework.com'
 PACKAGE_URL=''
 
+ac_unique_file="rheia-config.in"
 ac_unique_file="autoconf_inc.m4"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
@@ -670,10 +671,21 @@ CPPFLAGS
 LDFLAGS
 CFLAGS
 CC
+TOOLCHAIN_FULLNAME
+RHEIACONFIG_CPPFLAGS
+RHEIACONFIG_CFLAGS
+RHEIACONFIG_LDFLAGS
+RHEIA_LIBRARY_BASENAME_NOGUI
+RHEIA_LIBRARY_BASENAME_GUI
+EGREP
+STD_BASE_LIBS
+BUILT_RHEIA_LIBS
+ALL_RHEIA_LIBS
 DYLIB_RPATH_POSTLINK
 DYLIB_RPATH_INSTALL
 EXTRALIBS
 CXXWARNINGS
+TOOLKI_DIR
 TOOLKIT_VERSION
 TOOLKIT_LOWERCASE
 TOOLKIT
@@ -686,6 +698,7 @@ USE_THREADS
 USE_EXCEPTIONS
 MONOLITHIC
 USE_WX29
+RHEIA_CHARTYPE
 UNICODE
 RHEIA_UNIV
 SHARED
@@ -693,6 +706,10 @@ BUILD
 DEBUG_FLAG
 DEBUG_INFO
 rheia_top_builddir
+RHEIA_MSW_VERSION
+RHEIA_SUBVERSION
+RHEIA_VERSION
+RHEIA_RELEASE
 HOST_SUFFIX
 host_os
 host_vendor
@@ -2071,6 +2088,11 @@ RHEIA_SUBVERSION=$RHEIA_VERSION.$rheia_subrelease_number
 
 RHEIA_MSW_VERSION=$rheia_major_version_number$rheia_minor_version_number$rheia_release_number
 
+
+
+
+
+
 rheia_top_builddir="`pwd`"
 
 
@@ -2109,6 +2131,8 @@ RHEIA_UNIV=0
 
 
 UNICODE=0
+RHEIA_CHARTYPE="ansi"
+lib_unicode_suffix=
 # Check whether --enable-unicode was given.
 if test "${enable_unicode+set}" = set; then :
   enableval=$enable_unicode;
@@ -2118,8 +2142,11 @@ fi
 if test "x$enable_unicode" = "xyes"; then :
 
   UNICODE=1
+  RHEIA_CHARTYPE="unicode"
+  lib_unicode_suffix=u
 
 fi
+
 
 
 
@@ -2401,6 +2428,9 @@ if test "$TOOLKIT" = "GTK" ; then
 fi
 
 TOOLKIT_LOWERCASE=`echo $TOOLKIT | tr '[A-Z]' '[a-z]'`
+TOOLKIT_DIR="$TOOLKIT_LOWERCASE"
+
+
 
 
 
@@ -2419,6 +2449,51 @@ DYLIB_RPATH_INSTALL=
 DYLIB_RPATH_POSTLINK=
 
 
+
+
+STD_BASE_LIBS="utils base loggers workspacemgt packagemgt editor python"
+BUILT_RHEIA_LIBS="$STD_BASE_LIBS"
+ALL_RHEIA_LIBS="$BUILT_RHEIA_LIBS"
+
+if test "$rheiaUSE_IRRLICHT" = "yes" ; then
+    STD_BASE_LIBS="irrlicht $STD_BASE_LIBS"
+    BUILT_RHEIA_LIBS="irrlicht $BUILT_RHEIA_LIBS"
+fi
+if test "$rheiaUSE_PLPLOT" = "yes" ; then
+    STD_BASE_LIBS="plplot wxplplot $STD_BASE_LIBS"
+    BUILT_RHEIA_LIBS="plplot wxplplot $BUILT_RHEIA_LIBS"
+fi
+
+
+
+
+
+
+EGREP=egrep
+
+
+
+
+WIDGET_SET=
+
+if test "${TOOLKIT_DIR}" = "os2"; then
+    RHEIA_LIBRARY_BASENAME_GUI="rheia_pm${WIDGET_SET}${lib_unicode_suffix}${RHEIA_LIB_FLAVOUR}"
+else
+    RHEIA_LIBRARY_BASENAME_GUI="rheia_${TOOLKIT_DIR}${TOOLKIT_VERSION}${WIDGET_SET}${lib_unicode_suffix}${RHEIA_LIB_FLAVOUR}"
+fi
+RHEIA_LIBRARY_BASENAME_NOGUI=$RHEIA_LIBRARY_BASENAME_GUI
+
+
+
+RHEIACONFIG_LDFLAGS=
+
+
+RHEIACONFIG_CPPFLAGS=
+RHEIACONFIG_CFLAGS=
+
+
+
+TOOLCHAIN_FULLNAME=rheia-config
 
 
 ac_ext=c
@@ -7249,6 +7324,9 @@ BAKEFILE_AUTOCONF_INC_M4_VERSION="0.2.8"
 
 ac_config_files="$ac_config_files Makefile"
 
+ac_config_files="$ac_config_files lib/rheia/config/rheia-config:rheia-config.in"
+
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -7949,6 +8027,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "lib/rheia/config/rheia-config") CONFIG_FILES="$CONFIG_FILES lib/rheia/config/rheia-config:rheia-config.in" ;;
 
   *) as_fn_error "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -8356,6 +8435,11 @@ which seems to be undefined.  Please make sure it is defined." >&2;}
 
   esac
 
+
+  case $ac_file$ac_mode in
+    "lib/rheia/config/rheia-config":F)  chmod +x lib/rheia/config/rheia-config  ;;
+
+  esac
 done # for ac_tag
 
 

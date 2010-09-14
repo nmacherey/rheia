@@ -170,6 +170,7 @@
 		<postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/resource/images/settings $(BUILDDIR)/share/rheia/images</postlink-command>
 		<postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/plplot $(BUILDDIR)/share/rheia</postlink-command>
 	</if>
+	<install-to>$(BINDIR)</install-to>
     </exe>
 
 </makefile>

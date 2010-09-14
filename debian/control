@@ -1,0 +1,21 @@
+Source: librheia2.0
+Priority: extra
+Maintainer: Nicolas Macherey <nm@graymat.fr>
+Build-Depends: debhelper (>= 7),libwxgtk2.8-dev (>= 2.8.7),libwxgtk2.8-dbg (>= 2.8.7),freeglut3-dev (>=2.4.0),libjpeg62-dev,libpng12-dev,zlib1g-dev,libfreetype6-dev,libxml2-dev,libxml2-utils,zip,libxxf86dga-dev,libxxf86misc-dev,libxxf86vm-dev, libpango1.0-dev, libgtk2.0-dev, libcairo2-dev, libglib2.0-dev, libatk1.0-dev, python-all-dev, python-wxgtk2.8, python-wxtools, python-wxversion
+Standards-Version: 3.8.0
+Section: libs
+Homepage: http://www.rheia-framework.com
+
+Package: librheia2.0-dev
+Section: libdevel
+Architecture: any
+Depends: rheia (= ${binary:Version})
+Description: The powerful Rheia Framework Package !
+ The powerful Rheia Framework Package for developpers !
+
+Package: librheia2.0
+Section: devel
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: The powerful Rheia Framework Package !
+ The powerful Rheia Framework Package for users !

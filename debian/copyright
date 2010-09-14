@@ -1,0 +1,20 @@
+This package was debianized by Nicolas Macherey <nm@graymat.fr> on
+Thu, 13 Sept 2010 09:02:59 +0200.
+
+It was downloaded from <url://example.com>
+
+Upstream Author(s):
+
+    Nicolas Macherey, nm@graymat.fr
+
+Copyright:
+
+    Copyright (C) 2009 Nicolas Macherey for GRAYMAT
+
+License:
+
+    Rheia Software is licensed under The Rheia Integrator License Agreement see (License.txt for more details)
+
+
+The Debian packaging is (C) 2010, Nicolas Macherey <nm@graymat.fr> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.

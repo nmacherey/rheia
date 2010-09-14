@@ -1160,7 +1160,7 @@ if is_monolithic; then
     # Only add additional info if --libs was specified and not just --optional-libs
     if [ -n "$output_option_libs" ]; then
         # Core libs are already built into the blob.
-        for i in std @STD_GUI_LIBS@ @STD_BASE_LIBS@; do
+        for i in std @STD_BASE_LIBS@; do
             rheia_libs=`remove_field $i $rheia_libs`
         done
 
@@ -1178,14 +1178,14 @@ else    # MONOLITHIC = 0
 
     # Import core libs by default, expand std if specified, or add base if omitted.
     if [ -n "$output_option_libs" ] && [ -z "$libs_parameters" ]; then
-        rheia_libs="@STD_GUI_LIBS@ @STD_BASE_LIBS@"
+        rheia_libs="@STD_BASE_LIBS@"
     elif match_field all $rheia_libs; then
         rheia_libs="@BUILT_RHEIA_LIBS@"
     elif match_field std $rheia_libs; then
         # Bubble any libs that were already specified to the end
         # of the list and ensure static linking order is retained.
         rheia_libs=`remove_field std $rheia_libs`
-        for i in @STD_GUI_LIBS@ @STD_BASE_LIBS@; do
+        for i in @STD_BASE_LIBS@; do
             rheia_libs="`remove_field $i $rheia_libs` $i"
         done
     elif not match_field base $rheia_libs ; then
@@ -1198,11 +1198,6 @@ else    # MONOLITHIC = 0
     if [ -n "$output_option_libs" ]; then
         using_gui=no
         for i in $rheia_libs ; do
-            if match_field "$i" @STD_GUI_LIBS@; then
-                _guildflags="@RHEIACONFIG_LDFLAGS_GUI@"
-                using_gui=yes
-                break
-            fi
             match_field "$i" @STD_BASE_LIBS@ || using_gui=yes
         done
     fi
@@ -1239,7 +1234,7 @@ else
     _include_cppflags="-I${includedir}"
 fi
 
-_cppflags=`echo "-I${libdir}/rheia/include/@TOOLCHAIN_FULLNAME@" $_include_cppflags "@RHEIACONFIG_CPPFLAGS@" $_gui_cppflags`
+_cppflags=`echo $_include_cppflags "@RHEIACONFIG_CPPFLAGS@" $_gui_cppflags`
 
 # now without further ado, we can answer these too.
 [ -z "$output_option_cppflags" ] || echo $_cppflags
@@ -1258,7 +1253,7 @@ if [ -n "$output_option_libs" ]; then
 
     is_installed || [ -n "$flag_option_no_rpath" ] || _rpath="@RHEIACONFIG_RPATH@"
 
-    echo $_ldflags "@RHEIACONFIG_LDFLAGS@" $_rpath $rheia_libs "@DMALLOC_LIBS@"
+    echo $_ldflags "@RHEIACONFIG_LDFLAGS@" $_rpath $rheia_libs
 
 elif [ -n "$output_option_optional_libs" ]; then
     # if only --optional-libs then output just the libs

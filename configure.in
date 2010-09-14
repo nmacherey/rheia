@@ -16,7 +16,8 @@ AC_INIT([Rheia Framework], [2.0.0], [info@rheia-framework.com])
 
 	dnl the file passed to AC_CONFIG_SRCDIR should be specific to our package
 dnl AC_CONFIG_SRCDIR([rheia-config.in])
-
+dnl the file passed to AC_CONFIG_SRCDIR should be specific to our package
+AC_CONFIG_SRCDIR([rheia-config.in])
 AC_CONFIG_SRCDIR([autoconf_inc.m4])
 AC_CANONICAL_HOST
 
@@ -49,6 +50,11 @@ RHEIA_VERSION=$RHEIA_RELEASE.$rheia_release_number
 RHEIA_SUBVERSION=$RHEIA_VERSION.$rheia_subrelease_number
 
 RHEIA_MSW_VERSION=$rheia_major_version_number$rheia_minor_version_number$rheia_release_number
+
+AC_SUBST(RHEIA_RELEASE)
+AC_SUBST(RHEIA_VERSION)
+AC_SUBST(RHEIA_SUBVERSION)
+AC_SUBST(RHEIA_MSW_VERSION)
 
 dnl Autoconf-2.60 changed the meaning of top_builddir variable, so we have
 dnl to use our own replacement that will work with both 2.5x and 2.60+:
@@ -87,14 +93,19 @@ AC_SUBST(RHEIA_UNIV)
 
 dnl Enable or no unicode build
 UNICODE=0
+RHEIA_CHARTYPE="ansi"
+lib_unicode_suffix=
 AC_ARG_ENABLE([unicode],
     AS_HELP_STRING([--enable-unicode], [Enable feature unicode]))
 
 AS_IF([test "x$enable_unicode" = "xyes"], [
   UNICODE=1
+  RHEIA_CHARTYPE="unicode"
+  lib_unicode_suffix=u
 ])
 
 AC_SUBST(UNICODE)
+AC_SUBST(RHEIA_CHARTYPE)
 
 dnl check if we are using wx29 libraries or not
 USE_WX29=0
@@ -191,9 +202,12 @@ if test "$TOOLKIT" = "GTK" ; then
 fi
 
 TOOLKIT_LOWERCASE=`echo $TOOLKIT | tr '[[A-Z]]' '[[a-z]]'`
+TOOLKIT_DIR="$TOOLKIT_LOWERCASE"
+
 AC_SUBST(TOOLKIT)
 AC_SUBST(TOOLKIT_LOWERCASE)
 AC_SUBST(TOOLKIT_VERSION)
+AC_SUBST(TOOLKI_DIR)
 
 dnl cxx warnings
 
@@ -217,9 +231,62 @@ DYLIB_RPATH_POSTLINK=
 	
 AC_SUBST(DYLIB_RPATH_INSTALL)
 AC_SUBST(DYLIB_RPATH_POSTLINK)
+
+dnl variables relaated to rheia-config script
+STD_BASE_LIBS="utils base loggers workspacemgt packagemgt editor python"
+BUILT_RHEIA_LIBS="$STD_BASE_LIBS"
+ALL_RHEIA_LIBS="$BUILT_RHEIA_LIBS"
+
+if test "$rheiaUSE_IRRLICHT" = "yes" ; then
+    STD_BASE_LIBS="irrlicht $STD_BASE_LIBS"
+    BUILT_RHEIA_LIBS="irrlicht $BUILT_RHEIA_LIBS"
+fi
+if test "$rheiaUSE_PLPLOT" = "yes" ; then
+    STD_BASE_LIBS="plplot wxplplot $STD_BASE_LIBS"
+    BUILT_RHEIA_LIBS="plplot wxplplot $BUILT_RHEIA_LIBS"
+fi
+
+AC_SUBST(ALL_RHEIA_LIBS)
+AC_SUBST(BUILT_RHEIA_LIBS)
+AC_SUBST(STD_BASE_LIBS)
+
+
+dnl bind egrep
+EGREP=egrep
+AC_SUBST(EGREP)
+
+
+dnl base library name
+
+WIDGET_SET=
+
+if test "${TOOLKIT_DIR}" = "os2"; then
+    RHEIA_LIBRARY_BASENAME_GUI="rheia_pm${WIDGET_SET}${lib_unicode_suffix}${RHEIA_LIB_FLAVOUR}"
+else
+    RHEIA_LIBRARY_BASENAME_GUI="rheia_${TOOLKIT_DIR}${TOOLKIT_VERSION}${WIDGET_SET}${lib_unicode_suffix}${RHEIA_LIB_FLAVOUR}"
+fi
+RHEIA_LIBRARY_BASENAME_NOGUI=$RHEIA_LIBRARY_BASENAME_GUI
+AC_SUBST(RHEIA_LIBRARY_BASENAME_GUI)
+AC_SUBST(RHEIA_LIBRARY_BASENAME_NOGUI)
+
+dnl RHIEACONFIG_LDFLAGS
+RHEIACONFIG_LDFLAGS=
+AC_SUBST(RHEIACONFIG_LDFLAGS)
+
+RHEIACONFIG_CPPFLAGS=
+RHEIACONFIG_CFLAGS=
+AC_SUBST(RHEIACONFIG_CFLAGS)
+AC_SUBST(RHEIACONFIG_CPPFLAGS)
+
+dnl TOOLCHAIN_FULLNAME
+TOOLCHAIN_FULLNAME=rheia-config
+AC_SUBST(TOOLCHAIN_FULLNAME)
 	
 AC_BAKEFILE([m4_include(autoconf_inc.m4)])
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([ lib/rheia/config/rheia-config:rheia-config.in ],
+                [ chmod +x lib/rheia/config/rheia-config ])
+
 AC_OUTPUT
 
 
