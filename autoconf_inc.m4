@@ -78,18 +78,6 @@ dnl ### begin block 20_COND_MONOLITHIC_0_SHARED_1[rheia.bkl] ###
         COND_MONOLITHIC_0_SHARED_1=""
     fi
     AC_SUBST(COND_MONOLITHIC_0_SHARED_1)
-dnl ### begin block 20_COND_MONOLITHIC_0_USE_IRRLICHT_1[rheia.bkl] ###
-    COND_MONOLITHIC_0_USE_IRRLICHT_1="#"
-    if test "x$MONOLITHIC" = "x0" -a "x$USE_IRRLICHT" = "x1" ; then
-        COND_MONOLITHIC_0_USE_IRRLICHT_1=""
-    fi
-    AC_SUBST(COND_MONOLITHIC_0_USE_IRRLICHT_1)
-dnl ### begin block 20_COND_MONOLITHIC_0_USE_PLPLOT_1[rheia.bkl] ###
-    COND_MONOLITHIC_0_USE_PLPLOT_1="#"
-    if test "x$MONOLITHIC" = "x0" -a "x$USE_PLPLOT" = "x1" ; then
-        COND_MONOLITHIC_0_USE_PLPLOT_1=""
-    fi
-    AC_SUBST(COND_MONOLITHIC_0_USE_PLPLOT_1)
 dnl ### begin block 20_COND_MONOLITHIC_1[rheia.bkl] ###
     COND_MONOLITHIC_1="#"
     if test "x$MONOLITHIC" = "x1" ; then
@@ -180,12 +168,6 @@ dnl ### begin block 20_COND_PLATFORM_WIN32_1_USE_IRRLICHT_1[rheia.bkl] ###
         COND_PLATFORM_WIN32_1_USE_IRRLICHT_1=""
     fi
     AC_SUBST(COND_PLATFORM_WIN32_1_USE_IRRLICHT_1)
-dnl ### begin block 20_COND_RHEIAUNIV_1[rheia.bkl] ###
-    COND_RHEIAUNIV_1="#"
-    if test "x$RHEIAUNIV" = "x1" ; then
-        COND_RHEIAUNIV_1=""
-    fi
-    AC_SUBST(COND_RHEIAUNIV_1)
 dnl ### begin block 20_COND_SHARED_1[rheia.bkl] ###
     COND_SHARED_1="#"
     if test "x$SHARED" = "x1" ; then

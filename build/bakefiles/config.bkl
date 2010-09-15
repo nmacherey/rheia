@@ -3,6 +3,12 @@
 
 <makefile>
 
+	<!--====================================================================================================
+		This is the main file for defining common options to all targets and projects for building Rheia
+		Using bakefile.
+	=====================================================================================================-->
+
+    <!-- This first two variables have been made in order to check for Microsoft Visual Studio projects -->
     <set var="IS_MSVC_PRJ">
         $(FORMAT in ['msvc6prj','msevc4prj','msvs2003prj','msvs2005prj','msvs2008prj'])
     </set>
@@ -10,9 +16,10 @@
         $(IS_MSVC_PRJ=='1' or FORMAT=='msvc')
     </set>
 
-
+    <!-- This var must be set to 1 when we are building a Rheia Library -->
     <set var="BUILDING_LIB" overwrite="0">0</set>
-
+    
+    <!-- Default compiler value for CPP compilation -->
     <set var="CPP_DEFAULT_VALUE">
         <if cond="FORMAT=='borland'">
             cpp32 -Sr -oCON
@@ -27,6 +34,8 @@
             $(DOLLAR)(CC) -p
         </if>
     </set>
+    
+    <!-- Option used to define the C Preprocessor -->
     <option name="CPP">
         <default-value>
             $(CPP_DEFAULT_VALUE)
@@ -36,6 +45,7 @@
         </description>
     </option>
 
+    <!-- FIXME : This shall not be there as Rheia Libraries can only be used in a share mode -->
     <option name="SHARED">
         <values>0,1</values>
         <values-description>,DLL</values-description>
@@ -45,18 +55,13 @@
         </description>
     </option>
 
-    <option name="RHEIAUNIV">
-        <values>0,1</values>
-        <values-description>,Universal</values-description>
-        <default-value>0</default-value>
-        <description>
-            Build rheiaUniversal instead of native port?
-        </description>
-    </option>
-
-    <!-- don't include ANSI configuration in project files, it's going to be
+    <!-- Don't include ANSI configuration in project files, it's going to be
          eventually removed anyway and it only doubles the number of build
-         configs in projects: -->
+         configs in projects: 
+         The Unicode option is used to specify if we are building Rheia using an unicode
+         Library. Note that must fit in with the option used for compiling your wxWidget
+         Library.
+    -->
     <if cond="IS_MSVC_PRJ=='1'">
         <set var="UNICODE">1</set>
     </if>
@@ -66,11 +71,15 @@
             <values-description>,Unicode</values-description>
             <default-value>1</default-value>
             <description>
-                Compile Unicode build of rheiaWidgets?
+                Compile Unicode build of Rheia Framework ?
             </description>
         </option>
     </if>
-
+    
+    <!-- Add an option to use the MSLU libray if we are not in autoconf and watcom 
+        FIXME : Check if this is really interesting it has been taken from wxWidgets
+        bakefiles.
+    -->
     <if cond="FORMAT!='autoconf' and FORMAT!='watcom'">
         <option name="MSLU">
             <values>0,1</values>
@@ -84,6 +93,7 @@
         <set var="MSLU">0</set>
     </if>
 
+    <!-- Add an option for those who need to compile rheia in debug mode -->
     <option name="BUILD">
         <values>debug,release</values>
         <values-description>Debug,Release</values-description>
@@ -92,7 +102,8 @@
             Type of compiled binaries
         </description>
     </option>
-
+    
+    <!-- Under windows we need to add this option in order to use the proper CPU target and paths -->
     <if cond="FORMAT=='msvc'">
         <option name="TARGET_CPU">
             <default-value>$(DOLLAR)(CPU)</default-value>
@@ -102,7 +113,6 @@ This does not affect the compiler output, so you still need to make sure
 your environment is set up appropriately with the correct compiler in the
 PATH. Rather it affects some options passed to some of the common build
 utilities such as the resource compiler and the linker.
-
 Accepted values: AMD64, IA64.
             </description>
         </option>
@@ -136,10 +146,16 @@ and not included if BUILD=release.
         <values>0,1,default</values>
         <default-value>0</default-value>
         <description>
-Use RHEIA_DEBUG version.        
+Should Rheia be compiled using RHEIA_DEBUG flag in order to show additional
+informations about the application run time such as log windows and others.
+By default, if BUILD=debug it shall be enabled, but this option is here if
+you still want to have it when BUILD=release. Default means that the behaviour
+is as explained here.       
 	</description>
     </option>
 
+
+    <!-- For those like me :-) who prefer to use the "unstable" wxversion, this option is here for that -->
     <option name="USE_WX29">
         <values>0,1,default</values>
         <default-value>1</default-value>
@@ -149,7 +165,7 @@ Use this option if you want to link against wxWidgets libraries version 2.9.x
     </option>
 
 
-
+    <!-- Which crt shall be used under MSVC -->
     <if cond="FORMAT=='msvc'">
         <option name="DEBUG_RUNTIME_LIBS">
             <values>0,1,default</values>
@@ -164,6 +180,7 @@ Default is to use debug CRT if and only if BUILD==debug.
         <set var="DEBUG_RUNTIME_LIBS">default</set>
     </if>
 
+    <!-- Under watcom we shall always build rheia in a monolithic way -->
     <set var="MONOLITHIC_DEFAULT">
         <if cond="FORMAT=='watcom'">1</if>
         <if cond="FORMAT!='watcom'">0</if>
@@ -177,6 +194,7 @@ Default is to use debug CRT if and only if BUILD==debug.
         </description>
     </option>
 
+    <!-- Add an option for those who don't care to compile the irrlicht library -->
     <option name="USE_IRRLICHT">
         <values>0,1</values>
         <default-value>1</default-value>
@@ -185,6 +203,7 @@ Default is to use debug CRT if and only if BUILD==debug.
         </description>
     </option>
 
+    <!-- Add an option for those who don't care to compile the plplot and wxplplot libraries -->
     <option name="USE_PLPLOT">
         <values>0,1</values>
         <default-value>1</default-value>
@@ -193,6 +212,7 @@ Default is to use debug CRT if and only if BUILD==debug.
         </description>
     </option>
 
+    <!-- Add an option in order to enable or disable exceptions from generated code -->
     <option name="USE_EXCEPTIONS">
         <values>0,1</values>
         <default-value>1</default-value>
@@ -201,6 +221,7 @@ Default is to use debug CRT if and only if BUILD==debug.
         </description>
     </option>
 
+    <!-- Add an option for the usage of real time type informations -->
     <option name="USE_RTTI">
         <values>0,1</values>
         <default-value>1</default-value>
@@ -208,7 +229,8 @@ Default is to use debug CRT if and only if BUILD==debug.
             Enable run-time type information (RTTI) in compiled code.
         </description>
     </option>
-
+    
+    <!-- Enable threading in compiled code -->
     <option name="USE_THREADS">
         <values>0,1</values>
         <default-value>1</default-value>
@@ -216,7 +238,8 @@ Default is to use debug CRT if and only if BUILD==debug.
             Enable threading in compiled code.
         </description>
     </option>
-
+    
+    <!-- Is this an official build from rheia developpers or not -->
     <option name="OFFICIAL_BUILD">
         <values>0,1</values>
         <default-value>0</default-value>
@@ -224,6 +247,8 @@ Default is to use debug CRT if and only if BUILD==debug.
             Is this official build by Rheia Framework's developers?
         </description>
     </option>
+
+    <!-- Specify a vendor name if required so that people can give their own name to rheia libraries -->
     <option name="VENDOR">
         <default-value>custom</default-value>
         <description>
@@ -249,52 +274,28 @@ compiled .lib files.
         </description>
     </option>
 
-    <!-- unit tests support: 
-    <option name="CPPUNIT_CFLAGS">
-        <default-value></default-value>
-        <description>
-Compiler flags needed to compile test suite in tests directory. If you want
-to run the tests, set it so that the compiler can find CppUnit headers.
-        </description>
-    </option>
-
-    <option name="CPPUNIT_LIBS">
-        <default-value></default-value>
-        <description>
-Linker flags needed to link test suite in tests directory. If you want
-to run the tests, include CppUnit library here.
-        </description>
-    </option>-->
-
-
     <!-- ================================================================== -->
     <!--                             Autoconf                               -->
     <!-- ================================================================== -->
-
+    
+    <!-- Here goes all options specific to autoconf -->
     <if cond="FORMAT=='autoconf'">
-        <option name="DEREZ"/>
         <option name="TOOLKIT"/>
         <option name="TOOLKIT_LOWERCASE"/>
         <option name="TOOLKIT_VERSION"/>
         <option name="TOOLCHAIN_NAME"/>
         <option name="TOOLCHAIN_FULLNAME"/>
         <option name="EXTRALIBS"/>
-        <option name="EXTRALIBS_GUI"/>
-	<option name="EXTRALIBS_OPENGL"/>
         <option name="CXXWARNINGS"/>
-	<option name="WXCONFIG_PATH"/>
+	    <option name="WXCONFIG_PATH"/>
         <option name="HOST_SUFFIX"/>
         <option name="DYLIB_RPATH_INSTALL"/>
         <option name="DYLIB_RPATH_POSTLINK"/>
         <option name="SAMPLES_RPATH_FLAG"/>
 
-        <!-- see configure.in; it's required by some samples on Mac OS X -->
-        <option name="HEADER_PAD_OPTION"/>
-
         <set var="TOP_SRCDIR">$(top_srcdir)/</set>
         <set var="RUNTIME_LIBS">dynamic</set>
         <set var="RHEIATOPDIR"/> <!-- to be overriden on bakefile cmd line -->
-
         <option name="rheia_top_builddir"/>
     </if>
 
@@ -331,13 +332,6 @@ it if SHARED=1 unless you know what you are doing.
         <set var="HOST_SUFFIX"/>
         <set var="EXTRACFLAGS"/>
         <set var="EXTRALIBS"/>
-        <set var="EXTRALIBS_GUI"/>
-        <set var="EXTRALIBS_OPENGL">
-            <if cond="COMPILER=='wat' and TOOLKIT=='MSW'">opengl32.lib glu32.lib</if>
-            <if cond="COMPILER in ['vc','evc']">opengl32.lib glu32.lib</if>
-            <if cond="COMPILER=='gcc'">-lopengl32 -lglu32</if>
-        </set>
-
         <if cond="BUILDING_LIB=='1'">
             <set-srcdir>../..</set-srcdir>
         </if>
@@ -350,8 +344,8 @@ it if SHARED=1 unless you know what you are doing.
             <default-value>3</default-value>
             <description>
 Set the version of your Mingw installation here.
-    "3" ...... this is for Mingw 2.0 or newer (comes with gcc3)
-    "2.95" ... for Mingw 1.1 or any of the older versions
+"3" ...... this is for Mingw 2.0 or newer (comes with gcc3)
+"2.95" ... for Mingw 1.1 or any of the older versions
             </description>
         </option>
         <set var="GCCFLAGS">
@@ -386,11 +380,7 @@ Set the version of your Mingw installation here.
         <set var="RUNTIME_LIBS">static</set>
         <set var="BUILD">debug</set>
         <set var="SHARED">0</set>
-        <set var="RHEIAUNIV">0</set>
         <set var="UNICODE">1</set>
-        <!-- Free version does not distribute OpenGL,
-             in commercial distribution better use dmars_smake format -->
-        <set var="USE_OPENGL">0</set>
     </if>
 
     <!-- No need for wxUniv on embedded devices (yet): -->
@@ -399,7 +389,6 @@ Set the version of your Mingw installation here.
         <!-- Uploading debug reports from PDAs seems impractical -->
         <set var="USE_QA">0</set>
         <set var="MONOLITHIC">1</set> <!-- sic! -->
-        <set var="USE_OPENGL">0</set> <!-- need OpenGL ES support first -->
         <!-- RTTI and exceptions need separate cccrtti.lib with eVC4 -->
         <if cond="FORMAT=='msevc4prj'">
             <set var="USE_RTTI">0</set>
@@ -409,7 +398,6 @@ Set the version of your Mingw installation here.
 
     <!-- Need for wxUniv within wxMGL: -->
     <if cond="FORMAT!='autoconf' and TOOLKIT=='MGL'">
-        <set var="RHEIAUNIV">1</set>
         <set var="USE_THREADS">0</set>
         <set var="RUNTIME_LIBS">static</set>
     </if>

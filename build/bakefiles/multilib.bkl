@@ -25,7 +25,7 @@
         <msvc-headers>$(RHEIA_UTILS_HDR)</msvc-headers>
     </dll>
 
-    <rheiashortcut id="rheiautils" cond="MONOLITHIC=='0'"/>
+    <rheiashortcut id="utils" cond="MONOLITHIC=='0'"/>
 
     <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">utils=utilsdll</set>
 
@@ -41,7 +41,7 @@
         <msvc-headers>$(RHEIA_BASE_HDR)</msvc-headers>
     </dll>
 
-    <rheiashortcut id="rheiabase" cond="MONOLITHIC=='0'"/>
+    <rheiashortcut id="base" cond="MONOLITHIC=='0'"/>
 
     <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">base=basedll</set>
 
@@ -57,7 +57,7 @@
         <msvc-headers>$(RHEIA_LOGGERS_HDR)</msvc-headers>
     </dll>
 
-    <rheiashortcut id="rheialoggers" cond="MONOLITHIC=='0'"/>
+    <rheiashortcut id="loggers" cond="MONOLITHIC=='0'"/>
 
     <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">loggers=loggersdll</set>
 
@@ -73,7 +73,7 @@
         <msvc-headers>$(RHEIA_PACKAGES_HDR)</msvc-headers>
     </dll>
 
-    <rheiashortcut id="rheiapackagemgt" cond="MONOLITHIC=='0'"/>
+    <rheiashortcut id="packagemgt" cond="MONOLITHIC=='0'"/>
 
     <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">packagemgt=packagemgtdll</set>
 
@@ -89,7 +89,7 @@
         <msvc-headers>$(RHEIA_WORKSPACES_HDR)</msvc-headers>
     </dll>
 
-    <rheiashortcut id="rheiaworkspacemgt" cond="MONOLITHIC=='0'"/>
+    <rheiashortcut id="workspacemgt" cond="MONOLITHIC=='0'"/>
 
     <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">workspacemgt=workspacemgtdll</set>
 
@@ -105,7 +105,7 @@
         <msvc-headers>$(RHEIA_EDITOR_HDR)</msvc-headers>
     </dll>
 
-    <rheiashortcut id="rheiaeditor" cond="MONOLITHIC=='0'"/>
+    <rheiashortcut id="editor" cond="MONOLITHIC=='0'"/>
 
     <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">editor=editordll</set>
 
@@ -121,56 +121,8 @@
         <msvc-headers>$(RHEIA_PYTHON_HDR)</msvc-headers>
     </dll>
 
-    <rheiashortcut id="rheiapython" cond="MONOLITHIC=='0'"/>
+    <rheiashortcut id="python" cond="MONOLITHIC=='0'"/>
 
     <set var="MSVC6PRJ_MERGED_TARGETS_MULTILIB" append="1">python=pythondll</set>
-
-    <!-- ================================================================= -->
-    <!--                     rheia executable                              -->
-    <!-- ================================================================= -->
-
-    <exe id="rheia" template="rheia,pythonlibs">
-	<app-type>gui</app-type>
-	<dirname>$(BUILDDIR)/bin</dirname>
-	<sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
-	<sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
-	<sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
-	<sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
-	<sys-lib>$(RHEIALIB_UTILS)</sys-lib>
-	<sys-lib>$(RHEIALIB_BASE)</sys-lib>
-	<sys-lib>$(RHEIALIB_LOGGERS)</sys-lib>
-	<sys-lib>$(RHEIALIB_PACKAGEMGT)</sys-lib>
-	<sys-lib>$(RHEIALIB_WORKSPACEMGT)</sys-lib>
-	<sys-lib>$(RHEIALIB_EDITOR)</sys-lib>
-	<sys-lib>$(RHEIALIB_PYTHON)</sys-lib>
-	<depends>irrlicht</depends>
-	<depends>plplot</depends>
-	<depends>wxplplot</depends>
-	<depends>utilsdll</depends>
-	<depends>basedll</depends>
-	<depends>loggersdll</depends>
-	<depends>packagemgtdll</depends>
-	<depends>workspacemgtdll</depends>
-	<depends>editordll</depends>
-	<depends>pythondll</depends>
-	<define>wxUSE_BASE=1</define>
-        <sources>$(RHEIA_SRC)</sources>
-	<if cond="FORMAT=='autoconf'">
-		<postlink-command>mkdir -p $(BUILDDIR)/share/rheia</postlink-command>
-		<postlink-command>mkdir -p $(BUILDDIR)/share/rheia/cache</postlink-command>
-		<postlink-command>mkdir -p $(BUILDDIR)/share/rheia/packages</postlink-command>
-		<postlink-command>mkdir -p $(BUILDDIR)/share/rheia/plugins/lib</postlink-command>
-		<postlink-command>mkdir -p $(BUILDDIR)/share/rheia/scripts</postlink-command>
-		<postlink-command>mkdir -p $(BUILDDIR)/share/rheia/images</postlink-command>
-		<postlink-command>mkdir -p $(BUILDDIR)/temp</postlink-command>
-		<postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/resource/* $(BUILDDIR)/temp</postlink-command>
-		<postlink-command>zip -j9 -r $(BUILDDIR)/share/rheia/resource.zip $(BUILDDIR)/temp</postlink-command>
-		<postlink-command>rm -rf $(BUILDDIR)/temp</postlink-command>
-		<postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/webresource/* $(BUILDDIR)/share/rheia</postlink-command>
-		<postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/resource/images/settings $(BUILDDIR)/share/rheia/images</postlink-command>
-		<postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/plplot $(BUILDDIR)/share/rheia</postlink-command>
-	</if>
-	<install-to>$(BINDIR)</install-to>
-    </exe>
 
 </makefile>

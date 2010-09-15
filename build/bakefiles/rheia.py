@@ -49,7 +49,7 @@ def mkLibName(rheiaid):
        suffixes, prefixes, version tags etc. This must be kept in sync
        with variables defined in common.bkl!"""
     if rheiaid == 'mono':
-        return '$(RHEIANAMEPREFIXGUI)$(RHEIANAMESUFFIX)$(RHEIAVERSIONTAG)$(HOST_SUFFIX)'
+        return '$(RHEIANAMEPREFIXGUI)$(RHEIANAMESUFFIX)_%s$(RHEIAVERSIONTAG)$(HOST_SUFFIX)' % rheiaid
     if rheiaid in MAIN_LIBS:
         return '$(RHEIANAMEPREFIXGUI)$(RHEIANAMESUFFIX)_%s$(RHEIAVERSIONTAG)$(HOST_SUFFIX)' % rheiaid
 
@@ -60,7 +60,7 @@ def mkDllName(rheiaid):
        suffixes, prefixes, version tags etc. This must be kept in sync
        with variables defined in common.bkl!"""
     if rheiaid == 'mono':
-        return '$(RHEIADLLNAMEPREFIXGUI)$(RHEIANAMESUFFIX)$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)'
+        return '$(RHEIADLLNAMEPREFIXGUI)$(RHEIANAMESUFFIX)_%s$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)' % rheiaid
     if rheiaid in MAIN_LIBS:
         return '$(RHEIADLLNAMEPREFIXGUI)$(RHEIANAMESUFFIX)_%s$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)' % rheiaid
     return '$(RHEIADLLNAMEPREFIXGUI)$(RHEIANAMESUFFIX)_%s$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)' % rheiaid

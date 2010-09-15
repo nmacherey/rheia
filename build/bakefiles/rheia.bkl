@@ -103,6 +103,61 @@
 
     </if>
 
+    <!-- ================================================================= -->
+    <!--                     rheia executable                              -->
+    <!-- ================================================================= -->
+
+    <exe id="rheia" template="rheia,pythonlibs">
+	    <app-type>gui</app-type>
+	    <dirname>$(BUILDDIR)/bin</dirname>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
+
+        <depends>utilsdll</depends>
+        <depends>basedll</depends>
+        <depends>loggersdll</depends>
+        <depends>packagemgtdll</depends>
+        <depends>workspacemgtdll</depends>
+        <depends>editordll</depends>
+        <depends>pythondll</depends>
+        <sys-lib>$(RHEIALIB_UTILS)</sys-lib>
+        <sys-lib>$(RHEIALIB_BASE)</sys-lib>
+        <sys-lib>$(RHEIALIB_LOGGERS)</sys-lib>
+        <sys-lib>$(RHEIALIB_PACKAGEMGT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WORKSPACEMGT)</sys-lib>
+        <sys-lib>$(RHEIALIB_EDITOR)</sys-lib>
+        <sys-lib>$(RHEIALIB_PYTHON)</sys-lib>
+
+        <depends>monodll</depends>
+        <sys-lib>$(RHEIALIB_MONOLITHIC)</sys-lib>
+
+	    <define>wxUSE_BASE=1</define>
+            <sources>$(RHEIA_SRC)</sources>
+	    <if cond="FORMAT=='autoconf'">
+		    <postlink-command>mkdir -p $(BUILDDIR)/share/rheia</postlink-command>
+		    <postlink-command>mkdir -p $(BUILDDIR)/share/rheia/cache</postlink-command>
+		    <postlink-command>mkdir -p $(BUILDDIR)/share/rheia/packages</postlink-command>
+		    <postlink-command>mkdir -p $(BUILDDIR)/share/rheia/plugins/lib</postlink-command>
+		    <postlink-command>mkdir -p $(BUILDDIR)/share/rheia/scripts</postlink-command>
+		    <postlink-command>mkdir -p $(BUILDDIR)/share/rheia/images</postlink-command>
+		    <postlink-command>mkdir -p $(BUILDDIR)/temp</postlink-command>
+		    <postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/resource/* $(BUILDDIR)/temp</postlink-command>
+		    <postlink-command>zip -j9 -r $(BUILDDIR)/share/rheia/resource.zip $(BUILDDIR)/temp</postlink-command>
+		    <postlink-command>rm -rf $(BUILDDIR)/temp</postlink-command>
+		    <postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/webresource/* $(BUILDDIR)/share/rheia</postlink-command>
+		    <postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/resource/images/settings $(BUILDDIR)/share/rheia/images</postlink-command>
+		    <postlink-command>cp -r $(TOP_SRCDIR)/share/rheia/plplot $(BUILDDIR)/share/rheia</postlink-command>
+	    </if>
+	    <install-to>$(BINDIR)</install-to>
+    </exe>
+
     <!--<include file="build_cfg.bkl"/>-->
 
 </makefile>

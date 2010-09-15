@@ -121,12 +121,11 @@ AC_SUBST(USE_WX29)
 dnl Enable monolithic buil
 MONOLITHIC=0
 AC_ARG_ENABLE(monolithic,
-		[--enable-monolithic 	Build all rheia libs in the same library],
-		USE_MONOLITHIC="enableval", USE_MONOLITHIC="no")
+		AS_HELP_STRING([--enable-monolithic], [Build all rheia libraries in the same one]))
 
-if test $USE_MONOLITHIC = yes ; then
+AS_IF([test "x$enable_monolithic" = "xyes"], [
   MONOLITHIC=1
-fi
+])
 
 AC_SUBST(MONOLITHIC)
 

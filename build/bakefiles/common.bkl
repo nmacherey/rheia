@@ -68,16 +68,9 @@
         $(RHEIA_U_D_SUFFIX)$(RHEIA_LIB_FLAVOUR)
     </set>
 
-    <set var="RHEIAUNIVNAME">
-        <if cond="RHEIAUNIV=='1'">univ</if>
-    </set>
-    <set var="RHEIAUNIV_DEFINE">
-        <if cond="RHEIAUNIV=='1'">__RHEIAUNIVERSAL__</if>
-    </set>
-
     <if cond="FORMAT=='autoconf'">
         <set var="RHEIANAMEPREFIX">rheia_base$(RHEIABASEPORT)</set>
-        <set var="RHEIANAMEPREFIXGUI">rheia_$(PORTNAME)$(RHEIAUNIVNAME)</set>
+        <set var="RHEIANAMEPREFIXGUI">rheia_$(PORTNAME)</set>
         <set var="RHEIAVERSIONTAG">-$(RHEIA_RELEASE)</set>
     </if>
     <if cond="FORMAT!='autoconf'">
@@ -85,7 +78,7 @@
             rheiabase$(RHEIABASEPORT)$(RHEIA_RELEASE_NODOT)
         </set>
         <set var="RHEIANAMEPREFIXGUI">
-            rheia$(PORTNAME)$(RHEIAUNIVNAME)$(RHEIA_RELEASE_NODOT)</set>
+            rheia$(PORTNAME)$(RHEIA_RELEASE_NODOT)</set>
         <set var="RHEIAVERSIONTAG"></set>
     </if>
     <set var="RHEIADLLNAMEPREFIX">
@@ -96,7 +89,7 @@
     </set>
     <set var="RHEIADLLNAMEPREFIXGUI">
         <if cond="PLATFORM_WIN32=='1'">
-            rheia$(PORTNAME)$(RHEIAUNIVNAME)$(RHEIAWIN32DLLVERSION)
+            rheia$(PORTNAME)$(RHEIAWIN32DLLVERSION)
         </if>
         <if cond="PLATFORM_WIN32=='0'">$(RHEIANAMEPREFIXGUI)</if>
     </set>
@@ -111,16 +104,16 @@
     <!-- =============================================================== -->
 
     <set var="RHEIALIB_IRRLICHT">
-        <if cond="MONOLITHIC=='0' and USE_IRRLICHT=='1'">$(mk.evalExpr(rheia.mkLibName('irrlicht')))</if>
+        <if cond="USE_IRRLICHT=='1'">$(mk.evalExpr(rheia.mkLibName('irrlicht')))</if>
     </set>
     <set var="RHEIALIB_PLPLOT">
-        <if cond="MONOLITHIC=='0' and USE_PLPLOT=='1'">$(mk.evalExpr(rheia.mkLibName('plplot')))</if>
+        <if cond="USE_PLPLOT=='1'">$(mk.evalExpr(rheia.mkLibName('plplot')))</if>
     </set>
     <set var="RHEIALIB_WXPLPLOT">
-        <if cond="MONOLITHIC=='0' and USE_PLPLOT=='1'">$(mk.evalExpr(rheia.mkLibName('wxplplot')))</if>
+        <if cond="USE_PLPLOT=='1'">$(mk.evalExpr(rheia.mkLibName('wxplplot')))</if>
     </set>
     <set var="RHEIALIB_WEBCONNECT">
-        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('webconnect')))</if>
+        $(mk.evalExpr(rheia.mkLibName('webconnect')))
     </set>
     <set var="RHEIALIB_UTILS">
         <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('utils')))</if>
@@ -143,6 +136,9 @@
     <set var="RHEIALIB_PYTHON">
         <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('python')))</if>
     </set>
+    <set var="RHEIALIB_MONOLITHIC">
+        <if cond="MONOLITHIC=='1'">$(mk.evalExpr(rheia.mkLibName('mono')))</if>
+    </set>
 
     <!-- =============================================================== -->
     <!--             Where to store built libraries and objects:         -->
@@ -161,7 +157,7 @@
             <if cond="SHARED=='1'">dll</if>
         </set>
         <set var="CFG_NAME_PART">
-            $(PORTNAME)$(RHEIAUNIVNAME)$(RHEIA_U_D_SUFFIX)$(RHEIADLLFLAG)$(CFG)
+            $(PORTNAME)$(RHEIA_U_D_SUFFIX)$(RHEIADLLFLAG)$(CFG)
         </set>
 
         <!-- NB: this is make_var so that it can be overriden on command line
@@ -191,7 +187,7 @@
 
     <if cond="FORMAT!='autoconf'">
         <set var="SETUPHDIR" make_var="1">
-            $(LIBDIRNAME)\$(PORTNAME)$(RHEIAUNIVNAME)$(RHEIA_U_D_SUFFIX)
+            $(LIBDIRNAME)\$(PORTNAME)$(RHEIA_U_D_SUFFIX)
         </set>
     </if>
 
@@ -236,15 +232,6 @@
         <if cond="USE_THREADS=='0'">single</if>
     </set>
 
-    <!--
-    <set var="EXCEPTIONS_DEFINE">
-        <if cond="USE_EXCEPTIONS=='0'">wxNO_EXCEPTIONS</if>
-    </set>
-    <set var="THREAD_DEFINE">
-        <if cond="USE_THREADS=='0'">wxNO_THREADS</if>
-    </set>
-
-    -->
     <set var="DEBUG_DEFINE">
         <if cond="DEBUG_FLAG=='1'">RHEIA_DEBUG</if>
     </set>
@@ -259,16 +246,6 @@
         <if cond="FORMAT=='msvc' and BUILD=='debug' and DEBUG_RUNTIME_LIBS=='0'">__NO_VC_CRTDBG__</if>
         <if cond="FORMAT=='msvc' and BUILD=='release' and DEBUG_FLAG=='1'">__NO_VC_CRTDBG__</if>
     </set>
-
-    <!--
-    <set var="UNICODE_DEFINE">
-        <if cond="FORMAT!='autoconf' and UNICODE=='1'">_UNICODE</if>
-        <if cond="FORMAT!='autoconf' and UNICODE=='0'">wxUSE_UNICODE=0</if>
-    </set>
-    <set var="MSLU_DEFINE">
-        <if cond="FORMAT!='autoconf' and MSLU=='1'">wxUSE_UNICODE_MSLU=1</if>
-    </set>
-    -->
 
     <!-- fill for the specific case of the format/compiler -->
     <set var="WIN32_WINNT">
@@ -475,7 +452,6 @@
     <template id="rheia3rdparty" template="common_settings">
         <set var="rheiaid">$(rheia.mk_rheiaid(id))</set>
         <define>__RHEIA$(TOOLKIT)__</define>
-        <define>$(RHEIAUNIV_DEFINE)</define>
         <define>$(DEBUG_DEFINE)</define>
         <define>$(NDEBUG_DEFINE)</define>
         <lib-path>$(LIBDIRNAME)</lib-path>
@@ -569,22 +545,7 @@
     <template id="rheia3rdparty_lib_b" template="rheia3rdparty,anylib">
         <set var="RHEIALIBNAME">$(rheia.mkLibName(rheiaid))</set>
         <libname>$(RHEIALIBNAME)</libname>
-
         <define>RHEIABUILDING</define>
-
-        <!--<if cond="IS_MSVC_PRJ=='1' and BUILDING_LIB=='1'">
-            <msvc-file-group>Common Sources:src/common/*</msvc-file-group>
-            <msvc-file-group>MSW Sources:src/msw/*</msvc-file-group>
-            <msvc-file-group>Generic Sources:src/generic/*</msvc-file-group>
-            <msvc-file-group>wxUniv Sources:src/univ/*</msvc-file-group>
-            <msvc-file-group>wxHTML Sources:src/html/*</msvc-file-group>
-            <msvc-file-group>Setup Headers:*/setup.h</msvc-file-group>
-            <msvc-file-group>MSW Headers:*wx/msw/*.h</msvc-file-group>
-            <msvc-file-group>Generic Headers:*wx/generic/*.h</msvc-file-group>
-            <msvc-file-group>wxUniv Headers:*wx/univ/*.h</msvc-file-group>
-            <msvc-file-group>wxHTML Headers:*wx/html/*.h</msvc-file-group>
-            <msvc-file-group>Common Headers:*wx/*.h</msvc-file-group>
-        </if>-->
     </template>
 
     <template id="rheia3rdparty_dll_b" template="rheia3rdparty_lib_b">
@@ -602,8 +563,7 @@
             <res-include>$(TOP_SRCDIR)include</res-include>
             <postlink-command>$(DYLIB_RPATH_POSTLINK)</postlink-command>
         </if>
-        <win32-res>$(RHEIATOPDIR)src/msw/version.rc</win32-res>
-        
+        <win32-res>$(RHEIATOPDIR)src/msw/version.rc</win32-res>       
     </template>
 
     <template id="rheia_dll_3rdparty"
@@ -614,7 +574,7 @@
               template_append="rheia3rdparty_append_base_nomono">
     </template>
 
-        <!-- =============================================================== -->
+    <!-- =============================================================== -->
     <!--                         3rd party libs:                         -->
     <!-- =============================================================== -->
 
@@ -629,12 +589,8 @@
     <!-- =============================================================== -->
 
     <set var="EXTRALIBS_FOR_BASE">
-        <if cond="MONOLITHIC=='1'">$(EXTRALIBS) $(EXTRALIBS_GUI)</if>
+        <if cond="MONOLITHIC=='1'">$(EXTRALIBS)</if>
         <if cond="MONOLITHIC=='0'">$(EXTRALIBS)</if>
-    </set>
-    <set var="EXTRALIBS_FOR_GUI">
-        <if cond="MONOLITHIC=='1'"></if>
-        <if cond="MONOLITHIC=='0'">$(EXTRALIBS_GUI)</if>
     </set>
 
     <if cond="TOOLKIT=='MGL' and FORMAT=='watcom'">
@@ -647,7 +603,6 @@
     <template id="rheia" template="common_settings">
         <set var="rheiaid">$(rheia.mk_rheiaid(id))</set>
         <define>__RHEIA$(TOOLKIT)__</define>
-        <define>$(RHEIAUNIV_DEFINE)</define>
         <define>$(DEBUG_DEFINE)</define>
         <define>$(NDEBUG_DEFINE)</define>
         <include>$(TOP_SRCDIR)include</include>
@@ -753,7 +708,6 @@
 
     <!-- for GUI libs/samples: -->
     <template id="rheia_append_nomono" template_append="rheia_append_base_nomono">
-        <ldlibs>$(EXTRALIBS_FOR_GUI)</ldlibs>
     </template>
 
 
@@ -769,22 +723,7 @@
     <template id="rheia_lib_b" template="rheia,anylib">
         <set var="RHEIALIBNAME">$(rheia.mkLibName(rheiaid))</set>
         <libname>$(RHEIALIBNAME)</libname>
-
         <define>RHEIABUILDING</define>
-
-        <!--<if cond="IS_MSVC_PRJ=='1' and BUILDING_LIB=='1'">
-            <msvc-file-group>Common Sources:src/common/*</msvc-file-group>
-            <msvc-file-group>MSW Sources:src/msw/*</msvc-file-group>
-            <msvc-file-group>Generic Sources:src/generic/*</msvc-file-group>
-            <msvc-file-group>wxUniv Sources:src/univ/*</msvc-file-group>
-            <msvc-file-group>wxHTML Sources:src/html/*</msvc-file-group>
-            <msvc-file-group>Setup Headers:*/setup.h</msvc-file-group>
-            <msvc-file-group>MSW Headers:*wx/msw/*.h</msvc-file-group>
-            <msvc-file-group>Generic Headers:*wx/generic/*.h</msvc-file-group>
-            <msvc-file-group>wxUniv Headers:*wx/univ/*.h</msvc-file-group>
-            <msvc-file-group>wxHTML Headers:*wx/html/*.h</msvc-file-group>
-            <msvc-file-group>Common Headers:*wx/*.h</msvc-file-group>
-        </if>-->
     </template>
 
     <template id="rheia_dll_b" template="rheia_lib_b">

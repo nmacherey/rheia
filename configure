@@ -581,7 +581,6 @@ COND_USE_EXCEPTIONS_0
 COND_UNICODE_1
 COND_TOOLKIT_MAC
 COND_SHARED_1
-COND_RHEIAUNIV_1
 COND_PLATFORM_WIN32_1_USE_IRRLICHT_1
 COND_PLATFORM_WIN32_1
 COND_PLATFORM_WIN32_0
@@ -597,8 +596,6 @@ COND_OFFICIAL_BUILD_1_PLATFORM_WIN32_1
 COND_OFFICIAL_BUILD_0_PLATFORM_WIN32_1
 COND_MONOLITHIC_1_SHARED_1
 COND_MONOLITHIC_1
-COND_MONOLITHIC_0_USE_PLPLOT_1
-COND_MONOLITHIC_0_USE_IRRLICHT_1
 COND_MONOLITHIC_0_SHARED_1
 COND_MONOLITHIC_0
 COND_DEPS_TRACKING_1
@@ -1419,7 +1416,7 @@ Optional Features:
   --enable-debug          Enable feature debug
   --enable-unicode        Enable feature unicode
   --enable-wx29           Link against wx29 libraries
---enable-monolithic 	Build all rheia libs in the same library
+  --enable-monolithic     Build all rheia libraries in the same one
   --enable-vendor=VENDOR  vendor name (win32 DLL only)
   --enable-omf            use OMF object format (OS/2)
   --disable-dependency-tracking
@@ -2171,14 +2168,14 @@ fi
 MONOLITHIC=0
 # Check whether --enable-monolithic was given.
 if test "${enable_monolithic+set}" = set; then :
-  enableval=$enable_monolithic; USE_MONOLITHIC="enableval"
-else
-  USE_MONOLITHIC="no"
+  enableval=$enable_monolithic;
 fi
 
 
-if test $USE_MONOLITHIC = yes ; then
+if test "x$enable_monolithic" = "xyes"; then :
+
   MONOLITHIC=1
+
 fi
 
 
@@ -7143,16 +7140,6 @@ BAKEFILE_AUTOCONF_INC_M4_VERSION="0.2.8"
         COND_MONOLITHIC_0_SHARED_1=""
     fi
 
-    COND_MONOLITHIC_0_USE_IRRLICHT_1="#"
-    if test "x$MONOLITHIC" = "x0" -a "x$USE_IRRLICHT" = "x1" ; then
-        COND_MONOLITHIC_0_USE_IRRLICHT_1=""
-    fi
-
-    COND_MONOLITHIC_0_USE_PLPLOT_1="#"
-    if test "x$MONOLITHIC" = "x0" -a "x$USE_PLPLOT" = "x1" ; then
-        COND_MONOLITHIC_0_USE_PLPLOT_1=""
-    fi
-
     COND_MONOLITHIC_1="#"
     if test "x$MONOLITHIC" = "x1" ; then
         COND_MONOLITHIC_1=""
@@ -7226,11 +7213,6 @@ BAKEFILE_AUTOCONF_INC_M4_VERSION="0.2.8"
     COND_PLATFORM_WIN32_1_USE_IRRLICHT_1="#"
     if test "x$PLATFORM_WIN32" = "x1" -a "x$USE_IRRLICHT" = "x1" ; then
         COND_PLATFORM_WIN32_1_USE_IRRLICHT_1=""
-    fi
-
-    COND_RHEIAUNIV_1="#"
-    if test "x$RHEIAUNIV" = "x1" ; then
-        COND_RHEIAUNIV_1=""
     fi
 
     COND_SHARED_1="#"
