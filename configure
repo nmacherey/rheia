@@ -691,6 +691,7 @@ TOOLKIT_LOWERCASE
 TOOLKIT
 USE_PLPLOT
 USE_IRRLICHT
+WXCONFIG_PATH
 RHEIA_LIB_FLAVOUR
 RHEIA_FLAVOUR
 VENDOR
@@ -766,6 +767,7 @@ enable_wx29
 enable_monolithic
 enable_vendor
 with_flavour
+with_wx_config
 with_irrlicht
 with_plplot
 with_gtk
@@ -1428,6 +1430,7 @@ Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-flavour=NAME     specify a name to identify this build
+  --with-wx-config=PATH     specify the path of your wx-config script
   --without-irrlicht
   --without-plplot
   --with-gtk[=VERSION]    use GTK+, VERSION can be 2 (default), 1 or "any"
@@ -2207,6 +2210,24 @@ RHEIA_FLAVOUR=${RHEIA_FLAVOUR:+-$RHEIA_FLAVOUR}
 RHEIA_LIB_FLAVOUR=`echo $RHEIA_FLAVOUR | tr '-' '_'`
 
 
+
+
+
+
+# Check whether --with-wx-config was given.
+if test "${with_wx_config+set}" = set; then :
+  withval=$with_wx_config; WXCONFIG_PATH="$withval"
+fi
+
+if test "$WXCONFIG_PATH" == "" ; then
+    WXCONFIG_PATH=/usr/bin
+fi
+if test "$WXCONFIG_PATH" == "yes" ; then
+    WXCONFIG_PATH=/usr/bin
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $WXCONFIG_PATH" >&5
+$as_echo "$as_me: $WXCONFIG_PATH" >&6;}
 
 
 

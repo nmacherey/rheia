@@ -148,6 +148,8 @@ Use this option if you want to link against wxWidgets libraries version 2.9.x
 	</description>
     </option>
 
+
+
     <if cond="FORMAT=='msvc'">
         <option name="DEBUG_RUNTIME_LIBS">
             <values>0,1,default</values>
@@ -280,6 +282,7 @@ to run the tests, include CppUnit library here.
         <option name="EXTRALIBS_GUI"/>
 	<option name="EXTRALIBS_OPENGL"/>
         <option name="CXXWARNINGS"/>
+	<option name="WXCONFIG_PATH"/>
         <option name="HOST_SUFFIX"/>
         <option name="DYLIB_RPATH_INSTALL"/>
         <option name="DYLIB_RPATH_POSTLINK"/>

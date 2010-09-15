@@ -154,6 +154,19 @@ RHEIA_LIB_FLAVOUR=`echo $RHEIA_FLAVOUR | tr '-' '_'`
 AC_SUBST(RHEIA_FLAVOUR)
 AC_SUBST(RHEIA_LIB_FLAVOUR)
 
+dnl Specify the wx-config
+
+AC_ARG_WITH(wx-config,       [  --with-wx-config=PATH     specify the path of your wx-config script], [WXCONFIG_PATH="$withval"])
+if test "$WXCONFIG_PATH" == "" ; then
+    WXCONFIG_PATH=/usr/bin
+fi
+if test "$WXCONFIG_PATH" == "yes" ; then
+    WXCONFIG_PATH=/usr/bin
+fi
+
+AC_MSG_NOTICE($WXCONFIG_PATH)
+AC_SUBST(WXCONFIG_PATH)
+
 dnl specify if we are using irrlicht and plplot
 WX_ARG_WITHOUT(irrlicht,   [  --without-irrlicht    ], rheiaUSE_IRRLICHT)
 WX_ARG_WITHOUT(plplot,   [  --without-plplot    ], rheiaUSE_PLPLOT)

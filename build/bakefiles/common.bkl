@@ -380,8 +380,8 @@
             <sys-lib>wxexpatd</sys-lib>
         </if>
 	<if cond="FORMAT=='autoconf'">
-	    <cxxflags>`wx-config --cflags`</cxxflags>
-	    <ldflags>`wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)`</ldflags>
+	    <cxxflags>`$(WXCONFIG_PATH)/wx-config --cflags`</cxxflags>
+	    <ldflags>`$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)`</ldflags>
 	</if>
     </template>
 
@@ -762,7 +762,7 @@
         <sys-lib>$(RHEIALIB_MONO)</sys-lib>
     </template>
     <template id="rheia_append" template_append="rheia_append_nomono">
-        <!-- Always link against the wxWin library in monolithic build: -->
+        <!-- Always link against the wxWin library i$(WXCONFIG_PATH)/n monolithic build: -->
         <sys-lib>$(RHEIALIB_MONO)</sys-lib>
     </template>
 
