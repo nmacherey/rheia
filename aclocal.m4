@@ -518,7 +518,7 @@ dnl  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 dnl  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 dnl  DEALINGS IN THE SOFTWARE.
 dnl
-dnl  $Id: bakefile-lang.m4 1337 2010-02-09 20:22:43Z vaclavslavik $
+dnl  $Id: bakefile-lang.m4 1278 2008-11-17 22:26:10Z vadz $
 dnl
 dnl  Compiler detection macros by David Elliott and Vadim Zeitlin
 dnl
@@ -737,7 +737,7 @@ dnl check for different proprietary compilers depending on target platform
 dnl _AC_BAKEFILE_PROG_COMPILER(LANG)
 AC_DEFUN([_AC_BAKEFILE_PROG_COMPILER],
 [
-    AC_REQUIRE([AC_PROG_$1])
+    AC_PROG_$1
 
     dnl Intel compiler can be used under several different OS and even
     dnl different architectures (x86, amd64 and Itanium) so it's easier to just
