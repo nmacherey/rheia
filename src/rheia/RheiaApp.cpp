@@ -64,7 +64,7 @@ bool RheiaApp::OnInit(){
 #elif defined (__linux__)
         xulrunner_path = wxT("/usr/lib/xulrunner-1.9.2.10");
 #else
-# error "TBD find xulrunner dir for this platform"
+# warning "TBD find xulrunner dir for this platform"
 #endif
     
         // Locate some common paths and initialize the control with
@@ -82,7 +82,7 @@ bool RheiaApp::OnInit(){
 #elif defined (__linux__)
         RheiaXulManager::Get()->AddPluginPath(wxT("/usr/lib/firefox-addons/plugins"));
 #else
-# error "TBD add plugin dirs for this platform"
+# warning "TBD add plugin dirs for this platform"
 #endif
 	
 	RheiaXulManager::Get()->Init(xulrunner_path);

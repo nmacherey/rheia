@@ -313,7 +313,7 @@ void RheiaWorkspaceManager::RegisterEvents()
     /* Register events for plugin installation and uninstallation */
     RheiaEventsManager* pm = RheiaEventsManager::Get();
     pm->RegisterEventMethod(RheiaEVT_WKSPMGR_SETTINGS_CHANGED, new RheiaEventFunctor<RheiaWorkspaceManager>(this, wxCommandEventHandler(RheiaWorkspaceManager::OnSettingsChanged)));
-    pm->RegisterEventMethod(RheiaEVT_ENVPLUGIN_REQUEST_DETACH, new RheiaEventFunctor<RheiaWorkspaceManager>(this, RheiaPluginEventHandler(RheiaWorkspaceManager::OnEnvironmentPluginDetach)));
+    //pm->RegisterEventMethod(RheiaEVT_ENVPLUGIN_REQUEST_DETACH, new RheiaEventFunctor<RheiaWorkspaceManager>(this, RheiaPluginEventHandler(RheiaWorkspaceManager::OnEnvironmentPluginDetach)));
     //pm->RegisterEventMethod(RheiaEVT_FRAME_CLOSING, new RheiaEventFunctor<RheiaWorkspaceManager, RheiaFrameEvent>(this, &RheiaWorkspaceManager::OnCloseParent));
 }
 
