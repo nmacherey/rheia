@@ -23,6 +23,15 @@
         <define>wxUSE_BASE=1</define>
         <sources>$(RHEIA_UTILS_SRC)</sources>
         <msvc-headers>$(RHEIA_UTILS_HDR)</msvc-headers>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
     </dll>
 
     <rheiashortcut id="utils" cond="MONOLITHIC=='0'"/>
@@ -39,6 +48,18 @@
         <define>wxUSE_BASE=1</define>
         <sources>$(RHEIA_BASE_SRC)</sources>
         <msvc-headers>$(RHEIA_BASE_HDR)</msvc-headers>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
+
+        <depends>utilsdll</depends>
+        <sys-lib>$(RHEIALIB_UTILS)</sys-lib>
     </dll>
 
     <rheiashortcut id="base" cond="MONOLITHIC=='0'"/>
@@ -55,6 +76,20 @@
         <define>wxUSE_BASE=1</define>
         <sources>$(RHEIA_LOGGERS_SRC)</sources>
         <msvc-headers>$(RHEIA_LOGGERS_HDR)</msvc-headers>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
+
+        <depends>utilsdll</depends>
+        <depends>basedll</depends>
+        <sys-lib>$(RHEIALIB_UTILS)</sys-lib>
+        <sys-lib>$(RHEIALIB_BASE)</sys-lib>
     </dll>
 
     <rheiashortcut id="loggers" cond="MONOLITHIC=='0'"/>
@@ -71,6 +106,22 @@
         <define>wxUSE_BASE=1</define>
         <sources>$(RHEIA_PACKAGES_SRC)</sources>
         <msvc-headers>$(RHEIA_PACKAGES_HDR)</msvc-headers>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
+
+        <depends>utilsdll</depends>
+        <depends>basedll</depends>
+        <depends>loggersdll</depends>
+        <sys-lib>$(RHEIALIB_UTILS)</sys-lib>
+        <sys-lib>$(RHEIALIB_BASE)</sys-lib>
+        <sys-lib>$(RHEIALIB_LOGGERS)</sys-lib>
     </dll>
 
     <rheiashortcut id="packagemgt" cond="MONOLITHIC=='0'"/>
@@ -87,6 +138,23 @@
         <define>wxUSE_BASE=1</define>
         <sources>$(RHEIA_WORKSPACES_SRC)</sources>
         <msvc-headers>$(RHEIA_WORKSPACES_HDR)</msvc-headers>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
+
+        <depends>utilsdll</depends>
+        <depends>basedll</depends>
+        <depends>loggersdll</depends>
+        <depends>packagemgtdll</depends>
+        <sys-lib>$(RHEIALIB_UTILS)</sys-lib>
+        <sys-lib>$(RHEIALIB_BASE)</sys-lib>
+        <sys-lib>$(RHEIALIB_LOGGERS)</sys-lib>
     </dll>
 
     <rheiashortcut id="workspacemgt" cond="MONOLITHIC=='0'"/>
@@ -103,6 +171,26 @@
         <define>wxUSE_BASE=1</define>
         <sources>$(RHEIA_EDITOR_SRC)</sources>
         <msvc-headers>$(RHEIA_EDITOR_HDR)</msvc-headers>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
+
+        <depends>utilsdll</depends>
+        <depends>basedll</depends>
+        <depends>loggersdll</depends>
+        <depends>packagemgtdll</depends>
+        <depends>workspacemgtdll</depends>
+        <sys-lib>$(RHEIALIB_UTILS)</sys-lib>
+        <sys-lib>$(RHEIALIB_BASE)</sys-lib>
+        <sys-lib>$(RHEIALIB_LOGGERS)</sys-lib>
+        <sys-lib>$(RHEIALIB_PACKAGEMGT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WORKSPACEMGT)</sys-lib>
     </dll>
 
     <rheiashortcut id="editor" cond="MONOLITHIC=='0'"/>
@@ -119,6 +207,28 @@
         <define>wxUSE_BASE=1</define>
         <sources>$(RHEIA_PYTHON_SRC)</sources>
         <msvc-headers>$(RHEIA_PYTHON_HDR)</msvc-headers>
+
+        <sys-lib>$(RHEIALIB_IRRLICHT)</sys-lib>
+        <sys-lib>$(RHEIALIB_PLPLOT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WXPLPLOT)</sys-lib>
+	    <sys-lib>$(RHEIALIB_WEBCONNECT)</sys-lib>
+        <depends>irrlicht</depends>
+        <depends>plplot</depends>
+        <depends>wxplplot</depends>
+        <depends>webconnect</depends>
+
+        <depends>utilsdll</depends>
+        <depends>basedll</depends>
+        <depends>loggersdll</depends>
+        <depends>packagemgtdll</depends>
+        <depends>workspacemgtdll</depends>
+        <depends>editordll</depends>
+        <sys-lib>$(RHEIALIB_UTILS)</sys-lib>
+        <sys-lib>$(RHEIALIB_BASE)</sys-lib>
+        <sys-lib>$(RHEIALIB_LOGGERS)</sys-lib>
+        <sys-lib>$(RHEIALIB_PACKAGEMGT)</sys-lib>
+        <sys-lib>$(RHEIALIB_WORKSPACEMGT)</sys-lib>
+        <sys-lib>$(RHEIALIB_EDITOR)</sys-lib>
     </dll>
 
     <rheiashortcut id="python" cond="MONOLITHIC=='0'"/>
