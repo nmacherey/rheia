@@ -1280,7 +1280,7 @@
 	 webconnect/include/webframe.h
 </set>
 
-<set var="RHEIA_IRRLICHT_HEADERS_WIN32" hintspythonlibs="files"> 
+<set var="RHEIA_IRRLICHT_HEADERS_WIN32" hints="files"> 
  	<if cond= "PLATFORM_WIN32=='1'">
 		$(RHEIA_IRRJPG_HDR)
 		$(RHEIA_IRRPNG_HDR)
@@ -1437,6 +1437,7 @@
 <set var="SINGLELIB_RHEIA_HEADERS" hints="files"> 
  	$(SINGLELIB_RHEIA_HEADERS_IRRLICHT)
  	$(SINGLELIB_RHEIA_HEADERS_PLPLOT)
+ 	$(WEBCONNECT_HEADERS)
  	$(ALL_RHEIA_HEADERS) </set>
 
 
@@ -1453,6 +1454,7 @@
 <set var="SINGLELIB_RHEIA_SOURCES" hints="files"> 
  	$(SINGLELIB_RHEIA_SOURCES_IRRLICHT)
  	$(SINGLELIB_RHEIA_SOURCES_PLPLOT)
+ 	$(WEBCONNECT_SOURCES)
  	$(ALL_RHEIA_SOURCES) </set>
 
 

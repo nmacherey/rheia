@@ -245,7 +245,7 @@ AC_SUBST(DYLIB_RPATH_INSTALL)
 AC_SUBST(DYLIB_RPATH_POSTLINK)
 
 dnl variables relaated to rheia-config script
-STD_BASE_LIBS="utils base loggers workspacemgt packagemgt editor python"
+STD_BASE_LIBS="utils base loggers workspacemgt packagemgt editor python webconnect"
 BUILT_RHEIA_LIBS="$STD_BASE_LIBS"
 ALL_RHEIA_LIBS="$BUILT_RHEIA_LIBS"
 

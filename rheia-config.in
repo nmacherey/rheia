@@ -1067,7 +1067,7 @@ lib_flags_for()
         else
             _libname="@RHEIA_LIBRARY_BASENAME_GUI@"
         fi
-        [ $lib = base ] || _libname="${_libname}_$lib"
+        _libname="${_libname}_$lib"
         _libname="${_libname}-@RHEIA_RELEASE@$_target"
 
         if is_static; then
@@ -1171,7 +1171,7 @@ if is_monolithic; then
             link_deps="${libdir}/librheia_@TOOLCHAIN_NAME@.a"
             rheia_libs="$rheia_libs $link_deps $ldlibs_core $ldlibs_base"
         else
-            rheia_libs="$rheia_libs -lrheia_@TOOLCHAIN_NAME@"
+            rheia_libs="$rheia_libs"
         fi
     fi
 else    # MONOLITHIC = 0
@@ -1228,11 +1228,10 @@ fi
 
 [ "$using_gui" = "yes" ] || _gui_cppflags="-DrheiaUSE_GUI=0"
 
-if is_installed; then
-    _include_cppflags="-I${includedir}/rheia-@RHEIA_RELEASE@@RHEIA_FLAVOUR@"
-else
-    _include_cppflags="-I${includedir}"
-fi
+BASE_RHEIA_INCLUDE="${includedir}/rheia-@RHEIA_RELEASE@@RHEIA_FLAVOUR@/include/rheia"
+BASE_WEBCONNECT_INCLUDE="${includedir}/rheia-@RHEIA_RELEASE@@RHEIA_FLAVOUR@/webconnect/include"
+
+_include_cppflags="-I$BASE_RHEIA_INCLUDE -I$BASE_RHEIA_INCLUDE/base -I$BASE_RHEIA_INCLUDE/utils -I$BASE_RHEIA_INCLUDE/loggers -I$BASE_RHEIA_INCLUDE/editor -I$BASE_RHEIA_INCLUDE/python -I$BASE_RHEIA_INCLUDE/workspacemgt -I$BASE_RHEIA_INCLUDE/packagemgt -I$BASE_WEBCONNECT_INCLUDE"
 
 _cppflags=`echo $_include_cppflags "@RHEIACONFIG_CPPFLAGS@" $_gui_cppflags`
 

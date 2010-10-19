@@ -590,6 +590,7 @@ echo -e $STR >> $FILE
 STR=" <set var=\"SINGLELIB_RHEIA_HEADERS\" hints=\"files\"> \n
 \t\$(SINGLELIB_RHEIA_HEADERS_IRRLICHT)\n
 \t\$(SINGLELIB_RHEIA_HEADERS_PLPLOT)\n
+\t\$(WEBCONNECT_HEADERS)\n
 \t\$(ALL_RHEIA_HEADERS)
  </set>\n\n"
 
@@ -610,6 +611,7 @@ echo -e $STR >> $FILE
 STR=" <set var=\"SINGLELIB_RHEIA_SOURCES\" hints=\"files\"> \n
 \t\$(SINGLELIB_RHEIA_SOURCES_IRRLICHT)\n
 \t\$(SINGLELIB_RHEIA_SOURCES_PLPLOT)\n
+\t\$(WEBCONNECT_SOURCES)\n
 \t\$(ALL_RHEIA_SOURCES)
  </set>\n\n"
 

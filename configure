@@ -2469,7 +2469,7 @@ DYLIB_RPATH_POSTLINK=
 
 
 
-STD_BASE_LIBS="utils base loggers workspacemgt packagemgt editor python"
+STD_BASE_LIBS="utils base loggers workspacemgt packagemgt editor python webconnect"
 BUILT_RHEIA_LIBS="$STD_BASE_LIBS"
 ALL_RHEIA_LIBS="$BUILT_RHEIA_LIBS"
 
