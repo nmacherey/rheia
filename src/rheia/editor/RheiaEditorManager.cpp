@@ -25,6 +25,8 @@
 #include <RheiaSearchResults.h>
 #include <RheiaDefaultLayout.h>
 #include <RheiaTextReplaceDialog.h>
+#include <RheiaEventsManager.h>
+#include <RheiaEventFrame.h>
 
 #include <wx/menu.h>
 #include <wx/aui/auibar.h>
@@ -119,11 +121,103 @@ RheiaEditorManager::RheiaEditorManager( RheiaManagedFrame* parent ):
 	
 	m_searchResults = new RheiaSearchResults(m_parent);
 	RheiaInfoPaneManager::Get(m_parent)->AddPage(wxT("Search results"),m_searchResults);
+	
+	m_parent->PushEventHandler(this);
+	RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+		new RheiaEventFunctor<RheiaEditorManager>(this, RheiaFrameEventHandler(RheiaEditorManager::OnCloseParent)));	
 }
 
 RheiaEditorManager::~RheiaEditorManager()
 {
 
+}
+
+void RheiaEditorManager::OnCloseParent( RheiaFrameEvent& event ) {
+	RheiaEditorMap::iterator it = m_files.begin();
+    for( ; it != m_files.end() ; ++it )
+    {
+        if( !CloseFile( it->second ) )
+            return;
+    }
+	
+	Connect(idOpen,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnOpenFileUI));
+    Connect(idCloseCurrent,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnSaveFileUI));
+    Connect(idCloseAll,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnSaveFileUI));
+    Connect(idCloseAllOthers,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnSaveFileUI));
+    Connect(idSaveCurrent,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnSaveFileUI));
+    Connect(idSaveAs,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnSaveFileUI));
+    Connect(idSaveAll,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnSaveFileUI));
+
+    Connect(idSplitHoriz,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idSplitVertical,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idUnsplit,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idUndo,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idRedo,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idCut,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idCopy,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idPaste,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idDelete,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idClearHistory,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idSelectAll,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idSelectLine,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idFoldAll,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idUnfoldAll,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idToggleAllFolds,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idFoldCurrentBlock,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idUnfoldCurrentBlock,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idToggleCurrentBlockFold,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idToggleBookMark,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idNextBookmark,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idPreviousBookMark,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idAutoFormatSel,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idAutoFormatAll,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idCommentSel,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+    Connect(idUncommentSel,wxEVT_UPDATE_UI,wxUpdateUIEventHandler(RheiaEditorManager::OnEditUI));
+	
+	Connect(idNew,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileNew));
+    Connect(idOpen,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileOpen));
+    Connect(idSaveCurrent,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileSave));
+    Connect(idSaveAs,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileSaveAs));
+    Connect(idSaveAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileSaveAll));
+    Connect(idCloseCurrent,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileClose));
+    Connect(idCloseAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileCloseAll));
+    Connect(idCloseAllOthers,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnFileCloseAllExceptCurrent));
+    Connect(idApplyRegEx,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnApplyRegEx));
+
+    Connect(idSplitHoriz,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idSplitVertical,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idUnsplit,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idUndo,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idRedo,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idCut,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idCopy,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idPaste,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idDelete,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idClearHistory,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idSelectAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idSelectLine,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idFoldAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idUnfoldAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idToggleAllFolds,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idFoldCurrentBlock,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idUnfoldCurrentBlock,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idToggleCurrentBlockFold,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idToggleBookMark,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idNextBookmark,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idPreviousBookMark,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idAutoFormatSel,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idAutoFormatAll,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idCommentSel,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idUncommentSel,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+
+    Connect(idFindInFiles,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idFind,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idFindNext,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idReplace,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idReplaceInFiles,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+    Connect(idReplaceNext,wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(RheiaEditorManager::OnMenuEdit));
+	
+	m_parent->RemoveEventHandler(this);
 }
 
 void RheiaEditorManager::BuildMenu( wxMenuBar* menuBar )

@@ -40,35 +40,29 @@ RheiaBookManager::RheiaBookManager(RheiaManagedFrame* parent):
         // push ourself in the application's event handling chain...
         m_parent->PushEventHandler(this);
     }
-
-    Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) );
-    Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) );
-    Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) );
-	Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_TAB_RIGHT_UP , wxAuiNotebookEventHandler(RheiaBookManager::OnTabRightClicked) );
-	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaBookManager::OnCloseParent) , NULL , this );
+	
+	RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,new RheiaEventFunctor<RheiaBookManager>(this, RheiaFrameEventHandler(RheiaBookManager::OnCloseParent)));
 }
 
 RheiaBookManager::~RheiaBookManager() 
-{
-    /*if (m_parent)
-    {
-		// remove ourself from the application's event handling chain...
-		m_parent->RemoveEventHandler(this);
-    }*/
-	
-	RheiaPageInfoMap::iterator it = m_pages.begin();
-	for( ; it != m_pages.end() ; ++it )
-		if( it->second.container->DestroyOnClose() )
-			delete it->second.container;
+{	
+	if( m_book != NULL )
+		RheiaThrow( wxT("Error it seams that your are trying to delete a Book Manager without having destroyed its book first !") );
 }
 
 wxAuiNotebook* RheiaBookManager::CreateWindow( wxWindow* parent )
 {
     m_book = new wxAuiNotebook(parent, cbookId,
-    wxDefaultPosition, wxDefaultSize,
-    wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_WINDOWLIST_BUTTON | wxAUI_NB_SCROLL_BUTTONS );
+			wxDefaultPosition, wxDefaultSize,
+			wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_WINDOWLIST_BUTTON | wxAUI_NB_SCROLL_BUTTONS 
+		);
 
     OnCreateWindow();
+	
+	m_book->Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) , NULL ,this );
+    m_book->Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) , NULL ,this  );
+    m_book->Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) , NULL ,this  );
+	m_book->Connect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_TAB_RIGHT_UP , wxAuiNotebookEventHandler(RheiaBookManager::OnTabRightClicked) , NULL ,this  );
 
     return m_book;
 }
@@ -113,12 +107,21 @@ void RheiaBookManager::OnCloseParent( RheiaFrameEvent& event )
     ///@todo here implement the check for closing all pages
     m_parent->RemoveEventHandler(this);
 	
-	RheiaDebug::Log( wxT("In Close Frame" ) );
-    Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) );
-    Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) );
-    Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) );
-
+	if( m_book != NULL ){
+		m_book->Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE , wxAuiNotebookEventHandler(RheiaBookManager::OnPageClose) , NULL ,this );
+		m_book->Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanged) , NULL ,this  );
+		m_book->Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGING , wxAuiNotebookEventHandler(RheiaBookManager::OnPageChanging) , NULL ,this  );
+		m_book->Disconnect( cbookId , wxEVT_COMMAND_AUINOTEBOOK_TAB_RIGHT_UP , wxAuiNotebookEventHandler(RheiaBookManager::OnTabRightClicked) , NULL ,this  );
+	}
+	
+	RheiaPageInfoMap::iterator it = m_pages.begin();
+	for( ; it != m_pages.end() ; ++it )
+		if( it->second.container->DestroyOnClose() )
+			delete it->second.container;
+			
     event.Skip();
+	
+	m_book = NULL;
 }
 
 bool RheiaBookManager::AddPage( wxString name, RheiaPageContainer* container )

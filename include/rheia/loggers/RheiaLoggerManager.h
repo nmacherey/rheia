@@ -22,6 +22,7 @@
 #include <RheiaManagedFrame.h>
 #include <RheiaLogger.h>
 #include <RheiaEventFrame.h>
+#include <RheiaEventsManager.h>
 #include <wx/event.h>
 
 class wxAuiNotebook;

@@ -22,6 +22,7 @@
 
 #include <RheiaManager.h>
 #include <RheiaEventFrame.h>
+#include <RheiaEventsManager.h>
 
 #include <vector>
 #include <map>

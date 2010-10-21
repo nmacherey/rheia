@@ -10,16 +10,13 @@
 
     <!-- load python module with rheia helpers: -->
     <using module="rheia"/>
+	
+	<include file="config.bkl"/>
 
     <!-- DFE: Add a platform meaning regular MacOS (not OS X) -->
-    <if cond="FORMAT=='autoconf'">
-        <option name="PLATFORM_MACOS"/>
-    </if>
     <if cond="FORMAT!='autoconf'">
-        <set var="PLATFORM_MACOS">0</set>
+        <set var="USE_MACOS">0</set>
     </if>
-
-    <include file="config.bkl"/>
 
     <!-- wxWidgets version numbers logic: -->
     <include file="version.bkl"/>
@@ -104,22 +101,22 @@
     <!-- =============================================================== -->
 
     <set var="RHEIALIB_IRRLICHT">
-        <if cond="USE_IRRLICHT=='1'">$(mk.evalExpr(rheia.mkLibName('irrlicht')))</if>
+        <if cond="USE_IRRLICHT=='1' and MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('irrlicht')))</if>
     </set>
     <set var="RHEIALIB_PLPLOT">
-        <if cond="USE_PLPLOT=='1'">$(mk.evalExpr(rheia.mkLibName('plplot')))</if>
+        <if cond="USE_PLPLOT=='1' and MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('plplot')))</if>
     </set>
     <set var="RHEIALIB_WXPLPLOT">
-        <if cond="USE_PLPLOT=='1'">$(mk.evalExpr(rheia.mkLibName('wxplplot')))</if>
+        <if cond="USE_PLPLOT=='1' and MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('wxplplot')))</if>
     </set>
     <set var="RHEIALIB_WEBCONNECT">
-        $(mk.evalExpr(rheia.mkLibName('webconnect')))
+        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('webconnect')))</if>
     </set>
     <set var="RHEIALIB_UTILS">
         <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('utils')))</if>
     </set>
     <set var="RHEIALIB_BASE">
-        <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('base')))</if>
+        <if cond="MONOLITHIC=='0' and MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('base')))</if>
     </set>
     <set var="RHEIALIB_LOGGERS">
         <if cond="MONOLITHIC=='0'">$(mk.evalExpr(rheia.mkLibName('loggers')))</if>
@@ -265,14 +262,26 @@
 	<if cond="USE_WX29=='0'">28</if>
     </set>    
     <set var="WXCONFIG_OPTIONS">
-        <if cond="USE_WX29=='1'">all</if>
-	<if cond="USE_WX29=='0'">std,stc,xrc,aui,propgrid,richtext</if>
+        <if cond="USE_WX29=='1' and WXMONOLITHIC=='0'">all</if>
+		<if cond="USE_WX29=='1' and WXMONOLITHIC=='1'"></if>
+		<if cond="USE_WX29=='0'">std,stc,xrc,aui,propgrid,richtext</if>
     </set>   
  
     <set var="WXCONFIG_DBG_FLAG">
         <if cond="DEBUG_FLAG=='1'">--debug=yes</if>
 	<if cond="DEBUG_FLAG=='0'">--debug=no</if>
     </set>   
+	
+	<set var="PYTHON_OPTIONS">
+        <if cond="USE_MACOS=='0'">`python-config --libs`</if>
+		<if cond="USE_MACOS=='1'">-framework Python</if>
+    </set>
+	
+	<set var="WEBCONTROL_OPTIONS">
+        <if cond="USE_MACOS=='0'"></if>
+		<!--<if cond="USE_MACOS=='1'">-L/Library/Frameworks/XUL.framework/Versions/Current/ -lxpcom -lnspr4</if>-->
+		<if cond="USE_MACOS=='1'">-arch i386</if>
+	</set>
 
     <template id="wxlibs">
         <!-- wx system libraries on windows: -->
@@ -356,17 +365,22 @@
             <sys-lib>wxzlibd</sys-lib>
             <sys-lib>wxexpatd</sys-lib>
         </if>
-	<if cond="FORMAT=='autoconf'">
-	    <cxxflags>`$(WXCONFIG_PATH)/wx-config --cflags`</cxxflags>
-	    <ldflags>`$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)`</ldflags>
-	</if>
+		<if cond="FORMAT=='autoconf'">
+			<cxxflags>`$(WXCONFIG_PATH)/wx-config --cflags`</cxxflags>
+			<ldflags>`$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)`</ldflags>
+		</if>
     </template>
 
     <template id="pythonlibs">
 	<if cond="FORMAT=='autoconf'">
-	    <cxxflags>`python-config --cflags`</cxxflags>
-	    <ldflags>`python-config --libs`</ldflags>
+	    <cxxflags>`python-config --includes`</cxxflags>
+	    <ldflags>$(PYTHON_OPTIONS)</ldflags>
 	</if>
+    </template>
+	
+	<template id="weblibs">
+		<cxxflags>$(WEBCONTROL_OPTIONS)</cxxflags>
+		<ldflags>$(WEBCONTROL_OPTIONS)</ldflags>
     </template>
 
     <template id="xmllibs">
@@ -384,7 +398,7 @@
     </set>
     
     <!-- Here goes all common settings common to all compilation options -->
-    <template id="common_settings" template="wxlibs,xmllibs">
+    <template id="common_settings" template="wxlibs,xmllibs,weblibs">
         <debug-info>$(DEBUGINFO)</debug-info> 
         <debug-runtime-libs>$(DEBUGRUNTIME)</debug-runtime-libs>
         <optimize>$(OPTIMIZEFLAG)</optimize>

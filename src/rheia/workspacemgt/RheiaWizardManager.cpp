@@ -25,6 +25,7 @@
 #include "RheiaEventsManager.h"
 #include "RheiaEvents.h"
 #include "RheiaEventProject.h"
+#include "RheiaEventFrame.h"
 
 #include <wx/frame.h>
 #include <wx/sizer.h>
@@ -51,12 +52,20 @@ RheiaWizardManager::RheiaWizardManager( RheiaManagedFrame* parent ):
 {
     if( m_parent )
         m_parent->PushEventHandler( this );
+		
+	RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+		new RheiaEventFunctor<RheiaWizardManager>(this, RheiaFrameEventHandler(RheiaWizardManager::OnCloseParent)));
 }
 
 RheiaWizardManager::~RheiaWizardManager()
 {
+}
+
+void RheiaWizardManager::OnCloseParent( RheiaFrameEvent& event ) {
     if( m_parent )
         m_parent->RemoveEventHandler( this );
+		
+	event.Skip();
 }
 
 bool RheiaWizardManager::DoCreateNewProject( RheiaWorkspace* workspace )

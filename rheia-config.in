@@ -1164,7 +1164,7 @@ if is_monolithic; then
             rheia_libs=`remove_field $i $rheia_libs`
         done
 
-        rheia_libs="@RHEIACONFIG_LDFLAGS_GUI@ `lib_flags_for $rheia_libs`"
+        rheia_libs="@RHEIACONFIG_LDFLAGS_GUI@ `lib_flags_for @MONO_LIB@`"
 
         # We still need the core lib deps for a static build though
         if is_static; then

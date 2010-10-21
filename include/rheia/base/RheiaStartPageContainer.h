@@ -18,6 +18,7 @@
 #include "RheiaBookPage.h"
 #include "RheiaManagedFrame.h"
 #include "RheiaEventFrame.h"
+#include "RheiaEventsManager.h"
 
 /* locally defined */
 class RheiaStartPage;

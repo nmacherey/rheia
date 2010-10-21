@@ -188,13 +188,24 @@ void RheiaLoggerManager::InitializeEnvironment()
     if( m_parent )
 	{
         m_parent->PushEventHandler( this );
-		m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaLoggerManager::OnCloseFrame) , NULL , this );
+		RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+			new RheiaEventFunctor<RheiaLoggerManager>(this, RheiaFrameEventHandler(RheiaLoggerManager::OnCloseFrame)));
 	}
 }
 
 void RheiaLoggerManager::OnCloseFrame(RheiaFrameEvent& event)
 {
 	m_parent->RemoveEventHandler( this );
+	
+	RheiaLoggerMap::iterator it = m_loggers.begin();
+
+    for( ; it != m_loggers.end() ; ++it )
+        delete it->second;
+
+    if( m_nullloger != NULL )
+        delete m_nullloger;
+		
+	m_nullloger = NULL;
 	event.Skip();
 }
 

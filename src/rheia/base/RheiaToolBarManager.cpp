@@ -8,6 +8,7 @@
 #include <RheiaConfigurationManager.h>
 #include <RheiaStandardPaths.h>
 #include <RheiaEventFrame.h>
+#include <RheiaEventsManager.h>
 
 #include <wx/toolbar.h>
 #include <wx/aui/auibar.h>
@@ -45,45 +46,46 @@ RheiaToolBarManager::RheiaToolBarManager(RheiaManagedFrame* parent):
 	*/
     wxString path = RheiaFileFinder::FindFile( wxT("resource.zip") );
 	wxSize size = wxSize(24,24);
-	m_toolbar = new wxAuiToolBar(m_parent, -1, wxDefaultPosition, wxSize(24,24), wxAUI_TB_GRIPPER|wxAUI_TB_HORZ_LAYOUT );
-    m_toolbar->SetToolBitmapSize(size);
-
-    m_toolbar->AddTool( 
-        idFileExit , 
-        _("Exit") , 
-        RheiaLoadBitmap( path + wxT("#zip:close_24.png") ), 
-        wxNullBitmap, 
-        wxITEM_NORMAL, 
-        _("Exit from the application"), 
-        wxEmptyString,
-        NULL ); 
-
-    m_toolbar->AddTool( 
-        idFileFrameKill , 
-        _("Close") , 
-        RheiaLoadBitmap( path + wxT("#zip:close_24.png") ), 
-        wxNullBitmap, 
-        wxITEM_NORMAL, 
-        _("Close the current frame"), 
-        wxEmptyString,
-        NULL ); 
-
-    m_toolbar->Realize();
-    m_toolbar->SetInitialSize();
+//	m_toolbar = new wxAuiToolBar(m_parent, -1, wxDefaultPosition, wxSize(24,24), wxAUI_TB_GRIPPER|wxAUI_TB_HORZ_LAYOUT );
+//    m_toolbar->SetToolBitmapSize(size);
+//
+//    m_toolbar->AddTool( 
+//        idFileExit , 
+//        _("Exit") , 
+//        RheiaLoadBitmap( path + wxT("#zip:close_24.png") ), 
+//        wxNullBitmap, 
+//        wxITEM_NORMAL, 
+//        _("Exit from the application"), 
+//        wxEmptyString,
+//        NULL ); 
+//
+//    m_toolbar->AddTool( 
+//        idFileFrameKill , 
+//        _("Close") , 
+//        RheiaLoadBitmap( path + wxT("#zip:close_24.png") ), 
+//        wxNullBitmap, 
+//        wxITEM_NORMAL, 
+//        _("Close the current frame"), 
+//        wxEmptyString,
+//        NULL ); 
+//
+//    m_toolbar->Realize();
+//    m_toolbar->SetInitialSize();
 
 	m_parent->PushEventHandler( this );
 
 	wxAuiManager* m_layout = m_parent->GetLayoutManager();
 
 	// add toolbars in docking system
-    m_layout->AddPane(m_toolbar, wxAuiPaneInfo().
-                           Name(wxT("MainToolbar")).
-                           ToolbarPane().Top().Layer(1));
+//    m_layout->AddPane(m_toolbar, wxAuiPaneInfo().
+//                           Name(wxT("MainToolbar")).
+//                           ToolbarPane().Top().Layer(1));
 
-    m_auiToolbars[wxT("main")] = m_toolbar;
-    m_auiToolIds[m_toolbar] = idViewToolMain;
-	
-	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaToolBarManager::OnCloseParent) , NULL , this );
+//    m_auiToolbars[wxT("main")] = m_toolbar;
+//    m_auiToolIds[m_toolbar] = idViewToolMain;
+
+	RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+		new RheiaEventFunctor<RheiaToolBarManager>(this, RheiaFrameEventHandler(RheiaToolBarManager::OnCloseParent)));
     m_index = 0;
 }
 

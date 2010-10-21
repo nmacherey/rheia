@@ -153,6 +153,14 @@ you still want to have it when BUILD=release. Default means that the behaviour
 is as explained here.       
 	</description>
     </option>
+	
+	<option name="USE_MACOS">
+		<values>0,1</values>
+		<default-value>0</default-value>
+		<description>
+			MacOSX Platform       
+		</description>
+	</option>
 
 
     <!-- For those like me :-) who prefer to use the "unstable" wxversion, this option is here for that -->
@@ -191,6 +199,15 @@ Default is to use debug CRT if and only if BUILD==debug.
         <default-value>$(MONOLITHIC_DEFAULT)</default-value>
         <description>
             Multiple libraries or single huge monolithic one?
+        </description>
+    </option>
+	
+	<option name="WXMONOLITHIC">
+        <values>0,1</values>
+        <values-description>Multilib,Monolithic</values-description>
+        <default-value>$(MONOLITHIC_DEFAULT)</default-value>
+        <description>
+            Shall we link against the monolithic wxWidgets library or not
         </description>
     </option>
 
@@ -365,6 +382,7 @@ Set the version of your Mingw installation here.
         <set var="USE_IRRLICHT">1</set>
         <set var="USE_PLPLOT">1</set>
         <set var="MONOLITHIC">0</set>
+        <set var="WXMONOLITHIC">0</set>
         <set var="USE_EXCEPTIONS">1</set>
         <set var="USE_RTTI">1</set>
         <set var="USE_THREADS">1</set>

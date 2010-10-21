@@ -15,7 +15,7 @@
     </if>
 
     <dll id="plplot" template="rheia_dll_3rdparty"
-         cond="USE_PLPLOT=='1'">
+         cond="USE_PLPLOT=='1' and MONOLITHIC=='0'">
         <include>$(TOP_SRCDIR)include/plplot</include>
         <include>$(TOP_SRCDIR)include/wxwidgets</include>
         <include>$(TOP_SRCDIR)include/csirocsa</include>

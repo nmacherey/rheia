@@ -69,7 +69,7 @@ IRRLICHT_CFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 IRRLICHT_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-DRHEIABUILDING $(__INC_IRRLICHT_p) -DIRRLICHT_EXPORTS -DHAVE_CONFIG_H \
 	$(PIC_FLAG) `$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
-	$(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 IRRLICHT_OBJCXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-DRHEIABUILDING $(__INC_IRRLICHT_p) -DIRRLICHT_EXPORTS -DHAVE_CONFIG_H \
 	$(PIC_FLAG) $(CPPFLAGS) $(OBJCXXFLAGS)
@@ -297,8 +297,8 @@ PLPLOT_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/wxwidgets -I$(top_srcdir)/include/csirocsa \
 	-I$(top_srcdir)/include/qsastime -DHAVE_CONFIG_H -Dplplotd_EXPORTS \
 	-Dwxwidgets_EXPORTS -Dqsastime_EXPORTS -Dcsirocsa_EXPORTS $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 PLPLOT_OBJECTS =  \
 	$(__plplot___win32rc) \
 	plplot_csa.o \
@@ -343,8 +343,8 @@ WXPLPLOT_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/wxwidgets -I$(top_srcdir)/include/csirocsa \
 	-I$(top_srcdir)/include/qsastime -I$(top_srcdir)/include/wxplplot \
 	-DHAVE_CONFIG_H -Dplplotwxwidgetsd_EXPORTS -Dplplotcxxd_EXPORTS $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 WXPLPLOT_OBJECTS =  \
 	$(__wxplplot___win32rc) \
 	wxplplot_plstream.o \
@@ -352,8 +352,8 @@ WXPLPLOT_OBJECTS =  \
 	wxplplot_wxPLplotwindow.o
 WEBCONNECT_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-DRHEIABUILDING -I$(top_srcdir)/webconnect/include $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 WEBCONNECT_OBJECTS =  \
 	$(__webconnect___win32rc) \
 	webconnect_dom.o \
@@ -397,8 +397,9 @@ MONODLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-DwxUSE_BASE=1 -DRHEIA_UTILS_MAKINGDLL -DRHEIA_BASE_MAKINGDLL \
 	-DRHEIA_LOGGERS_MAKINGDLL -DRHEIA_PMGT_MAKINGDLL -DRHEIA_WMGT_MAKINGDLL \
 	-DRHEIA_EDITOR_MAKINGDLL -DRHEIA_PYTHON_MAKINGDLL -DWXUSINGDLL $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	`python-config --cflags` $(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) `python-config --includes` $(CPPFLAGS) \
+	$(CXXFLAGS)
 MONODLL_OBJCXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include -I$(top_srcdir)/include/rheia \
 	-I$(top_srcdir)/include/rheia/utils -I$(top_srcdir)/include/rheia/base \
@@ -557,8 +558,8 @@ UTILSDLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/csirocsa -I$(top_srcdir)/include/qsastime \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/webconnect/include \
 	-DRHEIA_UTILS_MAKINGDLL -DwxUSE_BASE=1 $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 UTILSDLL_OBJECTS =  \
 	$(__utilsdll___win32rc) \
 	utilsdll_RheiaException.o \
@@ -583,8 +584,8 @@ BASEDLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/csirocsa -I$(top_srcdir)/include/qsastime \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/webconnect/include \
 	-DRHEIA_BASE_MAKINGDLL -DwxUSE_BASE=1 $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 BASEDLL_OBJECTS =  \
 	$(__basedll___win32rc) \
 	basedll_RheiaAboutDialog.o \
@@ -645,8 +646,8 @@ LOGGERSDLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/csirocsa -I$(top_srcdir)/include/qsastime \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/webconnect/include \
 	-DRHEIA_LOGGERS_MAKINGDLL -DwxUSE_BASE=1 $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 LOGGERSDLL_OBJECTS =  \
 	$(__loggersdll___win32rc) \
 	loggersdll_RheiaFileLogger.o \
@@ -673,8 +674,8 @@ PACKAGEMGTDLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ \
 	-I$(top_srcdir)/include/csirocsa -I$(top_srcdir)/include/qsastime \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/webconnect/include \
 	-DRHEIA_PMGT_MAKINGDLL -DwxUSE_BASE=1 $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 PACKAGEMGTDLL_OBJECTS =  \
 	$(__packagemgtdll___win32rc) \
 	packagemgtdll_RheiaEnvironmentPlugin.o \
@@ -715,8 +716,8 @@ WORKSPACEMGTDLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ \
 	-I$(top_srcdir)/include/csirocsa -I$(top_srcdir)/include/qsastime \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/webconnect/include \
 	-DRHEIA_WMGT_MAKINGDLL -DwxUSE_BASE=1 $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 WORKSPACEMGTDLL_OBJECTS =  \
 	$(__workspacemgtdll___win32rc) \
 	workspacemgtdll_RheiaEventProject.o \
@@ -749,8 +750,8 @@ EDITORDLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/csirocsa -I$(top_srcdir)/include/qsastime \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/webconnect/include \
 	-DRHEIA_EDITOR_MAKINGDLL -DwxUSE_BASE=1 $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	$(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) $(CPPFLAGS) $(CXXFLAGS)
 EDITORDLL_OBJECTS =  \
 	$(__editordll___win32rc) \
 	editordll_RheiaApplyRegExDialog.o \
@@ -783,8 +784,9 @@ PYTHONDLL_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/csirocsa -I$(top_srcdir)/include/qsastime \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/webconnect/include \
 	-DRHEIA_PYTHON_MAKINGDLL -DwxUSE_BASE=1 $(PIC_FLAG) \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	`python-config --cflags` $(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) `python-config --includes` $(CPPFLAGS) \
+	$(CXXFLAGS)
 PYTHONDLL_OBJECTS =  \
 	$(__pythondll___win32rc) \
 	pythondll_RheiaPythonConsole.o \
@@ -801,8 +803,9 @@ RHEIA_CXXFLAGS = $(FPIC_FLAGS) -D__RHEIA$(TOOLKIT)__ $(__DEBUG_DEFINE_p) \
 	-I$(top_srcdir)/include/irrlicht -I$(top_srcdir)/include/plplot \
 	-I$(top_srcdir)/include/wxplplot -I$(top_srcdir)/include/wxwidgets \
 	-I$(top_srcdir)/webconnect/include -DwxUSE_BASE=1 \
-	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` $(CXXWARNINGS) \
-	`python-config --cflags` $(CPPFLAGS) $(CXXFLAGS)
+	`$(WXCONFIG_PATH)/wx-config --cflags` `xml2-config --cflags` \
+	$(WEBCONTROL_OPTIONS) $(CXXWARNINGS) `python-config --includes` $(CPPFLAGS) \
+	$(CXXFLAGS)
 RHEIA_OBJECTS =  \
 	rheia_RheiaApp.o \
 	rheia_RheiaMainFrame.o
@@ -1275,15 +1278,20 @@ COND_USE_IRRLICHT_1_SINGLELIB_RHEIA_HEADERS_IRRLICHT =  \
 @COND_PLATFORM_WIN32_0@RHEIADLLVERSIONTAG = -$(RHEIA_RELEASE)
 @COND_PLATFORM_WIN32_1@RHEIADLLVERSIONTAG = 
 @COND_USE_WX29_0@WXCONFIG_OPTIONS = std,stc,xrc,aui,propgrid,richtext
-@COND_USE_WX29_1@WXCONFIG_OPTIONS = all
-@COND_DEBUG_FLAG_0@WXCONFIG_DBG_FLAG = --debug=no
-@COND_DEBUG_FLAG_1@WXCONFIG_DBG_FLAG = --debug=yes
+@COND_USE_WX29_1_WXMONOLITHIC_0@WXCONFIG_OPTIONS = all
+@COND_USE_WX29_1_WXMONOLITHIC_1@WXCONFIG_OPTIONS = 
+@COND_USE_MACOS_0@PYTHON_OPTIONS = `python-config --libs`
+@COND_USE_MACOS_1@PYTHON_OPTIONS = -framework Python
+@COND_USE_MACOS_0@WEBCONTROL_OPTIONS = 
+@COND_USE_MACOS_1@WEBCONTROL_OPTIONS = -arch i386
 @COND_PLATFORM_WIN32_0@FPIC_FLAGS = -fPIC
-COND_USE_IRRLICHT_1___irrlicht___depname = \
+COND_MONOLITHIC_0_USE_IRRLICHT_1___irrlicht___depname = \
 	$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-@COND_USE_IRRLICHT_1@__irrlicht___depname = $(COND_USE_IRRLICHT_1___irrlicht___depname)
-@COND_USE_IRRLICHT_1@__install_irrlicht___depname = install_irrlicht
-@COND_USE_IRRLICHT_1@__uninstall_irrlicht___depname = uninstall_irrlicht
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@__irrlicht___depname = $(COND_MONOLITHIC_0_USE_IRRLICHT_1___irrlicht___depname)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@__install_irrlicht___depname \
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	= install_irrlicht
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@__uninstall_irrlicht___depname \
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	= uninstall_irrlicht
 COND_PLATFORM_MACOSX_1___irrlicht___macinstnamecmd = -install_name \
 	$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf2)
 @COND_PLATFORM_MACOSX_1@__irrlicht___macinstnamecmd = $(COND_PLATFORM_MACOSX_1___irrlicht___macinstnamecmd)
@@ -1445,11 +1453,12 @@ COND_PLATFORM_WIN32_1___RHEIA_IRRLICHT_SOURCES_WIN32_OBJECTS =  \
 	irrlicht_uncompr.o \
 	irrlicht_zutil.o
 @COND_PLATFORM_WIN32_1@__RHEIA_IRRLICHT_SOURCES_WIN32_OBJECTS = $(COND_PLATFORM_WIN32_1___RHEIA_IRRLICHT_SOURCES_WIN32_OBJECTS)
-COND_USE_PLPLOT_1___plplot___depname = \
+COND_MONOLITHIC_0_USE_PLPLOT_1___plplot___depname = \
 	$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-@COND_USE_PLPLOT_1@__plplot___depname = $(COND_USE_PLPLOT_1___plplot___depname)
-@COND_USE_PLPLOT_1@__install_plplot___depname = install_plplot
-@COND_USE_PLPLOT_1@__uninstall_plplot___depname = uninstall_plplot
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__plplot___depname = $(COND_MONOLITHIC_0_USE_PLPLOT_1___plplot___depname)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__install_plplot___depname = install_plplot
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__uninstall_plplot___depname \
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	= uninstall_plplot
 COND_PLATFORM_MACOSX_1___plplot___macinstnamecmd = -install_name \
 	$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf2)
 @COND_PLATFORM_MACOSX_1@__plplot___macinstnamecmd = $(COND_PLATFORM_MACOSX_1___plplot___macinstnamecmd)
@@ -1505,11 +1514,13 @@ COND_USE_SOVERSOLARIS_1___plplot___so_symlinks_uninst_cmd = rm -f \
 	$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
 @COND_USE_SOVERSOLARIS_1@__plplot___so_symlinks_uninst_cmd = $(COND_USE_SOVERSOLARIS_1___plplot___so_symlinks_uninst_cmd)
 @COND_PLATFORM_WIN32_1@__plplot___win32rc = plplot_version_rc.o
-COND_USE_PLPLOT_1___wxplplot___depname = \
+COND_MONOLITHIC_0_USE_PLPLOT_1___wxplplot___depname = \
 	$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-@COND_USE_PLPLOT_1@__wxplplot___depname = $(COND_USE_PLPLOT_1___wxplplot___depname)
-@COND_USE_PLPLOT_1@__install_wxplplot___depname = install_wxplplot
-@COND_USE_PLPLOT_1@__uninstall_wxplplot___depname = uninstall_wxplplot
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__wxplplot___depname = $(COND_MONOLITHIC_0_USE_PLPLOT_1___wxplplot___depname)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__install_wxplplot___depname \
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	= install_wxplplot
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__uninstall_wxplplot___depname \
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	= uninstall_wxplplot
 COND_PLATFORM_MACOSX_1___wxplplot___macinstnamecmd = -install_name \
 	$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf2)
 @COND_PLATFORM_MACOSX_1@__wxplplot___macinstnamecmd = $(COND_PLATFORM_MACOSX_1___wxplplot___macinstnamecmd)
@@ -1567,6 +1578,11 @@ COND_USE_SOVERSOLARIS_1___wxplplot___so_symlinks_uninst_cmd = rm -f \
 	$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
 @COND_USE_SOVERSOLARIS_1@__wxplplot___so_symlinks_uninst_cmd = $(COND_USE_SOVERSOLARIS_1___wxplplot___so_symlinks_uninst_cmd)
 @COND_PLATFORM_WIN32_1@__wxplplot___win32rc = wxplplot_version_rc.o
+COND_MONOLITHIC_0___webconnect___depname = \
+	$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
+@COND_MONOLITHIC_0@__webconnect___depname = $(COND_MONOLITHIC_0___webconnect___depname)
+@COND_MONOLITHIC_0@__install_webconnect___depname = install_webconnect
+@COND_MONOLITHIC_0@__uninstall_webconnect___depname = uninstall_webconnect
 COND_PLATFORM_MACOSX_1___webconnect___macinstnamecmd = -install_name \
 	$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf2)
 @COND_PLATFORM_MACOSX_1@__webconnect___macinstnamecmd = $(COND_PLATFORM_MACOSX_1___webconnect___macinstnamecmd)
@@ -2774,15 +2790,18 @@ COND_PLATFORM_MACOSX_1___RHEIA_IRRLICHT_SOURCES_0 =  \
 @COND_USE_IRRLICHT_1@__INC_IRRLICHT_p_24 = \
 @COND_USE_IRRLICHT_1@	--include-dir $(top_srcdir)/include/irrlicht
 @COND_DEBUG_FLAG_1@__DEBUG_DEFINE_p = -DRHEIA_DEBUG
-COND_USE_IRRLICHT_1___RHEIALIB_IRRLICHT_p = \
+COND_MONOLITHIC_0_USE_IRRLICHT_1___RHEIALIB_IRRLICHT_p = \
 	-lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht-$(RHEIA_RELEASE)$(HOST_SUFFIX)
-@COND_USE_IRRLICHT_1@__RHEIALIB_IRRLICHT_p = $(COND_USE_IRRLICHT_1___RHEIALIB_IRRLICHT_p)
-COND_USE_PLPLOT_1___RHEIALIB_PLPLOT_p = \
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@__RHEIALIB_IRRLICHT_p = $(COND_MONOLITHIC_0_USE_IRRLICHT_1___RHEIALIB_IRRLICHT_p)
+COND_MONOLITHIC_0_USE_PLPLOT_1___RHEIALIB_PLPLOT_p = \
 	-lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot-$(RHEIA_RELEASE)$(HOST_SUFFIX)
-@COND_USE_PLPLOT_1@__RHEIALIB_PLPLOT_p = $(COND_USE_PLPLOT_1___RHEIALIB_PLPLOT_p)
-COND_USE_PLPLOT_1___RHEIALIB_WXPLPLOT_p = \
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__RHEIALIB_PLPLOT_p = $(COND_MONOLITHIC_0_USE_PLPLOT_1___RHEIALIB_PLPLOT_p)
+COND_MONOLITHIC_0_USE_PLPLOT_1___RHEIALIB_WXPLPLOT_p = \
 	-lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot-$(RHEIA_RELEASE)$(HOST_SUFFIX)
-@COND_USE_PLPLOT_1@__RHEIALIB_WXPLPLOT_p = $(COND_USE_PLPLOT_1___RHEIALIB_WXPLPLOT_p)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@__RHEIALIB_WXPLPLOT_p = $(COND_MONOLITHIC_0_USE_PLPLOT_1___RHEIALIB_WXPLPLOT_p)
+COND_MONOLITHIC_0___RHEIALIB_WEBCONNECT_p = \
+	-lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX)
+@COND_MONOLITHIC_0@__RHEIALIB_WEBCONNECT_p = $(COND_MONOLITHIC_0___RHEIALIB_WEBCONNECT_p)
 COND_MONOLITHIC_0___RHEIALIB_UTILS_p = \
 	-lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_utils-$(RHEIA_RELEASE)$(HOST_SUFFIX)
 @COND_MONOLITHIC_0@__RHEIALIB_UTILS_p = $(COND_MONOLITHIC_0___RHEIALIB_UTILS_p)
@@ -2804,9 +2823,9 @@ COND_MONOLITHIC_0___RHEIALIB_EDITOR_p = \
 
 ### Targets: ###
 
-all: $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__monodll___depname) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname) $(__editordll___depname) $(__pythondll___depname) ./bin/rheia$(EXEEXT)
+all: $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__monodll___depname) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname) $(__editordll___depname) $(__pythondll___depname) ./bin/rheia$(EXEEXT)
 
-install: $(__install_irrlicht___depname) $(__install_plplot___depname) $(__install_wxplplot___depname) install_webconnect $(__install_monodll___depname) $(__install_utilsdll___depname) $(__install_basedll___depname) $(__install_loggersdll___depname) $(__install_packagemgtdll___depname) $(__install_workspacemgtdll___depname) $(__install_editordll___depname) $(__install_pythondll___depname) install-rheiaconfig install-rheia install_rheia
+install: $(__install_irrlicht___depname) $(__install_plplot___depname) $(__install_wxplplot___depname) $(__install_webconnect___depname) $(__install_monodll___depname) $(__install_utilsdll___depname) $(__install_basedll___depname) $(__install_loggersdll___depname) $(__install_packagemgtdll___depname) $(__install_workspacemgtdll___depname) $(__install_editordll___depname) $(__install_pythondll___depname) install-rheiaconfig install-rheia install_rheia
 	$(DYLIB_RPATH_INSTALL)
 	$(INSTALL_DIR) $(DESTDIR)$(includedir)/rheia-$(RHEIA_RELEASE)$(RHEIA_FLAVOUR)
 	for f in $(SINGLELIB_RHEIA_HEADERS_IRRLICHT) $(SINGLELIB_RHEIA_HEADERS_PLPLOT) webconnect/include/dom.h webconnect/include/domprivate.h webconnect/include/exports.h webconnect/include/nsall.h webconnect/include/nsbase.h webconnect/include/nsinclude.h webconnect/include/nsptr.h webconnect/include/nsstr.h webconnect/include/nsutils.h webconnect/include/nsweak.h webconnect/include/promptservice.h webconnect/include/webcontrol.h webconnect/include/webframe.h include/rheia/utils/RheiaAppGlobals.h include/rheia/utils/RheiaException.h include/rheia/utils/RheiaGlobals.h include/rheia/utils/RheiaInfoWindow.h include/rheia/utils/RheiaPlatform.h include/rheia/utils/RheiaStandardPaths.h include/rheia/utils/RheiaUtilsSettings.h include/rheia/utils/RheiaXtraRes.h include/rheia/utils/treelistctrl.h include/rheia/utils/wxirrlicht.h include/rheia/utils/wxStreamedTextCtrl.h include/rheia/base/RheiaAboutDialog.h include/rheia/base/RheiaAppBase.h include/rheia/base/RheiaApplicationConfigurationDialog.h include/rheia/base/RheiaApplicationGeneralPanel.h include/rheia/base/RheiaBaseSettings.h include/rheia/base/RheiaBookConfigurationPanel.h include/rheia/base/RheiaBookManager.h include/rheia/base/RheiaBookPage.h include/rheia/base/RheiaCenterMgrSettingsPanel.h include/rheia/base/RheiaCenterPaneManager.h include/rheia/base/RheiaComponentCleaner.h include/rheia/base/RheiaConfigurationDialog.h include/rheia/base/RheiaConfigurationManager.h include/rheia/base/RheiaConfigurationPanel.h include/rheia/base/RheiaConfigurationPathsDialog.h include/rheia/base/RheiaConfigurationPattern.h include/rheia/base/RheiaConfigurationToolsManager.h include/rheia/base/RheiaDebug.h include/rheia/base/RheiaDockSystSettingsPanel.h include/rheia/base/RheiaEnvironementManager.h include/rheia/base/RheiaEnvVarsConfigurationDialog.h include/rheia/base/RheiaEnvVarsSelectionDialog.h include/rheia/base/RheiaEventFrame.h include/rheia/base/RheiaEvents.h include/rheia/base/RheiaEventsManager.h include/rheia/base/RheiaFunctor.h include/rheia/base/RheiaHtmlComposer.h include/rheia/base/RheiaInfoMgrSettingsPanel.h include/rheia/base/RheiaInfoPage.h include/rheia/base/RheiaInfoPaneManager.h include/rheia/base/RheiaLeftMgrSettingsPanel.h include/rheia/base/RheiaLeftPaneManager.h include/rheia/base/RheiaManagedFrame.h include/rheia/base/RheiaManager.h include/rheia/base/RheiaMenuManager.h include/rheia/base/RheiaPageContainer.h include/rheia/base/RheiaPersonalityManager.h include/rheia/base/RheiaProfileManager.h include/rheia/base/RheiaSplashScreen.h include/rheia/base/RheiaStartPageContainer.h include/rheia/base/RheiaStatusBarManager.h include/rheia/base/RheiaToolBarManager.h include/rheia/base/RheiaTreeItemData.h include/rheia/base/RheiaTreeItem.h include/rheia/base/RheiaUndoRedoManager.h include/rheia/base/RheiaXmlManager.h include/rheia/base/RheiaXulManager.h include/rheia/loggers/RheiaFileLogger.h include/rheia/loggers/RheiaHtmlLogger.h include/rheia/loggers/RheiaHtmlLoggerPage.h include/rheia/loggers/RheiaListLogger.h include/rheia/loggers/RheiaLogger.h include/rheia/loggers/RheiaLoggerManager.h include/rheia/loggers/RheiaLoggersSettings.h include/rheia/loggers/RheiaLogMgrSettingsPanel.h include/rheia/loggers/RheiaStdLogger.h include/rheia/loggers/RheiaTextLoggerConfigurationPanel.h include/rheia/loggers/RheiaTextLogger.h include/rheia/loggers/RheiaTextLoggerPage.h include/rheia/packagemgt/RheiaEnvironmentPlugin.h include/rheia/packagemgt/RheiaEventPlugin.h include/rheia/packagemgt/RheiaLibLoader.h include/rheia/packagemgt/RheiaPackageControl.h include/rheia/packagemgt/RheiaPackageDatabase.h include/rheia/packagemgt/RheiaPackageDBManager.h include/rheia/packagemgt/RheiaPackageDependencies.h include/rheia/packagemgt/RheiaPackageDependency.h include/rheia/packagemgt/RheiaPackageDescription.h include/rheia/packagemgt/RheiaPackageFile.h include/rheia/packagemgt/RheiaPackageFiles.h include/rheia/packagemgt/RheiaPackageInfo.h include/rheia/packagemgt/RheiaPackageInstallInfo.h include/rheia/packagemgt/RheiaPackageLib.h include/rheia/packagemgt/RheiaPackageLibs.h include/rheia/packagemgt/RheiaPackageMaintainer.h include/rheia/packagemgt/RheiaPackageManagedFile.h include/rheia/packagemgt/RheiaPackageManagedFiles.h include/rheia/packagemgt/RheiaPackageManagementDialog.h include/rheia/packagemgt/RheiaPackageManager.h include/rheia/packagemgt/RheiaPackageVersion.h include/rheia/packagemgt/RheiaPlugin.h include/rheia/packagemgt/RheiaPluginManager.h include/rheia/packagemgt/RheiaPluginManifest.h include/rheia/packagemgt/RheiaPMgtSettings.h include/rheia/workspacemgt/RheiaEventProject.h include/rheia/workspacemgt/RheiaEventWorkspace.h include/rheia/workspacemgt/RheiaProjectConfigurationDlg.h include/rheia/workspacemgt/RheiaProjectCreationDlg.h include/rheia/workspacemgt/RheiaProjectCreationPage.h include/rheia/workspacemgt/RheiaProjectCreationWizard.h include/rheia/workspacemgt/RheiaProjectFactory.h include/rheia/workspacemgt/RheiaProject.h include/rheia/workspacemgt/RheiaProjectItem.h include/rheia/workspacemgt/RheiaProjectLoader.h include/rheia/workspacemgt/RheiaWizardManager.h include/rheia/workspacemgt/RheiaWizardPageBase.h include/rheia/workspacemgt/RheiaWkspMgrSettingsPanel.h include/rheia/workspacemgt/RheiaWMgtSettings.h include/rheia/workspacemgt/RheiaWorkspace.h include/rheia/workspacemgt/RheiaWorkspaceLoader.h include/rheia/workspacemgt/RheiaWorkspaceManager.h include/rheia/editor/RheiaApplyRegExDialog.h include/rheia/editor/RheiaCppHandler.h include/rheia/editor/RheiaCppLayout.h include/rheia/editor/RheiaDefaultLayout.h include/rheia/editor/RheiaEditorBase.h include/rheia/editor/RheiaEditorFile.h include/rheia/editor/RheiaEditorLayout.h include/rheia/editor/RheiaEditorManager.h include/rheia/editor/RheiaEditorPropertyPanel.h include/rheia/editor/RheiaEditorSettings.h include/rheia/editor/RheiaFindFilesDialog.h include/rheia/editor/RheiaPythonHandler.h include/rheia/editor/RheiaPythonLayout.h include/rheia/editor/RheiaSearchResults.h include/rheia/editor/RheiaSearchResultsPanel.h include/rheia/editor/RheiaTextReplaceDialog.h include/rheia/python/RheiaPythonConsole.h include/rheia/python/RheiaPythonConsoleManager.h include/rheia/python/RheiaPython.h include/rheia/python/RheiaPythonSettings.h include/rheia/python/RheiaPythonUtils.h; do \
@@ -2831,7 +2850,7 @@ install: $(__install_irrlicht___depname) $(__install_plplot___depname) $(__insta
 	@echo " ------------------------------------------------------"
 	@echo " "
 
-uninstall: $(__uninstall_irrlicht___depname) $(__uninstall_plplot___depname) $(__uninstall_wxplplot___depname) uninstall_webconnect $(__uninstall_monodll___depname) $(__uninstall_utilsdll___depname) $(__uninstall_basedll___depname) $(__uninstall_loggersdll___depname) $(__uninstall_packagemgtdll___depname) $(__uninstall_workspacemgtdll___depname) $(__uninstall_editordll___depname) $(__uninstall_pythondll___depname) uninstall_rheia
+uninstall: $(__uninstall_irrlicht___depname) $(__uninstall_plplot___depname) $(__uninstall_wxplplot___depname) $(__uninstall_webconnect___depname) $(__uninstall_monodll___depname) $(__uninstall_utilsdll___depname) $(__uninstall_basedll___depname) $(__uninstall_loggersdll___depname) $(__uninstall_packagemgtdll___depname) $(__uninstall_workspacemgtdll___depname) $(__uninstall_editordll___depname) $(__uninstall_pythondll___depname) uninstall_rheia
 	for f in $(SINGLELIB_RHEIA_HEADERS_IRRLICHT) $(SINGLELIB_RHEIA_HEADERS_PLPLOT) webconnect/include/dom.h webconnect/include/domprivate.h webconnect/include/exports.h webconnect/include/nsall.h webconnect/include/nsbase.h webconnect/include/nsinclude.h webconnect/include/nsptr.h webconnect/include/nsstr.h webconnect/include/nsutils.h webconnect/include/nsweak.h webconnect/include/promptservice.h webconnect/include/webcontrol.h webconnect/include/webframe.h include/rheia/utils/RheiaAppGlobals.h include/rheia/utils/RheiaException.h include/rheia/utils/RheiaGlobals.h include/rheia/utils/RheiaInfoWindow.h include/rheia/utils/RheiaPlatform.h include/rheia/utils/RheiaStandardPaths.h include/rheia/utils/RheiaUtilsSettings.h include/rheia/utils/RheiaXtraRes.h include/rheia/utils/treelistctrl.h include/rheia/utils/wxirrlicht.h include/rheia/utils/wxStreamedTextCtrl.h include/rheia/base/RheiaAboutDialog.h include/rheia/base/RheiaAppBase.h include/rheia/base/RheiaApplicationConfigurationDialog.h include/rheia/base/RheiaApplicationGeneralPanel.h include/rheia/base/RheiaBaseSettings.h include/rheia/base/RheiaBookConfigurationPanel.h include/rheia/base/RheiaBookManager.h include/rheia/base/RheiaBookPage.h include/rheia/base/RheiaCenterMgrSettingsPanel.h include/rheia/base/RheiaCenterPaneManager.h include/rheia/base/RheiaComponentCleaner.h include/rheia/base/RheiaConfigurationDialog.h include/rheia/base/RheiaConfigurationManager.h include/rheia/base/RheiaConfigurationPanel.h include/rheia/base/RheiaConfigurationPathsDialog.h include/rheia/base/RheiaConfigurationPattern.h include/rheia/base/RheiaConfigurationToolsManager.h include/rheia/base/RheiaDebug.h include/rheia/base/RheiaDockSystSettingsPanel.h include/rheia/base/RheiaEnvironementManager.h include/rheia/base/RheiaEnvVarsConfigurationDialog.h include/rheia/base/RheiaEnvVarsSelectionDialog.h include/rheia/base/RheiaEventFrame.h include/rheia/base/RheiaEvents.h include/rheia/base/RheiaEventsManager.h include/rheia/base/RheiaFunctor.h include/rheia/base/RheiaHtmlComposer.h include/rheia/base/RheiaInfoMgrSettingsPanel.h include/rheia/base/RheiaInfoPage.h include/rheia/base/RheiaInfoPaneManager.h include/rheia/base/RheiaLeftMgrSettingsPanel.h include/rheia/base/RheiaLeftPaneManager.h include/rheia/base/RheiaManagedFrame.h include/rheia/base/RheiaManager.h include/rheia/base/RheiaMenuManager.h include/rheia/base/RheiaPageContainer.h include/rheia/base/RheiaPersonalityManager.h include/rheia/base/RheiaProfileManager.h include/rheia/base/RheiaSplashScreen.h include/rheia/base/RheiaStartPageContainer.h include/rheia/base/RheiaStatusBarManager.h include/rheia/base/RheiaToolBarManager.h include/rheia/base/RheiaTreeItemData.h include/rheia/base/RheiaTreeItem.h include/rheia/base/RheiaUndoRedoManager.h include/rheia/base/RheiaXmlManager.h include/rheia/base/RheiaXulManager.h include/rheia/loggers/RheiaFileLogger.h include/rheia/loggers/RheiaHtmlLogger.h include/rheia/loggers/RheiaHtmlLoggerPage.h include/rheia/loggers/RheiaListLogger.h include/rheia/loggers/RheiaLogger.h include/rheia/loggers/RheiaLoggerManager.h include/rheia/loggers/RheiaLoggersSettings.h include/rheia/loggers/RheiaLogMgrSettingsPanel.h include/rheia/loggers/RheiaStdLogger.h include/rheia/loggers/RheiaTextLoggerConfigurationPanel.h include/rheia/loggers/RheiaTextLogger.h include/rheia/loggers/RheiaTextLoggerPage.h include/rheia/packagemgt/RheiaEnvironmentPlugin.h include/rheia/packagemgt/RheiaEventPlugin.h include/rheia/packagemgt/RheiaLibLoader.h include/rheia/packagemgt/RheiaPackageControl.h include/rheia/packagemgt/RheiaPackageDatabase.h include/rheia/packagemgt/RheiaPackageDBManager.h include/rheia/packagemgt/RheiaPackageDependencies.h include/rheia/packagemgt/RheiaPackageDependency.h include/rheia/packagemgt/RheiaPackageDescription.h include/rheia/packagemgt/RheiaPackageFile.h include/rheia/packagemgt/RheiaPackageFiles.h include/rheia/packagemgt/RheiaPackageInfo.h include/rheia/packagemgt/RheiaPackageInstallInfo.h include/rheia/packagemgt/RheiaPackageLib.h include/rheia/packagemgt/RheiaPackageLibs.h include/rheia/packagemgt/RheiaPackageMaintainer.h include/rheia/packagemgt/RheiaPackageManagedFile.h include/rheia/packagemgt/RheiaPackageManagedFiles.h include/rheia/packagemgt/RheiaPackageManagementDialog.h include/rheia/packagemgt/RheiaPackageManager.h include/rheia/packagemgt/RheiaPackageVersion.h include/rheia/packagemgt/RheiaPlugin.h include/rheia/packagemgt/RheiaPluginManager.h include/rheia/packagemgt/RheiaPluginManifest.h include/rheia/packagemgt/RheiaPMgtSettings.h include/rheia/workspacemgt/RheiaEventProject.h include/rheia/workspacemgt/RheiaEventWorkspace.h include/rheia/workspacemgt/RheiaProjectConfigurationDlg.h include/rheia/workspacemgt/RheiaProjectCreationDlg.h include/rheia/workspacemgt/RheiaProjectCreationPage.h include/rheia/workspacemgt/RheiaProjectCreationWizard.h include/rheia/workspacemgt/RheiaProjectFactory.h include/rheia/workspacemgt/RheiaProject.h include/rheia/workspacemgt/RheiaProjectItem.h include/rheia/workspacemgt/RheiaProjectLoader.h include/rheia/workspacemgt/RheiaWizardManager.h include/rheia/workspacemgt/RheiaWizardPageBase.h include/rheia/workspacemgt/RheiaWkspMgrSettingsPanel.h include/rheia/workspacemgt/RheiaWMgtSettings.h include/rheia/workspacemgt/RheiaWorkspace.h include/rheia/workspacemgt/RheiaWorkspaceLoader.h include/rheia/workspacemgt/RheiaWorkspaceManager.h include/rheia/editor/RheiaApplyRegExDialog.h include/rheia/editor/RheiaCppHandler.h include/rheia/editor/RheiaCppLayout.h include/rheia/editor/RheiaDefaultLayout.h include/rheia/editor/RheiaEditorBase.h include/rheia/editor/RheiaEditorFile.h include/rheia/editor/RheiaEditorLayout.h include/rheia/editor/RheiaEditorManager.h include/rheia/editor/RheiaEditorPropertyPanel.h include/rheia/editor/RheiaEditorSettings.h include/rheia/editor/RheiaFindFilesDialog.h include/rheia/editor/RheiaPythonHandler.h include/rheia/editor/RheiaPythonLayout.h include/rheia/editor/RheiaSearchResults.h include/rheia/editor/RheiaSearchResultsPanel.h include/rheia/editor/RheiaTextReplaceDialog.h include/rheia/python/RheiaPythonConsole.h include/rheia/python/RheiaPythonConsoleManager.h include/rheia/python/RheiaPython.h include/rheia/python/RheiaPythonSettings.h include/rheia/python/RheiaPythonUtils.h; do \
 	rm -f $(DESTDIR)$(includedir)/rheia-$(RHEIA_RELEASE)$(RHEIA_FLAVOUR)/$$f; \
 	done
@@ -2895,76 +2914,76 @@ clean:
 distclean: clean
 	rm -f config.cache config.log config.status bk-deps bk-make-pch shared-ld-sh Makefile
 
-@COND_USE_IRRLICHT_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(IRRLICHT_OBJECTS) $(__irrlicht___win32rc)
-@COND_USE_IRRLICHT_1@	$(SHARED_LD_CXX) $@ $(IRRLICHT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__irrlicht___macinstnamecmd) $(__irrlicht___importlib) $(__irrlicht___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  -lGL -lGLU -lglut -lXxf86vm -ljpeg -lz -lpng $(LIBS)
-@COND_USE_IRRLICHT_1@	$(DYLIB_RPATH_POSTLINK)
-@COND_USE_IRRLICHT_1@	
-@COND_USE_IRRLICHT_1@	$(__irrlicht___so_symlinks_cmd)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(IRRLICHT_OBJECTS) $(__irrlicht___win32rc)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	$(SHARED_LD_CXX) $@ $(IRRLICHT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__irrlicht___macinstnamecmd) $(__irrlicht___importlib) $(__irrlicht___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  -lGL -lGLU -lglut -lXxf86vm -ljpeg -lz -lpng $(LIBS)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	$(DYLIB_RPATH_POSTLINK)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	$(__irrlicht___so_symlinks_cmd)
 
-@COND_USE_IRRLICHT_1@install_irrlicht: $(__irrlicht___depname)
-@COND_USE_IRRLICHT_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
-@COND_USE_IRRLICHT_1@	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
-@COND_USE_IRRLICHT_1@	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
-@COND_USE_IRRLICHT_1@	(cd $(DESTDIR)$(libdir) ; $(__irrlicht___so_symlinks_inst_cmd))
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@install_irrlicht: $(__irrlicht___depname)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	(cd $(DESTDIR)$(libdir) ; $(__irrlicht___so_symlinks_inst_cmd))
 
-@COND_USE_IRRLICHT_1@uninstall_irrlicht: 
-@COND_USE_IRRLICHT_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
-@COND_USE_IRRLICHT_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-@COND_USE_IRRLICHT_1@	(cd $(DESTDIR)$(libdir) ; $(__irrlicht___so_symlinks_uninst_cmd))
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@uninstall_irrlicht: 
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_irrlicht$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
+@COND_MONOLITHIC_0_USE_IRRLICHT_1@	(cd $(DESTDIR)$(libdir) ; $(__irrlicht___so_symlinks_uninst_cmd))
 
-@COND_USE_PLPLOT_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(PLPLOT_OBJECTS) $(__plplot___win32rc)
-@COND_USE_PLPLOT_1@	$(SHARED_LD_CXX) $@ $(PLPLOT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__plplot___macinstnamecmd) $(__plplot___importlib) $(__plplot___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(LIBS)
-@COND_USE_PLPLOT_1@	$(DYLIB_RPATH_POSTLINK)
-@COND_USE_PLPLOT_1@	
-@COND_USE_PLPLOT_1@	$(__plplot___so_symlinks_cmd)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(PLPLOT_OBJECTS) $(__plplot___win32rc)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(SHARED_LD_CXX) $@ $(PLPLOT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__plplot___macinstnamecmd) $(__plplot___importlib) $(__plplot___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(LIBS)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(DYLIB_RPATH_POSTLINK)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(__plplot___so_symlinks_cmd)
 
-@COND_USE_PLPLOT_1@install_plplot: $(__plplot___depname)
-@COND_USE_PLPLOT_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
-@COND_USE_PLPLOT_1@	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
-@COND_USE_PLPLOT_1@	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
-@COND_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__plplot___so_symlinks_inst_cmd))
+@COND_MONOLITHIC_0_USE_PLPLOT_1@install_plplot: $(__plplot___depname)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__plplot___so_symlinks_inst_cmd))
 
-@COND_USE_PLPLOT_1@uninstall_plplot: 
-@COND_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
-@COND_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-@COND_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__plplot___so_symlinks_uninst_cmd))
+@COND_MONOLITHIC_0_USE_PLPLOT_1@uninstall_plplot: 
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_plplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__plplot___so_symlinks_uninst_cmd))
 
-@COND_USE_PLPLOT_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(WXPLPLOT_OBJECTS) $(__wxplplot___win32rc)
-@COND_USE_PLPLOT_1@	$(SHARED_LD_CXX) $@ $(WXPLPLOT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__wxplplot___macinstnamecmd) $(__wxplplot___importlib) $(__wxplplot___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(LIBS)
-@COND_USE_PLPLOT_1@	$(DYLIB_RPATH_POSTLINK)
-@COND_USE_PLPLOT_1@	
-@COND_USE_PLPLOT_1@	$(__wxplplot___so_symlinks_cmd)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(WXPLPLOT_OBJECTS) $(__wxplplot___win32rc)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(SHARED_LD_CXX) $@ $(WXPLPLOT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__wxplplot___macinstnamecmd) $(__wxplplot___importlib) $(__wxplplot___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(LIBS)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(DYLIB_RPATH_POSTLINK)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(__wxplplot___so_symlinks_cmd)
 
-@COND_USE_PLPLOT_1@install_wxplplot: $(__wxplplot___depname)
-@COND_USE_PLPLOT_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
-@COND_USE_PLPLOT_1@	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
-@COND_USE_PLPLOT_1@	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
-@COND_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__wxplplot___so_symlinks_inst_cmd))
+@COND_MONOLITHIC_0_USE_PLPLOT_1@install_wxplplot: $(__wxplplot___depname)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__wxplplot___so_symlinks_inst_cmd))
 
-@COND_USE_PLPLOT_1@uninstall_wxplplot: 
-@COND_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
-@COND_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-@COND_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__wxplplot___so_symlinks_uninst_cmd))
+@COND_MONOLITHIC_0_USE_PLPLOT_1@uninstall_wxplplot: 
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_wxplplot$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
+@COND_MONOLITHIC_0_USE_PLPLOT_1@	(cd $(DESTDIR)$(libdir) ; $(__wxplplot___so_symlinks_uninst_cmd))
 
-$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(WEBCONNECT_OBJECTS) $(__webconnect___win32rc)
-	$(SHARED_LD_CXX) $@ $(WEBCONNECT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__webconnect___macinstnamecmd) $(__webconnect___importlib) $(__webconnect___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(LIBS)
-	$(DYLIB_RPATH_POSTLINK)
-	
-	$(__webconnect___so_symlinks_cmd)
+@COND_MONOLITHIC_0@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(WEBCONNECT_OBJECTS) $(__webconnect___win32rc)
+@COND_MONOLITHIC_0@	$(SHARED_LD_CXX) $@ $(WEBCONNECT_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__webconnect___macinstnamecmd) $(__webconnect___importlib) $(__webconnect___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(LIBS)
+@COND_MONOLITHIC_0@	$(DYLIB_RPATH_POSTLINK)
+@COND_MONOLITHIC_0@	
+@COND_MONOLITHIC_0@	$(__webconnect___so_symlinks_cmd)
 
-install_webconnect: $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-	$(INSTALL_DIR) $(DESTDIR)$(libdir)
-	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
-	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
-	(cd $(DESTDIR)$(libdir) ; $(__webconnect___so_symlinks_inst_cmd))
+@COND_MONOLITHIC_0@install_webconnect: $(__webconnect___depname)
+@COND_MONOLITHIC_0@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0@	$(INSTALL_DATA) $(LIBDIRNAME)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0@	$(INSTALL_PROGRAM) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(DESTDIR)$(libdir)
+@COND_MONOLITHIC_0@	(cd $(DESTDIR)$(libdir) ; $(__webconnect___so_symlinks_inst_cmd))
 
-uninstall_webconnect: 
-	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
-	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-	(cd $(DESTDIR)$(libdir) ; $(__webconnect___so_symlinks_uninst_cmd))
+@COND_MONOLITHIC_0@uninstall_webconnect: 
+@COND_MONOLITHIC_0@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)rheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX).$(DLLIMP_SUFFIX)
+@COND_MONOLITHIC_0@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
+@COND_MONOLITHIC_0@	(cd $(DESTDIR)$(libdir) ; $(__webconnect___so_symlinks_uninst_cmd))
 
 @COND_MONOLITHIC_1_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_mono$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(MONODLL_OBJECTS) $(__monodll___win32rc)
-@COND_MONOLITHIC_1_SHARED_1@	$(SHARED_LD_CXX) $@ $(MONODLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__monodll___macinstnamecmd) $(__monodll___importlib) $(__monodll___soname_flags) $(RHEIAMACVERSION_CMD) `python-config --libs` $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(LIBS)
+@COND_MONOLITHIC_1_SHARED_1@	$(SHARED_LD_CXX) $@ $(MONODLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__monodll___macinstnamecmd) $(__monodll___importlib) $(__monodll___soname_flags) $(RHEIAMACVERSION_CMD) $(PYTHON_OPTIONS) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(LIBS)
 @COND_MONOLITHIC_1_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_1_SHARED_1@	
 @COND_MONOLITHIC_1_SHARED_1@	$(__monodll___so_symlinks_cmd)
@@ -2980,8 +2999,8 @@ uninstall_webconnect:
 @COND_MONOLITHIC_1_SHARED_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_mono$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
 @COND_MONOLITHIC_1_SHARED_1@	(cd $(DESTDIR)$(libdir) ; $(__monodll___so_symlinks_uninst_cmd))
 
-@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_utils$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(UTILSDLL_OBJECTS) $(__utilsdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3)
-@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(UTILSDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__utilsdll___macinstnamecmd) $(__utilsdll___importlib) $(__utilsdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(LIBS)
+@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_utils$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(UTILSDLL_OBJECTS) $(__utilsdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname)
+@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(UTILSDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__utilsdll___macinstnamecmd) $(__utilsdll___importlib) $(__utilsdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(LIBS)
 @COND_MONOLITHIC_0_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_0_SHARED_1@	
 @COND_MONOLITHIC_0_SHARED_1@	$(__utilsdll___so_symlinks_cmd)
@@ -2999,8 +3018,8 @@ uninstall_webconnect:
 
 @COND_MONOLITHIC_0@utils: $(____utils_namedll_DEP)
 
-@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_base$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(BASEDLL_OBJECTS) $(__basedll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__utilsdll___depname)
-@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(BASEDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__basedll___macinstnamecmd) $(__basedll___importlib) $(__basedll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(__RHEIALIB_UTILS_p) $(LIBS)
+@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_base$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(BASEDLL_OBJECTS) $(__basedll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__utilsdll___depname)
+@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(BASEDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__basedll___macinstnamecmd) $(__basedll___importlib) $(__basedll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(__RHEIALIB_UTILS_p) $(LIBS)
 @COND_MONOLITHIC_0_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_0_SHARED_1@	
 @COND_MONOLITHIC_0_SHARED_1@	$(__basedll___so_symlinks_cmd)
@@ -3018,8 +3037,8 @@ uninstall_webconnect:
 
 @COND_MONOLITHIC_0@base: $(____base_namedll_DEP)
 
-@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_loggers$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(LOGGERSDLL_OBJECTS) $(__loggersdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__utilsdll___depname) $(__basedll___depname)
-@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(LOGGERSDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__loggersdll___macinstnamecmd) $(__loggersdll___importlib) $(__loggersdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(LIBS)
+@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_loggers$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(LOGGERSDLL_OBJECTS) $(__loggersdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__utilsdll___depname) $(__basedll___depname)
+@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(LOGGERSDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__loggersdll___macinstnamecmd) $(__loggersdll___importlib) $(__loggersdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(LIBS)
 @COND_MONOLITHIC_0_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_0_SHARED_1@	
 @COND_MONOLITHIC_0_SHARED_1@	$(__loggersdll___so_symlinks_cmd)
@@ -3037,8 +3056,8 @@ uninstall_webconnect:
 
 @COND_MONOLITHIC_0@loggers: $(____loggers_namedll_DEP)
 
-@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_packagemgt$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(PACKAGEMGTDLL_OBJECTS) $(__packagemgtdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname)
-@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(PACKAGEMGTDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__packagemgtdll___macinstnamecmd) $(__packagemgtdll___importlib) $(__packagemgtdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(LIBS)
+@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_packagemgt$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(PACKAGEMGTDLL_OBJECTS) $(__packagemgtdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname)
+@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(PACKAGEMGTDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__packagemgtdll___macinstnamecmd) $(__packagemgtdll___importlib) $(__packagemgtdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(LIBS)
 @COND_MONOLITHIC_0_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_0_SHARED_1@	
 @COND_MONOLITHIC_0_SHARED_1@	$(__packagemgtdll___so_symlinks_cmd)
@@ -3056,8 +3075,8 @@ uninstall_webconnect:
 
 @COND_MONOLITHIC_0@packagemgt: $(____packagemgt_namedll_DEP)
 
-@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_workspacemgt$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(WORKSPACEMGTDLL_OBJECTS) $(__workspacemgtdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname)
-@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(WORKSPACEMGTDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__workspacemgtdll___macinstnamecmd) $(__workspacemgtdll___importlib) $(__workspacemgtdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(LIBS)
+@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_workspacemgt$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(WORKSPACEMGTDLL_OBJECTS) $(__workspacemgtdll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname)
+@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(WORKSPACEMGTDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__workspacemgtdll___macinstnamecmd) $(__workspacemgtdll___importlib) $(__workspacemgtdll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(LIBS)
 @COND_MONOLITHIC_0_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_0_SHARED_1@	
 @COND_MONOLITHIC_0_SHARED_1@	$(__workspacemgtdll___so_symlinks_cmd)
@@ -3075,8 +3094,8 @@ uninstall_webconnect:
 
 @COND_MONOLITHIC_0@workspacemgt: $(____workspacemgt_namedll_DEP)
 
-@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_editor$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(EDITORDLL_OBJECTS) $(__editordll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname)
-@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(EDITORDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__editordll___macinstnamecmd) $(__editordll___importlib) $(__editordll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(__RHEIALIB_PACKAGEMGT_p) $(__RHEIALIB_WORKSPACEMGT_p) $(LIBS)
+@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_editor$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(EDITORDLL_OBJECTS) $(__editordll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname)
+@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(EDITORDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__editordll___macinstnamecmd) $(__editordll___importlib) $(__editordll___soname_flags) $(RHEIAMACVERSION_CMD) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(__RHEIALIB_PACKAGEMGT_p) $(__RHEIALIB_WORKSPACEMGT_p) $(LIBS)
 @COND_MONOLITHIC_0_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_0_SHARED_1@	
 @COND_MONOLITHIC_0_SHARED_1@	$(__editordll___so_symlinks_cmd)
@@ -3094,8 +3113,8 @@ uninstall_webconnect:
 
 @COND_MONOLITHIC_0@editor: $(____editor_namedll_DEP)
 
-@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_python$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(PYTHONDLL_OBJECTS) $(__pythondll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname) $(__editordll___depname)
-@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(PYTHONDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) $(__pythondll___macinstnamecmd) $(__pythondll___importlib) $(__pythondll___soname_flags) $(RHEIAMACVERSION_CMD) `python-config --libs` $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(__RHEIALIB_PACKAGEMGT_p) $(__RHEIALIB_WORKSPACEMGT_p) $(__RHEIALIB_EDITOR_p) $(LIBS)
+@COND_MONOLITHIC_0_SHARED_1@$(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_python$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3): $(PYTHONDLL_OBJECTS) $(__pythondll___win32rc) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname) $(__editordll___depname)
+@COND_MONOLITHIC_0_SHARED_1@	$(SHARED_LD_CXX) $@ $(PYTHONDLL_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(__pythondll___macinstnamecmd) $(__pythondll___importlib) $(__pythondll___soname_flags) $(RHEIAMACVERSION_CMD) $(PYTHON_OPTIONS) $(LDFLAGS)  $(EXTRALIBS_FOR_BASE) $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(__RHEIALIB_PACKAGEMGT_p) $(__RHEIALIB_WORKSPACEMGT_p) $(__RHEIALIB_EDITOR_p) $(LIBS)
 @COND_MONOLITHIC_0_SHARED_1@	$(DYLIB_RPATH_POSTLINK)
 @COND_MONOLITHIC_0_SHARED_1@	
 @COND_MONOLITHIC_0_SHARED_1@	$(__pythondll___so_symlinks_cmd)
@@ -3122,8 +3141,8 @@ install-rheiaconfig:
 install-rheia: 
 	cp -r share/rheia $(DESTDIR)$(libdir)/../share
 
-./bin/rheia$(EXEEXT): $(RHEIA_OBJECTS) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(LIBDIRNAME)/$(DLLPREFIX)$(RHEIADLLNAMEPREFIXGUI)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect$(RHEIACOMPILER)$(VENDORTAG)$(RHEIADLLVERSIONTAG)$(targetsuf3) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname) $(__editordll___depname) $(__pythondll___depname) $(__monodll___depname)
-	$(CXX) -o $@ $(RHEIA_OBJECTS)  `$(WXCONFIG_PATH)/wx-config $(WXCONFIG_DBG_FLAG) --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs`   -L$(LIBDIRNAME) `python-config --libs` $(LDFLAGS_GUI) $(LDFLAGS)  $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) -lrheia_$(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)$(RHEIAUNICODEFLAG)$(RHEIADEBUGFLAG)$(RHEIA_LIB_FLAVOUR)_webconnect-$(RHEIA_RELEASE)$(HOST_SUFFIX) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(__RHEIALIB_PACKAGEMGT_p) $(__RHEIALIB_WORKSPACEMGT_p) $(__RHEIALIB_EDITOR_p) $(__RHEIALIB_PYTHON_p) $(__RHEIALIB_MONOLITHIC_p) $(LIBS)
+./bin/rheia$(EXEEXT): $(RHEIA_OBJECTS) $(__irrlicht___depname) $(__plplot___depname) $(__wxplplot___depname) $(__webconnect___depname) $(__utilsdll___depname) $(__basedll___depname) $(__loggersdll___depname) $(__packagemgtdll___depname) $(__workspacemgtdll___depname) $(__editordll___depname) $(__pythondll___depname) $(__monodll___depname)
+	$(CXX) -o $@ $(RHEIA_OBJECTS)  `$(WXCONFIG_PATH)/wx-config --libs $(WXCONFIG_OPTIONS)` `xml2-config --libs` $(WEBCONTROL_OPTIONS)   -L$(LIBDIRNAME) $(PYTHON_OPTIONS) $(LDFLAGS_GUI) $(LDFLAGS)  $(__RHEIALIB_IRRLICHT_p) $(__RHEIALIB_PLPLOT_p) $(__RHEIALIB_WXPLPLOT_p) $(__RHEIALIB_WEBCONNECT_p) $(__RHEIALIB_UTILS_p) $(__RHEIALIB_BASE_p) $(__RHEIALIB_LOGGERS_p) $(__RHEIALIB_PACKAGEMGT_p) $(__RHEIALIB_WORKSPACEMGT_p) $(__RHEIALIB_EDITOR_p) $(__RHEIALIB_PYTHON_p) $(__RHEIALIB_MONOLITHIC_p) $(LIBS)
 	
 	$(__rheia___mac_setfilecmd)
 	$(__rheia___os2_emxbindcmd)

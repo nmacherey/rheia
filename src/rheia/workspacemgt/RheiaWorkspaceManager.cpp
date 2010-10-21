@@ -188,9 +188,11 @@ RheiaWorkspaceManager::RheiaWorkspaceManager(RheiaManagedFrame* parent):
     m_parent(parent)
 {
     m_parent->PushEventHandler(this);
-	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaWorkspaceManager::OnCloseParent) , NULL , this );
-	m_parent->Connect( RheiaEVT_MENU_REBUILT , RheiaEventHandler(RheiaWorkspaceManager::OnMenuRecreated) , NULL , this );
-    RegisterEvents();
+	
+	RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+		new RheiaEventFunctor<RheiaWorkspaceManager>(this, RheiaFrameEventHandler(RheiaWorkspaceManager::OnCloseParent)));
+		
+	RegisterEvents();
 	
 	RheiaConfigurationManager *wcfg = RheiaManager::Get()->GetConfigurationManager(_T("workspace_manager"));
 	

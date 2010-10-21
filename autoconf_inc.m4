@@ -78,6 +78,18 @@ dnl ### begin block 20_COND_MONOLITHIC_0_SHARED_1[rheia.bkl] ###
         COND_MONOLITHIC_0_SHARED_1=""
     fi
     AC_SUBST(COND_MONOLITHIC_0_SHARED_1)
+dnl ### begin block 20_COND_MONOLITHIC_0_USE_IRRLICHT_1[rheia.bkl] ###
+    COND_MONOLITHIC_0_USE_IRRLICHT_1="#"
+    if test "x$MONOLITHIC" = "x0" -a "x$USE_IRRLICHT" = "x1" ; then
+        COND_MONOLITHIC_0_USE_IRRLICHT_1=""
+    fi
+    AC_SUBST(COND_MONOLITHIC_0_USE_IRRLICHT_1)
+dnl ### begin block 20_COND_MONOLITHIC_0_USE_PLPLOT_1[rheia.bkl] ###
+    COND_MONOLITHIC_0_USE_PLPLOT_1="#"
+    if test "x$MONOLITHIC" = "x0" -a "x$USE_PLPLOT" = "x1" ; then
+        COND_MONOLITHIC_0_USE_PLPLOT_1=""
+    fi
+    AC_SUBST(COND_MONOLITHIC_0_USE_PLPLOT_1)
 dnl ### begin block 20_COND_MONOLITHIC_1[rheia.bkl] ###
     COND_MONOLITHIC_1="#"
     if test "x$MONOLITHIC" = "x1" ; then
@@ -204,6 +216,18 @@ dnl ### begin block 20_COND_USE_IRRLICHT_1[rheia.bkl] ###
         COND_USE_IRRLICHT_1=""
     fi
     AC_SUBST(COND_USE_IRRLICHT_1)
+dnl ### begin block 20_COND_USE_MACOS_0[rheia.bkl] ###
+    COND_USE_MACOS_0="#"
+    if test "x$USE_MACOS" = "x0" ; then
+        COND_USE_MACOS_0=""
+    fi
+    AC_SUBST(COND_USE_MACOS_0)
+dnl ### begin block 20_COND_USE_MACOS_1[rheia.bkl] ###
+    COND_USE_MACOS_1="#"
+    if test "x$USE_MACOS" = "x1" ; then
+        COND_USE_MACOS_1=""
+    fi
+    AC_SUBST(COND_USE_MACOS_1)
 dnl ### begin block 20_COND_USE_PLPLOT_1[rheia.bkl] ###
     COND_USE_PLPLOT_1="#"
     if test "x$USE_PLPLOT" = "x1" ; then
@@ -282,6 +306,18 @@ dnl ### begin block 20_COND_USE_WX29_1[rheia.bkl] ###
         COND_USE_WX29_1=""
     fi
     AC_SUBST(COND_USE_WX29_1)
+dnl ### begin block 20_COND_USE_WX29_1_WXMONOLITHIC_0[rheia.bkl] ###
+    COND_USE_WX29_1_WXMONOLITHIC_0="#"
+    if test "x$USE_WX29" = "x1" -a "x$WXMONOLITHIC" = "x0" ; then
+        COND_USE_WX29_1_WXMONOLITHIC_0=""
+    fi
+    AC_SUBST(COND_USE_WX29_1_WXMONOLITHIC_0)
+dnl ### begin block 20_COND_USE_WX29_1_WXMONOLITHIC_1[rheia.bkl] ###
+    COND_USE_WX29_1_WXMONOLITHIC_1="#"
+    if test "x$USE_WX29" = "x1" -a "x$WXMONOLITHIC" = "x1" ; then
+        COND_USE_WX29_1_WXMONOLITHIC_1=""
+    fi
+    AC_SUBST(COND_USE_WX29_1_WXMONOLITHIC_1)
 dnl ### begin block 20_COND_WINDOWS_IMPLIB_1[rheia.bkl] ###
     COND_WINDOWS_IMPLIB_1="#"
     if test "x$WINDOWS_IMPLIB" = "x1" ; then

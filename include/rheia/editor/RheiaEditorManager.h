@@ -18,6 +18,8 @@
 #include <RheiaPageContainer.h>
 #include <RheiaBookPage.h>
 #include <RheiaException.h>
+#include <RheiaEventsManager.h>
+#include <RheiaEventFrame.h>
 
 #include <wx/stc/stc.h>
 
@@ -167,6 +169,9 @@ private :
     **************************************************************************************/
     /** Register handled events */
     void RegisterEvents();
+	
+	/** Events used when the parented frame is closed */
+	void OnCloseParent( RheiaFrameEvent& event );
 
     /** Callback used On ui update */
     void OnOpenFileUI( wxUpdateUIEvent& event );

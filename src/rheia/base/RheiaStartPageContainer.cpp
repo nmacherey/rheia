@@ -31,8 +31,8 @@ RheiaStartPageContainer::RheiaStartPageContainer( RheiaManagedFrame* parent, con
 	m_htmlfile(file)
 {
 	m_parent->PushEventHandler(this);
-	m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaStartPageContainer::OnCloseParent) , NULL , this );
-	
+	RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+		new RheiaEventFunctor<RheiaStartPageContainer>(this, RheiaFrameEventHandler(RheiaStartPageContainer::OnCloseParent)));
 	/** build the toolbar */
 }
 

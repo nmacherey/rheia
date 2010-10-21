@@ -148,7 +148,7 @@ public :
 	virtual void OnCreateWindow(){};
 
 	/** Callback used when the parent is closing */
-	void OnCloseParent( RheiaFrameEvent& event );
+	virtual void OnCloseParent( RheiaFrameEvent& event );
 
 	/** Reload the book configuration using the given manager in argument */
 	void ReloadBookConfiguration( RheiaConfigurationManager* cfg );

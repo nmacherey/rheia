@@ -20,6 +20,8 @@
 #include "RheiaWMgtSettings.h"
 #include "RheiaManager.h"
 #include "RheiaManagedFrame.h"
+#include <RheiaEventFrame.h>
+#include <RheiaEventsManager.h>
 
 #include <wx/wizard.h>
 
@@ -180,6 +182,9 @@ private :
     *   you cannot use this one use RheiaWizardManager::Free() instead;
     */
     ~RheiaWizardManager();
+	
+	/** Methods used when the parented frame is closed */
+	void OnCloseParent( RheiaFrameEvent& event );
 
 protected :
 

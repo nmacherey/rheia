@@ -126,19 +126,15 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
     RheiaToolBarManager::Get(this)->AddToolBar(wxT("Workspaces"),wksptb);
 
 	RheiaEditorManager::Get(this)->BuildToolBar( this );
-	
-	RheiaInfoPaneManager::Get(this)->AddPage(wxT("Python console"), RheiaPythonConsoleManager::Get(this));
-	RheiaPythonConsoleManager::Get(this)->BuildMenu(m_menuBar);
-	
-    m_layout->Update();
+//	
+//	RheiaInfoPaneManager::Get(this)->AddPage(wxT("Python console"), RheiaPythonConsoleManager::Get(this));
+//	RheiaPythonConsoleManager::Get(this)->BuildMenu(m_menuBar);
 //
-    RegisterEvents();  
-
-//    wxBitmap bmp = RheiaLoadBitmap(RheiaStandardPaths::DataDirectoryGlobal() + (_T("/share/rheia/images/rheia_24.jpg")) , wxBITMAP_TYPE_JPEG );
-//    wxIcon icon;
-//    icon.CopyFromBitmap( bmp );
-//    SetIcon( icon );
-
+////    wxBitmap bmp = RheiaLoadBitmap(RheiaStandardPaths::DataDirectoryGlobal() + (_T("/share/rheia/images/rheia_24.jpg")) , wxBITMAP_TYPE_JPEG );
+////    wxIcon icon;
+////    icon.CopyFromBitmap( bmp );
+////    SetIcon( icon );
+//
     /* First build the status bar */
     log->Log( wxT("RheiaMainFrame::Building Rheia status bar..."), RheiaLogging::info);
     BuildStatusBar();
@@ -169,6 +165,9 @@ RheiaMainFrame::RheiaMainFrame(wxWindow* parent,
 
 	m_startpage = new RheiaStartPageContainer( this, wxT("nm_test_page.html") );
 	RheiaCenterPaneManager::Get(this)->AddPage( wxT("Start here") , m_startpage );
+
+    m_layout->Update();
+    RegisterEvents();  
 }
 
 RheiaMainFrame::~RheiaMainFrame()

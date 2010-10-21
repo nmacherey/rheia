@@ -56,7 +56,8 @@ RheiaMenuManager::RheiaMenuManager( RheiaManagedFrame* parent ):
     {
         CreateMenuBar();
         m_parent->PushEventHandler(this);
-		m_parent->Connect(RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler(RheiaMenuManager::OnFrameClosing), NULL, this);
+		RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+			new RheiaEventFunctor<RheiaMenuManager>(this, RheiaFrameEventHandler(RheiaMenuManager::OnFrameClosing)));
     }
 
     RegisterEvents();

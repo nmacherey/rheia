@@ -18,11 +18,8 @@ AC_INIT([Rheia Framework], [2.0.0], [info@rheia-framework.com])
 dnl AC_CONFIG_SRCDIR([rheia-config.in])
 dnl the file passed to AC_CONFIG_SRCDIR should be specific to our package
 AC_CONFIG_SRCDIR([rheia-config.in])
-AC_CONFIG_SRCDIR([autoconf_inc.m4])
 AC_CANONICAL_HOST
-
-	
-	
+ 
 dnl notice that if --host was given but --build was not, cross_compiling is
 dnl only set to "maybe" and not "yes" and will be either set to "yes" later or
 dnl configure will exit with error in AC_PROG_CC so don't test for = "yes" here
@@ -129,6 +126,17 @@ AS_IF([test "x$enable_monolithic" = "xyes"], [
 
 AC_SUBST(MONOLITHIC)
 
+dnl Enable wx monolithic build
+WXMONOLITHIC=0
+AC_ARG_ENABLE(wxmonolithic,
+		AS_HELP_STRING([--enable-wxmonolithic], [Link against wxWidgets monolithic library]))
+
+AS_IF([test "x$enable_wxmonolithic" = "xyes"], [
+  WXMONOLITHIC=1 
+])
+
+AC_SUBST(WXMONOLITHIC)
+
 dnl Disable exceptions
 USE_EXCEPTIONS=1
 AC_SUBST(USE_EXCEPTIONS)
@@ -192,15 +200,15 @@ TOOLKIT=GTK
 
 AC_ARG_WITH(gtk,          [[  --with-gtk[=VERSION]    use GTK+, VERSION can be 2 (default), 1 or "any"]], [rheiaUSE_GTK="$withval" CACHE_GTK=1 TOOLKIT=GTK])
 AC_ARG_WITH(motif,         [  --with-motif            use Motif/Lesstif], [rheiaUSE_MOTIF="$withval" CACHE_MOTIF=1 TOOLKIT=MOTIF])
-AC_ARG_WITH(osx_carbon,    [  --with-osx_carbon       use Mac OS X (Carbon)], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=OSX_CARBON])
-AC_ARG_WITH(osx_cocoa,     [  --with-osx_cocoa        use Mac OS X (Cocoa)], [rheiaUSE_OSX_COCOA="$withval" CACHE_OSX_COCOA=1 TOOLKIT=OSX_COCOA])
+AC_ARG_WITH(osx_carbon,    [  --with-osx_carbon       use Mac OS X (Carbon)], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=OSX_CARBON rheiaUSE_MAC=1])
+AC_ARG_WITH(osx_cocoa,     [  --with-osx_cocoa        use Mac OS X (Cocoa)], [rheiaUSE_OSX_COCOA="$withval" CACHE_OSX_COCOA=1 TOOLKIT=OSX_COCOA rheiaUSE_MAC=1])
 AC_ARG_WITH(osx_iphone,    [  --with-osx_iphone       use iPhone OS X port], [rheiaUSE_OSX_IPHONE="$withval" CACHE_OSX_IPHONE=1 TOOLKIT=OSX_IPHONE])
-AC_ARG_WITH(osx,           [  --with-osx              use Mac OS X (default port, currently Carbon)], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=OSX])
-AC_ARG_WITH(carbon,        [  --with-carbon           same as --with-osx_carbon], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=CARBON])
-AC_ARG_WITH(cocoa,         [  --with-cocoa            same as --with-osx_cocoa], [rheiaUSE_OSX_COCOA="$withval" CACHE_OSX_COCOA=1 TOOLKIT=COCOA])
+AC_ARG_WITH(osx,           [  --with-osx              use Mac OS X (default port, currently Carbon)], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=OSX rheiaUSE_MAC=1])
+AC_ARG_WITH(carbon,        [  --with-carbon           same as --with-osx_carbon], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=CARBON rheiaUSE_MAC=1])
+AC_ARG_WITH(cocoa,         [  --with-cocoa            same as --with-osx_cocoa], [rheiaUSE_OSX_COCOA="$withval" CACHE_OSX_COCOA=1 TOOLKIT=COCOA rheiaUSE_MAC=1])
 AC_ARG_WITH(iphone,        [  --with-iphone           same as --with-osx_iphone], [rheiaUSE_OSX_IPHONE="$withval" CACHE_OSX_IPHONE=1 TOOLKIT=IPHONE])
-AC_ARG_WITH(mac,           [  --with-mac              same as --with-osx], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=MAC])
-AC_ARG_WITH(old_cocoa,     [  --with-old_cocoa        use old, deprecated, Cocoa port], [rheiaUSE_OLD_COCOA="$withval" CACHE_OLD_COCOA=1 TOOLKIT=OLD_COCOA])
+AC_ARG_WITH(mac,           [  --with-mac              same as --with-osx], [rheiaUSE_OSX_CARBON="$withval" CACHE_OSX_CARBON=1 TOOLKIT=MAC rheiaUSE_MAC=1])
+AC_ARG_WITH(old_cocoa,     [  --with-old_cocoa        use old, deprecated, Cocoa port], [rheiaUSE_OLD_COCOA="$withval" CACHE_OLD_COCOA=1 TOOLKIT=OLD_COCOA rheiaUSE_MAC=1])
 AC_ARG_WITH(wine,          [  --with-wine             use Wine], [rheiaUSE_WINE="$withval" CACHE_WINE=1 TOOLKIT=WINE])
 AC_ARG_WITH(msw,           [  --with-msw              use MS-Windows], [rheiaUSE_MSW="$withval" CACHE_MSW=1 TOOLKIT=MSW])
 AC_ARG_WITH(pm,            [  --with-pm               use OS/2 Presentation Manager], [rheiaUSE_PM="$withval" CACHE_PM=1 TOOLKIT=PM])
@@ -208,7 +216,7 @@ AC_ARG_WITH(mgl,           [  --with-mgl              use SciTech MGL], [rheiaUS
 AC_ARG_WITH(directfb,      [  --with-directfb         use DirectFB], [rheiaUSE_DFB="$withval" rheiaUSE_UNIVERSAL="yes" CACHE_DFB=1 TOOLKIT=DIRECTFB])
 AC_ARG_WITH(microwin,      [  --with-microwin         use MicroWindows], [rheiaUSE_MICROWIN="$withval" CACHE_MICROWIN=1 TOOLKIT=MICROWIN])
 AC_ARG_WITH(x11,           [  --with-x11              use X11], [rheiaUSE_X11="$withval" rheiaUSE_UNIVERSAL="yes" CACHE_X11=1 TOOLKIT=X11])	
-	
+
 if test "$TOOLKIT" = "GTK" ; then
 	TOOLKIT_VERSION=2
 fi
@@ -231,6 +239,8 @@ dnl as we already know that they're deprecated and nothing else can be seen
 dnl with these warnings on
 if test "$rheiaUSE_MAC" = 1 ; then
     CXXWARNINGS="$CXXWARNINGS -Wno-deprecated-declarations"
+	USE_MACOS=1
+	AC_SUBST(USE_MACOS)
 fi
 AC_SUBST(CXXWARNINGS)
 
@@ -258,9 +268,12 @@ if test "$rheiaUSE_PLPLOT" = "yes" ; then
     BUILT_RHEIA_LIBS="plplot wxplplot $BUILT_RHEIA_LIBS"
 fi
 
+MONO_LIB="mono"
+
 AC_SUBST(ALL_RHEIA_LIBS)
 AC_SUBST(BUILT_RHEIA_LIBS)
 AC_SUBST(STD_BASE_LIBS)
+AC_SUBST(MONO_LIB)
 
 
 dnl bind egrep
@@ -283,7 +296,9 @@ AC_SUBST(RHEIA_LIBRARY_BASENAME_NOGUI)
 
 dnl RHIEACONFIG_LDFLAGS
 RHEIACONFIG_LDFLAGS=
+RHEIACONFIG_LDFLAGS_GUI=
 AC_SUBST(RHEIACONFIG_LDFLAGS)
+AC_SUBST(RHEIACONFIG_LDFLAGS_GUI)
 
 RHEIACONFIG_CPPFLAGS=
 RHEIACONFIG_CFLAGS=
@@ -293,8 +308,9 @@ AC_SUBST(RHEIACONFIG_CPPFLAGS)
 dnl TOOLCHAIN_FULLNAME
 TOOLCHAIN_FULLNAME=rheia-config
 AC_SUBST(TOOLCHAIN_FULLNAME)
-	
+	 
 AC_BAKEFILE([m4_include(autoconf_inc.m4)])
+
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([ lib/rheia/config/rheia-config:rheia-config.in ],
                 [ chmod +x lib/rheia/config/rheia-config ])

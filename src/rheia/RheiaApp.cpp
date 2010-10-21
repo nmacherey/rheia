@@ -31,6 +31,10 @@
 #include <RheiaEventFrame.h>
 #include <RheiaXulManager.h>
 
+#ifdef __WXMAC__
+#include <ApplicationServices/ApplicationServices.h>
+#endif
+
 wxCmdLineParser parser;
 
 /************************************************
@@ -64,7 +68,7 @@ bool RheiaApp::OnInit(){
 #elif defined (__linux__)
         xulrunner_path = wxT("/usr/lib/xulrunner-1.9.2.10");
 #else
-# warning "TBD find xulrunner dir for this platform"
+	xulrunner_path = wxT("./");
 #endif
     
         // Locate some common paths and initialize the control with
@@ -82,7 +86,7 @@ bool RheiaApp::OnInit(){
 #elif defined (__linux__)
         RheiaXulManager::Get()->AddPluginPath(wxT("/usr/lib/firefox-addons/plugins"));
 #else
-# warning "TBD add plugin dirs for this platform"
+		RheiaXulManager::Get()->AddPluginPath(wxT("./plugins"));
 #endif
 	
 	RheiaXulManager::Get()->Init(xulrunner_path);

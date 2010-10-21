@@ -98,7 +98,7 @@ void RheiaInfoPaneManager::BuildMenu( wxMenuBar* menuBar )
         mnEdit->AppendCheckItem(viewInfoBook,wxT("View Information Book\tF2"));
         m_item = mnEdit->AppendSubMenu( m_menu , wxT("&Information Book") );
     }
-}
+} 
 
 void RheiaInfoPaneManager::ReleaseMenu( wxMenuBar* menuBar )
 {

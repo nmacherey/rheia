@@ -574,12 +574,14 @@ void RheiaPluginManager::UnloadAllPlugins()
 RheiaFramePluginManager::RheiaFramePluginManager(RheiaManagedFrame* parent):
 	m_parent(parent)
 {
-    m_parent->Connect( RheiaEVT_FRAME_CLOSING , RheiaFrameEventHandler( RheiaFramePluginManager::OnCloseParent ) , NULL , this );
+	m_parent->PushEventHandler(this);
+
+	RheiaFrameEventsManager::Get(m_parent)->RegisterEventMethod(RheiaEVT_FRAME_CLOSING,
+		new RheiaEventFunctor<RheiaFramePluginManager>(this, RheiaFrameEventHandler(RheiaFramePluginManager::OnCloseParent)));
 }
 
 RheiaFramePluginManager::~RheiaFramePluginManager()
 {
-	UnloadAllPlugins();
 }
 
 bool RheiaFramePluginManager::LoadPlugin(const wxString& name)
@@ -794,5 +796,7 @@ RheiaPluginRegistration* RheiaFramePluginManager::FindElement(RheiaPlugin* plugi
 
 void RheiaFramePluginManager::OnCloseParent( RheiaFrameEvent& event )
 {
+	m_parent->RemoveEventHandler(this);
+	UnloadAllPlugins();
     event.Skip();
 }

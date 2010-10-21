@@ -27,7 +27,7 @@
 #include <wx/msgdlg.h>
 #include <wx/imaglist.h>
 #include <wx/settings.h>
-#include <wx/stattext.h>
+#include <wx/stattext.h> 
 #include <wx/statbmp.h>
 #include <wx/bitmap.h>
 #include <wx/dcmemory.h>
