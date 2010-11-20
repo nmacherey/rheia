@@ -93,6 +93,11 @@ void RheiaEditorBase::SetContext(RheiaEditorLayout* context)
 	Reload();
 }
 
+void RheiaEditorBase::SetContent( const wxString& content ) {
+	m_control->SetText(content);
+	Reload();
+}
+
 void RheiaEditorBase::Reload()
 {
     m_control->SetLexer(m_context->GetLexer());

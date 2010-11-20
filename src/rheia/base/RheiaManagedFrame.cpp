@@ -38,6 +38,7 @@
 #include <RheiaStatusBarManager.h>
 #include <RheiaConfigurationManager.h>
 #include <RheiaCenterPaneManager.h>
+#include <RheiaCenterPageManager.h>
 #include <RheiaEnvironementManager.h>
 #include <RheiaMenuManager.h>
 #include <RheiaProfileManager.h>
@@ -53,7 +54,7 @@
 IMPLEMENT_DYNAMIC_CLASS(RheiaManagedFrame,wxFrame)
 
 /*! id comming from the main menu bar ressource for exiting the application*/
-//int idFileExit = XRCID("idFileExit");
+int idFileExit = XRCID("idFileExit");
 /*! id comming from the main menu bar ressource for exiting the application*/
 int idFileClose = XRCID("idFileClose");
 /*! id comming from the main menu bar ressource for viewing the status bar*/
@@ -139,18 +140,31 @@ void RheiaManagedFrame::BuildMenu( )
     m_menuBar = RheiaMenuManager::Get(this)->GetMainMenuBar();
 }
 
-void RheiaManagedFrame::BuildAui(void)
+void RheiaManagedFrame::BuildAui(bool useCenterBook)
 {
     wxSize clientsize = GetClientSize();
-    RheiaCenterPaneManager::Get(this)->CreateWindow(this);
+	
+	if( useCenterBook ) {
+		RheiaCenterPaneManager::Get(this)->CreateWindow(this);
+		m_layout->AddPane( RheiaCenterPaneManager::Get(this)->GetNoteBook() , wxAuiPaneInfo().
+								Name(wxT("MainPane")).Caption(_("MainBook")).
+								BestSize(wxSize(600, 600)).
+								CenterPane());
 
-    m_layout->AddPane( RheiaCenterPaneManager::Get(this)->GetNoteBook() , wxAuiPaneInfo().
-                            Name(wxT("MainPane")).Caption(_("MainBook")).
-                            BestSize(wxSize(600, 600)).
-                            CenterPane());
+		RheiaCenterPaneManager::Get(this)->BuildMenu( m_menuBar );
+		
+	} else {
+		
+		m_layout->AddPane( RheiaCenterPageManager::Get(this)->CreateWindow(this) , wxAuiPaneInfo().
+								Name(wxT("MainPane")).Caption(_("MainBook")).
+								BestSize(wxSize(600, 600)).
+								CenterPane());
 
-    RheiaCenterPaneManager::Get(this)->BuildMenu( m_menuBar );
-    RheiaEnvironementManager::Get()->BuildMenu(this,m_menuBar);
+		RheiaCenterPageManager::Get(this)->BuildMenu( m_menuBar );
+	}
+    
+	
+	RheiaEnvironementManager::Get()->BuildMenu(this,m_menuBar);
 
     SetToolBar(0);
 

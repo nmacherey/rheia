@@ -198,8 +198,8 @@ template <class F, class T> class RheiaMgr
 {
 public :
     /** associated a wxFramme to an instance of the given class in argument */
-    typedef typename std::map<F*,T*> MgrNsMap;
-    typedef typename std::map<F*,T*>::iterator MgrNsMapIt;
+    typedef typename std::map<const F*,T*> MgrNsMap;
+    typedef typename std::map<const F*,T*>::iterator MgrNsMapIt;
 
 protected :
 
@@ -214,13 +214,13 @@ protected :
 public :
 
     /** Get method to return an instance of the class accordingly to the F class */
-    static inline T* Get( F* in )
+    static inline T* Get( const F* in )
     {
         MgrNsMapIt it = m_ns.find( in );
 
         if( it == m_ns.end() )
         {
-            T* obj = new T( in );
+            T* obj = new T( (F*) in );
             m_ns[in] = obj;
             return obj;
         }
@@ -229,7 +229,7 @@ public :
     }
 
     /** Check if exists for the given input class */
-    static inline bool Exists( F* in )
+    static inline bool Exists( const F* in )
     {
         MgrNsMapIt it = m_ns.find( in );
 
@@ -241,7 +241,7 @@ public :
 
     /** method for freeing an object */
 #ifdef SWIG
-	%rename(FreeByInstance) Free( F* in );
+	%rename(FreeByInstance) Free( const F* in );
 #endif
     static inline void Free( F* in )
     {

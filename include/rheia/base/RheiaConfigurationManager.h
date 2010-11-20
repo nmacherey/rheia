@@ -101,7 +101,7 @@ class BASE_DLLEXPORT RheiaConfigurationManager
     /** Give RheiaConfigurationPathsDialog Access to our private members */
     friend class RheiaConfigurationPathsDialog;
 
-private :
+public :
     /*****************************************************************************************************
     *   CONSTRUCTORS AND DESTRUCTORS
     *****************************************************************************************************/

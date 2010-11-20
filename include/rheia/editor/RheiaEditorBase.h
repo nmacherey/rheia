@@ -116,6 +116,9 @@ public :
 	
 	/** Set the context */
 	void SetContext(RheiaEditorLayout* context);
+	
+	/** Set the content */
+	void SetContent( const wxString& content );
 
     /**************************************************************************************
     *   ACCESSORS

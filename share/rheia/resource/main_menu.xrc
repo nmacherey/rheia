@@ -3,7 +3,7 @@
   <object class="wxMenuBar" name="main_menu_bar">
     <object class="wxMenu" name="file_menu">
       <label>&amp;File</label>
-      <object class="separator"/>
+      <!-- <object class="separator"/>
       <object class="wxMenuItem" name="idFileClose">
         <label>&amp;Kill the current frame</label>
         <help>Kill the current frame</help>
@@ -15,7 +15,7 @@
         <help>Get out of the application and close all existing workspaces/project and experiments</help>
         <accel>Ctrl-Alt-F4</accel>
 		<bitmap>close_24.png</bitmap>
-      </object>
+      </object> -->
     </object>
     <object class="wxMenu" name="edit_menu">
       <label>&amp;Edit</label>

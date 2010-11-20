@@ -18,6 +18,7 @@
 #include <RheiaEvents.h>
 #include <RheiaDebug.h>
 #include <RheiaCenterPaneManager.h>
+#include <RheiaCenterPageManager.h>
 #include <RheiaMenuManager.h>
 #include <RheiaToolBarManager.h>
 #include <RheiaStatusBarManager.h>
@@ -78,6 +79,7 @@ void RheiaManager::Close()
 	RheiaConfigurationToolsManager::Free();
 	RheiaXulManager::Free();
     RheiaCenterPaneManager::Free();
+	RheiaCenterPageManager::Free();
 	RheiaInfoPaneManager::Free();
 	RheiaLeftPaneManager::Free();
     RheiaMenuManager::Free();

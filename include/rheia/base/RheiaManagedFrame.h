@@ -23,7 +23,6 @@
 
 #include <map>
 
-#define idFileExit 14527272
 #define idFileFrameKill 14527272
 
 /**
@@ -78,7 +77,7 @@ public :
 	void BuildMenu( );
 
     /** Creates the default frame controls and initialise the different managers info and books */
-	void BuildAui(void);
+	void BuildAui(bool useCenterBook = true);
 
     /** Get the layout manager */
     wxAuiManager* GetLayoutManager() {return m_layout;};

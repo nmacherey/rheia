@@ -99,8 +99,6 @@ RheiaAboutDialog::RheiaAboutDialog( wxWindow* parent )
     wxString devs = wxT("Developpers :\n\n" );
     const wxString thanks = devs +
                             wxT("Nicolas Macherey : Developer-Project Leader, GRAYMAT CEO\n" ) +
-                            wxT("Gael Plantier : Developer, GRAYMAT Associate\n" ) +
-                            wxT("Geoffroy Charollais : GIT subversion systems and forge, GRAYMAT Associate\n" ) +
                             wxT("\n" ) +
                             wxT("Contributors :\n\n" ) +
                             wxT("Cedric Roman : Project orientations and tests (NUMENGO)\n" ) +
