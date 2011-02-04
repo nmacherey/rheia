@@ -47,8 +47,13 @@ package.config["Debug"].target = targetName
 
 SetUpDefaultLibs( package , "Release" , "Debug" )
 
+if( not options["no-irrlicht"] ) then
+	table.insert( package.defines, "RHEIA_USE_IRRLICHT" )
+	table.insert( package.links , "rheiairrlicht" )
+end
+
 -- Insert the wxShapeFramework library
-table.insert( package.links , {"rheiairrlicht" , "rheiacsirocsa" , "rheiaqsastime" , "rheiaplplot" , "rheiawxplplot" , "rheiawebconnect" } )
+table.insert( package.links , {"rheiacsirocsa" , "rheiaqsastime" , "rheiaplplot" , "rheiawxplplot" , "rheiawebconnect" } )
 table.insert( package.links , {"rheiautils" , "rheiabase" , "rheialoggers" , "rheiapackagemgt" , "rheiaworkspacemgt" , "rheiaeditor" , "rheiapython" } )
 if( windows ) then
 	table.insert( package.links , "libxml2" )

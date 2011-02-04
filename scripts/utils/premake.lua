@@ -82,7 +82,7 @@ table.insert( package.config["Release"].defines , { "RHEIA_UTILS_MAKINGDLL" } )
 table.insert( package.config["Debug"].defines , { "RHEIA_UTILS_MAKINGDLL" } )
 
 -- Add the related links for plplot
-table.insert( package.links , { "rheiacsirocsa" , "rheiaqsastime" , "rheiaplplot" , "rheiairrlicht" , "rheiawxplplot" , "libxml2" } );
+table.insert( package.links , { "rheiacsirocsa" , "rheiaqsastime" , "rheiaplplot" , "rheiawxplplot" , "libxml2" } );
 
 -- Make the global definitions for that package
 CreateCommonBuildOptions( package , options , {} )

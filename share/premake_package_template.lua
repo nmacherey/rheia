@@ -130,8 +130,7 @@ function CreateCommonBuildOptionsIrr( package , options , additional_flags )
     	table.insert( package.defines, "HAVE_VSNPRINTF" )
     	table.insert( package.defines, "HAVE_CONFIG_H" )
     	table.insert( package.defines, "WIN32" )
-    	table.insert( package.defines, "_WINDOWS")
-    	table.insert( package.defines, "__STDC__")	
+    	table.insert( package.defines, "_WINDOWS")	
     	table.insert( package.defines, "__WIN32__")
     	table.insert( package.defines, "HAVE_WIN32_THREADS")
     	table.insert( package.defines, "HAVE_COMPILER_TLS")
@@ -238,7 +237,7 @@ end
 --*****************************************************************************
 function InsertStandardLibraries( package )
 	if ( OS == "windows" ) then
-		table.insert( package.links , { "user32" , "gdi32" , "winspool" , "kernel32" , "comdlg32" , "advapi32" , "shell32" , "ole32" , "oleaut32" , "uuid" , "opengl32" , "winmm" } )
+		table.insert( package.links , { "user32" , "gdi32" , "winspool" , "kernel32" , "comdlg32" , "advapi32" , "shell32" , "ole32" , "oleaut32" , "uuid" , "opengl32" , "winmm" , "wsock32", "ws2_32" } )
 	else
 
 	end
