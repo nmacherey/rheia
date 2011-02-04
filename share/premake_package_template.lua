@@ -528,7 +528,8 @@ end
 --*****************************************************************************
 function CreateXml2Flags( pakage , release_name , debug_name )
 	if ( OS == "windows" ) then
-	
+		table.insert( package.config[debug_name].link, "libxml2" )
+		table.insert( package.config[release_name].link, "libxml2" )
 	else
 		table.insert( package.config[debug_name].linkoptions, "`xml2-config --libs`" )
 		table.insert( package.config[release_name].linkoptions, "`xml2-config --libs`" )

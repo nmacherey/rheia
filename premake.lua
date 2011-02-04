@@ -17,7 +17,7 @@ addoption( "no-irrlicht", "Don't use irrlicht" )
 
 -- Add packages here.
 if ( windows ) then
-	dopackage( "src/libxml2" )
+	dopackage( "scripts/libxml2" )
 end
 
 if( not options["no-irrlicht"] ) then
