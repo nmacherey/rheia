@@ -265,7 +265,8 @@ public :
 		if( !RheiaManager::isappShuttingDown() ) {
 			MgrNsMapIt it = m_ns.begin();
 			for( ; it != m_ns.end() ; ++it )
-				it->second->Log(msg,level);
+				if( it->second )
+					it->second->Log(msg,level);
 		}
     }
 
@@ -362,7 +363,8 @@ public :
 			for( ; it != m_ns.end() ; ++it )
 			{
 				RheiaLogger* deblog = it->second->GetRheiaDebugLogger();
-				deblog->Log(msg,level);
+				if(deblog)
+					deblog->Log(msg,level);
 			}
 		}
     }

@@ -120,8 +120,6 @@ void RheiaBookManager::OnCloseParent( RheiaFrameEvent& event )
 			delete it->second.container;
 			
     event.Skip();
-	
-	m_book = NULL;
 }
 
 bool RheiaBookManager::AddPage( wxString name, RheiaPageContainer* container )
