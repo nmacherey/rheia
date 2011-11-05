@@ -80,6 +80,9 @@ RheiaLoggerManager::RheiaLoggerManager(RheiaManagedFrame* parent):
 
 RheiaLoggerManager::~RheiaLoggerManager()
 {
+	if( m_parent )
+		m_parent->RemoveEventHandler( this );
+		
     RheiaLoggerMap::iterator it = m_loggers.begin();
 
     for( ; it != m_loggers.end() ; ++it )
@@ -195,15 +198,20 @@ void RheiaLoggerManager::InitializeEnvironment()
 
 void RheiaLoggerManager::OnCloseFrame(RheiaFrameEvent& event)
 {
-	m_parent->RemoveEventHandler( this );
+	if( m_parent )
+		m_parent->RemoveEventHandler( this );
 	
 	RheiaLoggerMap::iterator it = m_loggers.begin();
 
     for( ; it != m_loggers.end() ; ++it )
         delete it->second;
-
+	
+	m_loggers.clear();
+	
     if( m_nullloger != NULL )
         delete m_nullloger;
+		
+	m_parent = NULL;
 		
 	m_nullloger = NULL;
 	event.Skip();

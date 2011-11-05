@@ -91,6 +91,8 @@ void RheiaEventsManager::RemoveAllEventMethods()
         for( ; it != mit->second.end() ; ++it )
             if( (*it) )
                 delete (*it);
+				
+		mit->second.clear();
     }
 
     EventMethods.clear();

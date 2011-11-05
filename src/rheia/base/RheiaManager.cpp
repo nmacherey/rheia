@@ -65,7 +65,6 @@ void RheiaManager::Close()
     appShuttingDown = true;
 	
     RheiaEventsManager::Get()->RemoveAllEventMethods();
-	RheiaEventsManager::Free();
 	
 	/** free components */
 	for( unsigned int i = 0; i < m_components.size() ; ++i ) {
@@ -92,6 +91,9 @@ void RheiaManager::Close()
     RheiaConfigurationPattern::Free(); // only terminate config at the very last moment
     RheiaXmlManager::Free();
 	RheiaDebug::Free();
+	
+    RheiaEventsManager::Get()->RemoveAllEventMethods();
+	RheiaEventsManager::Free();
 }
 
 /***********************************************************************************************

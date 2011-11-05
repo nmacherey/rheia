@@ -331,7 +331,8 @@ void RheiaWorkspaceManager::OnEnvironmentPluginDetach( RheiaPluginEvent& event )
 
 RheiaWorkspaceManager::~RheiaWorkspaceManager()
 {
-    m_parent->RemoveEventHandler(this);
+	if( m_parent != NULL )
+		m_parent->RemoveEventHandler(this);
 
     RheiaWorkspaceTable::iterator it = m_workspaces.begin();
     for( ; it != m_workspaces.end() ; ++it )
@@ -1615,6 +1616,13 @@ void RheiaWorkspaceManager::OnCloseParent( RheiaFrameEvent& event )
     wcfg->Read( wxT("/last_project") , m_LastProject );
 	
 	m_parent->RemoveEventHandler(this);
+	
+	RheiaWorkspaceTable::iterator it = m_workspaces.begin();
+    for( ; it != m_workspaces.end() ; ++it )
+        delete it->second;
+	
+	m_workspaces.clear();
+	m_parent = NULL;
 
     event.Skip();
 }

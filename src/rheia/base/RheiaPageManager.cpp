@@ -153,8 +153,11 @@ bool RheiaPageManager::DeletePage( const wxString& name )
 	
 	if( it->second.container->DestroyOnClose() )
 		delete it->second.container;
-		
+#ifdef WIN32
+    m_sizer->Detach( it->second.page );
+#else		
     m_sizer->Remove( it->second.page );
+#endif
 	m_window->RemoveChild(it->second.page);
     m_pages.erase( it );
 

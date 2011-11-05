@@ -262,9 +262,11 @@ public :
     */
     static inline void sLog(const wxString& msg , RheiaLogging::RheiaLogLevel level = RheiaLogging::message )
     {
-        MgrNsMapIt it = m_ns.begin();
-        for( ; it != m_ns.end() ; ++it )
-            it->second->Log(msg,level);
+		if( !RheiaManager::isappShuttingDown() ) {
+			MgrNsMapIt it = m_ns.begin();
+			for( ; it != m_ns.end() ; ++it )
+				it->second->Log(msg,level);
+		}
     }
 
     /**
@@ -355,13 +357,14 @@ public :
     */
     static inline void sdLog(const wxString& msg , RheiaLogging::RheiaLogLevel level = RheiaLogging::message )
     {
-        MgrNsMapIt it = m_ns.begin();
-        for( ; it != m_ns.end() ; ++it )
-        {
-            RheiaLogger* deblog = it->second->GetRheiaDebugLogger();
-            deblog->Log(msg,level);
-        }
-
+		if( !RheiaManager::isappShuttingDown() ) {
+			MgrNsMapIt it = m_ns.begin();
+			for( ; it != m_ns.end() ; ++it )
+			{
+				RheiaLogger* deblog = it->second->GetRheiaDebugLogger();
+				deblog->Log(msg,level);
+			}
+		}
     }
 
     /**

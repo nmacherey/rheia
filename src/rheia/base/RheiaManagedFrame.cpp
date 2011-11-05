@@ -207,13 +207,6 @@ void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
 	
 	RheiaDebug::Log(wxT("Sending frame's RheiaEVT_FRAME_CLOSING") );
     RheiaFrameEvent evt2( RheiaEVT_FRAME_CLOSING , -1 , this );
-	
-	/*wxEvtHandler* hd = PopEventHandler();
-	while( hd && hd != GetEventHandler() )
-	{
-		RemoveEventHandler(hd);
-		hd = PopEventHandler();
-	}*/
 		
     /*** the worst solution ever found */
 	evt2.Skip(true);
@@ -229,6 +222,9 @@ void RheiaManagedFrame::OnExitApp( wxCloseEvent &event )
         event.Veto();
         return;
     }
+
+	RheiaFrameEventsManager::Get(this)->RemoveAllEventMethods();
+	RheiaFrameEventsManager::Free(this);
 	
 	RheiaDebug::Log(wxT("Calling destroy") );
     Destroy();
