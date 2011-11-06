@@ -295,7 +295,7 @@ void RheiaToolBarManager::OnToolsUpdateUI( wxUpdateUIEvent& WXUNUSED(event) )
 
     RheiaAuiToolMenuIdMap::iterator atit = m_auiToolIds.begin();
     for( ; atit != m_auiToolIds.end() ; ++atit )
-        mbar->Check(tit->second, m_layout->GetPane(tit->first).IsShown() );
+        mbar->Check(atit->second, m_layout->GetPane(atit->first).IsShown() );
 }
 
 
