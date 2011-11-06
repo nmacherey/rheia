@@ -103,6 +103,12 @@ public :
     */
     bool DoCreateNewProject( RheiaWorkspace* workspace );
 
+    /**
+    *   Method used to create a new project
+    *   @param workspace the workspace in which the project shall be created
+    */
+    bool DoCreateNewProject( RheiaWorkspace* workspace, const wxString& wizname );
+
     /******************************************************************************************
     *   Wizards related functions
     ******************************************************************************************/

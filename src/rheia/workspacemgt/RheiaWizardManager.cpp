@@ -68,15 +68,8 @@ void RheiaWizardManager::OnCloseParent( RheiaFrameEvent& event ) {
 	event.Skip();
 }
 
-bool RheiaWizardManager::DoCreateNewProject( RheiaWorkspace* workspace )
+bool RheiaWizardManager::DoCreateNewProject( RheiaWorkspace* workspace, const wxString& wizname )
 {
-    RheiaProjectCreationDlg dialog( m_parent );
-
-    if( dialog.ShowModal() == wxID_CANCEL )
-        return false;
-
-    wxString wizname = dialog.GetSelectedWizard();
-
     if( wizname.IsEmpty() )
         return false;
 
@@ -131,6 +124,21 @@ bool RheiaWizardManager::DoCreateNewProject( RheiaWorkspace* workspace )
     m_wizard->Destroy();
 
     return true;
+}
+
+bool RheiaWizardManager::DoCreateNewProject( RheiaWorkspace* workspace )
+{
+    RheiaProjectCreationDlg dialog( m_parent );
+
+    if( dialog.ShowModal() == wxID_CANCEL )
+        return false;
+
+    wxString wizname = dialog.GetSelectedWizard();
+
+    if( wizname.IsEmpty() )
+        return false;
+
+    return DoCreateNewProject( workspace, wizname );
 }
 
 void RheiaWizardManager::OnPageChanging( wxWizardEvent& event )
