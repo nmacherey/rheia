@@ -1,6 +1,6 @@
 [submodule "webconnect"]
 	path = webconnect
-	url = ssh://anonymous@forge.rheia-framework.com/gitroot/webconnect
+	url = git://forge.rheia-framework.com/webconnect
 [submodule "libxml2"]
 	path = libxml2
 	url = git://git.gnome.org/libxml2
